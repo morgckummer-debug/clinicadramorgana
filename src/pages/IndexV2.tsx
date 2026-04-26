@@ -272,14 +272,14 @@ const exams = [
     items: ["Transvaginal", "Transvaginal 3D", "Doppler", "Rastreamento de Ovulação", "Endometriose Profunda", "Períneo (Novo)"],
   },
   {
-    img: thumbMamario,
-    title: "Mamário",
-    desc: "Avaliação detalhada das mamas e axilas, com cuidado e atenção.",
-    items: ["Mamas e Axilas", "Acompanhamento", "Avaliação preventiva"],
+    img: thumbTireoide,
+    title: "Tireoide & Cervical",
+    desc: "Avaliação minuciosa da tireoide e estruturas do pescoço.",
+    items: ["Tireoide", "Vasos Cervicais", "Partes Moles"],
   },
   {
     img: thumbDoppler,
-    title: "Doppler",
+    title: "Doppler Vascular",
     desc: "Avaliação detalhada do fluxo sanguíneo em vasos e órgãos.",
     items: ["Vasos Cervicais", "Membros Inferiores", "Artérias Renais"],
   },
@@ -287,13 +287,13 @@ const exams = [
     img: thumbGeral,
     title: "Medicina Interna",
     desc: "Ultrassonografias gerais para diagnóstico amplo e preciso.",
-    items: ["Abdome Total", "Abdome Superior", "Hipocôndrio Direito", "Rins e Vias Urinárias", "Pélvico Masculino", "Partes Moles"],
+    items: ["Abdome Total", "Abdome Superior", "Rins e Vias Urinárias", "Pélvico Masculino", "Partes Moles"],
   },
   {
     img: thumbPediatrico,
-    title: "Pediátrico & Vascular",
-    desc: "Atenção dedicada para os pequenos e exames vasculares completos.",
-    items: ["Pélvico Infantil", "Tireoide", "Ultrassom Vascular", "Bolsa Escrotal"],
+    title: "Pediátrico",
+    desc: "Atenção dedicada e cuidadosa para os pequenos pacientes.",
+    items: ["Pélvico Infantil", "Quadril Pediátrico", "Abdome Infantil"],
   },
 ];
 
