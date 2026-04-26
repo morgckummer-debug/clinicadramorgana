@@ -18,6 +18,24 @@ import teamCarolina from "@/assets/team/carolina.png";
 import teamMariaAmelia from "@/assets/team/maria-amelia.png";
 import teamAndre from "@/assets/team/andre.png";
 
+/* Convênios — logos */
+import convHapvida from "@/assets/convenios/hapvida.png";
+import convAurora from "@/assets/convenios/aurora-2.png";
+import convGrupoZelo from "@/assets/convenios/grupo-zelo.png";
+import convFusex from "@/assets/convenios/fusex-1.png";
+import convStellantis from "@/assets/convenios/stellantis.png";
+import convCemig from "@/assets/convenios/cemig.png";
+import convBomPastor from "@/assets/convenios/bom-pastor.png";
+import convSantaClara from "@/assets/convenios/santa-clara.png";
+import convFundafem from "@/assets/convenios/fundafem.png";
+import convNotreDame from "@/assets/convenios/notredame.png";
+import convCasembrapa from "@/assets/convenios/casembrapa.png";
+import convCopass from "@/assets/convenios/copass.png";
+import convPax from "@/assets/convenios/pax.png";
+import convAgebras from "@/assets/convenios/agebras.png";
+import convMedGold from "@/assets/convenios/medgold.png";
+import convEvangelize from "@/assets/convenios/evangelize.png";
+
 /* ---------------- Constantes globais ---------------- */
 const WHATSAPP_URL = "https://wa.me/5531993910212";
 const INSTAGRAM_URL = "https://instagram.com/dramorganak";
