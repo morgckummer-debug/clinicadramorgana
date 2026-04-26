@@ -195,16 +195,16 @@ const About = () => (
           loading="lazy"
           className="relative rounded-2xl shadow-deep w-full object-cover"
         />
-        <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[180px]">
-          <div className="font-serif italic text-3xl text-wine">+1.000</div>
+        <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[200px]">
+          <div className="font-serif italic text-3xl text-wine-deep">+50 mil</div>
           <div className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground mt-1">
-            pacientes acolhidas
+            pacientes atendidas
           </div>
         </div>
       </div>
 
       <div className="order-1 md:order-2">
-        <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Sobre a Doutora</span>
+        <span className="text-wine-deep text-[11px] tracking-[0.4em] uppercase">Sobre a Doutora</span>
         <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
           Tecnologia que <span className="font-serif italic font-light">acolhe</span>.
         </h2>
@@ -218,12 +218,12 @@ const About = () => (
         <div className="mt-10 grid grid-cols-2 gap-4 max-w-md">
           {[
             { k: "Especializanda", v: "Medicina Fetal" },
-            { k: "Equipamento", v: "GE Voluson" },
+            { k: "Equipamentos", v: "Samsung HS40 · V7" },
             { k: "Atendimento", v: "Humanizado" },
             { k: "Laudo", v: "No mesmo dia" },
           ].map((x) => (
             <div key={x.k} className="border border-border rounded-xl p-4 bg-card/60">
-              <div className="text-[10px] tracking-[0.25em] uppercase text-champagne mb-1">{x.k}</div>
+              <div className="text-[10px] tracking-[0.25em] uppercase text-wine mb-1">{x.k}</div>
               <div className="text-sm font-medium text-wine-deep">{x.v}</div>
             </div>
           ))}
