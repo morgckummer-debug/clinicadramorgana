@@ -471,30 +471,51 @@ const Team = () => (
 
 /* ---------------- Convênios ---------------- */
 const convenios = [
-  "Hapvida", "Aurora Saúde", "Grupo Zelo", "Fusex", "Stellantis Saúde",
-  "Cemig Saúde", "Projeto Bom Pastor", "Santa Clara Assistencial",
-  "Fundaffemg", "NotreDame Intermédica", "Casembrapa", "Copass Saúde",
-  "Pax de Minas", "Agebras", "MedGold Saúde", "Projeto Evangelize", "Particular",
+  { name: "Hapvida", logo: convHapvida },
+  { name: "Aurora Saúde", logo: convAurora },
+  { name: "Grupo Zelo", logo: convGrupoZelo },
+  { name: "Fusex", logo: convFusex },
+  { name: "Stellantis Saúde", logo: convStellantis },
+  { name: "Cemig Saúde", logo: convCemig },
+  { name: "Projeto Bom Pastor", logo: convBomPastor },
+  { name: "Santa Clara Assistencial", logo: convSantaClara },
+  { name: "Fundaffemg", logo: convFundafem },
+  { name: "NotreDame Intermédica", logo: convNotreDame },
+  { name: "Casembrapa", logo: convCasembrapa },
+  { name: "Copass Saúde", logo: convCopass },
+  { name: "Pax de Minas", logo: convPax },
+  { name: "Agebras", logo: convAgebras },
+  { name: "MedGold Saúde", logo: convMedGold },
+  { name: "Projeto Evangelize", logo: convEvangelize },
 ];
 
 const Convenios = () => (
   <section id="convenios" className="py-24 bg-background">
     <div className="container">
-      <div className="text-center max-w-xl mx-auto mb-12">
+      <div className="text-center max-w-xl mx-auto mb-14">
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Convênios</span>
         <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl">
           Atendemos os <span className="font-serif italic font-light">principais planos</span>.
         </h2>
         <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
+        <p className="mt-6 text-muted-foreground text-sm">
+          Também atendemos no formato particular.
+        </p>
       </div>
-      <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
         {convenios.map((c) => (
-          <span
-            key={c}
-            className="px-6 py-3 rounded-full bg-card border border-border text-wine-deep text-sm tracking-wide hover:border-champagne hover:shadow-soft transition-all duration-300"
+          <div
+            key={c.name}
+            className="group flex items-center justify-center aspect-[3/2] bg-card border border-border rounded-xl p-5 hover:border-champagne hover:shadow-soft transition-all duration-300"
+            title={c.name}
           >
-            {c}
-          </span>
+            <img
+              src={c.logo}
+              alt={c.name}
+              loading="lazy"
+              className="max-h-full max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+            />
+          </div>
         ))}
       </div>
     </div>
