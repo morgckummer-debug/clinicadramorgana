@@ -390,7 +390,7 @@ const team = [
   { name: "Dr. Paulo Gontijo Jr.", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 76.670", initials: "PG", photo: teamPaulo },
   { name: "Dra. Carolina Martins", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 75.163 · RQE: 51.242", initials: "CM", photo: teamCarolina },
   { name: "Dra. Maria Amélia", role: "Ultrassom Pediátrico", crm: "CRMMG: 39.659 · RQE: 16.567", initials: "MA", photo: teamMariaAmelia },
-  { name: "Dr. André Mourão", role: "Ultrassom Vascular", crm: "CRMMG: 38.216 · RQE: 25.549/42.982", initials: "AM", photo: null },
+  { name: "Dr. André Mourão", role: "Ultrassom Vascular", crm: "CRMMG: 38.216 · RQE: 25.549/42.982", initials: "AM", photo: teamAndre },
 ];
 
 const Team = () => (
@@ -444,9 +444,6 @@ const Team = () => (
         ))}
       </div>
 
-      <p className="text-center mt-12 text-xs text-muted-foreground tracking-wide italic">
-        Foto do Dr. André Mourão será adicionada em breve.
-      </p>
     </div>
   </section>
 );
