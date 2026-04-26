@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight, Stethoscope } from "lucide-react";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
+import logoClinica from "@/assets/logo-clinica.png";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.png";
 import draCutout from "@/assets/dra-morgana-cutout.png";
 import thumbObstetrico from "@/assets/exams/obstetrico.webp";
@@ -68,7 +69,7 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between h-20">
         <a href="#top" className="flex items-center gap-3">
-          <img src={logoWine} alt="Logo Dra. Morgana Kummer" className="h-12 w-auto" />
+          <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-16 md:h-20 w-auto" />
         </a>
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
