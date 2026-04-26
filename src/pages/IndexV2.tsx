@@ -133,10 +133,10 @@ const Hero = () => (
         src={draHeroV2}
         alt="Dra. Morgana Kummer em seu consultório"
         fetchPriority="high"
-        className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-40 md:opacity-90"
+        className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-40 md:opacity-95"
       />
-      {/* Fade lateral esquerdo: integra a foto ao fundo escuro */}
-      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep via-wine-deep/70 to-transparent md:from-wine-deep md:via-wine-deep/40 md:to-transparent" />
+      {/* Fade lateral esquerdo: integra a foto ao fundo escuro sem cobrir o rosto */}
+      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep via-wine-deep/40 to-transparent md:bg-gradient-to-r md:from-wine-deep md:via-transparent md:to-transparent md:via-[20%]" />
       {/* Fade superior e inferior */}
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-wine-deep to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-wine-deep to-transparent" />
@@ -154,19 +154,14 @@ const Hero = () => (
           Clínica de Ultrassom
         </p>
 
-        <h1 className="text-wine-foreground text-balance text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.05] font-bold drop-shadow-lg">
-          Dra. Morgana <span className="font-serif italic font-light text-champagne">Kummer</span>
+        <h1 className="text-wine-foreground text-balance text-[clamp(2rem,5vw,4rem)] leading-[1.05] font-bold drop-shadow-lg whitespace-nowrap">
+          Dra. Morgana Kummer
         </h1>
 
         <div className="mt-8 w-16 h-px bg-champagne" />
 
         <p className="mt-8 text-wine-foreground/90 font-serif italic text-2xl md:text-3xl leading-snug max-w-lg">
           Para momentos importantes, cuidados únicos.
-        </p>
-
-        <p className="mt-6 text-wine-foreground/75 text-base md:text-lg leading-relaxed font-light max-w-md">
-          Ultrassonografia obstétrica, fetal e ginecológica com um corpo clínico
-          de excelência, tecnologia de ponta e laudo entregue na hora.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
