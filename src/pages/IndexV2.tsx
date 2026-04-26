@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
+import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight, Stethoscope } from "lucide-react";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
 import draPortrait from "@/assets/dra-morgana-portrait.png";
@@ -11,11 +11,19 @@ import thumb3d4d from "@/assets/thumb-3d4d.jpg";
 import thumbGinecologico from "@/assets/thumb-ginecologico.jpg";
 import thumbDoppler from "@/assets/thumb-doppler.jpg";
 import thumbGeral from "@/assets/thumb-geral.jpg";
+import thumbPediatrico from "@/assets/thumb-pediatrico.jpg";
+import thumbMamario from "@/assets/thumb-mamario.jpg";
+
+/* ---------------- Constantes globais ---------------- */
+const WHATSAPP_URL = "https://wa.me/5531993910212";
+const INSTAGRAM_URL = "https://instagram.com/dramorganak";
+const INSTAGRAM_HANDLE = "@dramorganak";
 
 /* ---------------- Navbar ---------------- */
 const navLinks = [
   { href: "#exames", label: "Exames" },
   { href: "#sobre", label: "Sobre" },
+  { href: "#corpo-clinico", label: "Corpo Clínico" },
   { href: "#convenios", label: "Convênios" },
   { href: "#contato", label: "Contato" },
 ];
@@ -40,7 +48,7 @@ const Navbar = () => {
         <a href="#top" className="flex items-center gap-3">
           <img src={logoWine} alt="Logo Dra. Morgana Kummer" className="h-12 w-auto" />
         </a>
-        <nav className="hidden md:flex items-center gap-9">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <a
               key={l.href}
@@ -52,7 +60,9 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href="#contato"
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-wine text-wine-foreground text-xs tracking-[0.2em] uppercase px-5 py-2.5 rounded-full hover:bg-wine-deep transition-all duration-500"
           >
             Agendar <ArrowRight className="w-3.5 h-3.5" />
@@ -108,7 +118,9 @@ const Hero = () => (
 
         <div className="mt-10 flex flex-wrap gap-4">
           <a
-            href="https://wa.me/5531000000000"
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-wine text-wine-foreground px-7 py-4 rounded-full text-sm tracking-[0.2em] uppercase font-medium hover:bg-wine-deep transition-all duration-500 shadow-elegant"
           >
             <MessageCircle className="w-4 h-4" /> Agendar pelo WhatsApp
@@ -131,7 +143,6 @@ const Hero = () => (
 
       {/* Lado imagem */}
       <div className="relative animate-scale-in flex justify-center md:justify-end">
-        {/* Moldura champagne atrás */}
         <div className="absolute right-4 top-8 bottom-0 w-3/4 border border-champagne/50 rounded-[2rem]" />
         <div className="absolute right-0 top-12 bottom-4 w-3/4 bg-gradient-wine rounded-[2rem] opacity-95" />
         <img
@@ -142,7 +153,6 @@ const Hero = () => (
           fetchPriority="high"
           className="relative w-[80%] md:w-[88%] rounded-[2rem] shadow-deep object-cover object-top max-h-[80vh]"
         />
-        {/* Card flutuante com logo */}
         <div className="absolute bottom-6 left-2 md:left-0 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border max-w-[200px]">
           <img src={logoWine} alt="" className="h-10 w-auto mx-auto" />
           <p className="text-[10px] text-center mt-2 text-wine-deep tracking-[0.2em] uppercase">Desde 2024</p>
@@ -247,7 +257,13 @@ const exams = [
     img: thumbGinecologico,
     title: "Ginecológico",
     desc: "Saúde da mulher avaliada com sensibilidade e precisão.",
-    items: ["Transvaginal", "Transvaginal 3D", "Mamas e Axilas", "Endometriose Profunda"],
+    items: ["Transvaginal", "Transvaginal 3D", "Doppler", "Rastreamento de Ovulação", "Endometriose Profunda", "Períneo (Novo)"],
+  },
+  {
+    img: thumbMamario,
+    title: "Mamário",
+    desc: "Avaliação detalhada das mamas e axilas, com cuidado e atenção.",
+    items: ["Mamas e Axilas", "Acompanhamento", "Avaliação preventiva"],
   },
   {
     img: thumbDoppler,
@@ -259,7 +275,13 @@ const exams = [
     img: thumbGeral,
     title: "Medicina Interna",
     desc: "Ultrassonografias gerais para diagnóstico amplo e preciso.",
-    items: ["Abdome Total", "Tireoide", "Vias Urinárias", "Partes Moles"],
+    items: ["Abdome Total", "Abdome Superior", "Hipocôndrio Direito", "Rins e Vias Urinárias", "Pélvico Masculino", "Partes Moles"],
+  },
+  {
+    img: thumbPediatrico,
+    title: "Pediátrico & Vascular",
+    desc: "Atenção dedicada para os pequenos e exames vasculares completos.",
+    items: ["Pélvico Infantil", "Tireoide", "Ultrassom Vascular", "Bolsa Escrotal"],
   },
 ];
 
@@ -279,34 +301,28 @@ const Exams = () => (
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
         {exams.map((ex) => (
           <article
             key={ex.title}
-            className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
+            className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
           >
-            <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="relative aspect-square overflow-hidden bg-rose">
               <img
                 src={ex.img}
                 alt={ex.title}
-                width={1024}
+                width={768}
                 height={768}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-wine-deep/40 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-5">
-                <span className="text-wine-foreground text-[10px] tracking-[0.35em] uppercase bg-wine/70 backdrop-blur-sm px-3 py-1.5 rounded-full">
-                  Exemplo
-                </span>
-              </div>
             </div>
-            <div className="p-7">
-              <h3 className="text-2xl font-bold text-wine-deep">{ex.title}</h3>
-              <p className="mt-3 text-sm text-muted-foreground font-light leading-relaxed">{ex.desc}</p>
-              <ul className="mt-5 space-y-2">
+            <div className="p-6 flex-1 flex flex-col">
+              <h3 className="text-xl font-bold text-wine-deep">{ex.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">{ex.desc}</p>
+              <ul className="mt-4 space-y-1.5">
                 {ex.items.map((it) => (
-                  <li key={it} className="text-sm text-foreground/80 flex items-center gap-3 font-light">
+                  <li key={it} className="text-xs text-foreground/80 flex items-center gap-2 font-light">
                     <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
                     {it}
                   </li>
@@ -334,7 +350,9 @@ const CtaBanner = () => (
           flexível para encaixar o seu momento.
         </p>
         <a
-          href="https://wa.me/5531000000000"
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-10 inline-flex items-center gap-3 bg-champagne text-wine-deep px-8 py-4 rounded-full text-sm tracking-[0.25em] uppercase font-bold hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
         >
           <MessageCircle className="w-4 h-4" /> Falar agora
@@ -352,8 +370,73 @@ const CtaBanner = () => (
   </section>
 );
 
+/* ---------------- Corpo Clínico ---------------- */
+const team = [
+  { name: "Dra. Morgana Kummer", role: "Especializanda em Medicina Fetal", crm: "CRMMG: 45.304 · RQE: 39.156", initials: "MK" },
+  { name: "Dra. Bárbara Rodrigues", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 66.451 · RQE: 51.530", initials: "BR" },
+  { name: "Dr. Darlei Carneiro", role: "Medicina Fetal e Ecocardiografia", crm: "CRMMG: 64.367 · RQE: 56.387/56.388", initials: "DC" },
+  { name: "Dr. Paulo Gontijo Jr.", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 76.670", initials: "PG" },
+  { name: "Dra. Carolina Martins", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 75.163 · RQE: 51.242", initials: "CM" },
+  { name: "Dra. Maria Amélia", role: "Ultrassom Pediátrico", crm: "CRMMG: 39.659 · RQE: 16.567", initials: "MA" },
+  { name: "Dr. André Mourão", role: "Ultrassom Vascular", crm: "CRMMG: 38.216 · RQE: 25.549/42.982", initials: "AM" },
+];
+
+const Team = () => (
+  <section id="corpo-clinico" className="py-28 md:py-36 bg-background relative">
+    <div className="container">
+      <div className="text-center max-w-2xl mx-auto mb-16">
+        <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Corpo Clínico</span>
+        <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
+          Profissionais que fazem a <span className="font-serif italic font-light">diferença</span>.
+        </h2>
+        <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
+        <p className="mt-8 text-muted-foreground font-light text-lg leading-relaxed">
+          Uma equipe multidisciplinar dedicada a cuidar de você em cada etapa.
+        </p>
+      </div>
+
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+        {team.map((t) => (
+          <article
+            key={t.name}
+            className="group flex flex-col items-center text-center bg-card border border-border rounded-2xl p-7 shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
+          >
+            {/* Avatar circular com gradiente vinho e iniciais */}
+            <div className="relative w-28 h-28 mb-5">
+              <div className="absolute inset-0 rounded-full bg-gradient-wine shadow-deep" />
+              <div className="absolute inset-1 rounded-full bg-wine-deep flex items-center justify-center">
+                <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
+                <Stethoscope className="w-4 h-4 text-wine-deep" strokeWidth={1.8} />
+              </div>
+            </div>
+
+            <h3 className="text-base font-bold text-wine-deep leading-tight">{t.name}</h3>
+            <p className="mt-2 text-xs text-wine font-light leading-relaxed min-h-[2.5rem]">
+              {t.role}
+            </p>
+            <div className="mt-3 pt-3 border-t border-border w-full">
+              <p className="text-[10px] tracking-wide text-muted-foreground">{t.crm}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <p className="text-center mt-12 text-xs text-muted-foreground tracking-wide italic">
+        Fotos profissionais serão adicionadas em breve.
+      </p>
+    </div>
+  </section>
+);
+
 /* ---------------- Convênios ---------------- */
-const convenios = ["Unimed", "Bradesco Saúde", "SulAmérica", "Amil", "Notre Dame", "Cassi", "Postal Saúde", "Geap", "Particular"];
+const convenios = [
+  "Hapvida", "Aurora Saúde", "Grupo Zelo", "Fusex", "Stellantis Saúde",
+  "Cemig Saúde", "Projeto Bom Pastor", "Santa Clara Assistencial",
+  "Fundaffemg", "NotreDame Intermédica", "Casembrapa", "Copass Saúde",
+  "Pax de Minas", "Agebras", "MedGold Saúde", "Projeto Evangelize", "Particular",
+];
 
 const Convenios = () => (
   <section id="convenios" className="py-24 bg-background">
@@ -365,7 +448,7 @@ const Convenios = () => (
         </h2>
         <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
       </div>
-      <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+      <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
         {convenios.map((c) => (
           <span
             key={c}
@@ -392,18 +475,29 @@ const Contact = () => (
 
         <div className="mt-10 space-y-6">
           {[
-            { Icon: MapPin, label: "Endereço", value: "Sete Lagoas — Minas Gerais" },
-            { Icon: Phone, label: "WhatsApp", value: "Agendamento exclusivo via WhatsApp" },
-            { Icon: Clock, label: "Horário", value: "Seg–Sex 08h–18h · Sáb 08h–12h" },
-            { Icon: Instagram, label: "Instagram", value: "@dra.morganakummer" },
-          ].map(({ Icon, label, value }) => (
+            { Icon: MapPin, label: "Endereço", value: "Sete Lagoas — Minas Gerais", href: undefined },
+            { Icon: Phone, label: "WhatsApp", value: "(31) 99391-0212", href: WHATSAPP_URL },
+            { Icon: Clock, label: "Horário de Funcionamento", value: "Segunda a Sexta · 7h — 18h\nSábado · 7h30 — 12h", href: undefined },
+            { Icon: Instagram, label: "Instagram", value: INSTAGRAM_HANDLE, href: INSTAGRAM_URL },
+          ].map(({ Icon, label, value, href }) => (
             <div key={label} className="flex items-start gap-5">
               <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center flex-shrink-0">
                 <Icon className="w-4 h-4 text-wine" strokeWidth={1.5} />
               </div>
               <div>
                 <div className="text-[10px] tracking-[0.3em] uppercase text-wine mb-1">{label}</div>
-                <div className="text-foreground/80 font-light">{value}</div>
+                {href ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground/80 font-light hover:text-wine transition-colors whitespace-pre-line"
+                  >
+                    {value}
+                  </a>
+                ) : (
+                  <div className="text-foreground/80 font-light whitespace-pre-line">{value}</div>
+                )}
               </div>
             </div>
           ))}
@@ -420,7 +514,9 @@ const Contact = () => (
           Reserve seu horário diretamente pelo WhatsApp.
         </p>
         <a
-          href="https://wa.me/5531000000000"
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="block w-full text-center bg-wine text-wine-foreground px-8 py-5 rounded-full text-sm tracking-[0.25em] uppercase font-bold hover:bg-wine-deep transition-all duration-500"
         >
           Falar no WhatsApp
@@ -448,7 +544,7 @@ const Footer = () => (
 
 const WhatsAppFab = () => (
   <a
-    href="https://wa.me/5531000000000"
+    href={WHATSAPP_URL}
     target="_blank"
     rel="noopener noreferrer"
     aria-label="WhatsApp"
@@ -471,6 +567,7 @@ const IndexV2 = () => {
       <About />
       <Exams />
       <CtaBanner />
+      <Team />
       <Convenios />
       <Contact />
       <Footer />
