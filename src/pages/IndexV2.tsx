@@ -13,6 +13,12 @@ import thumbDoppler from "@/assets/thumb-doppler.jpg";
 import thumbGeral from "@/assets/thumb-geral.jpg";
 import thumbPediatrico from "@/assets/thumb-pediatrico.jpg";
 import thumbMamario from "@/assets/thumb-mamario.jpg";
+import teamMorgana from "@/assets/team/morgana.png";
+import teamBarbara from "@/assets/team/barbara.png";
+import teamDarlei from "@/assets/team/darlei.png";
+import teamPaulo from "@/assets/team/paulo.png";
+import teamCarolina from "@/assets/team/carolina.png";
+import teamMariaAmelia from "@/assets/team/maria-amelia.png";
 
 /* ---------------- Constantes globais ---------------- */
 const WHATSAPP_URL = "https://wa.me/5531993910212";
