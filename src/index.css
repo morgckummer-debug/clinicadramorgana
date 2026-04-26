@@ -12,64 +12,64 @@
 
 @layer base {
   :root {
-    /* Base — fundo creme/rosé suave */
-    --background: 24 30% 97%;
-    --foreground: 340 35% 18%;
+    /* Base — fundo branco rosado muito sutil */
+    --background: 295 40% 98%;
+    --foreground: 311 37% 18%;
 
-    /* Vinho — cor principal (extraída do site original) */
-    --wine: 340 45% 28%;
-    --wine-deep: 340 50% 18%;
-    --wine-soft: 340 35% 38%;
-    --wine-foreground: 24 40% 96%;
+    /* Vinho/Roxo — cor principal #6d3263 / #a566b6 */
+    --wine: 289 33% 56%;        /* #a566b6 — roxo médio */
+    --wine-deep: 311 37% 31%;   /* #6d3263 — vinho profundo */
+    --wine-soft: 295 30% 68%;
+    --wine-foreground: 295 47% 96%;
 
-    /* Rosé — apoio claro */
-    --rose: 12 45% 92%;
-    --rose-deep: 12 40% 85%;
-    --rose-foreground: 340 45% 28%;
+    /* Rosé / lilás claro — apoio #e3bfe6 */
+    --rose: 295 47% 92%;
+    --rose-deep: 295 47% 83%;   /* #e3bfe6 */
+    --rose-foreground: 311 37% 31%;
 
-    /* Champagne / dourado discreto — detalhe luxo */
-    --champagne: 38 45% 72%;
-    --champagne-soft: 38 40% 88%;
+    /* Champagne / acento luxo — lilás claro luminoso */
+    --champagne: 295 47% 78%;
+    --champagne-soft: 295 47% 90%;
 
     /* Mapeamento shadcn */
-    --primary: 340 45% 28%;
-    --primary-foreground: 24 40% 96%;
+    --primary: 311 37% 31%;
+    --primary-foreground: 295 47% 96%;
 
-    --secondary: 12 40% 90%;
-    --secondary-foreground: 340 45% 28%;
+    --secondary: 295 47% 92%;
+    --secondary-foreground: 311 37% 31%;
 
-    --muted: 24 25% 94%;
-    --muted-foreground: 340 15% 40%;
+    --muted: 295 30% 95%;
+    --muted-foreground: 311 15% 40%;
 
-    --accent: 38 45% 72%;
-    --accent-foreground: 340 50% 18%;
+    --accent: 295 47% 83%;
+    --accent-foreground: 311 37% 31%;
 
-    --card: 24 35% 99%;
-    --card-foreground: 340 35% 18%;
+    --card: 295 50% 99%;
+    --card-foreground: 311 37% 18%;
 
-    --popover: 24 35% 99%;
-    --popover-foreground: 340 35% 18%;
+    --popover: 295 50% 99%;
+    --popover-foreground: 311 37% 18%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 340 15% 88%;
-    --input: 340 15% 88%;
-    --ring: 340 45% 28%;
+    --border: 295 30% 88%;
+    --input: 295 30% 88%;
+    --ring: 311 37% 31%;
 
     --radius: 0.75rem;
 
     /* Gradientes premium */
-    --gradient-hero: linear-gradient(135deg, hsl(340 50% 18% / 0.85) 0%, hsl(340 45% 28% / 0.65) 60%, hsl(340 40% 35% / 0.4) 100%);
-    --gradient-wine: linear-gradient(135deg, hsl(340 50% 22%) 0%, hsl(340 45% 32%) 100%);
-    --gradient-rose: linear-gradient(180deg, hsl(12 45% 95%) 0%, hsl(24 30% 97%) 100%);
-    --gradient-champagne: linear-gradient(90deg, transparent, hsl(38 45% 72%) 50%, transparent);
+    --gradient-hero: linear-gradient(135deg, hsl(311 37% 22% / 0.85) 0%, hsl(311 37% 31% / 0.65) 60%, hsl(289 33% 45% / 0.4) 100%);
+    --gradient-wine: linear-gradient(135deg, hsl(311 37% 25%) 0%, hsl(289 33% 50%) 100%);
+    --gradient-rose: linear-gradient(180deg, hsl(295 47% 95%) 0%, hsl(295 40% 98%) 100%);
+    --gradient-champagne: linear-gradient(90deg, transparent, hsl(295 47% 78%) 50%, transparent);
 
     /* Sombras premium — suaves, coloridas, baixa opacidade */
-    --shadow-soft: 0 4px 20px -6px hsl(340 50% 20% / 0.08);
-    --shadow-elegant: 0 12px 40px -12px hsl(340 50% 20% / 0.18);
-    --shadow-deep: 0 24px 60px -20px hsl(340 50% 18% / 0.35);
-    --shadow-glow: 0 0 60px hsl(38 45% 72% / 0.25);
+    --shadow-soft: 0 4px 20px -6px hsl(311 37% 20% / 0.08);
+    --shadow-elegant: 0 12px 40px -12px hsl(311 37% 20% / 0.18);
+    --shadow-deep: 0 24px 60px -20px hsl(311 37% 18% / 0.35);
+    --shadow-glow: 0 0 60px hsl(295 47% 78% / 0.3);
 
     /* Transições */
     --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);

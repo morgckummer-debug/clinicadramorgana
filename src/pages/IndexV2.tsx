@@ -13,6 +13,12 @@ import thumbDoppler from "@/assets/thumb-doppler.jpg";
 import thumbGeral from "@/assets/thumb-geral.jpg";
 import thumbPediatrico from "@/assets/thumb-pediatrico.jpg";
 import thumbMamario from "@/assets/thumb-mamario.jpg";
+import teamMorgana from "@/assets/team/morgana.png";
+import teamBarbara from "@/assets/team/barbara.png";
+import teamDarlei from "@/assets/team/darlei.png";
+import teamPaulo from "@/assets/team/paulo.png";
+import teamCarolina from "@/assets/team/carolina.png";
+import teamMariaAmelia from "@/assets/team/maria-amelia.png";
 
 /* ---------------- Constantes globais ---------------- */
 const WHATSAPP_URL = "https://wa.me/5531993910212";
@@ -195,16 +201,16 @@ const About = () => (
           loading="lazy"
           className="relative rounded-2xl shadow-deep w-full object-cover"
         />
-        <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[180px]">
-          <div className="font-serif italic text-3xl text-wine">+1.000</div>
+        <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[200px]">
+          <div className="font-serif italic text-3xl text-wine-deep">+50 mil</div>
           <div className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground mt-1">
-            pacientes acolhidas
+            pacientes atendidas
           </div>
         </div>
       </div>
 
       <div className="order-1 md:order-2">
-        <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Sobre a Doutora</span>
+        <span className="text-wine-deep text-[11px] tracking-[0.4em] uppercase">Sobre a Doutora</span>
         <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
           Tecnologia que <span className="font-serif italic font-light">acolhe</span>.
         </h2>
@@ -218,12 +224,12 @@ const About = () => (
         <div className="mt-10 grid grid-cols-2 gap-4 max-w-md">
           {[
             { k: "Especializanda", v: "Medicina Fetal" },
-            { k: "Equipamento", v: "GE Voluson" },
+            { k: "Equipamentos", v: "Samsung HS40 · V7" },
             { k: "Atendimento", v: "Humanizado" },
             { k: "Laudo", v: "No mesmo dia" },
           ].map((x) => (
             <div key={x.k} className="border border-border rounded-xl p-4 bg-card/60">
-              <div className="text-[10px] tracking-[0.25em] uppercase text-champagne mb-1">{x.k}</div>
+              <div className="text-[10px] tracking-[0.25em] uppercase text-wine mb-1">{x.k}</div>
               <div className="text-sm font-medium text-wine-deep">{x.v}</div>
             </div>
           ))}
@@ -372,13 +378,13 @@ const CtaBanner = () => (
 
 /* ---------------- Corpo Clínico ---------------- */
 const team = [
-  { name: "Dra. Morgana Kummer", role: "Especializanda em Medicina Fetal", crm: "CRMMG: 45.304 · RQE: 39.156", initials: "MK" },
-  { name: "Dra. Bárbara Rodrigues", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 66.451 · RQE: 51.530", initials: "BR" },
-  { name: "Dr. Darlei Carneiro", role: "Medicina Fetal e Ecocardiografia", crm: "CRMMG: 64.367 · RQE: 56.387/56.388", initials: "DC" },
-  { name: "Dr. Paulo Gontijo Jr.", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 76.670", initials: "PG" },
-  { name: "Dra. Carolina Martins", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 75.163 · RQE: 51.242", initials: "CM" },
-  { name: "Dra. Maria Amélia", role: "Ultrassom Pediátrico", crm: "CRMMG: 39.659 · RQE: 16.567", initials: "MA" },
-  { name: "Dr. André Mourão", role: "Ultrassom Vascular", crm: "CRMMG: 38.216 · RQE: 25.549/42.982", initials: "AM" },
+  { name: "Dra. Morgana Kummer", role: "Especializanda em Medicina Fetal", crm: "CRMMG: 45.304 · RQE: 39.156", initials: "MK", photo: teamMorgana },
+  { name: "Dra. Bárbara Rodrigues", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 66.451 · RQE: 51.530", initials: "BR", photo: teamBarbara },
+  { name: "Dr. Darlei Carneiro", role: "Medicina Fetal e Ecocardiografia", crm: "CRMMG: 64.367 · RQE: 56.387/56.388", initials: "DC", photo: teamDarlei },
+  { name: "Dr. Paulo Gontijo Jr.", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 76.670", initials: "PG", photo: teamPaulo },
+  { name: "Dra. Carolina Martins", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 75.163 · RQE: 51.242", initials: "CM", photo: teamCarolina },
+  { name: "Dra. Maria Amélia", role: "Ultrassom Pediátrico", crm: "CRMMG: 39.659 · RQE: 16.567", initials: "MA", photo: teamMariaAmelia },
+  { name: "Dr. André Mourão", role: "Ultrassom Vascular", crm: "CRMMG: 38.216 · RQE: 25.549/42.982", initials: "AM", photo: null },
 ];
 
 const Team = () => (
@@ -401,12 +407,21 @@ const Team = () => (
             key={t.name}
             className="group flex flex-col items-center text-center bg-card border border-border rounded-2xl p-7 shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
           >
-            {/* Avatar circular com gradiente vinho e iniciais */}
-            <div className="relative w-28 h-28 mb-5">
+            {/* Foto circular ou placeholder com iniciais */}
+            <div className="relative w-32 h-32 mb-5">
               <div className="absolute inset-0 rounded-full bg-gradient-wine shadow-deep" />
-              <div className="absolute inset-1 rounded-full bg-wine-deep flex items-center justify-center">
-                <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
-              </div>
+              {t.photo ? (
+                <img
+                  src={t.photo}
+                  alt={t.name}
+                  loading="lazy"
+                  className="absolute inset-1 rounded-full object-cover w-[calc(100%-0.5rem)] h-[calc(100%-0.5rem)] bg-rose-deep"
+                />
+              ) : (
+                <div className="absolute inset-1 rounded-full bg-wine-deep flex items-center justify-center">
+                  <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
+                </div>
+              )}
               <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
                 <Stethoscope className="w-4 h-4 text-wine-deep" strokeWidth={1.8} />
               </div>
@@ -424,7 +439,7 @@ const Team = () => (
       </div>
 
       <p className="text-center mt-12 text-xs text-muted-foreground tracking-wide italic">
-        Fotos profissionais serão adicionadas em breve.
+        Foto do Dr. André Mourão será adicionada em breve.
       </p>
     </div>
   </section>
