@@ -5,8 +5,6 @@ import logoWhite from "@/assets/logo-white.png";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.png";
 import draCutout from "@/assets/dra-morgana-cutout.png";
 import thumbObstetrico from "@/assets/exams/obstetrico.webp";
-import thumbMorfologico from "@/assets/exams/morfologico.jpg";
-import thumb3d4d from "@/assets/exams/3d4d.jpg";
 import thumbGinecologico from "@/assets/exams/ginecologico.webp";
 import thumbDoppler from "@/assets/exams/doppler.webp";
 import thumbGeral from "@/assets/exams/geral.webp";
@@ -252,18 +250,6 @@ const exams = [
     title: "Obstétrico",
     desc: "Acompanhamento gestacional completo, do primeiro ao último trimestre.",
     items: ["1º Trimestre (TV)", "Translucência Nucal", "Doppler Obstétrico", "Perfil Biofísico"],
-  },
-  {
-    img: thumbMorfologico,
-    title: "Morfológico",
-    desc: "Avaliação detalhada da anatomia fetal em cada trimestre da gestação.",
-    items: ["Morfo 1º Tri", "Morfo 2º Tri", "Morfo 3º Tri"],
-  },
-  {
-    img: thumb3d4d,
-    title: "3D · 4D · 5D",
-    desc: "Imagens em alta definição do bebê, com tecnologia HDlive.",
-    items: ["Foto 3D", "Vídeo 4D", "Sessão personalizada"],
   },
   {
     img: thumbGinecologico,
