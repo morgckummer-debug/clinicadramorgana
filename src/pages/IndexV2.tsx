@@ -131,17 +131,23 @@ const Hero = () => (
           <span className="text-[11px] tracking-[0.3em] uppercase text-champagne">Sete Lagoas · MG</span>
         </div>
 
+        <p className="text-champagne text-[12px] md:text-[13px] tracking-[0.45em] uppercase font-medium mb-5">
+          Clínica de Ultrassom
+        </p>
+
         <h1 className="text-wine-foreground text-balance text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.05] font-bold drop-shadow-lg">
-          Para momentos<br />
-          <span className="font-serif italic font-light text-champagne">importantes,</span><br />
-          cuidados únicos.
+          Dra. Morgana <span className="font-serif italic font-light text-champagne">Kummer</span>
         </h1>
 
         <div className="mt-8 w-16 h-px bg-champagne" />
 
-        <p className="mt-8 text-wine-foreground/85 text-lg leading-relaxed font-light max-w-md">
-          Ultrassonografia obstétrica, fetal e ginecológica com sensibilidade,
-          tecnologia de ponta e laudo entregue na hora.
+        <p className="mt-8 text-wine-foreground/90 font-serif italic text-2xl md:text-3xl leading-snug max-w-lg">
+          Para momentos importantes, cuidados únicos.
+        </p>
+
+        <p className="mt-6 text-wine-foreground/75 text-base md:text-lg leading-relaxed font-light max-w-md">
+          Ultrassonografia obstétrica, fetal e ginecológica com um corpo clínico
+          de excelência, tecnologia de ponta e laudo entregue na hora.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
