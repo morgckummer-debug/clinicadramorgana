@@ -407,12 +407,21 @@ const Team = () => (
             key={t.name}
             className="group flex flex-col items-center text-center bg-card border border-border rounded-2xl p-7 shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
           >
-            {/* Avatar circular com gradiente vinho e iniciais */}
-            <div className="relative w-28 h-28 mb-5">
+            {/* Foto circular ou placeholder com iniciais */}
+            <div className="relative w-32 h-32 mb-5">
               <div className="absolute inset-0 rounded-full bg-gradient-wine shadow-deep" />
-              <div className="absolute inset-1 rounded-full bg-wine-deep flex items-center justify-center">
-                <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
-              </div>
+              {t.photo ? (
+                <img
+                  src={t.photo}
+                  alt={t.name}
+                  loading="lazy"
+                  className="absolute inset-1 rounded-full object-cover w-[calc(100%-0.5rem)] h-[calc(100%-0.5rem)] bg-rose-deep"
+                />
+              ) : (
+                <div className="absolute inset-1 rounded-full bg-wine-deep flex items-center justify-center">
+                  <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
+                </div>
+              )}
               <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
                 <Stethoscope className="w-4 h-4 text-wine-deep" strokeWidth={1.8} />
               </div>
@@ -430,7 +439,7 @@ const Team = () => (
       </div>
 
       <p className="text-center mt-12 text-xs text-muted-foreground tracking-wide italic">
-        Fotos profissionais serão adicionadas em breve.
+        Foto do Dr. André Mourão será adicionada em breve.
       </p>
     </div>
   </section>
