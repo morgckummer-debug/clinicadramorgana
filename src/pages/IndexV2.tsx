@@ -200,7 +200,7 @@ const About = () => (
       <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1">
         <div className="absolute -inset-4 border border-champagne/40 rounded-2xl -translate-x-4 -translate-y-4" />
         <img
-          src={draOffice}
+          src={draHeroV2}
           alt="Dra. Morgana em seu consultório"
           width={520}
           height={650}
