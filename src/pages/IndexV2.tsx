@@ -93,31 +93,55 @@ const Navbar = () => {
   );
 };
 
-/* ---------------- Hero Split ---------------- */
+/* ---------------- Hero Full-Width Escuro ---------------- */
 const Hero = () => (
-  <section id="top" className="relative pt-24 pb-16 md:pt-28 md:pb-0 md:min-h-screen overflow-hidden bg-gradient-rose">
-    <div className="absolute inset-0 pointer-events-none opacity-40">
-      <div className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-rose-deep blur-3xl" />
-      <div className="absolute bottom-0 -right-20 w-96 h-96 rounded-full bg-wine/20 blur-3xl" />
+  <section
+    id="top"
+    className="relative min-h-screen w-full overflow-hidden bg-wine-deep text-wine-foreground pt-24"
+  >
+    {/* Camadas de fundo */}
+    <div className="absolute inset-0 pointer-events-none">
+      {/* Gradiente base escuro */}
+      <div className="absolute inset-0 bg-gradient-to-br from-wine-deep via-wine-deep to-[hsl(311,42%,18%)]" />
+      {/* Brilhos decorativos */}
+      <div className="absolute top-1/3 -left-32 w-[32rem] h-[32rem] rounded-full bg-wine/40 blur-[120px]" />
+      <div className="absolute bottom-0 right-0 w-[36rem] h-[36rem] rounded-full bg-rose-deep/20 blur-[140px]" />
+      {/* Linha champagne topo */}
+      <div className="absolute top-20 inset-x-0 h-px bg-gradient-champagne opacity-40" />
     </div>
 
-    <div className="container relative grid md:grid-cols-2 gap-12 md:gap-16 items-center md:min-h-[calc(100vh-7rem)]">
-      {/* Lado texto */}
-      <div className="md:pr-8 animate-fade-up">
-        <div className="inline-flex items-center gap-3 bg-card/80 backdrop-blur-sm border border-border rounded-full px-4 py-2 mb-8">
+    {/* Foto da Dra. — composição lateral, transparente nas bordas */}
+    <div className="absolute inset-y-0 right-0 w-full md:w-[58%] lg:w-[52%] pointer-events-none">
+      <img
+        src={draHeroV2}
+        alt="Dra. Morgana Kummer em seu consultório"
+        fetchPriority="high"
+        className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-40 md:opacity-90"
+      />
+      {/* Fade lateral esquerdo: integra a foto ao fundo escuro */}
+      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep via-wine-deep/70 to-transparent md:from-wine-deep md:via-wine-deep/40 md:to-transparent" />
+      {/* Fade superior e inferior */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-wine-deep to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-wine-deep to-transparent" />
+    </div>
+
+    {/* Conteúdo */}
+    <div className="relative container min-h-[calc(100vh-6rem)] flex items-center">
+      <div className="max-w-2xl py-16 md:py-20 animate-fade-up">
+        <div className="inline-flex items-center gap-3 bg-wine/40 backdrop-blur-sm border border-champagne/30 rounded-full px-4 py-2 mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-champagne animate-pulse" />
-          <span className="text-[11px] tracking-[0.3em] uppercase text-wine">Sete Lagoas · MG</span>
+          <span className="text-[11px] tracking-[0.3em] uppercase text-champagne">Sete Lagoas · MG</span>
         </div>
 
-        <h1 className="text-wine-deep text-balance text-[clamp(2.2rem,5.5vw,4.2rem)] leading-[1.05] font-bold">
+        <h1 className="text-wine-foreground text-balance text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.05] font-bold drop-shadow-lg">
           Para momentos<br />
-          <span className="font-serif italic font-light text-wine">importantes,</span><br />
+          <span className="font-serif italic font-light text-champagne">importantes,</span><br />
           cuidados únicos.
         </h1>
 
         <div className="mt-8 w-16 h-px bg-champagne" />
 
-        <p className="mt-8 text-foreground/75 text-lg leading-relaxed font-light max-w-md">
+        <p className="mt-8 text-wine-foreground/85 text-lg leading-relaxed font-light max-w-md">
           Ultrassonografia obstétrica, fetal e ginecológica com sensibilidade,
           tecnologia de ponta e laudo entregue na hora.
         </p>
@@ -127,41 +151,23 @@ const Hero = () => (
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-wine text-wine-foreground px-7 py-4 rounded-full text-sm tracking-[0.2em] uppercase font-medium hover:bg-wine-deep transition-all duration-500 shadow-elegant"
+            className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-7 py-4 rounded-full text-sm tracking-[0.2em] uppercase font-medium hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
           >
             <MessageCircle className="w-4 h-4" /> Agendar pelo WhatsApp
           </a>
           <a
             href="#exames"
-            className="inline-flex items-center gap-2 text-wine-deep px-2 py-4 text-sm tracking-[0.2em] uppercase font-medium border-b border-champagne hover:gap-3 transition-all duration-500"
+            className="inline-flex items-center gap-2 text-wine-foreground px-2 py-4 text-sm tracking-[0.2em] uppercase font-medium border-b border-champagne/60 hover:gap-3 hover:text-champagne transition-all duration-500"
           >
             Ver exames <ArrowRight className="w-4 h-4" />
           </a>
         </div>
 
         {/* Mini selos */}
-        <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs text-muted-foreground tracking-wide">
+        <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs text-wine-foreground/70 tracking-wide">
           <span className="flex items-center gap-2"><Award className="w-4 h-4 text-champagne" /> Laudo no mesmo dia</span>
           <span className="flex items-center gap-2"><HeartHandshake className="w-4 h-4 text-champagne" /> Atendimento humanizado</span>
           <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-champagne" /> Equipamento de ponta</span>
-        </div>
-      </div>
-
-      {/* Lado imagem */}
-      <div className="relative animate-scale-in flex justify-center md:justify-end">
-        <div className="absolute right-4 top-8 bottom-0 w-3/4 border border-champagne/50 rounded-[2rem]" />
-        <div className="absolute right-0 top-12 bottom-4 w-3/4 bg-gradient-wine rounded-[2rem] opacity-95" />
-        <img
-          src={draPortrait}
-          alt="Dra. Morgana Kummer"
-          width={520}
-          height={700}
-          fetchPriority="high"
-          className="relative w-[80%] md:w-[88%] rounded-[2rem] shadow-deep object-cover object-top max-h-[80vh]"
-        />
-        <div className="absolute bottom-6 left-2 md:left-0 bg-card/95 backdrop-blur-md rounded-2xl p-4 shadow-elegant border border-border max-w-[200px]">
-          <img src={logoWine} alt="" className="h-10 w-auto mx-auto" />
-          <p className="text-[10px] text-center mt-2 text-wine-deep tracking-[0.2em] uppercase">Desde 2024</p>
         </div>
       </div>
     </div>
