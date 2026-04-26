@@ -1,16 +1,41 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navbar } from "@/components/site/Navbar";
+import { Hero } from "@/components/site/Hero";
+import { Credentials } from "@/components/site/Credentials";
+import { About } from "@/components/site/About";
+import { Exams } from "@/components/site/Exams";
+import { Convenios } from "@/components/site/Convenios";
+import { Contact } from "@/components/site/Contact";
+import { Footer } from "@/components/site/Footer";
+import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { useEffect } from "react";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  useEffect(() => {
+    document.title = "Dra. Morgana Kummer · Clínica de Ultrassom em Sete Lagoas";
+    const meta = document.querySelector('meta[name="description"]');
+    const content = "Ultrassonografia obstétrica, ginecológica e fetal em Sete Lagoas. Atendimento humanizado, equipamento de ponta e laudo na hora com a Dra. Morgana Kummer.";
+    if (meta) meta.setAttribute("content", content);
+    else {
+      const m = document.createElement("meta");
+      m.name = "description";
+      m.content = content;
+      document.head.appendChild(m);
+    }
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <main className="min-h-screen bg-background">
+      <Navbar />
+      <Hero />
+      <Credentials />
+      <About />
+      <Exams />
+      <Convenios />
+      <Contact />
+      <Footer />
+      <WhatsAppFab />
+    </main>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
