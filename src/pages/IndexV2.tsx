@@ -127,11 +127,11 @@ const Hero = () => (
       <div className="absolute top-20 inset-x-0 h-px bg-gradient-champagne opacity-40" />
     </div>
 
-    {/* Vídeo da clínica — composição lateral, transparente nas bordas */}
-    <div className="absolute inset-y-0 right-0 w-full md:w-[58%] lg:w-[52%] pointer-events-none">
+    {/* Vídeo da clínica — ocupa toda a extensão do Hero */}
+    <div className="absolute inset-0 pointer-events-none">
       <video
-        key="hero-clinic-video-v3"
-        className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-40 md:opacity-95"
+        key="hero-clinic-video-v4"
+        className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted
         loop
@@ -141,10 +141,9 @@ const Hero = () => (
       >
         <source src="/videos/hero-clinic.mp4?v=3" type="video/mp4" />
       </video>
-      {/* Fade lateral esquerdo: integra a foto ao fundo escuro sem cobrir o rosto */}
-      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep via-wine-deep/40 to-transparent md:bg-gradient-to-r md:from-wine-deep md:via-transparent md:to-transparent md:via-[20%]" />
-      {/* Fade superior e inferior */}
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-wine-deep to-transparent" />
+      {/* Overlay sutil para legibilidade do texto */}
+      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/80 via-wine-deep/40 to-wine-deep/30" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-wine-deep/70 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-wine-deep to-transparent" />
     </div>
 
