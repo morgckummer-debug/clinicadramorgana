@@ -1,6 +1,4 @@
-import heroImg from "@/assets/hero-clinic.jpg";
-
-const heroVideoUrl = "/videos/hero-clinic.mp4";
+const heroVideoUrl = "/videos/hero-clinic.mp4?v=2";
 
 export const Hero = () => {
   return (
@@ -8,8 +6,7 @@ export const Hero = () => {
       {/* Vídeo de fundo */}
       <div className="absolute inset-0">
         <video
-          src={heroVideoUrl}
-          poster={heroImg}
+          key={heroVideoUrl}
           autoPlay
           muted
           loop
@@ -17,7 +14,9 @@ export const Hero = () => {
           preload="auto"
           aria-label="Ambiente acolhedor da Clínica Dra. Morgana Kummer"
           className="h-full w-full object-cover"
-        />
+        >
+          <source src={heroVideoUrl} type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-gradient-hero" />
       </div>
 
