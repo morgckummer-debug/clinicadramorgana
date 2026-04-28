@@ -188,9 +188,9 @@ const Hero = () => (
 
         {/* Mini selos */}
         <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs text-wine-foreground/70 tracking-wide">
-          <span className="flex items-center gap-2"><Award className="w-4 h-4 text-champagne" /> Laudo no mesmo dia</span>
+          <span className="flex items-center gap-2"><Award className="w-4 h-4 text-champagne" /> Laudos no mesmo dia</span>
           <span className="flex items-center gap-2"><HeartHandshake className="w-4 h-4 text-champagne" /> Atendimento humanizado</span>
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-champagne" /> Equipamento de ponta</span>
+          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-champagne" /> Equipamentos de ponta</span>
         </div>
       </div>
     </div>
@@ -406,7 +406,7 @@ const CtaBanner = () => (
 
 /* ---------------- Corpo Clínico ---------------- */
 const team = [
-  { name: "Dra. Morgana Kummer", role: "Especializanda em Medicina Fetal", crm: "CRMMG: 45.304 · RQE: 39.156", initials: "MK", photo: teamMorgana },
+  { name: "Dra. Morgana Kummer", role: "Ultrassom Geral, Obstétrico e Medicina Fetal", crm: "CRMMG: 45.304 · RQE: 39.156", initials: "MK", photo: teamMorgana },
   { name: "Dra. Bárbara Rodrigues", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 66.451 · RQE: 51.530", initials: "BR", photo: teamBarbara },
   { name: "Dr. Darlei Carneiro", role: "Medicina Fetal e Ecocardiografia", crm: "CRMMG: 64.367 · RQE: 56.387/56.388", initials: "DC", photo: teamDarlei },
   { name: "Dr. Paulo Gontijo Jr.", role: "Ultrassom Geral e Obstétrico", crm: "CRMMG: 76.670", initials: "PG", photo: teamPaulo },
