@@ -127,14 +127,20 @@ const Hero = () => (
       <div className="absolute top-20 inset-x-0 h-px bg-gradient-champagne opacity-40" />
     </div>
 
-    {/* Foto da Dra. — composição lateral, transparente nas bordas */}
+    {/* Vídeo da clínica — composição lateral, transparente nas bordas */}
     <div className="absolute inset-y-0 right-0 w-full md:w-[58%] lg:w-[52%] pointer-events-none">
-      <img
-        src={draHeroV2}
-        alt="Dra. Morgana Kummer em seu consultório"
-        fetchPriority="high"
+      <video
+        key="hero-clinic-video-v3"
         className="absolute inset-0 w-full h-full object-cover object-[center_top] opacity-40 md:opacity-95"
-      />
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label="Vídeo da Clínica Dra. Morgana Kummer"
+      >
+        <source src="/videos/hero-clinic.mp4?v=3" type="video/mp4" />
+      </video>
       {/* Fade lateral esquerdo: integra a foto ao fundo escuro sem cobrir o rosto */}
       <div className="absolute inset-0 bg-gradient-to-r from-wine-deep via-wine-deep/40 to-transparent md:bg-gradient-to-r md:from-wine-deep md:via-transparent md:to-transparent md:via-[20%]" />
       {/* Fade superior e inferior */}
