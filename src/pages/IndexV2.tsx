@@ -159,7 +159,7 @@ const Hero = () => (
           Clínica de Ultrassom
         </p>
 
-        <h1 className="text-wine-foreground text-balance text-[clamp(2rem,5vw,4rem)] leading-[1.05] font-bold drop-shadow-lg whitespace-nowrap">
+        <h1 className="text-wine-foreground text-[clamp(1.5rem,7vw,4rem)] leading-[1.05] font-bold drop-shadow-lg whitespace-nowrap">
           Dra. Morgana Kummer
         </h1>
 
