@@ -1,15 +1,21 @@
 import heroImg from "@/assets/hero-clinic.jpg";
+import heroVideo from "@/assets/hero-clinic.mp4.asset.json";
 
 export const Hero = () => {
   return (
     <section id="top" className="relative h-screen min-h-[680px] w-full overflow-hidden">
-      {/* Imagem com slow zoom */}
+      {/* Vídeo de fundo */}
       <div className="absolute inset-0">
-        <img
-          src={heroImg}
-          alt="Ambiente acolhedor da Clínica Dra. Morgana Kummer"
-          className="h-full w-full object-cover animate-slow-zoom"
-          fetchPriority="high"
+        <video
+          src={heroVideo.url}
+          poster={heroImg}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label="Ambiente acolhedor da Clínica Dra. Morgana Kummer"
+          className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-hero" />
       </div>
