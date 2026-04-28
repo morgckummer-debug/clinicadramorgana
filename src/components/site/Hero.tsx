@@ -1,5 +1,6 @@
 import heroImg from "@/assets/hero-clinic.jpg";
-import heroVideo from "@/assets/hero-clinic.mp4.asset.json";
+
+const heroVideoUrl = "/videos/hero-clinic.mp4";
 
 export const Hero = () => {
   return (
@@ -7,7 +8,7 @@ export const Hero = () => {
       {/* Vídeo de fundo */}
       <div className="absolute inset-0">
         <video
-          src={heroVideo.url}
+          src={heroVideoUrl}
           poster={heroImg}
           autoPlay
           muted
