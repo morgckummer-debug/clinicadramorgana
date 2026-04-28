@@ -233,7 +233,7 @@ const About = () => (
         <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[200px]">
           <div className="font-serif italic text-3xl text-wine-deep">+50 mil</div>
           <div className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground mt-1">
-            pacientes atendidas
+            pacientes atendidos
           </div>
         </div>
       </div>
@@ -250,19 +250,15 @@ const About = () => (
           um espaço pensado para que cada paciente se sinta cuidada de verdade.
         </p>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 max-w-md">
-          {[
-            { k: "Especializanda", v: "Medicina Fetal" },
-            { k: "Equipamentos", v: "Samsung HS40 · V7" },
-            { k: "Atendimento", v: "Humanizado" },
-            { k: "Laudo", v: "No mesmo dia" },
-          ].map((x) => (
-            <div key={x.k} className="border border-border rounded-xl p-4 bg-card/60">
-              <div className="text-[10px] tracking-[0.25em] uppercase text-wine mb-1">{x.k}</div>
-              <div className="text-sm font-medium text-wine-deep">{x.v}</div>
-            </div>
-          ))}
-        </div>
+        <p className="mt-8 text-foreground/75 leading-relaxed text-base font-light max-w-lg">
+          Desde <span className="text-wine-deep font-medium">2017</span> em{" "}
+          <span className="text-wine-deep font-medium">Sete Lagoas</span>, já
+          tivemos a alegria de cuidar de{" "}
+          <span className="text-wine-deep font-medium">mais de 50 mil pacientes</span>
+          {" "}— homens, mulheres e suas famílias — recebendo cada um com escuta
+          atenta, carinho e o mesmo cuidado que gostaríamos para os nossos. Aqui,
+          você não é só mais um exame: é alguém querido, em um momento que importa.
+        </p>
       </div>
     </div>
   </section>
