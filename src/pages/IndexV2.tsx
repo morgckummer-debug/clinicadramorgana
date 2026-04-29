@@ -337,7 +337,7 @@ const Exams = () => (
             key={ex.title}
             className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
           >
-            <div className="relative aspect-square overflow-hidden bg-rose">
+            <div className="relative aspect-[2/1] overflow-hidden bg-rose">
               <img
                 src={ex.img}
                 alt={ex.title}
