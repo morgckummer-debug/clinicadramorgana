@@ -532,7 +532,7 @@ const Contact = () => (
 
         <div className="mt-10 space-y-6">
           {[
-            { Icon: MapPin, label: "Endereço", value: "Sete Lagoas — Minas Gerais", href: undefined },
+            { Icon: MapPin, label: "Endereço", value: "Rua Cândido Azeredo, 41A — Centro, Sete Lagoas/MG", href: undefined },
             { Icon: Phone, label: "WhatsApp", value: "(31) 99391-0212", href: WHATSAPP_URL },
             { Icon: Clock, label: "Horário de Funcionamento", value: "Segunda a Sexta · 7h — 18h\nSábado · 7h30 — 12h", href: undefined },
             { Icon: Instagram, label: "Instagram", value: INSTAGRAM_HANDLE, href: INSTAGRAM_URL },
