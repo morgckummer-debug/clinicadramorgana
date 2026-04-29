@@ -376,8 +376,8 @@ const CtaBanner = () => (
           Cuidado começa com uma <span className="font-serif italic font-light text-champagne">conversa</span>.
         </h2>
         <p className="mt-6 text-wine-foreground/75 leading-relaxed font-light">
-          Atendimento exclusivo via WhatsApp. Resposta rápida e agendamento
-          flexível para encaixar o seu momento.
+          Agendamento exclusivo via WhatsApp. Respostas rápidas e horários
+          flexíveis para ajustar ao seu momento.
         </p>
         <a
           href={WHATSAPP_URL}
