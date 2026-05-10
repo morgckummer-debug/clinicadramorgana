@@ -208,18 +208,18 @@ const Hero = () => (
 
 /* ---------------- Faixa de citação ---------------- */
 const Quote = () => (
-  <section className="bg-wine-deep text-wine-foreground py-20 md:py-28 relative overflow-hidden">
+  <section className="bg-wine-deep text-wine-foreground py-24 md:py-32 relative overflow-hidden">
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
-    <div className="container max-w-4xl text-center relative">
-      <div className="text-champagne text-6xl font-serif leading-none mb-4 select-none">"</div>
-      <p className="font-serif italic text-2xl md:text-4xl leading-snug text-balance">
+    <div className="container max-w-3xl text-center relative">
+      <span className="text-champagne/80 text-[10px] tracking-[0.5em] uppercase">Filosofia</span>
+      <p className="mt-8 font-serif italic text-3xl md:text-[2.6rem] leading-[1.25] text-balance font-light">
         Transformar o cuidado e a tecnologia em momentos inesquecíveis sempre
-        foi o meu <span className="text-champagne">maior sonho.</span>
+        foi o meu <span className="text-champagne not-italic font-normal">maior sonho</span>.
       </p>
-      <div className="mt-10 inline-flex items-center gap-4">
-        <div className="w-10 h-px bg-champagne" />
-        <span className="text-xs tracking-[0.35em] uppercase text-champagne/90">Dra. Morgana Kummer</span>
-        <div className="w-10 h-px bg-champagne" />
+      <div className="mt-12 inline-flex items-center gap-4">
+        <div className="w-8 h-px bg-champagne/60" />
+        <span className="text-[10px] tracking-[0.4em] uppercase text-champagne/90 font-medium">Dra. Morgana Kummer</span>
+        <div className="w-8 h-px bg-champagne/60" />
       </div>
     </div>
   </section>
@@ -227,46 +227,45 @@ const Quote = () => (
 
 /* ---------------- Sobre ---------------- */
 const About = () => (
-  <section id="sobre" className="py-28 md:py-36 bg-background relative overflow-hidden">
-    <div className="container grid md:grid-cols-2 gap-16 md:gap-24 items-center">
-      <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1">
-        <div className="absolute -inset-4 border border-champagne/40 rounded-2xl -translate-x-4 -translate-y-4" />
+  <section id="sobre" className="py-32 md:py-40 bg-background relative overflow-hidden">
+    <div className="container grid md:grid-cols-12 gap-12 md:gap-20 items-center">
+      <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1 md:col-span-5">
+        <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
         <img
           src={draHeroV2}
           alt="Dra. Morgana em seu consultório"
           width={520}
           height={650}
           loading="lazy"
-          className="relative rounded-2xl shadow-deep w-full object-cover"
+          className="relative rounded-sm shadow-elegant w-full object-cover"
         />
-        <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[200px]">
-          <div className="font-serif italic text-3xl text-wine-deep">+50 mil</div>
-          <div className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground mt-1">
+        <div className="absolute -bottom-8 -right-4 md:-right-10 bg-background border border-border/70 px-6 py-5 max-w-[210px]">
+          <div className="font-serif italic text-3xl text-wine-deep leading-none">+50 mil</div>
+          <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-2">
             pacientes atendidos
           </div>
         </div>
       </div>
 
-      <div className="order-1 md:order-2">
-        <span className="text-wine-deep text-[11px] tracking-[0.4em] uppercase">Sobre a Doutora</span>
-        <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
-          Tecnologia que <span className="font-serif italic font-light">acolhe</span>.
+      <div className="order-1 md:order-2 md:col-span-7 md:pl-8">
+        <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">Sobre a Doutora</span>
+        <h2 className="mt-6 text-wine-deep text-5xl md:text-6xl text-balance font-light">
+          Tecnologia que <span className="italic">acolhe</span>.
         </h2>
-        <div className="mt-6 w-12 h-px bg-champagne" />
-        <p className="mt-8 text-foreground/80 leading-relaxed text-lg font-light max-w-lg">
-          Hoje realizo o propósito de oferecer um atendimento acolhedor e de
-          excelência, sendo referência em ultrassonografia em Sete Lagoas — em
-          um espaço pensado para que cada paciente se sinta cuidada de verdade.
+        <div className="mt-8 w-12 h-px bg-champagne" />
+        <p className="mt-10 text-foreground/85 leading-[1.8] text-lg font-light max-w-xl">
+          Referência em ultrassonografia em Sete Lagoas, oferecemos diagnóstico
+          por imagem com rigor técnico, equipamentos GE de última geração e
+          atendimento profundamente humano — em um espaço pensado para que
+          cada paciente se sinta cuidada de verdade.
         </p>
 
-        <p className="mt-8 text-foreground/75 leading-relaxed text-base font-light max-w-lg">
-          Desde <span className="text-wine-deep font-medium">2017</span> em{" "}
-          <span className="text-wine-deep font-medium">Sete Lagoas</span>, já
-          tivemos a alegria de cuidar de{" "}
-          <span className="text-wine-deep font-medium">mais de 50 mil pacientes</span>
-          {" "}— homens, mulheres e suas famílias — recebendo cada um com escuta
-          atenta, carinho e o mesmo cuidado que gostaríamos para os nossos. Aqui,
-          você não é só mais um exame: é alguém querido, em um momento que importa.
+        <p className="mt-6 text-foreground/70 leading-[1.8] text-base font-light max-w-xl">
+          Desde <span className="text-wine-deep">2017</span>, já tivemos a
+          alegria de cuidar de{" "}
+          <span className="text-wine-deep">mais de 50 mil pacientes</span> —
+          homens, mulheres e suas famílias — recebendo cada um com escuta atenta
+          e o mesmo cuidado que gostaríamos para os nossos.
         </p>
       </div>
     </div>
