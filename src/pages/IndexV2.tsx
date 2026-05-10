@@ -208,18 +208,30 @@ const Hero = () => (
 
 /* ---------------- Faixa de citação ---------------- */
 const Quote = () => (
-  <section className="bg-wine-deep text-wine-foreground py-24 md:py-32 relative overflow-hidden">
+  <section className="bg-wine-deep text-wine-foreground py-20 md:py-28 relative overflow-hidden">
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
-    <div className="container max-w-3xl text-center relative">
-      <span className="text-champagne/80 text-[10px] tracking-[0.5em] uppercase">Filosofia</span>
-      <p className="mt-8 font-serif italic text-3xl md:text-[2.6rem] leading-[1.25] text-balance font-light">
-        Transformar o cuidado e a tecnologia em momentos inesquecíveis sempre
-        foi o meu <span className="text-champagne not-italic font-normal">maior sonho</span>.
-      </p>
-      <div className="mt-12 inline-flex items-center gap-4">
-        <div className="w-8 h-px bg-champagne/60" />
-        <span className="text-[10px] tracking-[0.4em] uppercase text-champagne/90 font-medium">Dra. Morgana Kummer</span>
-        <div className="w-8 h-px bg-champagne/60" />
+    <div className="container grid md:grid-cols-12 gap-10 md:gap-16 items-center relative">
+      <div className="md:col-span-5 flex justify-center md:justify-start">
+        <div className="relative max-w-sm w-full">
+          <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
+          <img
+            src={draHeroV2}
+            alt="Dra. Morgana Kummer"
+            loading="lazy"
+            className="relative rounded-sm shadow-elegant w-full object-cover aspect-[4/5]"
+          />
+        </div>
+      </div>
+      <div className="md:col-span-7">
+        <span className="text-champagne/80 text-[10px] tracking-[0.5em] uppercase">Filosofia</span>
+        <p className="mt-6 font-serif italic text-2xl md:text-[2.4rem] leading-[1.3] text-balance font-light">
+          Transformar o cuidado e a tecnologia em momentos inesquecíveis sempre
+          foi o meu <span className="text-champagne not-italic font-normal">maior sonho</span>.
+        </p>
+        <div className="mt-10 inline-flex items-center gap-4">
+          <div className="w-8 h-px bg-champagne/60" />
+          <span className="text-[10px] tracking-[0.4em] uppercase text-champagne/90 font-medium">Dra. Morgana Kummer</span>
+        </div>
       </div>
     </div>
   </section>
@@ -569,27 +581,31 @@ const Contact = () => (
         </div>
       </div>
 
-      <div className="bg-card rounded-3xl p-10 md:p-12 shadow-elegant border border-border relative">
-        <div className="absolute -top-5 left-10 bg-wine text-wine-foreground text-[10px] tracking-[0.3em] uppercase px-4 py-2 rounded-full">
-          Resposta rápida
+      <a
+        href="https://www.google.com/maps?ll=-19.464006,-44.240331&z=18&t=m&hl=pt-BR&gl=US&mapclient=embed&q=R.+C%C3%A2ndido+Azeredo,+41a+-+Centro+Sete+Lagoas+-+MG+35700-019"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Abrir endereço no Google Maps"
+        className="group block relative overflow-hidden rounded-3xl shadow-elegant border border-border bg-card"
+      >
+        <iframe
+          title="Localização da Clínica Dra. Morgana Kummer"
+          src="https://www.google.com/maps?q=R.+C%C3%A2ndido+Azeredo,+41a+-+Centro+Sete+Lagoas+-+MG+35700-019&hl=pt-BR&z=18&output=embed"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="w-full h-[420px] md:h-[520px] border-0 pointer-events-none"
+        />
+        <div className="absolute inset-0 bg-wine-deep/0 group-hover:bg-wine-deep/10 transition-colors duration-500" />
+        <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-card/95 backdrop-blur-sm border border-border rounded-full px-5 py-3">
+          <div className="flex items-center gap-3">
+            <MapPin className="w-4 h-4 text-wine" strokeWidth={1.6} />
+            <span className="text-xs text-foreground/85 font-light">Rua Cândido Azeredo, 41A — Centro</span>
+          </div>
+          <span className="text-[10px] tracking-[0.25em] uppercase text-wine font-medium hidden sm:inline-flex items-center gap-1">
+            Abrir <ArrowRight className="w-3 h-3" />
+          </span>
         </div>
-        <h3 className="font-serif italic text-3xl md:text-4xl text-wine mb-4 mt-4">Agende seu exame</h3>
-        <p className="text-foreground/75 font-light leading-relaxed mb-10">
-          Atendimento humanizado, equipamento de ponta e laudo no mesmo dia.
-          Reserve seu horário diretamente pelo WhatsApp.
-        </p>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full text-center bg-wine text-wine-foreground px-8 py-5 rounded-full text-sm tracking-[0.25em] uppercase font-bold hover:bg-wine-deep transition-all duration-500"
-        >
-          Falar no WhatsApp
-        </a>
-        <p className="text-center text-xs text-muted-foreground mt-6 tracking-wide">
-          Resposta em até 1h em horário comercial
-        </p>
-      </div>
+      </a>
     </div>
   </section>
 );
@@ -631,7 +647,7 @@ const IndexV2 = () => {
       <Quote />
       <About />
       <Exams />
-      <CtaBanner />
+      
       <Team />
       <Convenios />
       <Contact />
