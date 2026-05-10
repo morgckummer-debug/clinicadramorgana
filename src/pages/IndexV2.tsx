@@ -64,42 +64,48 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "bg-background/90 backdrop-blur-xl shadow-soft" : "bg-transparent"
+        scrolled
+          ? "bg-background/75 backdrop-blur-2xl border-b border-border/40"
+          : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between h-20">
+      <div className={`container flex items-center justify-between transition-all duration-500 ${scrolled ? "h-14" : "h-16"}`}>
         <a href="#top" className="flex items-center gap-3">
-          <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-16 md:h-20 w-auto" />
+          <img
+            src={logoClinica}
+            alt="Clínica de Ultrassom Dra. Morgana Kummer"
+            className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12"}`}
+          />
         </a>
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-wine-deep/80 hover:text-wine transition-colors duration-300 relative group"
+              className="text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium"
             >
               {l.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
+              <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
             </a>
           ))}
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-wine text-wine-foreground text-xs tracking-[0.2em] uppercase px-5 py-2.5 rounded-full hover:bg-wine-deep transition-all duration-500"
+            className="inline-flex items-center gap-2 border border-wine-deep/30 text-wine-deep text-[11px] tracking-[0.22em] uppercase px-5 py-2 rounded-full hover:bg-wine-deep hover:text-wine-foreground hover:border-wine-deep transition-all duration-500"
           >
-            Agendar <ArrowRight className="w-3.5 h-3.5" />
+            Agendar <ArrowRight className="w-3 h-3" />
           </a>
         </nav>
-        <button className="md:hidden text-wine" onClick={() => setOpen(!open)} aria-label="Menu">
-          {open ? <X size={24} /> : <Menu size={24} />}
+        <button className="md:hidden text-wine-deep" onClick={() => setOpen(!open)} aria-label="Menu">
+          {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
       {open && (
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-wine-deep text-sm">
+              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
                 {l.label}
               </a>
             ))}
@@ -141,56 +147,59 @@ const Hero = () => (
       >
         <source src="/videos/hero-clinic.mp4?v=3" type="video/mp4" />
       </video>
-      {/* Overlay sutil para legibilidade do texto */}
-      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/80 via-wine-deep/40 to-wine-deep/30" />
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-wine-deep/70 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-wine-deep to-transparent" />
+      {/* Overlay cinematográfico — mais profundo e com vinheta */}
+      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/95 via-wine-deep/70 to-wine-deep/40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-wine-deep/40 via-transparent to-wine-deep" />
+      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 50%, transparent 0%, hsl(311 42% 12% / 0.45) 90%)" }} />
     </div>
 
     {/* Conteúdo */}
     <div className="relative container min-h-[calc(100vh-6rem)] flex items-center">
       <div className="max-w-2xl py-16 md:py-20 animate-fade-up">
-        <div className="inline-flex items-center gap-3 bg-wine/40 backdrop-blur-sm border border-champagne/30 rounded-full px-4 py-2 mb-8">
-          <span className="w-1.5 h-1.5 rounded-full bg-champagne animate-pulse" />
-          <span className="text-[11px] tracking-[0.3em] uppercase text-champagne">Sete Lagoas · MG</span>
+        <div className="inline-flex items-center gap-3 mb-10">
+          <span className="w-8 h-px bg-champagne" />
+          <span className="text-[10px] tracking-[0.45em] uppercase text-champagne font-medium">Sete Lagoas · Minas Gerais</span>
         </div>
 
-        <p className="text-champagne text-[12px] md:text-[13px] tracking-[0.45em] uppercase font-medium mb-5">
+        <p className="text-wine-foreground/70 text-[11px] tracking-[0.5em] uppercase mb-6 font-medium">
           Clínica de Ultrassom
         </p>
 
-        <h1 className="text-wine-foreground text-[clamp(1.5rem,7vw,4rem)] leading-[1.05] font-bold drop-shadow-lg whitespace-nowrap">
-          Dra. Morgana Kummer
+        <h1 className="font-serif text-wine-foreground text-[clamp(2.6rem,7.5vw,5.5rem)] leading-[1.02] font-light">
+          Dra. Morgana<br />
+          <span className="italic text-champagne">Kummer</span>
         </h1>
 
-        <div className="mt-8 w-16 h-px bg-champagne" />
+        <div className="mt-10 w-12 h-px bg-champagne/70" />
 
-        <p className="mt-8 text-wine-foreground/90 font-serif italic text-2xl md:text-3xl leading-snug max-w-lg">
-          Para momentos importantes, cuidados únicos.
+        <p className="mt-8 text-wine-foreground/85 text-lg md:text-xl leading-relaxed max-w-xl font-light">
+          Diagnóstico por imagem em ultrassonografia obstétrica, fetal e vascular —
+          com a precisão técnica de equipamentos de última geração e a sensibilidade
+          que cada momento exige.
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-12 flex flex-wrap gap-4 items-center">
           <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-7 py-4 rounded-full text-sm tracking-[0.2em] uppercase font-medium hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
+            className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
           >
             <MessageCircle className="w-4 h-4" /> Agendar pelo WhatsApp
           </a>
           <a
             href="#exames"
-            className="inline-flex items-center gap-2 text-wine-foreground px-2 py-4 text-sm tracking-[0.2em] uppercase font-medium border-b border-champagne/60 hover:gap-3 hover:text-champagne transition-all duration-500"
+            className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
           >
-            Ver exames <ArrowRight className="w-4 h-4" />
+            Conheça os exames <ArrowRight className="w-4 h-4" />
           </a>
         </div>
 
-        {/* Mini selos */}
-        <div className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs text-wine-foreground/70 tracking-wide">
-          <span className="flex items-center gap-2"><Award className="w-4 h-4 text-champagne" /> Laudos no mesmo dia</span>
-          <span className="flex items-center gap-2"><HeartHandshake className="w-4 h-4 text-champagne" /> Atendimento humanizado</span>
-          <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-champagne" /> Equipamentos de ponta</span>
+        {/* Selos de credibilidade */}
+        <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
+          <span className="flex items-center gap-2"><Award className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Laudos no mesmo dia</span>
+          <span className="flex items-center gap-2"><HeartHandshake className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Atendimento humanizado</span>
+          <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Equipamentos GE de última geração</span>
         </div>
       </div>
     </div>
@@ -199,18 +208,18 @@ const Hero = () => (
 
 /* ---------------- Faixa de citação ---------------- */
 const Quote = () => (
-  <section className="bg-wine-deep text-wine-foreground py-20 md:py-28 relative overflow-hidden">
+  <section className="bg-wine-deep text-wine-foreground py-24 md:py-32 relative overflow-hidden">
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
-    <div className="container max-w-4xl text-center relative">
-      <div className="text-champagne text-6xl font-serif leading-none mb-4 select-none">"</div>
-      <p className="font-serif italic text-2xl md:text-4xl leading-snug text-balance">
+    <div className="container max-w-3xl text-center relative">
+      <span className="text-champagne/80 text-[10px] tracking-[0.5em] uppercase">Filosofia</span>
+      <p className="mt-8 font-serif italic text-3xl md:text-[2.6rem] leading-[1.25] text-balance font-light">
         Transformar o cuidado e a tecnologia em momentos inesquecíveis sempre
-        foi o meu <span className="text-champagne">maior sonho.</span>
+        foi o meu <span className="text-champagne not-italic font-normal">maior sonho</span>.
       </p>
-      <div className="mt-10 inline-flex items-center gap-4">
-        <div className="w-10 h-px bg-champagne" />
-        <span className="text-xs tracking-[0.35em] uppercase text-champagne/90">Dra. Morgana Kummer</span>
-        <div className="w-10 h-px bg-champagne" />
+      <div className="mt-12 inline-flex items-center gap-4">
+        <div className="w-8 h-px bg-champagne/60" />
+        <span className="text-[10px] tracking-[0.4em] uppercase text-champagne/90 font-medium">Dra. Morgana Kummer</span>
+        <div className="w-8 h-px bg-champagne/60" />
       </div>
     </div>
   </section>
@@ -218,46 +227,45 @@ const Quote = () => (
 
 /* ---------------- Sobre ---------------- */
 const About = () => (
-  <section id="sobre" className="py-28 md:py-36 bg-background relative overflow-hidden">
-    <div className="container grid md:grid-cols-2 gap-16 md:gap-24 items-center">
-      <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1">
-        <div className="absolute -inset-4 border border-champagne/40 rounded-2xl -translate-x-4 -translate-y-4" />
+  <section id="sobre" className="py-32 md:py-40 bg-background relative overflow-hidden">
+    <div className="container grid md:grid-cols-12 gap-12 md:gap-20 items-center">
+      <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1 md:col-span-5">
+        <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
         <img
           src={draHeroV2}
           alt="Dra. Morgana em seu consultório"
           width={520}
           height={650}
           loading="lazy"
-          className="relative rounded-2xl shadow-deep w-full object-cover"
+          className="relative rounded-sm shadow-elegant w-full object-cover"
         />
-        <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-5 shadow-elegant max-w-[200px]">
-          <div className="font-serif italic text-3xl text-wine-deep">+50 mil</div>
-          <div className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground mt-1">
+        <div className="absolute -bottom-8 -right-4 md:-right-10 bg-background border border-border/70 px-6 py-5 max-w-[210px]">
+          <div className="font-serif italic text-3xl text-wine-deep leading-none">+50 mil</div>
+          <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-2">
             pacientes atendidos
           </div>
         </div>
       </div>
 
-      <div className="order-1 md:order-2">
-        <span className="text-wine-deep text-[11px] tracking-[0.4em] uppercase">Sobre a Doutora</span>
-        <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
-          Tecnologia que <span className="font-serif italic font-light">acolhe</span>.
+      <div className="order-1 md:order-2 md:col-span-7 md:pl-8">
+        <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">Sobre a Doutora</span>
+        <h2 className="mt-6 text-wine-deep text-5xl md:text-6xl text-balance font-light">
+          Tecnologia que <span className="italic">acolhe</span>.
         </h2>
-        <div className="mt-6 w-12 h-px bg-champagne" />
-        <p className="mt-8 text-foreground/80 leading-relaxed text-lg font-light max-w-lg">
-          Hoje realizo o propósito de oferecer um atendimento acolhedor e de
-          excelência, sendo referência em ultrassonografia em Sete Lagoas — em
-          um espaço pensado para que cada paciente se sinta cuidada de verdade.
+        <div className="mt-8 w-12 h-px bg-champagne" />
+        <p className="mt-10 text-foreground/85 leading-[1.8] text-lg font-light max-w-xl">
+          Referência em ultrassonografia em Sete Lagoas, oferecemos diagnóstico
+          por imagem com rigor técnico, equipamentos GE de última geração e
+          atendimento profundamente humano — em um espaço pensado para que
+          cada paciente se sinta cuidada de verdade.
         </p>
 
-        <p className="mt-8 text-foreground/75 leading-relaxed text-base font-light max-w-lg">
-          Desde <span className="text-wine-deep font-medium">2017</span> em{" "}
-          <span className="text-wine-deep font-medium">Sete Lagoas</span>, já
-          tivemos a alegria de cuidar de{" "}
-          <span className="text-wine-deep font-medium">mais de 50 mil pacientes</span>
-          {" "}— homens, mulheres e suas famílias — recebendo cada um com escuta
-          atenta, carinho e o mesmo cuidado que gostaríamos para os nossos. Aqui,
-          você não é só mais um exame: é alguém querido, em um momento que importa.
+        <p className="mt-6 text-foreground/70 leading-[1.8] text-base font-light max-w-xl">
+          Desde <span className="text-wine-deep">2017</span>, já tivemos a
+          alegria de cuidar de{" "}
+          <span className="text-wine-deep">mais de 50 mil pacientes</span> —
+          homens, mulheres e suas famílias — recebendo cada um com escuta atenta
+          e o mesmo cuidado que gostaríamos para os nossos.
         </p>
       </div>
     </div>

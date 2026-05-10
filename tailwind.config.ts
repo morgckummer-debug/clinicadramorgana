@@ -12,8 +12,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Comfortaa', 'system-ui', 'sans-serif'],
+        sans: ['Jost', 'system-ui', 'sans-serif'],
         serif: ['"Cormorant Garamond"', 'serif'],
+        display: ['"Cormorant Garamond"', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
