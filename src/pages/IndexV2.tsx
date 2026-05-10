@@ -643,7 +643,7 @@ const IndexV2 = () => {
       <Quote />
       <About />
       <Exams />
-      <CtaBanner />
+      
       <Team />
       <Convenios />
       <Contact />
