@@ -208,18 +208,30 @@ const Hero = () => (
 
 /* ---------------- Faixa de citação ---------------- */
 const Quote = () => (
-  <section className="bg-wine-deep text-wine-foreground py-24 md:py-32 relative overflow-hidden">
+  <section className="bg-wine-deep text-wine-foreground py-20 md:py-28 relative overflow-hidden">
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
-    <div className="container max-w-3xl text-center relative">
-      <span className="text-champagne/80 text-[10px] tracking-[0.5em] uppercase">Filosofia</span>
-      <p className="mt-8 font-serif italic text-3xl md:text-[2.6rem] leading-[1.25] text-balance font-light">
-        Transformar o cuidado e a tecnologia em momentos inesquecíveis sempre
-        foi o meu <span className="text-champagne not-italic font-normal">maior sonho</span>.
-      </p>
-      <div className="mt-12 inline-flex items-center gap-4">
-        <div className="w-8 h-px bg-champagne/60" />
-        <span className="text-[10px] tracking-[0.4em] uppercase text-champagne/90 font-medium">Dra. Morgana Kummer</span>
-        <div className="w-8 h-px bg-champagne/60" />
+    <div className="container grid md:grid-cols-12 gap-10 md:gap-16 items-center relative">
+      <div className="md:col-span-5 flex justify-center md:justify-start">
+        <div className="relative max-w-sm w-full">
+          <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
+          <img
+            src={draHeroV2}
+            alt="Dra. Morgana Kummer"
+            loading="lazy"
+            className="relative rounded-sm shadow-elegant w-full object-cover aspect-[4/5]"
+          />
+        </div>
+      </div>
+      <div className="md:col-span-7">
+        <span className="text-champagne/80 text-[10px] tracking-[0.5em] uppercase">Filosofia</span>
+        <p className="mt-6 font-serif italic text-2xl md:text-[2.4rem] leading-[1.3] text-balance font-light">
+          Transformar o cuidado e a tecnologia em momentos inesquecíveis sempre
+          foi o meu <span className="text-champagne not-italic font-normal">maior sonho</span>.
+        </p>
+        <div className="mt-10 inline-flex items-center gap-4">
+          <div className="w-8 h-px bg-champagne/60" />
+          <span className="text-[10px] tracking-[0.4em] uppercase text-champagne/90 font-medium">Dra. Morgana Kummer</span>
+        </div>
       </div>
     </div>
   </section>
