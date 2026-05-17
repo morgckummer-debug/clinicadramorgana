@@ -174,8 +174,7 @@ const Hero = () => (
 
         <p className="mt-8 text-wine-foreground/85 text-lg md:text-xl leading-relaxed max-w-xl font-light">
           Diagnóstico por imagem em ultrassonografia obstétrica, fetal e vascular —
-          com a precisão técnica de equipamentos de última geração e a sensibilidade
-          que cada momento exige.
+          com precisão técnica e a sensibilidade que cada momento exige.
         </p>
 
         <div className="mt-12 flex flex-wrap gap-4 items-center">
