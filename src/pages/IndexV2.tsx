@@ -174,8 +174,7 @@ const Hero = () => (
 
         <p className="mt-8 text-wine-foreground/85 text-lg md:text-xl leading-relaxed max-w-xl font-light">
           Diagnóstico por imagem em ultrassonografia obstétrica, fetal e vascular —
-          com a precisão técnica de equipamentos de última geração e a sensibilidade
-          que cada momento exige.
+          com precisão técnica e a sensibilidade que cada momento exige.
         </p>
 
         <div className="mt-12 flex flex-wrap gap-4 items-center">
@@ -199,7 +198,7 @@ const Hero = () => (
         <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
           <span className="flex items-center gap-2"><Award className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Laudos no mesmo dia</span>
           <span className="flex items-center gap-2"><HeartHandshake className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Atendimento humanizado</span>
-          <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Equipamentos GE de última geração</span>
+          <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Equipamentos de última geração</span>
         </div>
       </div>
     </div>
@@ -260,16 +259,15 @@ const About = () => (
       </div>
 
       <div className="order-1 md:order-2 md:col-span-7 md:pl-8">
-        <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">Sobre a Doutora</span>
+        <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">Sobre a Clínica</span>
         <h2 className="mt-6 text-wine-deep text-5xl md:text-6xl text-balance font-light">
           Tecnologia que <span className="italic">acolhe</span>.
         </h2>
         <div className="mt-8 w-12 h-px bg-champagne" />
         <p className="mt-10 text-foreground/85 leading-[1.8] text-lg font-light max-w-xl">
           Referência em ultrassonografia em Sete Lagoas, oferecemos diagnóstico
-          por imagem com rigor técnico, equipamentos GE de última geração e
-          atendimento profundamente humano — em um espaço pensado para que
-          cada paciente se sinta cuidada de verdade.
+          por imagem com rigor técnico e atendimento profundamente humano — em
+          um espaço pensado para que cada paciente se sinta cuidada de verdade.
         </p>
 
         <p className="mt-6 text-foreground/70 leading-[1.8] text-base font-light max-w-xl">
@@ -644,7 +642,6 @@ const IndexV2 = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
       <Hero />
-      <Quote />
       <About />
       <Exams />
       
