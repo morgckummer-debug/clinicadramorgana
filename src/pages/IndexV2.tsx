@@ -644,7 +644,6 @@ const IndexV2 = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
       <Hero />
-      <Quote />
       <About />
       <Exams />
       
