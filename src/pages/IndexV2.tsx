@@ -259,16 +259,15 @@ const About = () => (
       </div>
 
       <div className="order-1 md:order-2 md:col-span-7 md:pl-8">
-        <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">Sobre a Doutora</span>
+        <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">Sobre a Clínica</span>
         <h2 className="mt-6 text-wine-deep text-5xl md:text-6xl text-balance font-light">
           Tecnologia que <span className="italic">acolhe</span>.
         </h2>
         <div className="mt-8 w-12 h-px bg-champagne" />
         <p className="mt-10 text-foreground/85 leading-[1.8] text-lg font-light max-w-xl">
           Referência em ultrassonografia em Sete Lagoas, oferecemos diagnóstico
-          por imagem com rigor técnico, equipamentos GE de última geração e
-          atendimento profundamente humano — em um espaço pensado para que
-          cada paciente se sinta cuidada de verdade.
+          por imagem com rigor técnico e atendimento profundamente humano — em
+          um espaço pensado para que cada paciente se sinta cuidada de verdade.
         </p>
 
         <p className="mt-6 text-foreground/70 leading-[1.8] text-base font-light max-w-xl">
