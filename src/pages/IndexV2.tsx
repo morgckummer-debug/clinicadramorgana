@@ -81,14 +81,14 @@ export const Navbar = () => {
         </Link>
         <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={`/${l.href}`}
               className="text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium"
             >
               {l.label}
               <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
-            </a>
+            </Link>
           ))}
           <a
             href={WHATSAPP_URL}
