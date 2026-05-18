@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight, Stethoscope } from "lucide-react";
+import { categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
 import logoClinica from "@/assets/logo-clinica.png";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.png";
 import draCutout from "@/assets/dra-morgana-cutout.png";
-import thumbObstetrico from "@/assets/exams/obstetrico.webp";
-import thumbGinecologico from "@/assets/exams/ginecologico.webp";
-import thumbDoppler from "@/assets/exams/doppler.webp";
-import thumbGeral from "@/assets/exams/geral.webp";
-import thumbPediatrico from "@/assets/exams/pediatrico.webp";
-import thumbTireoide from "@/assets/exams/tireoide.webp";
 import teamMorgana from "@/assets/team/morgana.png";
 import teamBarbara from "@/assets/team/barbara.png";
 import teamDarlei from "@/assets/team/darlei.png";
@@ -51,7 +47,7 @@ const navLinks = [
   { href: "#contato", label: "Contato" },
 ];
 
-const Navbar = () => {
+export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -70,23 +66,23 @@ const Navbar = () => {
       }`}
     >
       <div className={`container flex items-center justify-between transition-all duration-500 ${scrolled ? "h-14" : "h-16"}`}>
-        <a href="#top" className="flex items-center gap-3">
+        <Link to="/#top" className="flex items-center gap-3">
           <img
             src={logoClinica}
             alt="Clínica de Ultrassom Dra. Morgana Kummer"
             className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12"}`}
           />
-        </a>
+        </Link>
         <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((l) => (
-            <a
+            <Link
               key={l.href}
-              href={l.href}
+              to={`/${l.href}`}
               className="text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium"
             >
               {l.label}
               <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
-            </a>
+            </Link>
           ))}
           <a
             href={WHATSAPP_URL}
@@ -105,9 +101,9 @@ const Navbar = () => {
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
+              <Link key={l.href} to={`/${l.href}`} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
@@ -283,56 +279,6 @@ const About = () => (
 );
 
 /* ---------------- Exames com thumbnails ---------------- */
-const exams = [
-  {
-    img: thumbObstetrico,
-    title: "Obstétrico",
-    desc: "Acompanhamento gestacional completo, do primeiro ao último trimestre.",
-    items: [
-      "Obstétrico Simples",
-      "1º Trimestre (TV)",
-      "Obstétrico com TN",
-      "Obstétrico com Doppler",
-      "Morfológico do 1º Trimestre",
-      "Morfológico do 2º Trimestre",
-      "Morfológico do 3º Trimestre",
-      "Obstétrico 3D/4D",
-      "Perfil Biofísico Fetal (PBF)",
-      "Ecocardiograma Fetal",
-    ],
-  },
-  {
-    img: thumbGinecologico,
-    title: "Ginecológico",
-    desc: "Saúde da mulher avaliada com sensibilidade e precisão.",
-    items: ["Transvaginal", "Transvaginal 3D", "Doppler", "Rastreamento de Ovulação", "Endometriose Profunda", "Períneo (Novo)"],
-  },
-  {
-    img: thumbTireoide,
-    title: "Tireoide & Cervical",
-    desc: "Avaliação minuciosa da tireoide e estruturas do pescoço.",
-    items: ["Tireoide", "Vasos Cervicais", "Partes Moles"],
-  },
-  {
-    img: thumbDoppler,
-    title: "Doppler Vascular",
-    desc: "Avaliação detalhada do fluxo sanguíneo em vasos e órgãos.",
-    items: ["Vasos Cervicais", "Membros Inferiores", "Artérias Renais"],
-  },
-  {
-    img: thumbGeral,
-    title: "Medicina Interna",
-    desc: "Ultrassonografias gerais para diagnóstico amplo e preciso.",
-    items: ["Abdome Total", "Abdome Superior", "Rins e Vias Urinárias", "Pélvico Masculino", "Partes Moles"],
-  },
-  {
-    img: thumbPediatrico,
-    title: "Pediátrico",
-    desc: "Atenção dedicada e cuidadosa para os pequenos pacientes.",
-    items: ["Pélvico Infantil", "Quadril Pediátrico", "Abdome Infantil"],
-  },
-];
-
 const Exams = () => (
   <section id="exames" className="py-28 md:py-36 bg-gradient-rose relative">
     <div className="container">
@@ -350,35 +296,47 @@ const Exams = () => (
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-        {exams.map((ex) => (
-          <article
-            key={ex.title}
-            className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
-          >
-            <div className="relative aspect-square w-1/2 mx-auto mt-6 overflow-hidden rounded-xl bg-rose">
-              <img
-                src={ex.img}
-                alt={ex.title}
-                width={768}
-                height={768}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
-              />
-            </div>
-            <div className="p-6 flex-1 flex flex-col">
-              <h3 className="text-xl font-bold text-wine-deep">{ex.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">{ex.desc}</p>
-              <ul className="mt-4 space-y-1.5">
-                {ex.items.map((it) => (
-                  <li key={it} className="text-xs text-foreground/80 flex items-center gap-2 font-light">
-                    <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        ))}
+        {categories.map((cat) => {
+          const items = getExamsByCategory(cat);
+          return (
+            <article
+              key={cat}
+              className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
+            >
+              <div className="relative aspect-square w-1/2 mx-auto mt-6 overflow-hidden rounded-xl bg-rose">
+                <img
+                  src={categoryThumbs[cat]}
+                  alt={cat}
+                  width={768}
+                  height={768}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-wine-deep">{cat}</h3>
+                <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">
+                  {categoryDescriptions[cat]}
+                </p>
+                <ul className="mt-4 space-y-1.5">
+                  {items.map((ex) => (
+                    <li key={ex.slug}>
+                      <Link
+                        to={`/exames/${ex.slug}`}
+                        className="text-xs text-foreground/80 hover:text-wine-deep flex items-center gap-2 font-light transition-colors group/item"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
+                        <span className="group-hover/item:underline underline-offset-4 decoration-champagne">
+                          {ex.title}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -609,7 +567,7 @@ const Contact = () => (
 );
 
 /* ---------------- Footer ---------------- */
-const Footer = () => (
+export const Footer = () => (
   <footer className="bg-wine-deep py-14 border-t border-champagne/15">
     <div className="container flex flex-col md:flex-row items-center justify-between gap-6">
       <img src={logoWhite} alt="Logo Dra. Morgana Kummer" className="h-16 w-auto opacity-90" />
@@ -621,7 +579,7 @@ const Footer = () => (
   </footer>
 );
 
-const WhatsAppFab = () => (
+export const WhatsAppFab = () => (
   <a
     href={WHATSAPP_URL}
     target="_blank"
