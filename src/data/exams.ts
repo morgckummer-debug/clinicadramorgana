@@ -15,6 +15,20 @@ import tnHero from "@/assets/exams/translucencia-nucal/hero.jpg";
 // ---------- Doppler ----------
 import dopplerHero from "@/assets/exams/doppler/hero.jpg";
 
+// ---------- Morfológico 1º Trimestre ----------
+import morfo1Hero from "@/assets/exams/morfo-1-trimestre/hero.jpg";
+import morfo1Nuca from "@/assets/exams/morfo-1-trimestre/nuca.jpg";
+import morfo1Rins from "@/assets/exams/morfo-1-trimestre/rins.jpg";
+import morfo1Diafragma from "@/assets/exams/morfo-1-trimestre/diafragma.jpg";
+import morfo1Cerebro from "@/assets/exams/morfo-1-trimestre/cerebro.jpg";
+import morfo1Maos from "@/assets/exams/morfo-1-trimestre/maos.jpg";
+import morfo1Estomago from "@/assets/exams/morfo-1-trimestre/estomago.jpg";
+import morfo1Femur from "@/assets/exams/morfo-1-trimestre/femur.jpg";
+import morfo1Tricuspide from "@/assets/exams/morfo-1-trimestre/tricuspide.jpg";
+import morfo1DuctoVenoso from "@/assets/exams/morfo-1-trimestre/ducto-venoso.jpg";
+import morfo1Coluna from "@/assets/exams/morfo-1-trimestre/coluna.jpg";
+import morfo1Engolindo from "@/assets/exams/morfo-1-trimestre/engolindo.jpg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
@@ -305,17 +319,122 @@ export const exams: Exam[] = [
     title: "Morfológico do 1º Trimestre",
     thumb: thumbObstetrico,
     shortDesc:
-      "Avaliação detalhada da anatomia fetal entre 11 e 13 semanas.",
-    longDesc:
-      "Exame minucioso da anatomia fetal já no primeiro trimestre, com avaliação de marcadores cromossômicos e detecção precoce de malformações.",
-    indications: [
-      "Rastreamento precoce de malformações",
-      "Avaliação de marcadores cromossômicos",
-      "Gestações de alto risco",
+      "Avaliação detalhada da anatomia fetal entre 12 e 13 semanas e 6 dias.",
+    hero: {
+      tagline: "O início de um acompanhamento essencial.",
+      intro:
+        "Exames morfológicos são exames mais detalhados, pois estudamos a morfologia (forma e tamanho) dos órgãos — avaliando se cada estrutura está com a forma adequada e com o tamanho dentro do esperado para a idade gestacional.",
+      image: morfo1Hero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Por que ele é tão importante?",
+        body:
+          "O ultrassom morfológico do 1º trimestre é essencial para avaliar o desenvolvimento inicial do bebê, identificando possíveis malformações e calculando o risco de o bebê ter alguma síndrome, através da medida da translucência nucal e de outros marcadores (osso nasal, regurgitação da válvula tricúspide, ducto venoso etc). Ele também permite o rastreamento precoce da pré-eclâmpsia. Esse exame não faz diagnóstico de síndromes, apenas avalia se o bebê tem risco maior de tê-las.",
+      },
+      {
+        kind: "paragraph",
+        title: "Quando ele deve ser feito?",
+        body:
+          "O ultrassom morfológico do 1º trimestre deve ser feito quando o bebê tem entre 12 e 13 semanas e 6 dias, ou entre 4,5 e 8,4 cm da cabeça ao bumbum (comprimento cabeça-nádegas — CCN).",
+      },
+      {
+        kind: "paragraph",
+        title: "E se houver algum problema com o meu bebê?",
+        body:
+          "Caso existam indícios que levem o médico a suspeitar que o bebê tenha risco aumentado de ter alguma síndrome ou malformações complexas, pode ser indicada uma consulta com a Medicina Fetal, que orientará quais exames complementares devem ser feitos, se for do desejo dos pais. É importante lembrar que outras condições fetais podem levar ao aumento da nuca: anemia, infecções, problemas metabólicos, doenças cardíacas ou simplesmente um período de adaptação do feto, que logo volta ao normal. Nuca aumentada não é sinônimo de síndrome.",
+      },
     ],
-    preparation: SEM_PREPARO,
-    duration: "45 minutos",
-    whatToBring: ["Pedido médico", "Exames anteriores"],
+    gallery: [
+      {
+        image: morfo1Nuca,
+        caption:
+          "A famosa medida da \"nuca\". Um marcador de síndromes e malformação cardíaca.",
+        alt: "Ultrassom mostrando a medida da translucência nucal",
+      },
+      {
+        image: morfo1Rins,
+        caption:
+          "Os rins são vistos como duas imagens arredondadas e mais claras, ao lado da coluna.",
+        alt: "Rins fetais vistos no ultrassom",
+      },
+      {
+        image: morfo1Diafragma,
+        caption:
+          "O diafragma é o músculo que controla a respiração e já pode ser visto.",
+        alt: "Diafragma fetal visto no ultrassom",
+      },
+      {
+        image: morfo1Cerebro,
+        caption:
+          "Estruturas dentro da cabecinha do bebê que são os precursores da formação completa do cérebro.",
+        alt: "Estruturas cerebrais fetais no ultrassom",
+      },
+      {
+        image: morfo1Maos,
+        caption:
+          "Muitas vezes já conseguimos contar o número de dedos nas mãos.",
+        alt: "Mãozinha do bebê com dedos visíveis no ultrassom",
+      },
+      {
+        image: morfo1Estomago,
+        caption:
+          "A barriguinha do bebê, vista num corte transversal, onde já podemos ver o estômago.",
+        alt: "Estômago fetal visto no ultrassom",
+      },
+      {
+        image: morfo1Femur,
+        caption:
+          "Avaliamos a posição dos pés e medimos o fêmur, osso da coxa.",
+        alt: "Medida do fêmur fetal no ultrassom",
+      },
+      {
+        image: morfo1Tricuspide,
+        caption:
+          "Avaliação da válvula Tricúspide. Um marcador de síndromes e malformação cardíaca.",
+        alt: "Avaliação da válvula tricúspide no ultrassom",
+      },
+      {
+        image: morfo1DuctoVenoso,
+        caption:
+          "Avaliação do Ducto Venoso. Um marcador de síndromes e malformação cardíaca.",
+        alt: "Avaliação do ducto venoso no ultrassom",
+      },
+      {
+        image: morfo1Coluna,
+        caption:
+          "A coluna vertebral deve ser avaliada desde o pescoço até o seu final.",
+        alt: "Coluna vertebral fetal vista no ultrassom",
+      },
+      {
+        image: morfo1Engolindo,
+        caption: "Bebê engolindo líquido durante o exame.",
+        alt: "Bebê engolindo líquido amniótico durante o exame",
+      },
+    ],
+    faq: [
+      {
+        q: "Ele é a mesma coisa que o ultrassom obstétrico com TN?",
+        a: "Apesar de ambos medirem a nuca e fazerem o cálculo de risco de síndromes, não são o mesmo exame. O obstétrico com Translucência Nucal é um exame básico, mais simples. O morfológico é muito mais completo.",
+      },
+      {
+        q: "Precisa de preparo para fazer o exame?",
+        a: "Não é preciso jejum ou bexiga cheia.",
+      },
+      {
+        q: "É seguro para o bebê?",
+        a: "Sim! O ultrassom não utiliza raio-X.",
+      },
+      {
+        q: "Preciso de um pedido médico para realizar o exame?",
+        a: "Sim, o ultrassom morfológico geralmente é solicitado pelo obstetra, que orientará sobre o momento ideal para realizá-lo.",
+      },
+      {
+        q: "Quanto tempo dura o ultrassom morfológico do 1º trimestre?",
+        a: "Não existe um tempo determinado, pois o médico depende inteiramente da posição do bebê e da necessidade de avaliações adicionais. Vá com tempo e não agende compromissos logo depois.",
+      },
+    ],
   },
   {
     slug: "morfologico-2-trimestre",
