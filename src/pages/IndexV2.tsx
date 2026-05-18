@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight, Stethoscope } from "lucide-react";
-import { categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
+import { canonicalPathFor, categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
 import logoClinica from "@/assets/logo-clinica.png";
@@ -295,7 +295,7 @@ const Exams = () => (
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {categories.map((cat) => {
           const items = getExamsByCategory(cat);
           return (
@@ -322,7 +322,7 @@ const Exams = () => (
                   {items.map((ex) => (
                     <li key={ex.slug}>
                       <Link
-                        to={`/exames/${ex.slug}`}
+                        to={canonicalPathFor(ex)}
                         className="text-xs text-foreground/80 hover:text-wine-deep flex items-center gap-2 font-light transition-colors group/item"
                       >
                         <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
