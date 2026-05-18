@@ -519,6 +519,11 @@ export const exams: Exam[] = [
         caption:
           "Perfil facial. Avaliamos a presença e medida do osso nasal e algumas estruturas cerebrais.",
         alt: "Perfil facial fetal com 22 semanas no ultrassom",
+      {
+        image: morfo2Perfil,
+        video: morfo2ExibindoVideo,
+        caption: "Bebê se exibindo 🙂",
+        alt: "Vídeo do bebê se movimentando durante o exame",
       },
     ],
     faq: [
