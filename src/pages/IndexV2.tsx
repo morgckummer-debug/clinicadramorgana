@@ -53,7 +53,7 @@ const navLinks = [
   { href: "#contato", label: "Contato" },
 ];
 
-const Navbar = () => {
+export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
