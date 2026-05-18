@@ -89,20 +89,90 @@ export const exams: Exam[] = [
     slug: "ultrassom-primeiro-trimestre-tv",
     legacySlug: "/primeiro-trimestre",
     category: "Obstétrico",
-    title: "Obstétrico de 1º Trimestre (Transvaginal)",
+    title: "Obstétrico do 1º Trimestre",
     thumb: thumbObstetrico,
     shortDesc:
       "Confirmação precoce da gravidez e datação gestacional precisa.",
-    longDesc:
-      "Realizado por via transvaginal nas primeiras semanas, confirma a gravidez, localiza o saco gestacional, avalia a vitalidade embrionária e estima com precisão a idade gestacional.",
-    indications: [
-      "Confirmação inicial da gestação",
-      "Datação precisa da idade gestacional",
-      "Avaliação de vitalidade e número de embriões",
+    hero: {
+      tagline: "O início de tudo.",
+      intro:
+        "O ultrassom do primeiro trimestre é um dos exames mais importantes da gestação. Ele fornece informações essenciais sobre o desenvolvimento inicial do bebê e ajuda a garantir que tudo está indo bem nos primeiros meses da gravidez.",
+      image: primeiroTriHero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Quando ele deve ser realizado?",
+        body:
+          "Esse exame é indicado para gestantes entre 7 e 10 semanas, contadas a partir do primeiro dia da última menstruação (DUM) ou quando o beta-hCG está acima de 3.000 mUI/mL. É geralmente o primeiro ultrassom da gestação, realizado após o teste positivo de gravidez.",
+      },
+      {
+        kind: "list",
+        title: "O que é avaliado?",
+        items: [
+          "Se a gestação está localizada dentro do útero (descartando gravidez ectópica).",
+          "Presença do saco gestacional e da vesícula vitelínica.",
+          "Presença do embrião com batimentos cardíacos.",
+          "Número de embriões (gravidez única ou gemelar).",
+          "Idade gestacional mais precisa, através da medida do comprimento cabeça-nádega (CCN).",
+        ],
+      },
+      {
+        kind: "list",
+        title: "Principais complicações",
+        items: [
+          "Gravidez ectópica (fora do útero).",
+          "Gestação anembrionada (sem embrião visível).",
+          "Aborto retido ou em andamento.",
+          "Hematoma subcoriônico (possível causa de sangramentos no início da gravidez).",
+        ],
+        footer:
+          "A detecção precoce de qualquer alteração permite um cuidado mais rápido e direcionado, protegendo a saúde da gestante e do bebê.",
+      },
+      {
+        kind: "paragraph",
+        title: "Por que não fazer antes de 7 semanas?",
+        body:
+          "Antes das 7 semanas de gestação, muitas vezes ainda não é possível visualizar o embrião ou identificar os batimentos cardíacos. Isso pode gerar ansiedade desnecessária e a falsa impressão de que algo está errado, quando na verdade a gestação ainda está muito inicial.",
+      },
+      {
+        kind: "list",
+        title: "Quando fazer antes de 7 semanas?",
+        items: [
+          "Quando a paciente apresenta sangramentos ou dor abdominal.",
+          "Quando há suspeita de gravidez ectópica (fora do útero).",
+          "Em casos de fertilização in vitro ou tratamentos para engravidar.",
+        ],
+        footer:
+          "Nesses casos, o exame precoce é feito para garantir que a gestação está evoluindo bem e que não há riscos à saúde da mãe. Mas, na maioria das vezes, o exame não mostrará o embrião.",
+      },
     ],
-    preparation: "Bexiga vazia. Sem necessidade de jejum.",
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico", "Data da última menstruação"],
+    gallery: [
+      {
+        image: primeiroTriCcn,
+        caption:
+          "Medimos o embrião, de ponta a ponta. Essa medida se chama CCN (comprimento cabeça-nádegas). Através dele podemos ver se a idade gestacional está compatível com a data da última menstruação (DUM).",
+        alt: "Ultrassom mostrando a medida do CCN do embrião",
+      },
+      {
+        image: primeiroTriVesicula,
+        caption:
+          "A Vesícula Vitelínica (VV) é essa estrutura redondinha. Ela é responsável por nutrir e dar oxigênio para o bebê nesse início.",
+        alt: "Vesícula vitelínica vista no ultrassom",
+      },
+      {
+        image: primeiroTriSaco,
+        caption:
+          "O Saco Gestacional é essa área escura, o líquido amniótico, onde o bebê vai passar os nove meses.",
+        alt: "Saco gestacional visto no ultrassom",
+      },
+      {
+        image: primeiroTriBatimentos,
+        caption:
+          "Batimentos cardíacos — momento mais esperado pelas mamães!",
+        alt: "Ultrassom registrando os batimentos cardíacos fetais",
+      },
+    ],
   },
   {
     slug: "obstetrico-translucencia-nucal",
