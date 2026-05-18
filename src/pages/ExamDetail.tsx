@@ -111,9 +111,19 @@ const ExamDetail = () => {
 
   const hero = resolveIntro(exam);
   const sections = resolveSections(exam);
-  const related = getExamsByCategory(exam.category)
-    .filter((e) => e.slug !== exam.slug)
-    .slice(0, 3);
+  const sameCategory = getExamsByCategory(exam.category).filter(
+    (e) => e.slug !== exam.slug,
+  );
+  // Rotação determinística para variar os "exames relacionados" entre páginas
+  // da mesma categoria (ex.: vários obstétricos não mostram sempre os mesmos 3).
+  const rotationOffset = exam.slug
+    .split("")
+    .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const related = sameCategory.length
+    ? Array.from({ length: Math.min(3, sameCategory.length) }, (_, i) =>
+        sameCategory[(rotationOffset + i) % sameCategory.length],
+      )
+    : [];
 
   const whatsappMsg = encodeURIComponent(
     `Olá! Gostaria de agendar o exame: ${exam.title}.`,
