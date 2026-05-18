@@ -183,14 +183,14 @@ const ExamDetail = () => {
             </div>
 
             {hero.image && (
-              <div className="md:col-span-5">
-                <div className="relative">
-                  <div className="absolute -inset-4 rounded-[2rem] bg-champagne/10 blur-2xl" />
+              <div className="md:col-span-4">
+                <div className="relative max-w-xs mx-auto">
+                  <div className="absolute -inset-2 rounded-[2rem] bg-champagne/10 blur-xl" />
                   <img
                     src={hero.image}
                     alt={exam.title}
                     loading="eager"
-                    className="relative w-full rounded-[2rem] shadow-deep object-cover aspect-square md:aspect-auto"
+                    className="relative w-full rounded-[2rem] shadow-deep object-cover aspect-square"
                   />
                 </div>
               </div>

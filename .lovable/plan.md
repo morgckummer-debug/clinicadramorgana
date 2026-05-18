@@ -1,26 +1,20 @@
-## Página a migrar
+## Reduzir tamanho da imagem hero nas páginas de exame
 
-`Obstétrico com Doppler` — conteúdo extraído de https://dramorgana.com.br/obstetrico-com-doppler/
+A imagem do hero (ex.: `/obstetrico-com-translucencia-nucal`) está ocupando muito espaço tanto no desktop quanto no mobile. Vou ajustar apenas o CSS dessa imagem em `src/pages/ExamDetail.tsx`, sem mexer nos arquivos de imagem nem no conteúdo.
 
-## O que vou fazer
+### Mudanças
 
-1. **Gerar imagem hero** em `src/assets/exams/doppler/hero.jpg` (foto/ilustração do ultrassom com Doppler, paleta wine/champagne para combinar com o restante).
-2. **Atualizar `src/data/exams.ts`** substituindo o objeto atual de `obstetrico-doppler` (hoje em formato legado, linhas 236-254) pelo novo formato com `hero` + `sections` + `faq`. Sem `gallery` (a pedido).
-3. **Remover** os campos legados (`longDesc`, `indications`, `preparation`, `duration`, `whatToBring`) deste exame.
+Arquivo: `src/pages/ExamDetail.tsx` — bloco do hero (`hero.image`)
 
-## Estrutura das seções
+1. **Desktop**: reduzir a coluna da imagem de `md:col-span-5` para `md:col-span-4`, e aumentar a coluna do texto de `md:col-span-7` para `md:col-span-8`. Isso já deixa a imagem bem mais compacta no desktop.
+2. **Mobile**: limitar a largura máxima da imagem (`max-w-xs` ≈ 320px) e centralizá-la (`mx-auto`), em vez de ocupar 100% da largura da tela.
+3. Trocar `aspect-square md:aspect-auto` por `aspect-square` fixo, para a imagem ficar sempre quadrada e mais discreta.
+4. Reduzir o "glow" de fundo (`-inset-4` → `-inset-2`, `blur-2xl` → `blur-xl`) para acompanhar o novo tamanho.
 
-- **Hero**: tagline "Avaliação da circulação e bem-estar fetal." + intro com a explicação do "O que é".
-- **paragraph** — "O que é um exame com Doppler?"
-- **list** — "Principais indicações" (CIUR, pré-eclâmpsia, anemia fetal/ACM)
-- **paragraph** — "Quando ele deve ser feito?"
-- **paragraph** — "Por que realizar o exame?"
-- **paragraph** — "Como ele é feito?"
-- **FAQ** — 4 perguntas (obrigatoriedade, preparo, substitui morfológico?, repetir na gravidez?)
+### Resultado esperado
 
-Os 3 exames relacionados continuam sendo gerados automaticamente pela categoria "Obstétrico" no `ExamDetail.tsx` — sem mudanças necessárias ali.
+- No celular: imagem centralizada com no máximo ~320px de largura.
+- No desktop: imagem ocupando 1/3 da largura (em vez de quase metade), com o texto mais protagonista.
+- Vale para **todas** as páginas de exame que usam hero com imagem (Translucência Nucal, Doppler, e futuras).
 
-## Arquivos afetados
-
-- `src/assets/exams/doppler/hero.jpg` (novo)
-- `src/data/exams.ts` (import + objeto do exame)
+Sem alteração em dados, imagens ou outras seções.
