@@ -27,7 +27,8 @@ import morfo1Femur from "@/assets/exams/morfo-1-trimestre/femur.jpg";
 import morfo1Tricuspide from "@/assets/exams/morfo-1-trimestre/tricuspide.jpg";
 import morfo1DuctoVenoso from "@/assets/exams/morfo-1-trimestre/ducto-venoso.jpg";
 import morfo1Coluna from "@/assets/exams/morfo-1-trimestre/coluna.jpg";
-import morfo1Engolindo from "@/assets/exams/morfo-1-trimestre/engolindo.jpg";
+import morfo1Engolindo from "@/assets/exams/morfo-1-trimestre/hero.jpg";
+import morfo1EngolindoVideo from "@/assets/exams/morfo-1-trimestre/engolindo.mp4";
 
 export type ExamCategory =
   | "Obstétrico"
@@ -47,6 +48,7 @@ export interface ExamGalleryItem {
   image: string;
   caption: string;
   alt?: string;
+  video?: string;
 }
 
 export interface ExamFaq {
