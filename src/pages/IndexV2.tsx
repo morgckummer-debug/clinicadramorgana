@@ -322,7 +322,7 @@ const Exams = () => (
                   {items.map((ex) => (
                     <li key={ex.slug}>
                       <Link
-                        to={`/exames/${ex.slug}`}
+                        to={canonicalPathFor(ex)}
                         className="text-xs text-foreground/80 hover:text-wine-deep flex items-center gap-2 font-light transition-colors group/item"
                       >
                         <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
