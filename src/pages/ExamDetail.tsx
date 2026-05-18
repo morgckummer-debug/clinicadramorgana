@@ -231,12 +231,24 @@ const ExamDetail = () => {
                   className="bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 flex flex-col"
                 >
                   <div className="aspect-square overflow-hidden bg-rose/40">
-                    <img
-                      src={item.image}
-                      alt={item.alt ?? item.caption}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
+                    {item.video ? (
+                      <video
+                        src={item.video}
+                        poster={item.image}
+                        controls
+                        playsInline
+                        muted
+                        loop
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={item.image}
+                        alt={item.alt ?? item.caption}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                   </div>
                   <figcaption className="p-6 text-sm text-foreground/75 font-light leading-relaxed">
                     {item.caption}
