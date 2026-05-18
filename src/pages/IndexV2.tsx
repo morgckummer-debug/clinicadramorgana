@@ -285,56 +285,6 @@ const About = () => (
 );
 
 /* ---------------- Exames com thumbnails ---------------- */
-const exams = [
-  {
-    img: thumbObstetrico,
-    title: "Obstétrico",
-    desc: "Acompanhamento gestacional completo, do primeiro ao último trimestre.",
-    items: [
-      "Obstétrico Simples",
-      "1º Trimestre (TV)",
-      "Obstétrico com TN",
-      "Obstétrico com Doppler",
-      "Morfológico do 1º Trimestre",
-      "Morfológico do 2º Trimestre",
-      "Morfológico do 3º Trimestre",
-      "Obstétrico 3D/4D",
-      "Perfil Biofísico Fetal (PBF)",
-      "Ecocardiograma Fetal",
-    ],
-  },
-  {
-    img: thumbGinecologico,
-    title: "Ginecológico",
-    desc: "Saúde da mulher avaliada com sensibilidade e precisão.",
-    items: ["Transvaginal", "Transvaginal 3D", "Doppler", "Rastreamento de Ovulação", "Endometriose Profunda", "Períneo (Novo)"],
-  },
-  {
-    img: thumbTireoide,
-    title: "Tireoide & Cervical",
-    desc: "Avaliação minuciosa da tireoide e estruturas do pescoço.",
-    items: ["Tireoide", "Vasos Cervicais", "Partes Moles"],
-  },
-  {
-    img: thumbDoppler,
-    title: "Doppler Vascular",
-    desc: "Avaliação detalhada do fluxo sanguíneo em vasos e órgãos.",
-    items: ["Vasos Cervicais", "Membros Inferiores", "Artérias Renais"],
-  },
-  {
-    img: thumbGeral,
-    title: "Medicina Interna",
-    desc: "Ultrassonografias gerais para diagnóstico amplo e preciso.",
-    items: ["Abdome Total", "Abdome Superior", "Rins e Vias Urinárias", "Pélvico Masculino", "Partes Moles"],
-  },
-  {
-    img: thumbPediatrico,
-    title: "Pediátrico",
-    desc: "Atenção dedicada e cuidadosa para os pequenos pacientes.",
-    items: ["Pélvico Infantil", "Quadril Pediátrico", "Abdome Infantil"],
-  },
-];
-
 const Exams = () => (
   <section id="exames" className="py-28 md:py-36 bg-gradient-rose relative">
     <div className="container">
@@ -352,35 +302,47 @@ const Exams = () => (
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-        {exams.map((ex) => (
-          <article
-            key={ex.title}
-            className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
-          >
-            <div className="relative aspect-square w-1/2 mx-auto mt-6 overflow-hidden rounded-xl bg-rose">
-              <img
-                src={ex.img}
-                alt={ex.title}
-                width={768}
-                height={768}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
-              />
-            </div>
-            <div className="p-6 flex-1 flex flex-col">
-              <h3 className="text-xl font-bold text-wine-deep">{ex.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">{ex.desc}</p>
-              <ul className="mt-4 space-y-1.5">
-                {ex.items.map((it) => (
-                  <li key={it} className="text-xs text-foreground/80 flex items-center gap-2 font-light">
-                    <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        ))}
+        {categories.map((cat) => {
+          const items = getExamsByCategory(cat);
+          return (
+            <article
+              key={cat}
+              className="group bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 flex flex-col"
+            >
+              <div className="relative aspect-square w-1/2 mx-auto mt-6 overflow-hidden rounded-xl bg-rose">
+                <img
+                  src={categoryThumbs[cat]}
+                  alt={cat}
+                  width={768}
+                  height={768}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
+                />
+              </div>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-wine-deep">{cat}</h3>
+                <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">
+                  {categoryDescriptions[cat]}
+                </p>
+                <ul className="mt-4 space-y-1.5">
+                  {items.map((ex) => (
+                    <li key={ex.slug}>
+                      <Link
+                        to={`/exames/${ex.slug}`}
+                        className="text-xs text-foreground/80 hover:text-wine-deep flex items-center gap-2 font-light transition-colors group/item"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
+                        <span className="group-hover/item:underline underline-offset-4 decoration-champagne">
+                          {ex.title}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
