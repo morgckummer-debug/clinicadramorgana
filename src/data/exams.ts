@@ -411,6 +411,7 @@ export const exams: Exam[] = [
       },
       {
         image: morfo1Engolindo,
+        video: morfo1EngolindoVideo,
         caption: "Bebê engolindo líquido durante o exame.",
         alt: "Bebê engolindo líquido amniótico durante o exame",
       },
