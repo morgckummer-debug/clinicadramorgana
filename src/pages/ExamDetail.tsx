@@ -215,7 +215,7 @@ const ExamDetail = () => {
               {related.map((r) => (
                 <Link
                   key={r.slug}
-                  to={`/exames/${r.slug}`}
+                  to={canonicalPathFor(r)}
                   className="group bg-card rounded-2xl border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 p-6 flex flex-col"
                 >
                   <div className="text-[10px] tracking-[0.3em] uppercase text-wine mb-3">
