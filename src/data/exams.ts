@@ -2,28 +2,68 @@ import thumbObstetrico from "@/assets/exams/obstetrico.webp";
 import thumbGinecologico from "@/assets/exams/ginecologico.webp";
 import thumbGeral from "@/assets/exams/geral.webp";
 
+// ---------- 1º Trimestre ----------
+import primeiroTriHero from "@/assets/exams/primeiro-trimestre/hero.jpg";
+import primeiroTriCcn from "@/assets/exams/primeiro-trimestre/ccn.jpg";
+import primeiroTriVesicula from "@/assets/exams/primeiro-trimestre/vesicula.jpg";
+import primeiroTriSaco from "@/assets/exams/primeiro-trimestre/saco.jpg";
+import primeiroTriBatimentos from "@/assets/exams/primeiro-trimestre/batimentos.jpg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
   | "Medicina Interna";
 
+/**
+ * Conteúdo narrativo de cada exame (novo formato).
+ * Cada seção é renderizada na ordem em que aparece no array.
+ */
+export type ExamSection =
+  | { kind: "paragraph"; title: string; body: string }
+  | { kind: "list"; title: string; items: string[]; footer?: string }
+  | { kind: "highlight"; title: string; body: string };
+
+export interface ExamGalleryItem {
+  image: string;
+  caption: string;
+  alt?: string;
+}
+
+export interface ExamFaq {
+  q: string;
+  a: string;
+}
+
+export interface ExamHero {
+  tagline: string;
+  intro: string;
+  image?: string;
+}
+
 export interface Exam {
   slug: string;
   /**
    * URL histórica preservada para SEO, Google Ads e Analytics.
-   * Sempre começa com "/" e é usada como rota canônica do exame
-   * quando presente. Exames novos (sem histórico) ficam sem legacySlug.
+   * Sempre começa com "/" e é usada como rota canônica quando presente.
    */
   legacySlug?: string;
   category: ExamCategory;
   title: string;
   thumb: string;
   shortDesc: string;
-  longDesc: string;
-  indications: string[];
-  preparation: string;
-  duration: string;
-  whatToBring: string[];
+
+  /** Conteúdo novo, migrado do site oficial. */
+  hero?: ExamHero;
+  sections?: ExamSection[];
+  gallery?: ExamGalleryItem[];
+  faq?: ExamFaq[];
+
+  /** Campos legados — usados como fallback enquanto a página não foi migrada. */
+  longDesc?: string;
+  indications?: string[];
+  preparation?: string;
+  duration?: string;
+  whatToBring?: string[];
 }
 
 export const categoryThumbs: Record<ExamCategory, string> = {
