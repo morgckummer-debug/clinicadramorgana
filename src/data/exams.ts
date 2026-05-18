@@ -11,7 +11,6 @@ import primeiroTriBatimentos from "@/assets/exams/primeiro-trimestre/batimentos.
 
 // ---------- Translucência Nucal ----------
 import tnHero from "@/assets/exams/translucencia-nucal/hero.jpg";
-import tn2 from "@/assets/exams/translucencia-nucal/tn2.jpg";
 
 export type ExamCategory =
   | "Obstétrico"
@@ -213,14 +212,6 @@ export const exams: Exam[] = [
         title: "E se a TN estiver alterada?",
         body:
           "Caso existam indícios que levem o médico a suspeitar que o bebê tenha risco aumentado de ter alguma síndrome, pode ser indicado seguir com exames que confirmem ou descartem a suspeita, como amniocentese, cariótipo ou NIPT, se for do desejo dos pais. É importante lembrar que outras condições fetais podem levar ao aumento da nuca: anemia, infecções, problemas metabólicos, doenças cardíacas ou simplesmente um período de adaptação do feto, que logo volta ao normal.",
-      },
-    ],
-    gallery: [
-      {
-        image: tn2,
-        caption:
-          "Imagem do exame mostrando a medida da Translucência Nucal — a fina camada de líquido na região da nuca do bebê.",
-        alt: "Ultrassom mostrando a medida da Translucência Nucal",
       },
     ],
     faq: [
