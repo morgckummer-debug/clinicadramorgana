@@ -30,6 +30,17 @@ import morfo1Coluna from "@/assets/exams/morfo-1-trimestre/coluna.jpg";
 import morfo1Engolindo from "@/assets/exams/morfo-1-trimestre/hero.jpg";
 import morfo1EngolindoVideo from "@/assets/exams/morfo-1-trimestre/engolindo.mp4";
 
+// ---------- Morfológico 2º Trimestre ----------
+import morfo2Hero from "@/assets/exams/morfo-2-trimestre/hero.jpg";
+import morfo2Coluna from "@/assets/exams/morfo-2-trimestre/coluna.jpg";
+import morfo2Arterias from "@/assets/exams/morfo-2-trimestre/arterias-abdome.jpg";
+import morfo2Nasolabial from "@/assets/exams/morfo-2-trimestre/nasolabial.jpg";
+import morfo2Maos from "@/assets/exams/morfo-2-trimestre/maos.jpg";
+import morfo2Perfil from "@/assets/exams/morfo-2-trimestre/perfil.jpg";
+
+// ---------- Morfológico 3º Trimestre ----------
+import morfo3Hero from "@/assets/exams/morfo-3-trimestre/hero.jpg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
@@ -446,17 +457,107 @@ export const exams: Exam[] = [
     title: "Morfológico do 2º Trimestre",
     thumb: thumbObstetrico,
     shortDesc:
-      "Avaliação completa da anatomia fetal entre 20 e 24 semanas.",
-    longDesc:
-      "Considerado o exame mais importante da gestação, avalia detalhadamente cada órgão e estrutura fetal, identificando malformações e marcadores genéticos. Inclui medida do colo uterino.",
-    indications: [
-      "Avaliação anatômica completa do feto",
-      "Rastreamento de malformações estruturais",
-      "Avaliação do colo uterino",
+      "Avaliação minuciosa do desenvolvimento do bebê entre 21 e 24 semanas.",
+    hero: {
+      tagline: "Avaliação minuciosa do desenvolvimento do bebê.",
+      intro:
+        "Exames morfológicos são exames mais detalhados, pois estudamos a morfologia (forma e tamanho) dos órgãos — avaliando se cada estrutura está com a forma adequada e com o tamanho dentro do esperado para a idade gestacional.",
+      image: morfo2Hero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Por que ele é tão importante?",
+        body:
+          "O ultrassom morfológico do 2º trimestre é crucial para avaliar detalhadamente a formação dos órgãos do bebê, identificando possíveis alterações estruturais. Algumas malformações têm possibilidade de tratamento cirúrgico ainda dentro do útero, por isso é fundamental o diagnóstico precoce. É um exame indispensável para garantir a saúde e o bem-estar da gestação.",
+      },
+      {
+        kind: "paragraph",
+        title: "Quando ele deve ser feito?",
+        body:
+          "Ele deve ser feito, preferencialmente, entre 21 e 24 semanas. É um período em que o bebê já está maior, permitindo avaliar com mais detalhes órgãos que eram muito pequenos na época do morfológico do 1º trimestre, como coração e cérebro. Em pacientes obesas, ele pode ser feito mais tardiamente, entre 25 e 26 semanas.",
+      },
+      {
+        kind: "paragraph",
+        title: "Quais os benefícios?",
+        body:
+          "Verifica o desenvolvimento de órgãos como cérebro, coração, rins e coluna, além de extremidades. Detecta malformações e condições que podem ser tratadas precocemente ou acompanhadas com mais atenção durante a gestação. Confirma o desenvolvimento saudável do bebê e proporciona segurança para a mãe e a família.",
+      },
+      {
+        kind: "paragraph",
+        title: "Quais exames podem ser associados a ele?",
+        body:
+          "O Doppler das Artérias Uterinas é fundamental para avaliar se a placenta está conseguindo receber sangue da mãe sem dificuldade, predizendo se a mãe tem risco aumentado de apresentar pré-eclâmpsia. A medida do colo do útero também é importante: através dela, vemos se a mãe tem risco aumentado de parto prematuro.",
+      },
     ],
-    preparation: SEM_PREPARO,
-    duration: "45 a 60 minutos",
-    whatToBring: ["Pedido médico", "Cartão de pré-natal"],
+    gallery: [
+      {
+        image: morfo2Coluna,
+        caption:
+          "Coluna vertebral. Avaliação importante para descartar defeitos de fechamento.",
+        alt: "Coluna vertebral fetal vista no ultrassom morfológico",
+      },
+      {
+        image: morfo2Arterias,
+        caption: "Avaliação das principais artérias do abdome fetal.",
+        alt: "Artérias do abdome fetal no ultrassom com Doppler",
+      },
+      {
+        image: morfo2Nasolabial,
+        caption:
+          "Região da boca e nariz, para avaliar se há lábio leporino.",
+        alt: "Corte do nariz e lábios fetais no ultrassom",
+      },
+      {
+        image: morfo2Maos,
+        caption: "Avaliação das duas mãos, para contar os 10 dedinhos.",
+        alt: "Mão fetal mostrando os cinco dedos no ultrassom",
+      },
+      {
+        image: morfo2Perfil,
+        caption:
+          "Perfil facial. Avaliamos a presença e medida do osso nasal e algumas estruturas cerebrais.",
+        alt: "Perfil facial fetal com 22 semanas no ultrassom",
+      },
+    ],
+    faq: [
+      {
+        q: "É preciso fazer algum preparo?",
+        a: "Não é necessário jejum ou bexiga cheia. Pedimos apenas que as mamães evitem passar óleos na barriga por 2 dias antes do exame, pois o óleo interfere na aquisição das imagens. E não ir de barriga vazia 🙂",
+      },
+      {
+        q: "Por que medir o colo uterino?",
+        a: "A medida do colo uterino ajuda a identificar riscos de parto prematuro. Se o colo for curto (<2,5 cm), o obstetra pode recomendar tratamentos preventivos, como o uso de progesterona ou cerclagem.",
+      },
+      {
+        q: "O que é o Doppler das artérias uterinas e por que é importante?",
+        a: "O Doppler avalia o fluxo sanguíneo nas artérias do útero. Caso o fluxo apresente resistência para chegar ao útero, aumenta o risco da mãe desenvolver condições como pré-eclâmpsia e restrição de crescimento fetal precoce (<32 semanas). Caso estejam alteradas, o obstetra pode iniciar medicações específicas para reduzir esses riscos, como a aspirina e o cálcio.",
+      },
+      {
+        q: "Posso descobrir o sexo do meu bebê nesse exame?",
+        a: "Sim, a maioria dos bebês mostra o sexo nesse exame. É muito difícil um bebê não mostrar, mas existe a possibilidade.",
+      },
+      {
+        q: "Quanto tempo dura o ultrassom morfológico do 2º trimestre?",
+        a: "Não existe um tempo determinado, pois o médico depende da posição do bebê e da necessidade de avaliações adicionais. Vá com tempo e não agende compromissos logo depois.",
+      },
+      {
+        q: "O morfológico exclui a necessidade de realizar o ecocardiograma?",
+        a: "Não, eles são exames diferentes. O ultrassom morfológico avalia a anatomia básica do coração, enquanto o ecocardiograma fetal foca no funcionamento, nos fluxos sanguíneos e nas válvulas cardíacas.",
+      },
+      {
+        q: "Preciso de um pedido médico para realizar o exame?",
+        a: "Sim, o ultrassom morfológico geralmente é solicitado pelo obstetra, pois é um dos principais da gestação.",
+      },
+      {
+        q: "É possível detectar todas as condições do bebê com o ultrassom morfológico?",
+        a: "Embora o exame seja mais detalhado, ele não é capaz de detectar 100% das alterações genéticas ou anomalias. Algumas condições podem exigir exames adicionais, como testes genéticos. Uma pequena porcentagem dos bebês que apresentam ultrassom normal terão alguma síndrome ou malformação diagnosticada após o parto (1:800).",
+      },
+      {
+        q: "O exame é feito com imagem 3D?",
+        a: "As imagens tridimensionais não fazem parte do exame nem do pré-natal. É um \"extra\", um \"plus\" do médico examinador. Basta o bebê estar numa posição favorável e a máquina de ultrassom ter a sonda 3D instalada.",
+      },
+    ],
   },
   {
     slug: "morfologico-3-trimestre",
@@ -465,17 +566,55 @@ export const exams: Exam[] = [
     title: "Morfológico do 3º Trimestre",
     thumb: thumbObstetrico,
     shortDesc:
-      "Reavaliação da anatomia e crescimento fetal no terceiro trimestre.",
-    longDesc:
-      "Reavalia a anatomia fetal já completamente desenvolvida, estima o peso fetal e auxilia no planejamento do parto.",
-    indications: [
-      "Reavaliação anatômica tardia",
-      "Estimativa de peso e crescimento",
-      "Planejamento do parto",
+      "Avaliação do desenvolvimento do bebê na reta final da gestação.",
+    hero: {
+      tagline: "Avaliando o desenvolvimento do bebê na reta final.",
+      intro:
+        "Exames morfológicos são exames mais detalhados, pois estudamos a morfologia (forma e tamanho) dos órgãos — avaliando se cada estrutura está com a forma adequada e com o tamanho dentro do esperado para a idade gestacional.",
+      image: morfo3Hero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Por que ele é tão importante?",
+        body:
+          "Este exame é uma avaliação detalhada que verifica o desenvolvimento do bebê na fase final da gestação. Ele analisa a anatomia fetal, a quantidade de líquido amniótico, a maturidade da placenta e outros aspectos importantes para garantir a saúde da mãe e do bebê. É útil para avaliar o desenvolvimento final do bebê e a maturação dos órgãos, especialmente cérebro, rins e intestino, procurando sinais de alterações que só aparecem no terceiro trimestre.",
+      },
+      {
+        kind: "paragraph",
+        title: "Quando ele deve ser feito?",
+        body:
+          "O ultrassom morfológico do 3º trimestre é geralmente realizado entre a 32ª e a 36ª semanas de gestação, ou conforme o grau de risco gestacional.",
+      },
+      {
+        kind: "paragraph",
+        title: "Ele avalia tudo como no morfológico do 2º trimestre?",
+        body:
+          "Com o passar da gestação, o bebê vai crescendo e dificultando a visualização de detalhes mais facilmente vistos no morfológico do 2º trimestre. Estruturas como os dedos, o ângulo perna-pé e a coluna vertebral podem não ser avaliadas como antes. Mesmo assim, o intuito principal desse exame é procurar por alterações cerebrais, cardíacas e do trato genito-urinário.",
+      },
     ],
-    preparation: SEM_PREPARO,
-    duration: "45 minutos",
-    whatToBring: ["Pedido médico", "Cartão de pré-natal"],
+    faq: [
+      {
+        q: "O exame é obrigatório?",
+        a: "Não é obrigatório, mas altamente recomendado pelo obstetra para garantir um acompanhamento completo.",
+      },
+      {
+        q: "Precisa de preparo?",
+        a: "Não, o ultrassom morfológico do 3º trimestre não exige preparo especial.",
+      },
+      {
+        q: "O exame pode identificar o peso do bebê?",
+        a: "Sim, o exame estima o peso e o tamanho do bebê com base nas medidas fetais.",
+      },
+      {
+        q: "Pode ser realizado mais de uma vez?",
+        a: "Sim, em gestações de alto risco, o exame pode ser repetido para monitorar o desenvolvimento do bebê.",
+      },
+      {
+        q: "Quanto tempo dura?",
+        a: "Não existe um tempo determinado, pois depende inteiramente da posição do bebê e da necessidade de avaliações adicionais. Vá com tempo e não agende compromissos logo depois.",
+      },
+    ],
   },
   {
     slug: "obstetrico-3d-4d",
