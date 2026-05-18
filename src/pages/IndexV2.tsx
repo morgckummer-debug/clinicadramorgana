@@ -72,13 +72,13 @@ export const Navbar = () => {
       }`}
     >
       <div className={`container flex items-center justify-between transition-all duration-500 ${scrolled ? "h-14" : "h-16"}`}>
-        <a href="#top" className="flex items-center gap-3">
+        <Link to="/#top" className="flex items-center gap-3">
           <img
             src={logoClinica}
             alt="Clínica de Ultrassom Dra. Morgana Kummer"
             className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12"}`}
           />
-        </a>
+        </Link>
         <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((l) => (
             <a
