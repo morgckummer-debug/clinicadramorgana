@@ -1,29 +1,46 @@
 import { useEffect } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { ArrowRight, ArrowLeft, MessageCircle, ClipboardList, Clock, Briefcase, Stethoscope } from "lucide-react";
 import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
-import { getExamBySlug, getExamsByCategory } from "@/data/exams";
+import {
+  canonicalPathFor,
+  getExamByPath,
+  getExamsByCategory,
+} from "@/data/exams";
 
 const WHATSAPP_URL = "https://wa.me/5531993910212";
+const SITE_ORIGIN = "https://clinicadramorgana.com.br";
 
 const ExamDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  const exam = slug ? getExamBySlug(slug) : undefined;
+  const { pathname } = useLocation();
+  const exam = getExamByPath(pathname);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (exam) {
-      document.title = `${exam.title} · Dra. Morgana Kummer`;
-      const meta = document.querySelector('meta[name="description"]');
-      const content = `${exam.title} — ${exam.shortDesc}`;
-      if (meta) meta.setAttribute("content", content);
-      else {
-        const m = document.createElement("meta");
-        m.name = "description";
-        m.content = content;
-        document.head.appendChild(m);
-      }
+    if (!exam) return;
+
+    document.title = `${exam.title} · Dra. Morgana Kummer`;
+
+    const description = `${exam.title} — ${exam.shortDesc}`;
+    let meta = document.querySelector('meta[name="description"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "description");
+      document.head.appendChild(meta);
     }
+    meta.setAttribute("content", description);
+
+    // <link rel="canonical"> — preserva a URL histórica como canônica
+    const canonicalHref = `${SITE_ORIGIN}${canonicalPathFor(exam)}`;
+    let canonical = document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]',
+    );
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalHref;
   }, [exam]);
 
   if (!exam) return <Navigate to="/404" replace />;
