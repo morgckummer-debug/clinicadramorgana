@@ -9,6 +9,10 @@ import primeiroTriVesicula from "@/assets/exams/primeiro-trimestre/vesicula.jpg"
 import primeiroTriSaco from "@/assets/exams/primeiro-trimestre/saco.jpg";
 import primeiroTriBatimentos from "@/assets/exams/primeiro-trimestre/batimentos.jpg";
 
+// ---------- Translucência Nucal ----------
+import tnHero from "@/assets/exams/translucencia-nucal/hero.jpg";
+import tn2 from "@/assets/exams/translucencia-nucal/tn2.jpg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
@@ -181,17 +185,62 @@ export const exams: Exam[] = [
     title: "Obstétrico com Translucência Nucal",
     thumb: thumbObstetrico,
     shortDesc:
-      "Avaliação entre 11 e 13 semanas para rastreamento de cromossomopatias.",
-    longDesc:
-      "Realizado entre a 11ª e 13ª semana, mede a translucência nucal, avalia osso nasal e marcadores fetais para rastreamento de alterações cromossômicas.",
-    indications: [
-      "Rastreamento de Síndrome de Down e outras cromossomopatias",
-      "Avaliação morfológica precoce",
-      "Cálculo de risco gestacional",
+      "Rastreamento de cromossomopatias entre 12 e 13 semanas e 6 dias.",
+    hero: {
+      tagline: "Um olhar atento nas primeiras semanas.",
+      intro:
+        "A Translucência Nucal (TN) é uma pequena camada de líquido que se acumula na região da nuca do bebê. Essa medida é importante porque ajuda a identificar possíveis alterações cromossômicas, como síndrome de Down, síndrome de Edwards e síndrome de Patau.",
+      image: tnHero,
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "Por que ele é tão importante?",
+        items: [
+          "Ajuda a calcular o risco de condições como Síndrome de Down, através da medida da nuca (TN), frequência cardíaca e idade materna.",
+          "Permite ajustar a idade gestacional caso ainda haja dúvidas.",
+          "Verifica a formação inicial do bebê, como braços e pernas.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Quando ele deve ser feito?",
+        body:
+          "O ultrassom com TN deve ser realizado entre 12 e 13 semanas e 6 dias de gestação, ou quando o bebê tem entre 4,5 e 8,5 cm da cabeça até o bumbum (chamado de CCN — Comprimento Cabeça-Nádegas).",
+      },
+      {
+        kind: "paragraph",
+        title: "E se a TN estiver alterada?",
+        body:
+          "Caso existam indícios que levem o médico a suspeitar que o bebê tenha risco aumentado de ter alguma síndrome, pode ser indicado seguir com exames que confirmem ou descartem a suspeita, como amniocentese, cariótipo ou NIPT, se for do desejo dos pais. É importante lembrar que outras condições fetais podem levar ao aumento da nuca: anemia, infecções, problemas metabólicos, doenças cardíacas ou simplesmente um período de adaptação do feto, que logo volta ao normal.",
+      },
     ],
-    preparation: SEM_PREPARO,
-    duration: "30 a 45 minutos",
-    whatToBring: ["Pedido médico", "Exames anteriores da gestação"],
+    gallery: [
+      {
+        image: tn2,
+        caption:
+          "Imagem do exame mostrando a medida da Translucência Nucal — a fina camada de líquido na região da nuca do bebê.",
+        alt: "Ultrassom mostrando a medida da Translucência Nucal",
+      },
+    ],
+    faq: [
+      {
+        q: "Precisa de preparo para fazer o exame?",
+        a: "Não é preciso jejum ou bexiga cheia.",
+      },
+      {
+        q: "É seguro para o bebê?",
+        a: "Sim! O ultrassom não utiliza raio-X.",
+      },
+      {
+        q: "Preciso de um pedido médico para realizar o exame?",
+        a: "Sim, o ultrassom com Translucência Nucal geralmente é solicitado pelo obstetra.",
+      },
+      {
+        q: "Quanto tempo dura o ultrassom com TN?",
+        a: "Não existe um tempo determinado, pois o médico depende inteiramente da posição do bebê e da necessidade de avaliações adicionais. Pode demorar 10 minutos ou 1 hora — vá com tempo e não agende compromissos logo depois.",
+      },
+    ],
   },
   {
     slug: "obstetrico-doppler",
