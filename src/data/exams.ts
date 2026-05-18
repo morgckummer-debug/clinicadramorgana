@@ -37,6 +37,7 @@ import morfo2Arterias from "@/assets/exams/morfo-2-trimestre/arterias-abdome.jpg
 import morfo2Nasolabial from "@/assets/exams/morfo-2-trimestre/nasolabial.jpg";
 import morfo2Maos from "@/assets/exams/morfo-2-trimestre/maos.jpg";
 import morfo2Perfil from "@/assets/exams/morfo-2-trimestre/perfil.jpg";
+import morfo2ExibindoVideo from "@/assets/exams/morfo-2-trimestre/exibindo.mp4";
 
 // ---------- Morfológico 3º Trimestre ----------
 import morfo3Hero from "@/assets/exams/morfo-3-trimestre/hero.jpg";
@@ -518,6 +519,12 @@ export const exams: Exam[] = [
         caption:
           "Perfil facial. Avaliamos a presença e medida do osso nasal e algumas estruturas cerebrais.",
         alt: "Perfil facial fetal com 22 semanas no ultrassom",
+      },
+      {
+        image: morfo2Perfil,
+        video: morfo2ExibindoVideo,
+        caption: "Bebê se exibindo 🙂",
+        alt: "Vídeo do bebê se movimentando durante o exame",
       },
     ],
     faq: [
