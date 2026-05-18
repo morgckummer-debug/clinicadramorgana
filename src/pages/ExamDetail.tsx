@@ -4,9 +4,6 @@ import {
   ArrowRight,
   ArrowLeft,
   MessageCircle,
-  ClipboardList,
-  Clock,
-  Briefcase,
   Stethoscope,
   Sparkles,
 } from "lucide-react";
