@@ -1,82 +1,90 @@
-## Estratégia
+## Contexto
 
-Em vez de criar 15–20 arquivos `.tsx` (um por exame), uso **uma única rota dinâmica** `/exames/:slug` que renderiza um template compartilhado. Cada exame vira apenas uma entrada num arquivo de dados. Isso garante:
+O conteúdo do site atual (`dramorgana.com.br/primeiro-trimestre/`) **não cabe** no schema que temos hoje em `src/data/exams.ts`. O original é narrativo, com seções livres e uma galeria de imagens legendadas. Os campos atuais (`preparation`, `duration`, `whatToBring`, `indications`) foram inventados como placeholder e não refletem nada do site real.
 
-- **Design 100% consistente** (mesmo template, mesmas cores, mesma tipografia da landing).
-- **Manutenção trivial**: trocar um texto = editar 1 objeto. Adicionar exame novo = adicionar 1 objeto.
-- **SEO**: cada exame tem URL própria (`/exames/morfologico-2-trimestre`), `<title>` e meta description próprios.
-- **Performance**: 1 componente, sem 20 bundles duplicados.
+Antes de migrar 22 páginas, precisamos de um schema flexível. Depois disso, replicamos o conteúdo do primeiro exame.
 
-## Estrutura
+> Observação: o site oficial está em **`dramorgana.com.br`** (não `clinicadramorgana.com.br`). Vou ajustar a constante `SITE_ORIGIN` no `ExamDetail.tsx` e o `canonical` para apontar para `dramorgana.com.br` — é esse o domínio que precisa ser preservado no SEO.
 
-### 1. Refatorar layout compartilhado
-Extrair `Navbar`, `Footer` e `WhatsAppFab` do `IndexV2.tsx` para `src/components/site/` (já existem stubs lá — confirmar e consolidar). Esses três componentes serão usados tanto na landing quanto nas páginas de exame.
+## Novo schema (em `src/data/exams.ts`)
 
-### 2. Fonte única de dados — `src/data/exams.ts`
-Array de objetos, um por exame, com a estrutura:
+Substituir os campos rígidos por um array `sections` flexível + um `hero`. Cada exame passa a ter:
 
 ```ts
-{
-  slug: "morfologico-2-trimestre",
-  category: "Obstétrico",
-  title: "Morfológico do 2º Trimestre",
-  thumb: thumbObstetrico,
-  shortDesc: "...",         // usado no card da landing
-  longDesc: "...",          // intro da página de detalhe
-  indications: ["...", "..."],
-  preparation: "...",
-  duration: "30 a 45 minutos",
-  whatToBring: ["pedido médico", "exames anteriores"],
-  faq?: [{ q, a }],
+interface Exam {
+  slug: string;
+  legacySlug?: string;
+  category: ExamCategory;
+  title: string;
+  thumb: string;
+  shortDesc: string;       // card da home
+  hero: {
+    tagline: string;       // "O início de tudo."
+    intro: string;         // parágrafo curto de abertura
+    image?: string;        // imagem principal do hero (opcional)
+  };
+  sections: ExamSection[]; // conteúdo livre, na ordem
+  gallery?: GalleryItem[]; // "O que pode ser visto?" — imagem + legenda
+  faq?: { q: string; a: string }[]; // opcional, exame a exame
 }
+
+type ExamSection =
+  | { kind: "paragraph"; title: string; body: string }
+  | { kind: "list";      title: string; items: string[] }
+  | { kind: "highlight"; title: string; body: string }; // bloco com destaque visual
 ```
 
-A landing passa a importar e agrupar este array por `category` (mantendo o visual atual em 6 cards). Cada item da lista interna do card vira um link `<Link to={`/exames/${slug}`}>`.
+Vantagens:
+- Cada exame só preenche o que faz sentido (alguns não terão galeria, outros não terão FAQ).
+- Ordem das seções fiel ao site original.
+- O template não precisa mudar quando adicionamos um exame novo.
 
-### 3. Página template — `src/pages/ExamDetail.tsx`
-Rota `/exames/:slug`. Layout reaproveitando blocos da landing:
+## Template (`src/pages/ExamDetail.tsx`)
 
-```
-[ Navbar (compartilhada) ]
-[ Hero compacto do exame: breadcrumb + categoria + título + descrição + CTA WhatsApp ]
-[ Bloco "Indicações" — lista com bullets champagne ]
-[ Bloco "Preparo" + "Duração" + "O que levar" em grid 3 colunas ]
-[ FAQ opcional (accordion shadcn) ]
-[ Bloco "Outros exames desta categoria" — 3 cards relacionados ]
-[ Footer ]
-[ Rodapé com botão "Voltar à página inicial" (Link to="/") ]
-[ WhatsAppFab ]
-```
+Reescrever para renderizar:
 
-Usa exatamente os mesmos tokens (`bg-gradient-rose`, `text-wine-deep`, `font-serif`, `champagne`, etc.). Se `slug` não existir → `<NotFound />`.
+1. **Hero** — categoria · título · tagline · intro · CTA WhatsApp · imagem opcional ao lado.
+2. **Sections** — itera `sections[]` na ordem. Cada `kind` tem um layout próprio (parágrafo, lista com bullets champagne, bloco destaque com fundo rosa).
+3. **Galeria "O que pode ser visto?"** — grid de imagens com legenda abaixo, só renderiza se `gallery` existir.
+4. **FAQ** — accordion shadcn, só renderiza se `faq` existir.
+5. **Outros exames da categoria** — mantém como está.
+6. **CTA final + Footer** — mantém.
 
-### 4. Roteamento — `src/App.tsx`
-Adicionar **uma** linha:
-```tsx
-<Route path="/exames/:slug" element={<ExamDetail />} />
-```
+Remover do JSX as referências a `preparation`, `duration`, `whatToBring`, `indications`.
 
-### 5. SEO
-No `ExamDetail`, `useEffect` atualiza `document.title` e `<meta name="description">` com base no exame. Adicionar JSON-LD `MedicalProcedure` opcional.
+## Migração dos dados existentes
 
-## Detalhes técnicos
+Os 22 exames atuais ficam com `sections` vazio temporariamente — só `hero.tagline` e `hero.intro` preenchidos a partir do `longDesc` atual, para nenhuma página quebrar. Vamos preenchê-los **na sequência das páginas reais do site**, começando agora pelo Obstétrico do 1º Trimestre.
 
-- **Total de páginas geradas**: ~20, mas só **1 componente React** e **1 rota**.
-- **Slugs**: gerar manualmente no array para garantir URLs limpos e estáveis (não derivar de `title.toLowerCase()`).
-- **Navegação interna**: trocar `<a href="#exames">` por `<Link to="/#exames">` quando vier de página de detalhe.
-- **Scroll restoration**: adicionar `useEffect(() => window.scrollTo(0,0), [slug])` no `ExamDetail`.
-- **Imagens**: reaproveitar as 6 thumbs já importadas (`obstetrico.webp` etc.) — cada categoria compartilha thumb. Se quiser thumbs individuais depois, basta adicionar campo `heroImg` opcional no objeto.
+## Aplicação no primeiro exame
 
-## Entregáveis
+Preencher `ultrassom-primeiro-trimestre-tv` com o conteúdo de `dramorgana.com.br/primeiro-trimestre/`:
 
-1. `src/data/exams.ts` — fonte única
-2. `src/components/site/Navbar.tsx`, `Footer.tsx`, `WhatsAppFab.tsx` — consolidar/garantir uso compartilhado
-3. `src/pages/ExamDetail.tsx` — template
-4. `src/App.tsx` — nova rota
-5. `src/pages/IndexV2.tsx` — `Exams` passa a ler de `src/data/exams.ts` e cada item linka para a página de detalhe
+- **hero.tagline**: "O início de tudo."
+- **hero.intro**: parágrafo de abertura.
+- **sections** (na ordem):
+  1. `paragraph` — "O que esperar do exame?"
+  2. `paragraph` — "Quando ele deve ser realizado?"
+  3. `list` — "O que é avaliado?" (5 bullets)
+  4. `list` — "Principais complicações" (4 bullets)
+  5. `paragraph` — "Por que não fazer antes de 7 semanas?"
+  6. `list` — "Quando fazer antes de 7 semanas?" (3 bullets + nota de fechamento)
+- **gallery** — 4 imagens "O que pode ser visto?":
+  - CCN — embrião medido ponta a ponta
+  - Vesícula vitelínica
+  - Saco gestacional
+  - Batimentos cardíacos
+  
+  As imagens do site original são hospedadas no WordPress (`i0.wp.com/...`). Posso (a) baixar e versionar em `src/assets/exams/primeiro-trimestre/`, ou (b) referenciar via URL direta. Recomendo (a) — mais rápido, sem dependência externa, melhor SEO. Faço isso na implementação.
+- **faq** — vazio (o site original não tem FAQ neste exame).
 
-## Antes de implementar — preciso confirmar
+## Arquivos a editar
 
-- **Conteúdo dos textos** (longDesc, indicações, preparo, duração) de cada exame: você fornece, eu escrevo placeholders elegantes para você revisar, ou puxo de algum site/PDF de referência?
-- **FAQ por exame**: incluir desde já ou deixar para uma segunda etapa?
-- **Imagem hero** da página de detalhe: usar a thumb da categoria (mais rápido) ou gerar/encomendar uma imagem específica por exame?
+1. `src/data/exams.ts` — novo schema, migração dos 22 exames para shape mínimo (`hero` derivado do `longDesc` atual), preenchimento completo do 1º exame.
+2. `src/pages/ExamDetail.tsx` — reescrever o JSX em torno do array `sections`, adicionar bloco galeria, ajustar `SITE_ORIGIN` para `https://dramorgana.com.br`.
+3. `src/components/site/Exams.tsx` — só ajustar referências se ainda usar campos antigos (verifico no momento da edição).
+4. `src/assets/exams/primeiro-trimestre/` — 5 imagens baixadas (1 hero + 4 galeria).
+
+## Próximos passos depois deste
+
+Quando esta página estiver aprovada por você, sigo o mesmo fluxo para a próxima do site, na ordem em que aparecem em `dramorgana.com.br`. Cada rodada = 1 exame, você revisa, partimos pro próximo.

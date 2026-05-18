@@ -1,15 +1,79 @@
 import { useEffect } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import { ArrowRight, ArrowLeft, MessageCircle, ClipboardList, Clock, Briefcase, Stethoscope } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowLeft,
+  MessageCircle,
+  Stethoscope,
+  Sparkles,
+} from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
 import {
   canonicalPathFor,
   getExamByPath,
   getExamsByCategory,
+  type Exam,
+  type ExamSection,
 } from "@/data/exams";
 
 const WHATSAPP_URL = "https://wa.me/5531993910212";
-const SITE_ORIGIN = "https://clinicadramorgana.com.br";
+const SITE_ORIGIN = "https://dramorgana.com.br";
+
+/**
+ * Constrói as seções a renderizar.
+ * - Se o exame já foi migrado (`sections` definido), usa direto.
+ * - Caso contrário, deriva seções a partir dos campos legados
+ *   (indications/preparation/duration/whatToBring) para que a página
+ *   continue funcionando enquanto não for adaptada manualmente.
+ */
+function resolveSections(exam: Exam): ExamSection[] {
+  if (exam.sections && exam.sections.length > 0) return exam.sections;
+
+  const out: ExamSection[] = [];
+  if (exam.indications?.length) {
+    out.push({
+      kind: "list",
+      title: "Indicações",
+      items: exam.indications,
+    });
+  }
+  if (exam.preparation) {
+    out.push({
+      kind: "highlight",
+      title: "Preparo",
+      body: exam.preparation,
+    });
+  }
+  if (exam.duration) {
+    out.push({
+      kind: "highlight",
+      title: "Duração",
+      body: exam.duration,
+    });
+  }
+  if (exam.whatToBring?.length) {
+    out.push({
+      kind: "list",
+      title: "O que levar",
+      items: exam.whatToBring,
+    });
+  }
+  return out;
+}
+
+function resolveIntro(exam: Exam): { tagline: string; intro: string; image?: string } {
+  if (exam.hero) return exam.hero;
+  return {
+    tagline: exam.shortDesc,
+    intro: exam.longDesc ?? exam.shortDesc,
+  };
+}
 
 const ExamDetail = () => {
   const { pathname } = useLocation();
@@ -21,7 +85,8 @@ const ExamDetail = () => {
 
     document.title = `${exam.title} · Dra. Morgana Kummer`;
 
-    const description = `${exam.title} — ${exam.shortDesc}`;
+    const heroIntro = exam.hero?.intro ?? exam.longDesc ?? exam.shortDesc;
+    const description = `${exam.title} — ${heroIntro}`.slice(0, 160);
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -30,7 +95,6 @@ const ExamDetail = () => {
     }
     meta.setAttribute("content", description);
 
-    // <link rel="canonical"> — preserva a URL histórica como canônica
     const canonicalHref = `${SITE_ORIGIN}${canonicalPathFor(exam)}`;
     let canonical = document.querySelector<HTMLLinkElement>(
       'link[rel="canonical"]',
@@ -45,6 +109,8 @@ const ExamDetail = () => {
 
   if (!exam) return <Navigate to="/404" replace />;
 
+  const hero = resolveIntro(exam);
+  const sections = resolveSections(exam);
   const related = getExamsByCategory(exam.category)
     .filter((e) => e.slug !== exam.slug)
     .slice(0, 3);
@@ -58,7 +124,7 @@ const ExamDetail = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* ---------------- Hero do exame ---------------- */}
+      {/* ---------------- Hero ---------------- */}
       <section className="relative bg-wine-deep text-wine-foreground pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-wine-deep via-wine-deep to-[hsl(311,42%,18%)]" />
@@ -67,8 +133,7 @@ const ExamDetail = () => {
           <div className="absolute top-20 inset-x-0 h-px bg-gradient-champagne opacity-40" />
         </div>
 
-        <div className="relative container max-w-4xl">
-          {/* Breadcrumb */}
+        <div className="relative container max-w-6xl">
           <nav className="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-champagne/80 mb-10">
             <Link to="/" className="hover:text-champagne transition-colors">
               Início
@@ -81,118 +146,140 @@ const ExamDetail = () => {
             <span className="text-wine-foreground/60">{exam.category}</span>
           </nav>
 
-          <span className="text-[11px] tracking-[0.45em] uppercase text-champagne font-medium">
-            {exam.category}
-          </span>
-          <h1 className="mt-6 font-serif font-light text-wine-foreground text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.05] text-balance">
-            {exam.title}
-          </h1>
-          <div className="mt-8 w-12 h-px bg-champagne/70" />
-          <p className="mt-8 text-wine-foreground/85 text-lg md:text-xl leading-relaxed max-w-2xl font-light">
-            {exam.longDesc}
-          </p>
-
-          <div className="mt-12 flex flex-wrap gap-4 items-center">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
-            >
-              <MessageCircle className="w-4 h-4" /> Agendar este exame
-            </a>
-            <Link
-              to="/#exames"
-              className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
-            >
-              <ArrowLeft className="w-4 h-4" /> Ver todos os exames
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- Indicações ---------------- */}
-      <section className="py-24 md:py-32 bg-background">
-        <div className="container max-w-4xl grid md:grid-cols-12 gap-12">
-          <div className="md:col-span-4">
-            <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
-              Indicações
-            </span>
-            <h2 className="mt-6 text-wine-deep text-3xl md:text-4xl font-light">
-              Quando este exame é <span className="italic">indicado</span>.
-            </h2>
-            <div className="mt-6 w-12 h-px bg-champagne" />
-          </div>
-          <ul className="md:col-span-8 space-y-5">
-            {exam.indications.map((it) => (
-              <li
-                key={it}
-                className="flex items-start gap-4 text-foreground/85 font-light text-base md:text-lg leading-relaxed border-b border-border/50 pb-5 last:border-0"
-              >
-                <Stethoscope
-                  className="w-4 h-4 text-champagne mt-1.5 flex-shrink-0"
-                  strokeWidth={1.5}
-                />
-                <span>{it}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ---------------- Preparo · Duração · O que levar ---------------- */}
-      <section className="py-24 md:py-32 bg-gradient-rose">
-        <div className="container max-w-5xl">
-          <div className="text-center mb-16">
-            <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
-              Antes do exame
-            </span>
-            <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light text-balance">
-              Tudo o que você precisa <span className="italic">saber</span>.
-            </h2>
-            <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-            {[
-              {
-                icon: ClipboardList,
-                label: "Preparo",
-                value: exam.preparation,
-              },
-              {
-                icon: Clock,
-                label: "Duração",
-                value: exam.duration,
-              },
-              {
-                icon: Briefcase,
-                label: "O que levar",
-                value: exam.whatToBring.join(" · "),
-              },
-            ].map(({ icon: Icon, label, value }) => (
-              <div
-                key={label}
-                className="bg-card rounded-2xl p-8 border border-border shadow-soft hover:shadow-elegant transition-all duration-500"
-              >
-                <div className="w-12 h-12 rounded-full border border-champagne/50 flex items-center justify-center mb-6">
-                  <Icon className="w-4 h-4 text-wine" strokeWidth={1.5} />
-                </div>
-                <div className="text-[10px] tracking-[0.3em] uppercase text-wine mb-3">
-                  {label}
-                </div>
-                <p className="text-foreground/80 font-light leading-relaxed">
-                  {value}
+          <div className="grid md:grid-cols-12 gap-12 items-center">
+            <div className={hero.image ? "md:col-span-7" : "md:col-span-12 max-w-3xl"}>
+              <span className="text-[11px] tracking-[0.45em] uppercase text-champagne font-medium">
+                {exam.category}
+              </span>
+              <h1 className="mt-6 font-serif font-light text-wine-foreground text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.05] text-balance">
+                {exam.title}
+              </h1>
+              {hero.tagline && (
+                <p className="mt-4 font-serif italic text-champagne/90 text-xl md:text-2xl">
+                  {hero.tagline}
                 </p>
+              )}
+              <div className="mt-8 w-12 h-px bg-champagne/70" />
+              <p className="mt-8 text-wine-foreground/85 text-base md:text-lg leading-relaxed font-light">
+                {hero.intro}
+              </p>
+
+              <div className="mt-10 flex flex-wrap gap-4 items-center">
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
+                >
+                  <MessageCircle className="w-4 h-4" /> Agendar este exame
+                </a>
+                <Link
+                  to="/#exames"
+                  className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
+                >
+                  <ArrowLeft className="w-4 h-4" /> Ver todos os exames
+                </Link>
               </div>
-            ))}
+            </div>
+
+            {hero.image && (
+              <div className="md:col-span-5">
+                <div className="relative">
+                  <div className="absolute -inset-4 rounded-[2rem] bg-champagne/10 blur-2xl" />
+                  <img
+                    src={hero.image}
+                    alt={exam.title}
+                    loading="eager"
+                    className="relative w-full rounded-[2rem] shadow-deep object-cover aspect-square md:aspect-auto"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
+
+      {/* ---------------- Seções narrativas ---------------- */}
+      {sections.length > 0 && (
+        <section className="py-20 md:py-28 bg-background">
+          <div className="container max-w-4xl space-y-20 md:space-y-24">
+            {sections.map((section, idx) => (
+              <SectionBlock key={`${section.kind}-${idx}`} section={section} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ---------------- Galeria "O que pode ser visto?" ---------------- */}
+      {exam.gallery && exam.gallery.length > 0 && (
+        <section className="py-24 md:py-32 bg-gradient-rose">
+          <div className="container max-w-6xl">
+            <div className="text-center mb-16">
+              <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
+                Imagens do exame
+              </span>
+              <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light text-balance">
+                O que pode <span className="italic">ser visto</span>.
+              </h2>
+              <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              {exam.gallery.map((item, idx) => (
+                <figure
+                  key={idx}
+                  className="bg-card rounded-2xl overflow-hidden border border-border shadow-soft hover:shadow-elegant transition-all duration-500 flex flex-col"
+                >
+                  <div className="aspect-square overflow-hidden bg-rose/40">
+                    <img
+                      src={item.image}
+                      alt={item.alt ?? item.caption}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <figcaption className="p-6 text-sm text-foreground/75 font-light leading-relaxed">
+                    {item.caption}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ---------------- FAQ ---------------- */}
+      {exam.faq && exam.faq.length > 0 && (
+        <section className="py-24 md:py-32 bg-background">
+          <div className="container max-w-3xl">
+            <div className="text-center mb-12">
+              <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
+                Perguntas frequentes
+              </span>
+              <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light text-balance">
+                Tire suas <span className="italic">dúvidas</span>.
+              </h2>
+              <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+              {exam.faq.map((item, idx) => (
+                <AccordionItem key={idx} value={`faq-${idx}`}>
+                  <AccordionTrigger className="text-left text-wine-deep font-medium">
+                    {item.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-foreground/80 font-light leading-relaxed">
+                    {item.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+      )}
 
       {/* ---------------- Outros exames da categoria ---------------- */}
       {related.length > 0 && (
-        <section className="py-24 md:py-32 bg-background">
+        <section className="py-24 md:py-32 bg-background border-t border-border/50">
           <div className="container max-w-5xl">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
               <div>
@@ -268,5 +355,78 @@ const ExamDetail = () => {
     </main>
   );
 };
+
+// ---------------- Section renderer ----------------
+
+function SectionBlock({ section }: { section: ExamSection }) {
+  if (section.kind === "paragraph") {
+    return (
+      <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div className="md:col-span-4">
+          <h2 className="text-wine-deep text-2xl md:text-3xl font-light leading-tight">
+            {section.title}
+          </h2>
+          <div className="mt-5 w-10 h-px bg-champagne" />
+        </div>
+        <p className="md:col-span-8 text-foreground/85 font-light text-base md:text-lg leading-relaxed">
+          {section.body}
+        </p>
+      </div>
+    );
+  }
+
+  if (section.kind === "list") {
+    return (
+      <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+        <div className="md:col-span-4">
+          <h2 className="text-wine-deep text-2xl md:text-3xl font-light leading-tight">
+            {section.title}
+          </h2>
+          <div className="mt-5 w-10 h-px bg-champagne" />
+        </div>
+        <div className="md:col-span-8">
+          <ul className="space-y-5">
+            {section.items.map((it) => (
+              <li
+                key={it}
+                className="flex items-start gap-4 text-foreground/85 font-light text-base md:text-lg leading-relaxed border-b border-border/50 pb-5 last:border-0"
+              >
+                <Stethoscope
+                  className="w-4 h-4 text-champagne mt-1.5 flex-shrink-0"
+                  strokeWidth={1.5}
+                />
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
+          {section.footer && (
+            <p className="mt-6 text-muted-foreground italic font-light leading-relaxed">
+              {section.footer}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // highlight
+  return (
+    <div className="bg-gradient-rose rounded-3xl p-8 md:p-12 border border-champagne/30">
+      <div className="flex items-start gap-4">
+        <div className="w-10 h-10 rounded-full border border-champagne/60 flex items-center justify-center flex-shrink-0">
+          <Sparkles className="w-4 h-4 text-wine" strokeWidth={1.5} />
+        </div>
+        <div>
+          <div className="text-[10px] tracking-[0.3em] uppercase text-wine mb-2">
+            {section.title}
+          </div>
+          <p className="text-foreground/85 font-light text-base md:text-lg leading-relaxed">
+            {section.body}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default ExamDetail;
