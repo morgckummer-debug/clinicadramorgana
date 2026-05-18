@@ -243,17 +243,60 @@ export const exams: Exam[] = [
     title: "Obstétrico com Doppler",
     thumb: thumbObstetrico,
     shortDesc:
-      "Análise do fluxo sanguíneo fetal, placentário e uterino.",
-    longDesc:
-      "Avalia a circulação sanguínea entre mãe, placenta e bebê, identificando precocemente alterações que possam comprometer o desenvolvimento fetal.",
-    indications: [
-      "Suspeita de restrição de crescimento fetal",
-      "Hipertensão gestacional ou pré-eclâmpsia",
-      "Acompanhamento de gestações de alto risco",
+      "Avaliação da circulação e bem-estar fetal.",
+    hero: {
+      tagline: "Avaliação da circulação e bem-estar fetal.",
+      intro:
+        "O ultrassom com Doppler é uma tecnologia que avalia o fluxo sanguíneo nas artérias da mãe e do bebê. Ele permite analisar a circulação sanguínea em tempo real, fornecendo informações valiosas sobre a troca de nutrientes e oxigênio entre a mãe e o bebê.",
+      image: dopplerHero,
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "Quais as principais indicações?",
+        items: [
+          "Acompanhamento de gestações com restrição de crescimento intrauterino (CIUR), verificando se o bebê está recebendo oxigênio e nutrientes necessários — ajudando a definir intervenções ou até a antecipação do parto.",
+          "Identificação de 60 a 70% das gestantes com risco aumentado de desenvolver pré-eclâmpsia.",
+          "Rastreamento de anemia fetal através do estudo da Artéria Cerebral Média (ACM) — condição que pode ocorrer, por exemplo, em casos de incompatibilidade sanguínea (Rh) ou em síndromes de transfusão feto-fetal em gemelares.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Quando ele deve ser feito?",
+        body:
+          "Usualmente é pedido após 28 semanas, quando o bebê já é considerado viável (com mais chances de sobreviver ao nascimento). Pode ser solicitado antes das 28 semanas em situações específicas, como histórico de pré-eclâmpsia, restrição de crescimento ou outras condições de risco.",
+      },
+      {
+        kind: "paragraph",
+        title: "Por que realizar o exame?",
+        body:
+          "Porque ele é capaz de detectar sinais de sofrimento fetal ou restrição de crescimento, ajuda a identificar riscos de pré-eclâmpsia para que intervenções possam ser feitas, fornece informações essenciais para decidir o momento ideal para o parto e detecta condições precocemente, permitindo intervenções que salvam vidas.",
+      },
+      {
+        kind: "paragraph",
+        title: "Como ele é feito?",
+        body:
+          "Realizado com um ultrassom convencional, mas com a função Doppler ativada para analisar o fluxo dentro das artérias. As artérias uterinas avaliam o risco de pré-eclâmpsia e se o sangue materno está encontrando dificuldade de chegar até a placenta. A artéria umbilical indica se a placenta está conseguindo enviar oxigênio e nutrientes para o bebê. A artéria cerebral média mostra se o sangue do bebê está bem oxigenado e sem anemia.",
+      },
     ],
-    preparation: SEM_PREPARO,
-    duration: "30 a 45 minutos",
-    whatToBring: ["Pedido médico", "Cartão de pré-natal"],
+    faq: [
+      {
+        q: "O exame é obrigatório em todas as gestações?",
+        a: "Não, mas é altamente recomendado em gestações de alto risco ou quando há sinais de complicações. Sugere-se que ele seja realizado pelo menos uma vez no 3º trimestre, mesmo em gestações normais.",
+      },
+      {
+        q: "Preciso de preparo para o exame?",
+        a: "Não, o ultrassom com Doppler não exige nenhum preparo especial.",
+      },
+      {
+        q: "Ele substitui o ultrassom morfológico?",
+        a: "Não, cada exame tem finalidades diferentes. O Doppler avalia o fluxo sanguíneo, enquanto o morfológico analisa a anatomia do bebê. O Doppler das artérias uterinas pode ser realizado juntamente ao morfológico.",
+      },
+      {
+        q: "Pode ser feito mais de uma vez na gravidez?",
+        a: "Sim, pode ser repetido conforme a necessidade do médico para acompanhar a evolução da gestação.",
+      },
+    ],
   },
   {
     slug: "morfologico-1-trimestre",
