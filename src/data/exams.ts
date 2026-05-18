@@ -1,20 +1,20 @@
 import thumbObstetrico from "@/assets/exams/obstetrico.webp";
 import thumbGinecologico from "@/assets/exams/ginecologico.webp";
-import thumbDoppler from "@/assets/exams/doppler.webp";
 import thumbGeral from "@/assets/exams/geral.webp";
-import thumbPediatrico from "@/assets/exams/pediatrico.webp";
-import thumbTireoide from "@/assets/exams/tireoide.webp";
 
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
-  | "Tireoide & Cervical"
-  | "Doppler Vascular"
-  | "Medicina Interna"
-  | "Pediátrico";
+  | "Medicina Interna";
 
 export interface Exam {
   slug: string;
+  /**
+   * URL histórica preservada para SEO, Google Ads e Analytics.
+   * Sempre começa com "/" e é usada como rota canônica do exame
+   * quando presente. Exames novos (sem histórico) ficam sem legacySlug.
+   */
+  legacySlug?: string;
   category: ExamCategory;
   title: string;
   thumb: string;
@@ -29,19 +29,13 @@ export interface Exam {
 export const categoryThumbs: Record<ExamCategory, string> = {
   "Obstétrico": thumbObstetrico,
   "Ginecológico": thumbGinecologico,
-  "Tireoide & Cervical": thumbTireoide,
-  "Doppler Vascular": thumbDoppler,
   "Medicina Interna": thumbGeral,
-  "Pediátrico": thumbPediatrico,
 };
 
 export const categoryDescriptions: Record<ExamCategory, string> = {
   "Obstétrico": "Acompanhamento gestacional completo, do primeiro ao último trimestre.",
   "Ginecológico": "Saúde da mulher avaliada com sensibilidade e precisão.",
-  "Tireoide & Cervical": "Avaliação minuciosa da tireoide e estruturas do pescoço.",
-  "Doppler Vascular": "Avaliação detalhada do fluxo sanguíneo em vasos e órgãos.",
   "Medicina Interna": "Ultrassonografias gerais para diagnóstico amplo e preciso.",
-  "Pediátrico": "Atenção dedicada e cuidadosa para os pequenos pacientes.",
 };
 
 const SEM_PREPARO = "Não é necessário preparo específico para este exame.";
@@ -52,36 +46,19 @@ const JEJUM_6H = "Jejum de 6 horas (água é permitida).";
 export const exams: Exam[] = [
   // ---------------- Obstétrico ----------------
   {
-    slug: "obstetrico-simples",
-    category: "Obstétrico",
-    title: "Obstétrico Simples",
-    thumb: thumbObstetrico,
-    shortDesc:
-      "Avaliação do desenvolvimento fetal, posição e batimentos cardíacos.",
-    longDesc:
-      "Exame de rotina que acompanha o crescimento do bebê, avalia posição, batimentos cardíacos, líquido amniótico e placenta. Recomendado em diferentes momentos da gestação.",
-    indications: [
-      "Acompanhamento de rotina da gestação",
-      "Confirmação de vitalidade fetal",
-      "Avaliação de crescimento e líquido amniótico",
-    ],
-    preparation: SEM_PREPARO,
-    duration: "20 a 30 minutos",
-    whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
-  },
-  {
     slug: "ultrassom-primeiro-trimestre-tv",
+    legacySlug: "/primeiro-trimestre",
     category: "Obstétrico",
-    title: "1º Trimestre (Transvaginal)",
+    title: "Obstétrico de 1º Trimestre (Transvaginal)",
     thumb: thumbObstetrico,
     shortDesc:
       "Confirmação precoce da gravidez e datação gestacional precisa.",
     longDesc:
-      "Realizado por via transvaginal nas primeiras semanas, confirma a gravidez, localiza o saco gestacional e estima com precisão a idade gestacional.",
+      "Realizado por via transvaginal nas primeiras semanas, confirma a gravidez, localiza o saco gestacional, avalia a vitalidade embrionária e estima com precisão a idade gestacional.",
     indications: [
       "Confirmação inicial da gestação",
       "Datação precisa da idade gestacional",
-      "Avaliação de gestações múltiplas",
+      "Avaliação de vitalidade e número de embriões",
     ],
     preparation: "Bexiga vazia. Sem necessidade de jejum.",
     duration: "20 minutos",
@@ -89,6 +66,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "obstetrico-translucencia-nucal",
+    legacySlug: "/obstetrico-com-translucencia-nucal",
     category: "Obstétrico",
     title: "Obstétrico com Translucência Nucal",
     thumb: thumbObstetrico,
@@ -107,6 +85,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "obstetrico-doppler",
+    legacySlug: "/obstetrico-com-doppler",
     category: "Obstétrico",
     title: "Obstétrico com Doppler",
     thumb: thumbObstetrico,
@@ -125,6 +104,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "morfologico-1-trimestre",
+    legacySlug: "/inicio/morfo-primeirotrimestre",
     category: "Obstétrico",
     title: "Morfológico do 1º Trimestre",
     thumb: thumbObstetrico,
@@ -143,13 +123,14 @@ export const exams: Exam[] = [
   },
   {
     slug: "morfologico-2-trimestre",
+    legacySlug: "/inicio/morfo-segundotrimestre",
     category: "Obstétrico",
     title: "Morfológico do 2º Trimestre",
     thumb: thumbObstetrico,
     shortDesc:
       "Avaliação completa da anatomia fetal entre 20 e 24 semanas.",
     longDesc:
-      "Considerado o exame mais importante da gestação, avalia detalhadamente cada órgão e estrutura fetal, identificando malformações e marcadores genéticos.",
+      "Considerado o exame mais importante da gestação, avalia detalhadamente cada órgão e estrutura fetal, identificando malformações e marcadores genéticos. Inclui medida do colo uterino.",
     indications: [
       "Avaliação anatômica completa do feto",
       "Rastreamento de malformações estruturais",
@@ -161,6 +142,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "morfologico-3-trimestre",
+    legacySlug: "/morfologico-do-3o-trimestre",
     category: "Obstétrico",
     title: "Morfológico do 3º Trimestre",
     thumb: thumbObstetrico,
@@ -179,6 +161,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "obstetrico-3d-4d",
+    legacySlug: "/obstetrico-3d-4d",
     category: "Obstétrico",
     title: "Obstétrico 3D / 4D",
     thumb: thumbObstetrico,
@@ -197,6 +180,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "perfil-biofisico-fetal",
+    legacySlug: "/pbf",
     category: "Obstétrico",
     title: "Perfil Biofísico Fetal (PBF)",
     thumb: thumbObstetrico,
@@ -214,6 +198,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "ecocardiograma-fetal",
+    legacySlug: "/ecocardiograma",
     category: "Obstétrico",
     title: "Ecocardiograma Fetal",
     thumb: thumbObstetrico,
@@ -230,10 +215,55 @@ export const exams: Exam[] = [
     duration: "45 a 60 minutos",
     whatToBring: ["Pedido médico", "Exames cardiológicos anteriores"],
   },
+  {
+    slug: "colo-uterino",
+    legacySlug: "/colo-uterino",
+    category: "Obstétrico",
+    title: "Medida do Colo Uterino (Cervicometria)",
+    thumb: thumbObstetrico,
+    shortDesc:
+      "Avaliação transvaginal do comprimento do colo para risco de parto prematuro.",
+    longDesc:
+      "A cervicometria é o exame transvaginal que mede com precisão o comprimento do colo uterino durante a gestação. É fundamental para identificar pacientes com risco aumentado de parto prematuro e orientar conduta — incluindo a indicação de cerclagem ou uso de progesterona.",
+    indications: [
+      "Rastreamento de risco de parto prematuro",
+      "Histórico de parto prematuro ou cerclagem prévia",
+      "Acompanhamento de gestações de alto risco",
+      "Após procedimentos cervicais (conização, CAF)",
+    ],
+    preparation: "Bexiga vazia.",
+    duration: "15 a 20 minutos",
+    whatToBring: ["Pedido médico", "Cartão de pré-natal", "Exames anteriores"],
+  },
+  {
+    slug: "cerclagem",
+    legacySlug: "/cerclagem",
+    category: "Obstétrico",
+    title: "Cerclagem Uterina — Acompanhamento Ultrassonográfico",
+    thumb: thumbObstetrico,
+    shortDesc:
+      "Avaliação ultrassonográfica antes e depois da cerclagem do colo uterino.",
+    longDesc:
+      "A cerclagem é um procedimento cirúrgico em que uma sutura é colocada no colo uterino para reduzir o risco de parto prematuro em pacientes com incompetência istmo-cervical. O acompanhamento por ultrassom transvaginal — antes, durante o planejamento e ao longo da gestação — é fundamental para avaliar o comprimento do colo, a posição da sutura e a vitalidade fetal.",
+    indications: [
+      "Histórico de perda gestacional no 2º trimestre",
+      "Colo uterino curto identificado em cervicometria",
+      "Incompetência istmo-cervical diagnosticada",
+      "Acompanhamento após cerclagem realizada",
+    ],
+    preparation: "Bexiga vazia.",
+    duration: "20 a 30 minutos",
+    whatToBring: [
+      "Pedido médico",
+      "Cartão de pré-natal",
+      "Relatório cirúrgico da cerclagem (se já realizada)",
+    ],
+  },
 
   // ---------------- Ginecológico ----------------
   {
     slug: "transvaginal",
+    legacySlug: "/tv",
     category: "Ginecológico",
     title: "Transvaginal",
     thumb: thumbGinecologico,
@@ -251,6 +281,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "transvaginal-3d",
+    legacySlug: "/tv-3d",
     category: "Ginecológico",
     title: "Transvaginal 3D",
     thumb: thumbGinecologico,
@@ -268,6 +299,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "ginecologico-doppler",
+    legacySlug: "/transvaginal-com-doppler",
     category: "Ginecológico",
     title: "Ginecológico com Doppler",
     thumb: thumbGinecologico,
@@ -285,6 +317,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "rastreamento-ovulacao",
+    legacySlug: "/rastreamento-de-ovulacao",
     category: "Ginecológico",
     title: "Rastreamento de Ovulação",
     thumb: thumbGinecologico,
@@ -322,6 +355,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "perineo",
+    legacySlug: "/ultrassom-perineal",
     category: "Ginecológico",
     title: "Períneo",
     thumb: thumbGinecologico,
@@ -338,99 +372,10 @@ export const exams: Exam[] = [
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
 
-  // ---------------- Tireoide & Cervical ----------------
-  {
-    slug: "tireoide",
-    category: "Tireoide & Cervical",
-    title: "Tireoide",
-    thumb: thumbTireoide,
-    shortDesc: "Avaliação completa da glândula tireoide e nódulos.",
-    longDesc:
-      "Avalia detalhadamente a glândula tireoide, identifica e classifica nódulos segundo critérios internacionais (TI-RADS).",
-    indications: [
-      "Nódulos palpáveis ou suspeitos",
-      "Alterações em exames laboratoriais",
-      "Acompanhamento de patologias tireoidianas",
-    ],
-    preparation: SEM_PREPARO,
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico", "Exames de sangue e ultrassonografias anteriores"],
-  },
-  {
-    slug: "vasos-cervicais",
-    category: "Tireoide & Cervical",
-    title: "Vasos Cervicais",
-    thumb: thumbTireoide,
-    shortDesc: "Avaliação das artérias carótidas e vertebrais.",
-    longDesc:
-      "Avalia com Doppler as artérias carótidas e vertebrais, identificando placas, estenoses e alterações do fluxo sanguíneo cerebral.",
-    indications: [
-      "Investigação de AVC e isquemias",
-      "Rastreamento em pacientes de risco cardiovascular",
-      "Sopros cervicais",
-    ],
-    preparation: SEM_PREPARO,
-    duration: "30 minutos",
-    whatToBring: ["Pedido médico", "Exames cardiológicos anteriores"],
-  },
-  {
-    slug: "partes-moles-cervical",
-    category: "Tireoide & Cervical",
-    title: "Partes Moles Cervicais",
-    thumb: thumbTireoide,
-    shortDesc:
-      "Avaliação de linfonodos, glândulas salivares e tecidos cervicais.",
-    longDesc:
-      "Examina linfonodos, glândulas salivares e demais estruturas cervicais, auxiliando no diagnóstico de processos inflamatórios e tumorais.",
-    indications: [
-      "Aumento de linfonodos cervicais",
-      "Investigação de massas palpáveis",
-      "Alterações nas glândulas salivares",
-    ],
-    preparation: SEM_PREPARO,
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico"],
-  },
-
-  // ---------------- Doppler Vascular ----------------
-  {
-    slug: "doppler-membros-inferiores",
-    category: "Doppler Vascular",
-    title: "Doppler de Membros Inferiores",
-    thumb: thumbDoppler,
-    shortDesc: "Avaliação arterial e venosa das pernas.",
-    longDesc:
-      "Estuda o sistema arterial e venoso dos membros inferiores, identificando tromboses, varizes e doenças arteriais periféricas.",
-    indications: [
-      "Suspeita de trombose venosa profunda",
-      "Varizes e insuficiência venosa",
-      "Dor ou claudicação ao caminhar",
-    ],
-    preparation: SEM_PREPARO,
-    duration: "30 a 45 minutos",
-    whatToBring: ["Pedido médico", "Exames vasculares anteriores"],
-  },
-  {
-    slug: "doppler-arterias-renais",
-    category: "Doppler Vascular",
-    title: "Doppler de Artérias Renais",
-    thumb: thumbDoppler,
-    shortDesc: "Avaliação do fluxo sanguíneo das artérias renais.",
-    longDesc:
-      "Avalia o fluxo das artérias renais, fundamental na investigação de hipertensão arterial de causa renovascular.",
-    indications: [
-      "Hipertensão de difícil controle",
-      "Insuficiência renal em investigação",
-      "Sopros abdominais",
-    ],
-    preparation: JEJUM_6H,
-    duration: "30 a 45 minutos",
-    whatToBring: ["Pedido médico", "Exames laboratoriais recentes"],
-  },
-
   // ---------------- Medicina Interna ----------------
   {
     slug: "abdome-total",
+    legacySlug: "/abdome-total",
     category: "Medicina Interna",
     title: "Abdome Total",
     thumb: thumbGeral,
@@ -449,6 +394,7 @@ export const exams: Exam[] = [
   },
   {
     slug: "abdome-superior",
+    legacySlug: "/abdome-superior",
     category: "Medicina Interna",
     title: "Abdome Superior",
     thumb: thumbGeral,
@@ -466,7 +412,28 @@ export const exams: Exam[] = [
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
   {
+    slug: "hipocondrio-direito",
+    legacySlug: "/hipoc-dir",
+    category: "Medicina Interna",
+    title: "Hipocôndrio Direito",
+    thumb: thumbGeral,
+    shortDesc:
+      "Avaliação focada de fígado, vesícula e vias biliares.",
+    longDesc:
+      "Ultrassonografia direcionada à região do hipocôndrio direito, com avaliação detalhada de fígado, vesícula biliar e vias biliares. Indicada para investigação de dor localizada, suspeita de cálculos vesiculares e acompanhamento de alterações hepatobiliares já conhecidas.",
+    indications: [
+      "Dor no hipocôndrio direito",
+      "Suspeita de colelitíase (cálculos na vesícula)",
+      "Acompanhamento de esteatose hepática",
+      "Alterações em exames laboratoriais hepáticos",
+    ],
+    preparation: JEJUM_6H,
+    duration: "15 a 20 minutos",
+    whatToBring: ["Pedido médico", "Exames laboratoriais recentes"],
+  },
+  {
     slug: "rins-vias-urinarias",
+    legacySlug: "/rins",
     category: "Medicina Interna",
     title: "Rins e Vias Urinárias",
     thumb: thumbGeral,
@@ -485,8 +452,9 @@ export const exams: Exam[] = [
   },
   {
     slug: "pelvico-masculino",
+    legacySlug: "/prostata",
     category: "Medicina Interna",
-    title: "Pélvico Masculino",
+    title: "Pélvico Masculino (Próstata)",
     thumb: thumbGeral,
     shortDesc: "Avaliação de bexiga e próstata por via abdominal.",
     longDesc:
@@ -500,93 +468,47 @@ export const exams: Exam[] = [
     duration: "20 minutos",
     whatToBring: ["Pedido médico", "PSA recente, se disponível"],
   },
-  {
-    slug: "partes-moles",
-    category: "Medicina Interna",
-    title: "Partes Moles",
-    thumb: thumbGeral,
-    shortDesc:
-      "Avaliação de pele, subcutâneo, músculos e estruturas superficiais.",
-    longDesc:
-      "Avalia lesões superficiais — pele, subcutâneo, músculos e estruturas próximas, auxiliando no diagnóstico de cistos, lipomas e processos inflamatórios.",
-    indications: [
-      "Nódulos palpáveis",
-      "Cistos e lipomas",
-      "Processos inflamatórios localizados",
-    ],
-    preparation: SEM_PREPARO,
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico"],
-  },
-
-  // ---------------- Pediátrico ----------------
-  {
-    slug: "pelvico-infantil",
-    category: "Pediátrico",
-    title: "Pélvico Infantil",
-    thumb: thumbPediatrico,
-    shortDesc:
-      "Avaliação das estruturas pélvicas em crianças e adolescentes.",
-    longDesc:
-      "Avalia bexiga, útero e ovários em meninas, com atenção especial ao desenvolvimento puberal e investigação de alterações.",
-    indications: [
-      "Investigação de puberdade precoce",
-      "Dor abdominal pediátrica",
-      "Alterações menstruais em adolescentes",
-    ],
-    preparation: BEXIGA_CHEIA,
-    duration: "20 a 30 minutos",
-    whatToBring: ["Pedido médico", "Exames anteriores"],
-  },
-  {
-    slug: "quadril-pediatrico",
-    category: "Pediátrico",
-    title: "Quadril Pediátrico",
-    thumb: thumbPediatrico,
-    shortDesc:
-      "Rastreamento de displasia do desenvolvimento do quadril em bebês.",
-    longDesc:
-      "Exame fundamental no rastreamento de displasia do desenvolvimento do quadril em recém-nascidos e lactentes.",
-    indications: [
-      "Rastreamento neonatal de rotina",
-      "Histórico familiar de displasia",
-      "Apresentação pélvica ao nascimento",
-    ],
-    preparation: "Bebê alimentado e tranquilo.",
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico", "Caderneta da criança"],
-  },
-  {
-    slug: "abdome-infantil",
-    category: "Pediátrico",
-    title: "Abdome Infantil",
-    thumb: thumbPediatrico,
-    shortDesc:
-      "Avaliação dos órgãos abdominais em crianças.",
-    longDesc:
-      "Avalia os órgãos abdominais em crianças, com técnica e abordagem adaptadas para o público pediátrico.",
-    indications: [
-      "Dor abdominal pediátrica",
-      "Investigação de massas",
-      "Alterações em exames laboratoriais",
-    ],
-    preparation: "Jejum de 4 horas para crianças acima de 2 anos.",
-    duration: "20 a 30 minutos",
-    whatToBring: ["Pedido médico", "Caderneta da criança"],
-  },
 ];
 
 export const getExamBySlug = (slug: string) =>
   exams.find((e) => e.slug === slug);
 
+/**
+ * Resolve um exame a partir do pathname completo da URL.
+ * Tenta casar primeiro pelo legacySlug (URL histórica preservada
+ * para SEO), depois cai no slug novo via `/exames/:slug`.
+ */
+export const getExamByPath = (pathname: string): Exam | undefined => {
+  if (!pathname) return undefined;
+  // Normaliza removendo barra final (mas mantém a "/" raiz)
+  const normalized =
+    pathname.length > 1 && pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
+
+  const byLegacy = exams.find((e) => e.legacySlug === normalized);
+  if (byLegacy) return byLegacy;
+
+  const examesPrefix = "/exames/";
+  if (normalized.startsWith(examesPrefix)) {
+    const slug = normalized.slice(examesPrefix.length);
+    return getExamBySlug(slug);
+  }
+  return undefined;
+};
+
 export const getExamsByCategory = (category: ExamCategory) =>
   exams.filter((e) => e.category === category);
+
+/**
+ * Caminho canônico do exame. Sempre usa o legacySlug quando existir,
+ * para preservar autoridade SEO e rastreamento de campanhas.
+ */
+export const canonicalPathFor = (exam: Exam): string =>
+  exam.legacySlug ?? `/exames/${exam.slug}`;
 
 export const categories: ExamCategory[] = [
   "Obstétrico",
   "Ginecológico",
-  "Tireoide & Cervical",
-  "Doppler Vascular",
   "Medicina Interna",
-  "Pediátrico",
 ];
