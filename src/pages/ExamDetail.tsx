@@ -147,7 +147,7 @@ const ExamDetail = () => {
           </nav>
 
           <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className={hero.image ? "md:col-span-7" : "md:col-span-12 max-w-3xl"}>
+            <div className={hero.image ? "md:col-span-8" : "md:col-span-12 max-w-3xl"}>
               <span className="text-[11px] tracking-[0.45em] uppercase text-champagne font-medium">
                 {exam.category}
               </span>
