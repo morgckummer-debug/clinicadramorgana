@@ -14,7 +14,6 @@ import tnHero from "@/assets/exams/translucencia-nucal/hero.jpg";
 
 // ---------- Doppler ----------
 import dopplerHero from "@/assets/exams/doppler/hero.jpg";
-import dopplerArteriaUterina from "@/assets/exams/doppler/arteria-uterina.jpg";
 
 // ---------- Morfológico 1º Trimestre ----------
 import morfo1Hero from "@/assets/exams/morfo-1-trimestre/hero.jpg";
@@ -306,14 +305,6 @@ export const exams: Exam[] = [
         title: "Como ele é feito?",
         body:
           "Realizado com um ultrassom convencional, mas com a função Doppler ativada para analisar o fluxo dentro das artérias. As artérias uterinas avaliam o risco de pré-eclâmpsia e se o sangue materno está encontrando dificuldade de chegar até a placenta. A artéria umbilical indica se a placenta está conseguindo enviar oxigênio e nutrientes para o bebê. A artéria cerebral média mostra se o sangue do bebê está bem oxigenado e sem anemia.",
-      },
-    ],
-    gallery: [
-      {
-        image: dopplerArteriaUterina,
-        caption:
-          "Avaliação do fluxo da artéria uterina esquerda. Marcador importante para o risco de pré-eclâmpsia.",
-        alt: "Doppler da artéria uterina esquerda com curva de velocidade",
       },
     ],
     faq: [
