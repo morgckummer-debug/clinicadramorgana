@@ -585,7 +585,7 @@ export const Footer = () => (
   </footer>
 );
 
-const WhatsAppFab = () => (
+export const WhatsAppFab = () => (
   <a
     href={WHATSAPP_URL}
     target="_blank"
