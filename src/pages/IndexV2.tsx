@@ -107,9 +107,9 @@ export const Navbar = () => {
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
+              <Link key={l.href} to={`/${l.href}`} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
                 {l.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
