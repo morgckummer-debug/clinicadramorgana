@@ -12,6 +12,9 @@ import primeiroTriBatimentos from "@/assets/exams/primeiro-trimestre/batimentos.
 // ---------- Translucência Nucal ----------
 import tnHero from "@/assets/exams/translucencia-nucal/hero.jpg";
 
+// ---------- Doppler ----------
+import dopplerHero from "@/assets/exams/doppler/hero.jpg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
