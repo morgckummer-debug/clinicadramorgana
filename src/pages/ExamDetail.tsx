@@ -211,7 +211,7 @@ const ExamDetail = () => {
 
       {/* ---------------- Seções narrativas ---------------- */}
       {sections.length > 0 && (
-        <section className="py-20 md:py-28 bg-background">
+        <section className="py-14 md:py-20 bg-background">
           <div className="container max-w-4xl space-y-20 md:space-y-24">
             {sections.map((section, idx) => (
               <SectionBlock key={`${section.kind}-${idx}`} section={section} />
@@ -222,9 +222,9 @@ const ExamDetail = () => {
 
       {/* ---------------- Galeria "O que pode ser visto?" ---------------- */}
       {exam.gallery && exam.gallery.length > 0 && (
-        <section className="py-24 md:py-32 bg-gradient-rose">
+        <section className="py-16 md:py-20 bg-gradient-rose">
           <div className="container max-w-6xl">
-            <div className="text-center mb-16">
+            <div className="text-center mb-10">
               <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
                 Imagens do exame
               </span>
@@ -272,7 +272,7 @@ const ExamDetail = () => {
 
       {/* ---------------- FAQ ---------------- */}
       {exam.faq && exam.faq.length > 0 && (
-        <section className="py-24 md:py-32 bg-background">
+        <section className="py-16 md:py-20 bg-background">
           <div className="container max-w-3xl">
             <div className="text-center mb-12">
               <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
@@ -301,7 +301,7 @@ const ExamDetail = () => {
 
       {/* ---------------- Outros exames da categoria ---------------- */}
       {related.length > 0 && (
-        <section className="py-24 md:py-32 bg-background border-t border-border/50">
+        <section className="py-16 md:py-20 bg-background border-t border-border/50">
           <div className="container max-w-5xl">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
               <div>
@@ -345,7 +345,7 @@ const ExamDetail = () => {
       )}
 
       {/* ---------------- CTA voltar ---------------- */}
-      <section className="bg-wine-deep text-wine-foreground py-20 border-t border-champagne/15">
+      <section className="bg-wine-deep text-wine-foreground py-14 border-t border-champagne/15">
         <div className="container max-w-3xl text-center">
           <span className="text-champagne text-[10px] tracking-[0.45em] uppercase">
             Continue navegando

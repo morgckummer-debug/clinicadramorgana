@@ -71,9 +71,9 @@ const exams = [
 
 export const Exams = () => {
   return (
-    <section id="exames" className="py-28 md:py-36 bg-background relative">
+    <section id="exames" className="py-20 md:py-24 bg-background relative">
       <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+        <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
             Exames Disponíveis
           </span>
