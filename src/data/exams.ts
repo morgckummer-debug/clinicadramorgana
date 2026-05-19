@@ -720,7 +720,7 @@ export const exams: Exam[] = [
         kind: "highlight",
         title: "Quando deve ser feito",
         body:
-          "O rastreamento das cardiopatias é realizado entre 24 e 28 semanas de gestação, quando o coração do bebê está suficientemente desenvolvido para uma avaliação detalhada. Em casos específicos — suspeita de anomalias ou histórico familiar — o exame pode ser solicitado mais cedo ou repetido ao longo da gestação.",
+          "O rastreamento das cardiopatias é realizado entre 24 e 30 semanas de gestação, quando o coração do bebê está suficientemente desenvolvido para uma avaliação detalhada. Em casos específicos — suspeita de anomalias ou histórico familiar — o exame pode ser solicitado mais cedo ou repetido ao longo da gestação.",
       },
       {
         kind: "list",
