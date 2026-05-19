@@ -58,6 +58,9 @@ import tvHero from "@/assets/exams/transvaginal/hero.jpeg";
 import tv3dHero from "@/assets/exams/transvaginal/hero-3d.jpeg";
 import tvDopplerHero from "@/assets/exams/transvaginal/hero-doppler.webp";
 
+// ---------- Rastreamento de Ovulação ----------
+import ovulacaoHero from "@/assets/exams/ovulacao/hero.webp";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
