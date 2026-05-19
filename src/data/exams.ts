@@ -42,6 +42,11 @@ import morfo2ExibindoVideo from "@/assets/exams/morfo-2-trimestre/exibindo.mp4";
 // ---------- Morfológico 3º Trimestre ----------
 import morfo3Hero from "@/assets/exams/morfo-3-trimestre/hero.jpg";
 
+// ---------- Colo Uterino ----------
+import coloNormal from "@/assets/exams/colo-uterino/normal.jpeg";
+import coloCurto from "@/assets/exams/colo-uterino/curto.jpeg";
+import coloMuitoCurto from "@/assets/exams/colo-uterino/muito-curto.jpeg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
