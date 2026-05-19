@@ -489,7 +489,7 @@ function SectionBlock({ section }: { section: ExamSection }) {
             {section.title}
           </div>
           <p className="text-foreground/85 font-light text-base md:text-lg leading-relaxed">
-            {section.body}
+            {renderInlineLinks(section.body)}
           </p>
         </div>
       </div>
