@@ -58,6 +58,9 @@ import tvHero from "@/assets/exams/transvaginal/hero.jpeg";
 import tv3dHero from "@/assets/exams/transvaginal/hero-3d.jpeg";
 import tvDopplerHero from "@/assets/exams/transvaginal/hero-doppler.webp";
 
+// ---------- Rastreamento de Ovulação ----------
+import ovulacaoHero from "@/assets/exams/ovulacao/hero.webp";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
@@ -1134,17 +1137,57 @@ export const exams: Exam[] = [
     category: "Ginecológico",
     title: "Rastreamento de Ovulação",
     thumb: thumbGinecologico,
-    shortDesc:
-      "Acompanhamento do desenvolvimento folicular para concepção.",
-    longDesc:
-      "Acompanhamento seriado do desenvolvimento folicular, fundamental no planejamento da concepção e tratamentos de reprodução assistida.",
-    indications: [
-      "Planejamento da gestação",
-      "Tratamento de infertilidade",
-      "Acompanhamento de indução ovulatória",
+    shortDesc: "Acompanhamento seriado do ciclo ovulatório para concepção.",
+    hero: {
+      tagline: "Ajuda importante na infertilidade conjugal",
+      intro:
+        "Exame fundamental para monitorar o ciclo ovulatório, especialmente em mulheres que desejam engravidar ou estão em tratamento para infertilidade. Oferece informações precisas sobre o desenvolvimento dos folículos e o momento mais próximo da ovulação.",
+      image: ovulacaoHero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Como o exame funciona",
+        body:
+          "Geralmente iniciamos entre o 8º e o 10º dia do ciclo menstrual (pode variar). O ultrassom monitora o crescimento dos folículos e a espessura do endométrio. São realizados de 3 a 5 exames com intervalos de 2 a 3 dias para identificar a ovulação. Com essa avaliação, o médico orienta o casal sobre o melhor momento para ter relações (coito programado).",
+      },
+      {
+        kind: "paragraph",
+        title: "Confirmação da ovulação",
+        body:
+          "O exame pode confirmar o rompimento do folículo e a formação do corpo lúteo, que indica que a ovulação ocorreu.",
+      },
+      {
+        kind: "paragraph",
+        title: "Como ele é realizado",
+        body:
+          "O transdutor, revestido com preservativo estéril e gel lubrificante, é inserido com delicadeza na vagina.",
+      },
     ],
-    preparation: "Bexiga vazia. Realizado em datas específicas do ciclo.",
-    duration: "15 minutos por sessão",
+    faq: [
+      {
+        q: "Quantas sessões de ultrassom são necessárias?",
+        a: "Geralmente de 3 a 4 exames, dependendo do ciclo e do tratamento.",
+      },
+      {
+        q: "O exame é doloroso?",
+        a: "Não. O transvaginal é indolor — pode causar leve desconforto, mas é muito bem tolerado.",
+      },
+      {
+        q: "O rastreamento é indicado para todas as mulheres?",
+        a: "Não. É indicado para mulheres em tratamento de fertilidade ou com dificuldade para engravidar.",
+      },
+      {
+        q: "Como o exame ajuda em tratamentos de fertilidade?",
+        a: "Identifica o momento mais próximo da ovulação, ajudando a programar relações sexuais, inseminações ou a coleta de óvulos.",
+      },
+      {
+        q: "É necessário jejum ou algum preparo?",
+        a: "Não, o exame não exige preparo especial.",
+      },
+    ],
+    preparation: "Sem preparo específico. Realizado em datas pré-definidas do ciclo.",
+    duration: "15 minutos por sessão (3 a 5 sessões)",
     whatToBring: ["Pedido médico", "Histórico do ciclo menstrual"],
   },
   {
@@ -1152,8 +1195,7 @@ export const exams: Exam[] = [
     category: "Ginecológico",
     title: "Endometriose Profunda",
     thumb: thumbGinecologico,
-    shortDesc:
-      "Mapeamento detalhado de focos de endometriose pélvica.",
+    shortDesc: "Mapeamento detalhado de focos de endometriose pélvica.",
     longDesc:
       "Exame especializado para mapeamento de focos endometrióticos, fundamental no diagnóstico e planejamento cirúrgico da endometriose profunda.",
     indications: [
@@ -1170,18 +1212,43 @@ export const exams: Exam[] = [
     slug: "perineo",
     legacySlug: "/ultrassom-perineal",
     category: "Ginecológico",
-    title: "Períneo",
+    title: "Ultrassom Perineal",
     thumb: thumbGinecologico,
-    shortDesc: "Avaliação da musculatura e estruturas do assoalho pélvico.",
-    longDesc:
-      "Avalia a musculatura, estruturas e funcionalidade do assoalho pélvico, sendo essencial no diagnóstico de incontinências e prolapsos.",
-    indications: [
-      "Incontinência urinária",
-      "Prolapsos genitais",
-      "Pós-parto e reabilitação pélvica",
+    shortDesc: "Avaliação completa e dinâmica do assoalho pélvico feminino.",
+    hero: {
+      tagline: "Avaliação do assoalho pélvico feminino",
+      intro:
+        "Exame especializado que avalia, de forma precisa e dinâmica, as estruturas do assoalho pélvico. Imagens tridimensionais em tempo real permitem o estudo anatômico e funcional de músculos, esfíncteres e órgãos pélvicos — fundamental no diagnóstico e acompanhamento de disfunções uroginecológicas.",
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "Indicações clínicas",
+        items: [
+          "Diagnóstico de prolapsos vaginais (uretrocele, retocele, enterocele e uterocele).",
+          "Avaliação de roturas perineais e esfincterianas, especialmente no pós-parto.",
+          "Vulvodínea — dor na vulva.",
+          "Investigação de incontinência urinária ou fecal.",
+          "Avaliação pré e pós-operatória em pacientes com sling uretral.",
+          "Estudo de disfunções do assoalho pélvico em geral.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Como o exame é realizado",
+        body:
+          "Realizado com sonda endovaginal 3D, de forma confortável. Durante o procedimento são feitas manobras em repouso e de Valsalva, permitindo avaliar o comportamento das estruturas pélvicas em diferentes situações de pressão e esforço. O exame dura, em média, 20 a 30 minutos.",
+      },
+      {
+        kind: "paragraph",
+        title: "É necessário preparo intestinal?",
+        body:
+          "Sim — preparo intestinal leve, sem uso de laxantes, apenas para reduzir gases e melhorar a visualização das estruturas. Para avaliação de nódulos no períneo, não é necessário preparo.",
+      },
     ],
-    preparation: "Bexiga parcialmente cheia.",
-    duration: "30 minutos",
+    preparation:
+      "Preparo intestinal leve (sem laxantes). Para avaliação de nódulos, não há preparo.",
+    duration: "20 a 30 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
 
