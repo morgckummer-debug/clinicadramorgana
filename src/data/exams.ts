@@ -47,6 +47,9 @@ import coloNormal from "@/assets/exams/colo-uterino/normal.jpeg";
 import coloCurto from "@/assets/exams/colo-uterino/curto.jpeg";
 import coloMuitoCurto from "@/assets/exams/colo-uterino/muito-curto.jpeg";
 
+// ---------- Cerclagem ----------
+import cerclagemHero from "@/assets/exams/cerclagem/hero.jpeg";
+
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
@@ -860,12 +863,47 @@ export const exams: Exam[] = [
     slug: "cerclagem",
     legacySlug: "/cerclagem",
     category: "Obstétrico",
-    title: "Cerclagem Uterina — Acompanhamento Ultrassonográfico",
+    title: "Cerclagem do Colo Uterino",
     thumb: thumbObstetrico,
     shortDesc:
-      "Avaliação ultrassonográfica antes e depois da cerclagem do colo uterino.",
+      "Procedimento que reforça o colo do útero para reduzir o risco de parto prematuro.",
     longDesc:
-      "A cerclagem é um procedimento cirúrgico em que uma sutura é colocada no colo uterino para reduzir o risco de parto prematuro em pacientes com incompetência istmo-cervical. O acompanhamento por ultrassom transvaginal — antes, durante o planejamento e ao longo da gestação — é fundamental para avaliar o comprimento do colo, a posição da sutura e a vitalidade fetal.",
+      "A cerclagem é um procedimento cirúrgico em que uma sutura é colocada no colo uterino para reduzir o risco de parto prematuro em pacientes com incompetência istmo-cervical. O acompanhamento por ultrassom transvaginal — antes e ao longo da gestação — é fundamental para avaliar o comprimento do colo, a posição da sutura e a vitalidade fetal.",
+    hero: {
+      tagline: "Um reforço para proteger o bebê.",
+      intro:
+        "A cerclagem é um procedimento cirúrgico que coloca uma sutura ao redor do colo do útero, mantendo-o fechado durante a gestação. É indicada quando há risco aumentado de parto prematuro por incompetência ístmo-cervical ou [colo curto](/colo-uterino) identificado na ultrassonografia.",
+      image: cerclagemHero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Quando é indicada",
+        body:
+          "Pode ser indicada em três situações principais: histórico de perdas gestacionais ou partos prematuros recorrentes no 2º trimestre, diagnóstico prévio de incompetência ístmo-cervical, ou identificação de colo uterino curto durante o acompanhamento da [cervicometria](/colo-uterino). A decisão é sempre individualizada pelo obstetra a partir do histórico clínico e dos achados ultrassonográficos.",
+      },
+      {
+        kind: "highlight",
+        title: "Quando é realizada",
+        body:
+          "Geralmente entre 12 e 24 semanas de gestação, conforme a indicação. Em casos eletivos (histórico de incompetência cervical), costuma ser feita no início do 2º trimestre. Em casos de colo curto detectado no ultrassom, pode ser indicada de forma terapêutica durante o acompanhamento.",
+      },
+      {
+        kind: "list",
+        title: "O papel do ultrassom",
+        items: [
+          "Antes do procedimento — confirma a indicação por meio da medida do colo e da avaliação anatômica.",
+          "No planejamento — avalia a vitalidade fetal e descarta contraindicações.",
+          "Após a cerclagem — acompanha o comprimento do colo acima da sutura, a posição da sutura e o bem-estar do bebê.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Cuidados após a cerclagem",
+        body:
+          "Após a cirurgia, o obstetra orienta o repouso adequado, restrições de atividade física e relações sexuais, além do acompanhamento clínico e ultrassonográfico mais frequente. A retirada da sutura habitualmente é realizada entre 36 e 37 semanas, preparando o organismo para o trabalho de parto natural.",
+      },
+    ],
     indications: [
       "Histórico de perda gestacional no 2º trimestre",
       "Colo uterino curto identificado em cervicometria",
