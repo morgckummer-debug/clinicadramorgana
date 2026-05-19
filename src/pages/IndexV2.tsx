@@ -151,7 +151,7 @@ const Hero = () => (
 
     {/* Conteúdo */}
     <div className="relative container min-h-[calc(100vh-6rem)] flex items-center">
-      <div className="max-w-2xl py-16 md:py-14 animate-fade-up">
+      <div className="max-w-2xl py-10 md:py-10 animate-fade-up">
         <div className="inline-flex items-center gap-3 mb-10">
           <span className="w-8 h-px bg-champagne" />
           <span className="text-[10px] tracking-[0.45em] uppercase text-champagne font-medium">Sete Lagoas · Minas Gerais</span>
@@ -203,7 +203,7 @@ const Hero = () => (
 
 /* ---------------- Faixa de citação ---------------- */
 const Quote = () => (
-  <section className="bg-wine-deep text-wine-foreground py-14 md:py-20 relative overflow-hidden">
+  <section className="bg-wine-deep text-wine-foreground py-10 md:py-14 relative overflow-hidden">
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
     <div className="container grid md:grid-cols-12 gap-10 md:gap-10 items-center relative">
       <div className="md:col-span-5 flex justify-center md:justify-start">
@@ -234,8 +234,8 @@ const Quote = () => (
 
 /* ---------------- Sobre ---------------- */
 const About = () => (
-  <section id="sobre" className="py-20 md:py-24 bg-background relative overflow-hidden">
-    <div className="container grid md:grid-cols-12 gap-12 md:gap-12 items-center">
+  <section id="sobre" className="py-12 md:py-16 bg-background relative overflow-hidden">
+    <div className="container grid md:grid-cols-12 gap-8 md:gap-8 items-center">
       <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1 md:col-span-5">
         <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
         <img
@@ -280,7 +280,7 @@ const About = () => (
 
 /* ---------------- Exames com thumbnails ---------------- */
 const Exams = () => (
-  <section id="exames" className="py-20 md:py-24 bg-gradient-rose relative">
+  <section id="exames" className="py-12 md:py-16 bg-gradient-rose relative">
     <div className="container">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-10">
         <div className="max-w-xl">
@@ -348,7 +348,7 @@ const Exams = () => (
 const CtaBanner = () => (
   <section className="relative bg-wine-deep text-wine-foreground overflow-hidden">
     <div className="container grid md:grid-cols-2 items-end gap-8 relative">
-      <div className="py-14 md:py-20 max-w-lg">
+      <div className="py-10 md:py-14 max-w-lg">
         <span className="text-champagne text-[11px] tracking-[0.4em] uppercase">Reserve seu horário</span>
         <h2 className="mt-4 text-4xl md:text-5xl text-balance leading-tight">
           Cuidado começa com uma <span className="font-serif italic font-light text-champagne">conversa</span>.
@@ -390,7 +390,7 @@ const team = [
 ];
 
 const Team = () => (
-  <section id="corpo-clinico" className="py-20 md:py-24 bg-background relative">
+  <section id="corpo-clinico" className="py-12 md:py-16 bg-background relative">
     <div className="container">
       <div className="text-center max-w-2xl mx-auto mb-10">
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Corpo Clínico</span>
@@ -465,9 +465,9 @@ const convenios = [
 ];
 
 const Convenios = () => (
-  <section id="convenios" className="py-16 bg-background">
+  <section id="convenios" className="py-10 bg-background">
     <div className="container">
-      <div className="text-center max-w-xl mx-auto mb-14">
+      <div className="text-center max-w-xl mx-auto mb-8">
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Convênios</span>
         <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl">
           Atendemos os <span className="font-serif italic font-light">principais planos</span>.
@@ -499,8 +499,8 @@ const Convenios = () => (
 
 /* ---------------- Contato ---------------- */
 const Contact = () => (
-  <section id="contato" className="py-20 bg-gradient-rose relative">
-    <div className="container grid md:grid-cols-2 gap-12 items-start">
+  <section id="contato" className="py-12 bg-gradient-rose relative">
+    <div className="container grid md:grid-cols-2 gap-8 items-start">
       <div>
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Contato</span>
         <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
@@ -570,7 +570,7 @@ const Contact = () => (
 
 /* ---------------- Footer ---------------- */
 export const Footer = () => (
-  <footer className="bg-wine-deep py-14 border-t border-champagne/15">
+  <footer className="bg-wine-deep py-10 border-t border-champagne/15">
     <div className="container flex flex-col md:flex-row items-center justify-between gap-6">
       <img src={logoWhite} alt="Logo Dra. Morgana Kummer" className="h-16 w-auto opacity-90" />
       <div className="text-center md:text-right text-wine-foreground/70 text-xs tracking-wide">
