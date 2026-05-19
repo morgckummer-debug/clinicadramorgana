@@ -151,7 +151,7 @@ const Hero = () => (
 
     {/* Conteúdo */}
     <div className="relative container min-h-[calc(100vh-6rem)] flex items-center">
-      <div className="max-w-2xl py-16 md:py-20 animate-fade-up">
+      <div className="max-w-2xl py-16 md:py-14 animate-fade-up">
         <div className="inline-flex items-center gap-3 mb-10">
           <span className="w-8 h-px bg-champagne" />
           <span className="text-[10px] tracking-[0.45em] uppercase text-champagne font-medium">Sete Lagoas · Minas Gerais</span>
@@ -203,9 +203,9 @@ const Hero = () => (
 
 /* ---------------- Faixa de citação ---------------- */
 const Quote = () => (
-  <section className="bg-wine-deep text-wine-foreground py-20 md:py-28 relative overflow-hidden">
+  <section className="bg-wine-deep text-wine-foreground py-14 md:py-20 relative overflow-hidden">
     <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
-    <div className="container grid md:grid-cols-12 gap-10 md:gap-16 items-center relative">
+    <div className="container grid md:grid-cols-12 gap-10 md:gap-10 items-center relative">
       <div className="md:col-span-5 flex justify-center md:justify-start">
         <div className="relative max-w-sm w-full">
           <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
@@ -234,8 +234,8 @@ const Quote = () => (
 
 /* ---------------- Sobre ---------------- */
 const About = () => (
-  <section id="sobre" className="py-32 md:py-40 bg-background relative overflow-hidden">
-    <div className="container grid md:grid-cols-12 gap-12 md:gap-20 items-center">
+  <section id="sobre" className="py-20 md:py-24 bg-background relative overflow-hidden">
+    <div className="container grid md:grid-cols-12 gap-12 md:gap-12 items-center">
       <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1 md:col-span-5">
         <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
         <img
@@ -280,9 +280,9 @@ const About = () => (
 
 /* ---------------- Exames com thumbnails ---------------- */
 const Exams = () => (
-  <section id="exames" className="py-28 md:py-36 bg-gradient-rose relative">
+  <section id="exames" className="py-20 md:py-24 bg-gradient-rose relative">
     <div className="container">
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-10">
         <div className="max-w-xl">
           <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Exames Disponíveis</span>
           <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
@@ -348,7 +348,7 @@ const Exams = () => (
 const CtaBanner = () => (
   <section className="relative bg-wine-deep text-wine-foreground overflow-hidden">
     <div className="container grid md:grid-cols-2 items-end gap-8 relative">
-      <div className="py-20 md:py-28 max-w-lg">
+      <div className="py-14 md:py-20 max-w-lg">
         <span className="text-champagne text-[11px] tracking-[0.4em] uppercase">Reserve seu horário</span>
         <h2 className="mt-4 text-4xl md:text-5xl text-balance leading-tight">
           Cuidado começa com uma <span className="font-serif italic font-light text-champagne">conversa</span>.
@@ -390,9 +390,9 @@ const team = [
 ];
 
 const Team = () => (
-  <section id="corpo-clinico" className="py-28 md:py-36 bg-background relative">
+  <section id="corpo-clinico" className="py-20 md:py-24 bg-background relative">
     <div className="container">
-      <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="text-center max-w-2xl mx-auto mb-10">
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Corpo Clínico</span>
         <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
           Profissionais que fazem a <span className="font-serif italic font-light">diferença</span>.
@@ -465,7 +465,7 @@ const convenios = [
 ];
 
 const Convenios = () => (
-  <section id="convenios" className="py-24 bg-background">
+  <section id="convenios" className="py-16 bg-background">
     <div className="container">
       <div className="text-center max-w-xl mx-auto mb-14">
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Convênios</span>
@@ -499,7 +499,7 @@ const Convenios = () => (
 
 /* ---------------- Contato ---------------- */
 const Contact = () => (
-  <section id="contato" className="py-28 bg-gradient-rose relative">
+  <section id="contato" className="py-20 bg-gradient-rose relative">
     <div className="container grid md:grid-cols-2 gap-12 items-start">
       <div>
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Contato</span>

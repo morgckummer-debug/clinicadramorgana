@@ -4,10 +4,10 @@ export const Contact = () => {
   const whatsappLink = "https://api.whatsapp.com/send?phone=5531993910212";
 
   return (
-    <section id="contato" className="py-28 md:py-36 bg-wine-deep text-wine-foreground relative overflow-hidden">
+    <section id="contato" className="py-20 md:py-24 bg-wine-deep text-wine-foreground relative overflow-hidden">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-50" />
 
-      <div className="container grid md:grid-cols-2 gap-16 items-start">
+      <div className="container grid md:grid-cols-2 gap-10 items-start">
         <div>
           <span className="text-champagne text-[11px] tracking-[0.4em] uppercase">
             Contato
