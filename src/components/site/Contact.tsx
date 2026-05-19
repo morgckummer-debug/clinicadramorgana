@@ -1,7 +1,7 @@
 import { MapPin, Phone, Clock, Instagram } from "lucide-react";
 
 export const Contact = () => {
-  const whatsappLink = "https://wa.me/5531000000000";
+  const whatsappLink = "https://api.whatsapp.com/send?phone=5531993910212";
 
   return (
     <section id="contato" className="py-28 md:py-36 bg-wine-deep text-wine-foreground relative overflow-hidden">
