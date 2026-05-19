@@ -118,12 +118,18 @@ export const categoryThumbs: Record<ExamCategory, string> = {
   "Obstétrico": thumbObstetrico,
   "Ginecológico": thumbGinecologico,
   "Medicina Interna": thumbGeral,
+  "Vascular": thumbVascular,
+  "Tireóide e Cervical": thumbTireoide,
+  "Pediátrico": thumbPediatrico,
 };
 
 export const categoryDescriptions: Record<ExamCategory, string> = {
   "Obstétrico": "Acompanhamento gestacional completo, do primeiro ao último trimestre.",
   "Ginecológico": "Saúde da mulher avaliada com sensibilidade e precisão.",
   "Medicina Interna": "Ultrassonografias gerais para diagnóstico amplo e preciso.",
+  "Vascular": "Duplex e Doppler para artérias e veias com leitura precisa do fluxo.",
+  "Tireóide e Cervical": "Avaliação detalhada da tireoide, cervical e glândulas salivares.",
+  "Pediátrico": "Exames delicados e cuidadosos para bebês e crianças.",
 };
 
 const SEM_PREPARO = "Não é necessário preparo específico para este exame.";
