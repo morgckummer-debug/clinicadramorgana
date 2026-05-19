@@ -941,17 +941,69 @@ export const exams: Exam[] = [
     slug: "transvaginal",
     legacySlug: "/tv",
     category: "Ginecológico",
-    title: "Transvaginal",
+    title: "Transvaginal (Endovaginal)",
     thumb: thumbGinecologico,
     shortDesc: "Avaliação detalhada do útero, ovários e endométrio.",
-    longDesc:
-      "Exame fundamental na saúde da mulher, avalia com precisão útero, ovários, endométrio e estruturas pélvicas.",
-    indications: [
-      "Investigação de dor pélvica",
-      "Alterações menstruais",
-      "Rastreamento ginecológico de rotina",
+    hero: {
+      tagline: "Saúde ginecológica e gestacional",
+      intro:
+        "Exame de imagem com transdutor delicado inserido no canal vaginal, obtendo imagens detalhadas do útero, ovários, endométrio e colo do útero.",
+      image: tvHero,
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "O que ele pode detectar",
+        items: [
+          "Útero: miomas, pólipos endometriais e malformações uterinas.",
+          "Endométrio: espessura e saúde do revestimento, especialmente em sangramento anormal ou suspeita de hiperplasia.",
+          "Ovários: cistos, tumores e Síndrome dos Ovários Policísticos (SOP).",
+          "Infertilidade: monitoramento do ciclo, ovulação e condições que dificultam a concepção.",
+          "Dor pélvica ou sangramento anormal: investigação da causa de sintomas persistentes.",
+        ],
+      },
+      {
+        kind: "list",
+        title: "Principais indicações obstétricas",
+        items: [
+          "Confirmação da gravidez inicial — batimentos cardíacos e datação correta.",
+          "Identificação de gravidez ectópica (fora do útero).",
+          "Avaliação do colo do útero — predição de risco de parto prematuro.",
+          "Monitoramento de sangramentos no início da gravidez.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Não há preparo específico. Recomenda-se esvaziar a bexiga antes do exame para maior conforto.",
+      },
+      {
+        kind: "paragraph",
+        title: "Como ele é realizado",
+        body:
+          "O transdutor é fino — muito menor do que o espéculo usado na prevenção. É revestido com preservativo estéril, recebe gel lubrificante e inserido com delicadeza na vagina.",
+      },
     ],
-    preparation: "Bexiga vazia.",
+    faq: [
+      {
+        q: "O exame dói?",
+        a: "Geralmente é indolor. Pode causar leve desconforto durante a inserção do transdutor.",
+      },
+      {
+        q: "Preciso de preparo para o exame?",
+        a: "Apenas esvaziar a bexiga antes do exame, salvo orientações específicas do médico.",
+      },
+      {
+        q: "Posso fazer o exame menstruada?",
+        a: "Sim, a menstruação não interfere no exame.",
+      },
+      {
+        q: "Gestantes podem fazer ultrassom transvaginal?",
+        a: "Sim, especialmente no início da gravidez, para monitorar o desenvolvimento inicial do embrião e avaliar o colo do útero.",
+      },
+    ],
+    preparation: "Esvaziar a bexiga antes do exame.",
     duration: "15 a 20 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
@@ -961,15 +1013,58 @@ export const exams: Exam[] = [
     category: "Ginecológico",
     title: "Transvaginal 3D",
     thumb: thumbGinecologico,
-    shortDesc: "Avaliação tridimensional do útero e cavidade endometrial.",
-    longDesc:
-      "Tecnologia tridimensional que permite avaliação anatômica precisa do útero, especialmente útil em investigações de infertilidade e malformações.",
-    indications: [
-      "Investigação de infertilidade",
-      "Suspeita de malformações uterinas",
-      "Avaliação de miomas e pólipos",
+    shortDesc: "Visualização tridimensional do útero, com precisão de ressonância.",
+    hero: {
+      tagline: "Tecnologia tridimensional",
+      intro:
+        "Tecnologia avançada que reconstrói imagens tridimensionais dos órgãos reprodutivos femininos, com detalhamento superior do útero para diagnósticos ginecológicos e obstétricos mais completos.",
+      image: tv3dHero,
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "O que ele pode detectar",
+        items: [
+          "Anomalias uterinas (septado, bicorno, unicorno, didelfo) com precisão semelhante à ressonância magnética.",
+          "Planejamento cirúrgico de miomas e outras alterações.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Apenas esvaziar a bexiga logo antes do exame. Para avaliação de malformações, recomenda-se realizar entre o 15º e o 25º dia do ciclo (período secretor), em pacientes que não usam anticoncepcional. Quem usa pílula pode fazer em qualquer fase.",
+      },
+      {
+        kind: "paragraph",
+        title: "Como ele é realizado",
+        body:
+          "O transdutor, revestido com preservativo estéril e gel lubrificante, é inserido com delicadeza na vagina. A duração depende da complexidade das alterações.",
+      },
     ],
-    preparation: "Bexiga vazia.",
+    faq: [
+      {
+        q: "Qual a diferença para o transvaginal convencional?",
+        a: "O convencional gera imagens em dois planos; o 3D reconstrói as imagens em três planos, com maior detalhamento e precisão.",
+      },
+      {
+        q: "O exame dói?",
+        a: "Geralmente é indolor. Pode causar leve desconforto durante a inserção do transdutor.",
+      },
+      {
+        q: "O exame em 3D é seguro?",
+        a: "Sim, é tão seguro quanto o convencional e não utiliza radiação.",
+      },
+      {
+        q: "Quem deve realizar o ultrassom em 3D?",
+        a: "Principalmente mulheres com suspeita de malformações uterinas ou histórico de infertilidade.",
+      },
+      {
+        q: "Posso fazer em qualquer fase do ciclo menstrual?",
+        a: "Sim, mas para avaliação do endométrio o ideal é o período secretor (entre o 15º e o 25º dia do ciclo).",
+      },
+    ],
+    preparation: "Esvaziar a bexiga antes do exame.",
     duration: "20 a 30 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
@@ -977,17 +1072,59 @@ export const exams: Exam[] = [
     slug: "ginecologico-doppler",
     legacySlug: "/transvaginal-com-doppler",
     category: "Ginecológico",
-    title: "Ginecológico com Doppler",
+    title: "Transvaginal com Doppler",
     thumb: thumbGinecologico,
-    shortDesc: "Análise vascularizada das estruturas pélvicas femininas.",
-    longDesc:
-      "Avalia o fluxo sanguíneo das estruturas pélvicas, sendo essencial em investigações específicas de patologias uterinas e ovarianas.",
-    indications: [
-      "Avaliação de miomas vascularizados",
-      "Investigação de tumores anexiais",
-      "Estudo de varizes pélvicas",
+    shortDesc: "Avaliação do útero, ovários e do fluxo sanguíneo das estruturas pélvicas.",
+    hero: {
+      tagline: "Ultrassom + estudo vascular",
+      intro:
+        "Associa o transvaginal simples — que avalia útero e ovários — ao Doppler, que estuda os vasos sanguíneos (artérias) das estruturas pélvicas.",
+      image: tvDopplerHero,
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "O que ele pode detectar",
+        body:
+          "Identifica cistos, miomas e pólipos como o exame convencional, e ainda avalia se a estrutura está bem vascularizada ou apresenta vascularização anormal — informação fundamental para definir condutas e o tipo de cirurgia indicada.",
+      },
+      {
+        kind: "list",
+        title: "Principais indicações",
+        items: [
+          "Cistos complexos",
+          "Tumores ovarianos",
+          "Avaliação de vascularização de miomas",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Não há preparo específico. Recomenda-se esvaziar a bexiga antes do exame para maior conforto.",
+      },
+      {
+        kind: "paragraph",
+        title: "Como ele é realizado",
+        body:
+          "O transdutor, revestido com preservativo estéril e gel lubrificante, é inserido com delicadeza na vagina.",
+      },
     ],
-    preparation: "Bexiga vazia.",
+    faq: [
+      {
+        q: "O exame dói?",
+        a: "Geralmente é indolor. Pode causar leve desconforto durante a inserção do transdutor.",
+      },
+      {
+        q: "Preciso de preparo para o exame?",
+        a: "Apenas esvaziar a bexiga antes do exame, salvo orientação médica específica.",
+      },
+      {
+        q: "Posso fazer o exame menstruada?",
+        a: "Sim, a menstruação não interfere no exame.",
+      },
+    ],
+    preparation: "Esvaziar a bexiga antes do exame.",
     duration: "30 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
