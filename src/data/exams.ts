@@ -829,6 +829,23 @@ export const exams: Exam[] = [
           "Infelizmente não. Pelo toque, o obstetra percebe se o orifício externo (o \"buraquinho\" de fora) está fechado e se o colo está macio ou duro. O ultrassom é o único meio de avaliar o orifício interno. Muitas vezes o toque está normal, mas o colo já está aberto por dentro — fenômeno chamado afunilamento. A identificação precoce do colo curto pode salvar a vida do bebê.",
       },
     ],
+    gallery: [
+      {
+        image: coloNormal,
+        alt: "Ultrassom de colo uterino normal",
+        caption: "Colo normal — maior que 2,5 cm. Risco de prematuridade: 3%.",
+      },
+      {
+        image: coloCurto,
+        alt: "Ultrassom de colo uterino curto",
+        caption: "Colo curto — menor que 2,5 cm. Risco de prematuridade: 20%.",
+      },
+      {
+        image: coloMuitoCurto,
+        alt: "Ultrassom de colo uterino muito curto",
+        caption: "Colo muito curto — menor que 1,0 cm. Risco de prematuridade: 50%.",
+      },
+    ],
     indications: [
       "Rastreamento de risco de parto prematuro",
       "Histórico de parto prematuro ou cerclagem prévia",
