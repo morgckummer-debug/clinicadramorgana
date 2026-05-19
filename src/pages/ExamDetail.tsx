@@ -135,7 +135,7 @@ const ExamDetail = () => {
       <Navbar />
 
       {/* ---------------- Hero ---------------- */}
-      <section className="relative bg-wine-deep text-wine-foreground pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      <section className="relative bg-wine-deep text-wine-foreground pt-24 pb-14 md:pt-28 md:pb-16 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-wine-deep via-wine-deep to-[hsl(311,42%,18%)]" />
           <div className="absolute top-1/3 -left-32 w-[28rem] h-[28rem] rounded-full bg-wine/30 blur-[120px]" />
@@ -156,7 +156,7 @@ const ExamDetail = () => {
             <span className="text-wine-foreground/60">{exam.category}</span>
           </nav>
 
-          <div className="grid md:grid-cols-12 gap-12 items-center">
+          <div className="grid md:grid-cols-12 gap-8 items-center">
             <div className={hero.image ? "md:col-span-8" : "md:col-span-12 max-w-3xl"}>
               <span className="text-[11px] tracking-[0.45em] uppercase text-champagne font-medium">
                 {exam.category}
@@ -211,8 +211,8 @@ const ExamDetail = () => {
 
       {/* ---------------- Seções narrativas ---------------- */}
       {sections.length > 0 && (
-        <section className="py-14 md:py-20 bg-background">
-          <div className="container max-w-4xl space-y-20 md:space-y-24">
+        <section className="py-10 md:py-14 bg-background">
+          <div className="container max-w-4xl space-y-10 md:space-y-14">
             {sections.map((section, idx) => (
               <SectionBlock key={`${section.kind}-${idx}`} section={section} />
             ))}
@@ -222,7 +222,7 @@ const ExamDetail = () => {
 
       {/* ---------------- Galeria "O que pode ser visto?" ---------------- */}
       {exam.gallery && exam.gallery.length > 0 && (
-        <section className="py-16 md:py-20 bg-gradient-rose">
+        <section className="py-12 md:py-14 bg-gradient-rose">
           <div className="container max-w-6xl">
             <div className="text-center mb-10">
               <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
@@ -272,9 +272,9 @@ const ExamDetail = () => {
 
       {/* ---------------- FAQ ---------------- */}
       {exam.faq && exam.faq.length > 0 && (
-        <section className="py-16 md:py-20 bg-background">
+        <section className="py-12 md:py-14 bg-background">
           <div className="container max-w-3xl">
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
                 Perguntas frequentes
               </span>
@@ -301,9 +301,9 @@ const ExamDetail = () => {
 
       {/* ---------------- Outros exames da categoria ---------------- */}
       {related.length > 0 && (
-        <section className="py-16 md:py-20 bg-background border-t border-border/50">
+        <section className="py-12 md:py-14 bg-background border-t border-border/50">
           <div className="container max-w-5xl">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
               <div>
                 <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
                   Categoria · {exam.category}
@@ -345,7 +345,7 @@ const ExamDetail = () => {
       )}
 
       {/* ---------------- CTA voltar ---------------- */}
-      <section className="bg-wine-deep text-wine-foreground py-14 border-t border-champagne/15">
+      <section className="bg-wine-deep text-wine-foreground py-10 border-t border-champagne/15">
         <div className="container max-w-3xl text-center">
           <span className="text-champagne text-[10px] tracking-[0.45em] uppercase">
             Continue navegando
@@ -429,7 +429,7 @@ function renderInlineLinks(text: string) {
 function SectionBlock({ section }: { section: ExamSection }) {
   if (section.kind === "paragraph") {
     return (
-      <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+      <div className="grid md:grid-cols-12 gap-8 md:gap-8">
         <div className="md:col-span-4">
           <h2 className="text-wine-deep text-2xl md:text-3xl font-light leading-tight">
             {section.title}
@@ -445,7 +445,7 @@ function SectionBlock({ section }: { section: ExamSection }) {
 
   if (section.kind === "list") {
     return (
-      <div className="grid md:grid-cols-12 gap-8 md:gap-12">
+      <div className="grid md:grid-cols-12 gap-8 md:gap-8">
         <div className="md:col-span-4">
           <h2 className="text-wine-deep text-2xl md:text-3xl font-light leading-tight">
             {section.title}

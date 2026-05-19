@@ -2,8 +2,8 @@ import doctorImg from "@/assets/doctor-portrait.jpg";
 
 export const About = () => {
   return (
-    <section id="sobre" className="py-20 md:py-24 bg-gradient-rose relative overflow-hidden">
-      <div className="container grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+    <section id="sobre" className="py-12 md:py-16 bg-gradient-rose relative overflow-hidden">
+      <div className="container grid md:grid-cols-2 gap-10 md:gap-8 items-center">
         {/* Imagem com moldura champagne */}
         <div className="relative max-w-md mx-auto md:mx-0">
           <div className="absolute -inset-4 border border-champagne/40 rounded-2xl translate-x-4 translate-y-4" />

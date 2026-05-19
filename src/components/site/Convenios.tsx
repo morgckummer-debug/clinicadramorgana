@@ -5,9 +5,9 @@ const convenios = [
 
 export const Convenios = () => {
   return (
-    <section id="convenios" className="py-16 bg-gradient-rose">
+    <section id="convenios" className="py-10 bg-gradient-rose">
       <div className="container">
-        <div className="text-center max-w-xl mx-auto mb-14">
+        <div className="text-center max-w-xl mx-auto mb-8">
           <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
             Convênios
           </span>
