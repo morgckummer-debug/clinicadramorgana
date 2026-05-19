@@ -784,6 +784,46 @@ export const exams: Exam[] = [
       "Avaliação transvaginal do comprimento do colo para risco de parto prematuro.",
     longDesc:
       "A cervicometria é o exame transvaginal que mede com precisão o comprimento do colo uterino durante a gestação. É fundamental para identificar pacientes com risco aumentado de parto prematuro e orientar conduta — incluindo a indicação de cerclagem ou uso de progesterona.",
+    hero: {
+      tagline: "Um exame que salva vidas.",
+      intro:
+        "O colo do útero é a parte inferior do útero que se conecta à vagina. Durante a gravidez, ele desempenha um papel crucial, funcionando como uma barreira protetora para o bebê.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Relação com o parto prematuro",
+        body:
+          "Existe relação direta entre a medida do colo do útero e o risco de prematuridade (nascimento antes de 37 semanas). O colo é considerado normal quando seu comprimento é maior que 2,5 cm e curto quando menor que 2,5 cm — colos curtos têm risco aumentado de parto antes da hora. Em algumas gestantes isso ocorre devido à incompetência cervical, condição em que o colo não consegue suportar o peso do bebê em crescimento.",
+      },
+      {
+        kind: "highlight",
+        title: "Quando deve ser realizado",
+        body:
+          "Pode ser realizado em qualquer período da gestação, mas para avaliar o risco de parto prematuro é recomendado entre 20 e 24 semanas, junto ao [Morfológico do 2º Trimestre](/morfologico-do-2-trimestre). Em casos específicos — histórico de complicações, incompetência ístmo-cervical ou gestação gemelar — pode ser feito antes, conforme orientação médica.",
+      },
+      {
+        kind: "paragraph",
+        title: "Por que é tão importante",
+        body:
+          "A prematuridade é a principal causa de morte fetal no mundo. A avaliação do colo monitora gestações de alto risco — como histórico de parto prematuro ou cirurgias uterinas (CAF) — e avalia a necessidade de intervenções como a [cerclagem](/cerclagem), procedimento que evita a dilatação precoce do colo. O exame identifica até 70% das mulheres que terão parto prematuro; ainda assim, cerca de 30% têm parto prematuro mesmo com exame normal.",
+      },
+      {
+        kind: "list",
+        title: "Como interpretar a medida",
+        items: [
+          "Colo normal — maior que 2,5 cm. Risco de prematuridade: 3%.",
+          "Colo curto — menor que 2,5 cm. Risco de prematuridade: 20%.",
+          "Colo muito curto — menor que 1,0 cm. Risco de prematuridade: 50%.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "O toque não vê a mesma coisa?",
+        body:
+          "Infelizmente não. Pelo toque, o obstetra percebe se o orifício externo (o \"buraquinho\" de fora) está fechado e se o colo está macio ou duro. O ultrassom é o único meio de avaliar o orifício interno. Muitas vezes o toque está normal, mas o colo já está aberto por dentro — fenômeno chamado afunilamento. A identificação precoce do colo curto pode salvar a vida do bebê.",
+      },
+    ],
     indications: [
       "Rastreamento de risco de parto prematuro",
       "Histórico de parto prematuro ou cerclagem prévia",
