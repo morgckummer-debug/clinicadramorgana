@@ -1,9 +1,9 @@
-import thumbObstetrico from "@/assets/exams/obstetrico.webp";
-import thumbGinecologico from "@/assets/exams/ginecologico.webp";
-import thumbGeral from "@/assets/exams/geral.webp";
-import thumbVascular from "@/assets/exams/vascular.jpg";
-import thumbTireoide from "@/assets/exams/tireoide.jpg";
-import thumbPediatrico from "@/assets/exams/pediatrico.jpg";
+import thumbObstetrico from "@/assets/exams/cat-obstetrico.webp";
+import thumbGinecologico from "@/assets/exams/cat-ginecologico.webp";
+import thumbGeral from "@/assets/exams/cat-medicina-interna.webp";
+import thumbVascular from "@/assets/exams/cat-vascular.webp";
+import thumbTireoide from "@/assets/exams/cat-tireoide.webp";
+import thumbPediatrico from "@/assets/exams/cat-pediatrico.webp";
 
 // ---------- 1º Trimestre ----------
 import primeiroTriHero from "@/assets/exams/primeiro-trimestre/hero.jpg";
