@@ -1193,19 +1193,59 @@ export const exams: Exam[] = [
   {
     slug: "endometriose-profunda",
     category: "Ginecológico",
-    title: "Endometriose Profunda",
+    title: "Mapeamento de Endometriose Profunda",
     thumb: thumbGinecologico,
-    shortDesc: "Mapeamento detalhado de focos de endometriose pélvica.",
-    longDesc:
-      "Exame especializado para mapeamento de focos endometrióticos, fundamental no diagnóstico e planejamento cirúrgico da endometriose profunda.",
-    indications: [
-      "Dor pélvica crônica",
-      "Dismenorreia intensa",
-      "Investigação de infertilidade",
+    shortDesc: "Ultrassom transvaginal com preparo intestinal — exame de escolha para diagnóstico e estadiamento.",
+    hero: {
+      tagline: "Diagnóstico e estadiamento da endometriose profunda",
+      intro:
+        "O ultrassom transvaginal com preparo intestinal — também chamado de mapeamento de endometriose — é o exame de escolha para diagnosticar e estadiar a endometriose profunda. Fornece um mapa detalhado da pelve, identificando a localização exata, o tamanho e a extensão das lesões.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Diferencial",
+        body:
+          "Diferente do ultrassom pélvico comum, este é um exame multiparamétrico, que avalia em detalhe útero, ovários, trompas, bexiga, ligamentos, nervos pélvicos e o intestino.",
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Exige preparo na véspera (dieta leve e uso de laxantes) e limpeza retal no dia do exame. Esse cuidado esvazia o intestino e permite que a médica visualize até as menores lesões infiltrativas.",
+      },
+      {
+        kind: "paragraph",
+        title: "Como é realizado",
+        body:
+          "Feito com transdutor transvaginal e dura de 40 minutos a 1 hora. Durante o procedimento são realizadas manobras de deslizamento e compressão para verificar a mobilidade dos órgãos e identificar aderências.",
+      },
+      {
+        kind: "list",
+        title: "O que ele avalia",
+        items: [
+          "Focos profundos: nódulos que invadem tecidos ou órgãos adjacentes, como vagina, bexiga e reto.",
+          "Aderências pélvicas: detecta se os órgãos estão “grudados” uns aos outros (ex.: útero preso ao intestino).",
+          "Endometriomas: cistos de endometriose nos ovários e presença de adenomiose (endometriose na parede do útero).",
+          "Trato urinário: avalia rins e ureteres para descartar obstruções causadas pela doença.",
+        ],
+      },
+      {
+        kind: "highlight",
+        title: "Alta precisão",
+        body:
+          "Quando realizado por especialista, possui sensibilidade entre 95% e 100% para identificar a doença.",
+      },
+      {
+        kind: "paragraph",
+        title: "Planejamento cirúrgico",
+        body:
+          "É indispensável antes de qualquer cirurgia. Saber exatamente onde estão todas as lesões e qual a espessura delas permite ao cirurgião reunir a equipe médica adequada e definir a melhor técnica para a retirada completa dos focos.",
+      },
     ],
     preparation:
-      "Preparo intestinal específico — orientações enviadas no agendamento.",
-    duration: "45 a 60 minutos",
+      "Preparo intestinal na véspera (dieta leve e laxantes) e limpeza retal no dia do exame. Orientações detalhadas enviadas no agendamento.",
+    duration: "40 minutos a 1 hora",
     whatToBring: ["Pedido médico", "Exames e laudos anteriores"],
   },
   {
