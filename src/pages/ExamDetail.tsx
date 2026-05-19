@@ -380,6 +380,52 @@ const ExamDetail = () => {
 
 // ---------------- Section renderer ----------------
 
+/**
+ * Converte texto com sintaxe `[label](path)` em nós React, gerando
+ * <Link> internos do react-router quando o destino começa com "/", ou
+ * <a target="_blank"> em links externos. Usado para permitir links
+ * inline no body de seções `paragraph` mantendo os dados como string.
+ */
+function renderInlineLinks(text: string) {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const nodes: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let key = 0;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(text.slice(lastIndex, match.index));
+    }
+    const [, label, href] = match;
+    if (href.startsWith("/")) {
+      nodes.push(
+        <Link
+          key={`lnk-${key++}`}
+          to={href}
+          className="text-wine-deep underline underline-offset-4 decoration-champagne hover:text-wine transition-colors"
+        >
+          {label}
+        </Link>,
+      );
+    } else {
+      nodes.push(
+        <a
+          key={`lnk-${key++}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-wine-deep underline underline-offset-4 decoration-champagne hover:text-wine transition-colors"
+        >
+          {label}
+        </a>,
+      );
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes.length ? nodes : text;
+}
+
 function SectionBlock({ section }: { section: ExamSection }) {
   if (section.kind === "paragraph") {
     return (
@@ -391,7 +437,7 @@ function SectionBlock({ section }: { section: ExamSection }) {
           <div className="mt-5 w-10 h-px bg-champagne" />
         </div>
         <p className="md:col-span-8 text-foreground/85 font-light text-base md:text-lg leading-relaxed">
-          {section.body}
+          {renderInlineLinks(section.body)}
         </p>
       </div>
     );

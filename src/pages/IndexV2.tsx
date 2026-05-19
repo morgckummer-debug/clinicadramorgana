@@ -297,7 +297,9 @@ const Exams = () => (
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
         {categories.map((cat) => {
-          const items = getExamsByCategory(cat);
+          const items = getExamsByCategory(cat).filter(
+            (ex) => ex.slug !== "colo-uterino" && ex.slug !== "cerclagem",
+          );
           return (
             <article
               key={cat}
