@@ -128,7 +128,7 @@ const ExamDetail = () => {
   const whatsappMsg = encodeURIComponent(
     `Olá! Gostaria de agendar o exame: ${exam.title}.`,
   );
-  const whatsappLink = `${WHATSAPP_URL}?text=${whatsappMsg}`;
+  const whatsappLink = `${WHATSAPP_URL}&text=${whatsappMsg}`;
 
   return (
     <main className="min-h-screen bg-background">
