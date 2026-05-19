@@ -651,6 +651,40 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação da vitalidade fetal no terceiro trimestre.",
     longDesc:
       "Avalia a vitalidade do bebê através de cinco parâmetros: movimentos fetais, tônus, respiração, líquido amniótico e batimentos cardíacos.",
+    hero: {
+      tagline: "Avaliação do bem-estar fetal.",
+      intro:
+        "Ultrassom realizado para avaliar o bem-estar do bebê dentro do útero. Combina observações em tempo real com a medição da quantidade de líquido amniótico, ajudando a verificar se o bebê está recebendo oxigênio e nutrientes de forma adequada.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Para que serve",
+        body:
+          "O objetivo do PBF é acompanhar a vitalidade do bebê, especialmente em gestações de risco — quando há suspeita de sofrimento fetal, hipertensão, diabetes gestacional, restrição de crescimento ou diminuição dos movimentos. É uma forma segura e não invasiva de garantir que o bebê esteja bem e possa continuar se desenvolvendo no útero com tranquilidade.",
+      },
+      {
+        kind: "list",
+        title: "Como é feito",
+        items: [
+          "Movimentos corporais do bebê",
+          "Movimentos respiratórios (simulação da respiração)",
+          "Tônus fetal — força e flexibilidade dos músculos",
+          "Índice de líquido amniótico",
+        ],
+        footer:
+          "Cada item recebe pontuação 0 (ausente) ou 2 (presente). O resultado final varia de 0 a 8.",
+      },
+      {
+        kind: "list",
+        title: "Como é interpretado",
+        items: [
+          "8/8 — resultado normal, indicando que o bebê está bem oxigenado.",
+          "6/8 — resultado duvidoso; pode ser necessária cardiotocografia na maternidade para confirmar que está tudo bem.",
+          "4/8 ou menos — resultado anormal, podendo indicar sofrimento fetal e exigindo avaliação médica imediata e, em alguns casos, antecipação do parto.",
+        ],
+      },
+    ],
     indications: [
       "Avaliação de bem-estar fetal",
       "Gestações de alto risco",
@@ -670,13 +704,74 @@ export const exams: Exam[] = [
       "Avaliação detalhada da anatomia e função do coração do bebê.",
     longDesc:
       "Exame especializado que avalia em detalhes a anatomia e o funcionamento do coração fetal, fundamental para diagnóstico precoce de cardiopatias.",
+    hero: {
+      tagline: "Um exame que salva vidas.",
+      intro:
+        "O ecocardiograma fetal é um ultrassom especializado que avalia detalhadamente o coração do bebê ainda no útero. Estuda, além da anatomia, o funcionamento e o fluxo sanguíneo do coração fetal.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Por que é tão importante",
+        body:
+          "É fundamental para detectar anomalias cardíacas congênitas — as malformações mais comuns nos bebês. O diagnóstico precoce permite planejar intervenções no momento do nascimento, garantir o acompanhamento adequado durante a gestação e auxiliar na escolha do melhor local para o parto, caso seja necessário suporte médico especializado.",
+      },
+      {
+        kind: "highlight",
+        title: "Quando deve ser feito",
+        body:
+          "O rastreamento das cardiopatias é realizado entre 24 e 28 semanas de gestação, quando o coração do bebê está suficientemente desenvolvido para uma avaliação detalhada. Em casos específicos — suspeita de anomalias ou histórico familiar — o exame pode ser solicitado mais cedo ou repetido ao longo da gestação.",
+      },
+      {
+        kind: "list",
+        title: "Benefícios",
+        items: [
+          "Atendimento imediato ao nascer — algumas condições, como o Defeito do Septo Atrioventricular e a Tetralogia de Fallot, precisam ser tratadas logo após o parto.",
+          "Mais preparo emocional para os pais, que podem se organizar e buscar informações com antecedência.",
+          "Maior chance de recuperação do bebê quando o tratamento começa cedo.",
+          "Menos complicações e custos de saúde no futuro.",
+        ],
+      },
+      {
+        kind: "highlight",
+        title: "Indicação",
+        body:
+          "Indicado para todas as gestantes, especialmente para mães com diabetes, lúpus, gestação gemelar ou histórico familiar de cardiopatias.",
+      },
+    ],
+    faq: [
+      {
+        q: "Quem deve realizar o ecocardiograma fetal?",
+        a: "Ele é indicado para todas as gestantes, especialmente para mães com diabetes, lúpus, gestação gemelar ou histórico familiar de cardiopatias.",
+      },
+      {
+        q: "O exame é seguro para o bebê e para a mãe?",
+        a: "Sim. É um exame não invasivo e totalmente seguro, que utiliza a mesma tecnologia do ultrassom convencional.",
+      },
+      {
+        q: "Quanto tempo dura o exame?",
+        a: "Em média 1 hora, podendo variar conforme a posição do bebê.",
+      },
+      {
+        q: "O ecocardiograma fetal substitui o ultrassom morfológico?",
+        a: "Não. São exames diferentes: o morfológico avalia toda a formação e a anatomia do bebê, enquanto o ecocardiograma fetal foca no funcionamento do coração.",
+      },
+      {
+        q: "O que acontece se for detectada uma alteração?",
+        a: "O médico discute o diagnóstico com os pais e, se necessário, encaminha para acompanhamento com cardiologista pediátrico ou outros especialistas.",
+      },
+      {
+        q: "Precisa de preparo para o exame?",
+        a: "Não há preparo específico. A mãe pode comer e beber normalmente antes do exame.",
+      },
+    ],
     indications: [
       "Histórico familiar de cardiopatia",
       "Diabetes gestacional ou pré-existente",
       "Alterações em ultrassonografias anteriores",
     ],
     preparation: SEM_PREPARO,
-    duration: "45 a 60 minutos",
+    duration: "Cerca de 1 hora",
     whatToBring: ["Pedido médico", "Exames cardiológicos anteriores"],
   },
   {
@@ -847,12 +942,48 @@ export const exams: Exam[] = [
       "Avaliação completa dos órgãos abdominais e pelve.",
     longDesc:
       "Avalia fígado, vesícula, vias biliares, pâncreas, baço, rins, bexiga e estruturas pélvicas em um único exame.",
+    hero: {
+      tagline: "Avaliação completa dos órgãos abdominais.",
+      intro:
+        "Examina a maioria dos órgãos do abdome — fígado, rins, aorta, pâncreas, vesícula biliar, baço e bexiga. Não é o exame indicado para avaliar estômago e intestino, que são vistos apenas parcialmente.",
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "O que ele pode detectar",
+        items: [
+          "Fígado e vesícula — cirrose, esteatose, cálculo (pedra), tumores e pólipos.",
+          "Rins — cálculos, cistos, tumores, hidronefrose e malformações congênitas.",
+          "Pâncreas — pancreatite, cistos e tumores.",
+          "Baço — esplenomegalia, tumores e cistos.",
+          "Aorta — aneurismas e trombose.",
+          "Bexiga — cálculos e tumores.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Importância do diagnóstico",
+        body:
+          "O ultrassom de abdome total é essencial para detectar essas patologias de forma precoce, permitindo tratamentos mais rápidos e eficazes. Também ajuda a monitorar condições crônicas e orienta o médico para exames complementares, quando necessário.",
+      },
+      {
+        kind: "list",
+        title: "Preparo",
+        items: [
+          "Jejum de 8 horas.",
+          "Última refeição na véspera entre 20h e 22h: dieta leve — sopa de vegetais (exceto batata-doce e repolho), frutas, chá com bolacha água-e-sal. Evitar refrigerante, leite e derivados, pão, doces e alimentos gordurosos.",
+          "Tomar 4 copos de água 2 horas antes do exame e não esvaziar a bexiga até a realização (salvo orientação médica).",
+          "Dimeticona ou Simeticona — 40 gotas ou 1 comprimido de 6/6 horas durante toda a véspera; mais 40 gotas ou 1 comprimido em jejum no dia do exame.",
+        ],
+        footer:
+          "Crianças e exames realizados à tarde têm preparo diferenciado — entre em contato com a secretária. Pacientes em uso de sonda vesical devem fechá-la 1 a 2 horas antes do exame.",
+      },
+    ],
     indications: [
       "Dor abdominal",
       "Rastreamento de rotina",
       "Alterações em exames laboratoriais",
     ],
-    preparation: `${JEJUM_6H} ${BEXIGA_CHEIA}`,
     duration: "30 a 45 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
