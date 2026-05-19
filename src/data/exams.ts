@@ -1492,6 +1492,9 @@ export const canonicalPathFor = (exam: Exam): string =>
 
 export const categories: ExamCategory[] = [
   "Obstétrico",
-  "Ginecológico",
   "Medicina Interna",
+  "Ginecológico",
+  "Vascular",
+  "Tireóide e Cervical",
+  "Pediátrico",
 ];
