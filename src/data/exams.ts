@@ -994,15 +994,46 @@ export const exams: Exam[] = [
     title: "Abdome Superior",
     thumb: thumbGeral,
     shortDesc:
-      "Avaliação de fígado, vesícula, pâncreas, baço e rins.",
+      "Avaliação de fígado, vesícula, pâncreas e baço.",
     longDesc:
-      "Avalia os órgãos do andar superior do abdome — fígado, vesícula, vias biliares, pâncreas, baço e rins.",
+      "Avalia os órgãos do andar superior do abdome — fígado, vesícula, vias biliares, pâncreas e baço.",
+    hero: {
+      tagline: "Foco na parte superior do abdome.",
+      intro:
+        "Examina a parte superior do abdome — fígado, vesícula biliar, pâncreas e baço. Não incluem-se neste exame rins, bexiga, intestino e aorta.",
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "O que ele pode detectar",
+        items: [
+          "Fígado — cirrose, esteatose hepática e tumores.",
+          "Vesícula biliar — cálculos (pedras), pólipos e tumores.",
+          "Pâncreas — pancreatite, cistos e tumores.",
+          "Baço — esplenomegalia, cistos e tumores.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Importância do diagnóstico",
+        body:
+          "Permite detectar essas patologias de forma precoce, favorecendo tratamentos mais rápidos e eficazes. Também ajuda a monitorar condições crônicas e a orientar o médico para exames complementares quando necessário.",
+      },
+      {
+        kind: "list",
+        title: "Preparo",
+        items: [
+          "Jejum de 8 horas.",
+          "Última refeição na véspera entre 20h e 22h: dieta leve — sopa de legumes (exceto batata-doce), verduras (exceto repolho e couve-flor), frutas, chá com bolacha água-e-sal. Evitar refrigerante, água com gás, sucos, leite e derivados, pão, macarrão, ovo, doces e alimentos gordurosos.",
+          "Não é necessário tomar água nem manter a bexiga cheia.",
+        ],
+      },
+    ],
     indications: [
       "Dor em região superior do abdome",
       "Investigação de cálculos biliares",
       "Alterações hepáticas",
     ],
-    preparation: JEJUM_6H,
     duration: "20 a 30 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
   },
@@ -1013,16 +1044,46 @@ export const exams: Exam[] = [
     title: "Hipocôndrio Direito",
     thumb: thumbGeral,
     shortDesc:
-      "Avaliação focada de fígado, vesícula e vias biliares.",
+      "Avaliação focada de fígado e vesícula biliar.",
     longDesc:
-      "Ultrassonografia direcionada à região do hipocôndrio direito, com avaliação detalhada de fígado, vesícula biliar e vias biliares. Indicada para investigação de dor localizada, suspeita de cálculos vesiculares e acompanhamento de alterações hepatobiliares já conhecidas.",
+      "Ultrassonografia direcionada à região do hipocôndrio direito, com avaliação detalhada de fígado e vesícula biliar.",
+    hero: {
+      tagline: "Avaliação focada do fígado e vesícula.",
+      intro:
+        "Examina apenas a parte direita e superior do abdome, compreendendo o fígado e a vesícula biliar.",
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "O que ele pode detectar",
+        items: [
+          "Cirrose e esteatose hepática.",
+          "Cálculo (pedra) na vesícula.",
+          "Tumores e pólipos.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Importância do diagnóstico",
+        body:
+          "Normalmente é solicitado quando o paciente apresenta sintomas de pedra na vesícula ou está com icterícia (\"amarelão\"). A partir dele, o médico assistente consegue priorizar qual o melhor tratamento — medicamentoso ou cirúrgico.",
+      },
+      {
+        kind: "list",
+        title: "Preparo",
+        items: [
+          "Jejum de 8 horas.",
+          "Última refeição na véspera entre 20h e 22h: dieta leve — sopa de legumes (exceto batata-doce), verduras (exceto repolho e couve-flor), frutas, chá com bolacha água-e-sal. Evitar refrigerante, água com gás, sucos, leite e derivados, pão, macarrão, ovo, doces e alimentos gordurosos.",
+          "Não é necessário tomar água nem manter a bexiga cheia.",
+        ],
+      },
+    ],
     indications: [
       "Dor no hipocôndrio direito",
       "Suspeita de colelitíase (cálculos na vesícula)",
       "Acompanhamento de esteatose hepática",
       "Alterações em exames laboratoriais hepáticos",
     ],
-    preparation: JEJUM_6H,
     duration: "15 a 20 minutos",
     whatToBring: ["Pedido médico", "Exames laboratoriais recentes"],
   },
@@ -1036,12 +1097,44 @@ export const exams: Exam[] = [
       "Avaliação detalhada de rins, ureteres e bexiga.",
     longDesc:
       "Avalia rins, ureteres e bexiga, sendo essencial na investigação de cálculos, infecções e alterações do trato urinário.",
+    hero: {
+      tagline: "Investigação completa do trato urinário.",
+      intro:
+        "Examina os rins direito e esquerdo, os ureteres e a bexiga. Normalmente solicitado diante de forte suspeita de pedra nos rins ou sangramento identificado no exame de urina.",
+    },
+    sections: [
+      {
+        kind: "list",
+        title: "O que ele pode detectar",
+        items: [
+          "Cálculos (pedras) nos rins e na bexiga.",
+          "Cistos e tumores.",
+          "Hidronefrose.",
+          "Malformações congênitas e megaureter.",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Importância do diagnóstico",
+        body:
+          "Essencial para detectar essas patologias e permitir tratamentos mais rápidos e eficazes. Também ajuda a monitorar condições crônicas e a orientar o médico para exames complementares, quando necessário.",
+      },
+      {
+        kind: "list",
+        title: "Preparo",
+        items: [
+          "Tomar 4 copos de água 2 horas antes do exame.",
+          "Não esvaziar a bexiga até a realização do exame, salvo orientação médica.",
+        ],
+        footer:
+          "Pacientes em uso de sonda vesical devem fechá-la 1 hora antes do exame.",
+      },
+    ],
     indications: [
       "Cólica renal",
       "Infecções urinárias de repetição",
       "Hematúria",
     ],
-    preparation: BEXIGA_CHEIA,
     duration: "20 a 30 minutos",
     whatToBring: ["Pedido médico", "Exames laboratoriais recentes"],
   },
