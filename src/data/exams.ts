@@ -1,6 +1,9 @@
 import thumbObstetrico from "@/assets/exams/obstetrico.webp";
 import thumbGinecologico from "@/assets/exams/ginecologico.webp";
 import thumbGeral from "@/assets/exams/geral.webp";
+import thumbVascular from "@/assets/exams/vascular.jpg";
+import thumbTireoide from "@/assets/exams/tireoide.jpg";
+import thumbPediatrico from "@/assets/exams/pediatrico.jpg";
 
 // ---------- 1º Trimestre ----------
 import primeiroTriHero from "@/assets/exams/primeiro-trimestre/hero.jpg";
@@ -53,7 +56,10 @@ import cerclagemHero from "@/assets/exams/cerclagem/hero.jpeg";
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
-  | "Medicina Interna";
+  | "Medicina Interna"
+  | "Vascular"
+  | "Tireóide e Cervical"
+  | "Pediátrico";
 
 /**
  * Conteúdo narrativo de cada exame (novo formato).
@@ -112,12 +118,18 @@ export const categoryThumbs: Record<ExamCategory, string> = {
   "Obstétrico": thumbObstetrico,
   "Ginecológico": thumbGinecologico,
   "Medicina Interna": thumbGeral,
+  "Vascular": thumbVascular,
+  "Tireóide e Cervical": thumbTireoide,
+  "Pediátrico": thumbPediatrico,
 };
 
 export const categoryDescriptions: Record<ExamCategory, string> = {
   "Obstétrico": "Acompanhamento gestacional completo, do primeiro ao último trimestre.",
   "Ginecológico": "Saúde da mulher avaliada com sensibilidade e precisão.",
   "Medicina Interna": "Ultrassonografias gerais para diagnóstico amplo e preciso.",
+  "Vascular": "Duplex e Doppler para artérias e veias com leitura precisa do fluxo.",
+  "Tireóide e Cervical": "Avaliação detalhada da tireoide, cervical e glândulas salivares.",
+  "Pediátrico": "Exames delicados e cuidadosos para bebês e crianças.",
 };
 
 const SEM_PREPARO = "Não é necessário preparo específico para este exame.";
@@ -1256,6 +1268,189 @@ export const exams: Exam[] = [
     duration: "20 minutos",
     whatToBring: ["Pedido médico", "PSA recente, se disponível"],
   },
+
+  // ---------------- Ginecológico (complementos) ----------------
+  {
+    slug: "mamas-axilas",
+    legacySlug: "/mamas",
+    category: "Ginecológico",
+    title: "Mamas e Axilas",
+    thumb: thumbGinecologico,
+    shortDesc: "Avaliação detalhada da mama e cadeias axilares.",
+    longDesc:
+      "Ultrassonografia das mamas e axilas, indicada em complemento à mamografia ou em pacientes jovens, para investigação de nódulos, cistos e linfonodos.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
+  },
+
+  // ---------------- Obstétrico (complemento) ----------------
+  {
+    slug: "obstetrico-simples",
+    legacySlug: "/obstetrico-simples",
+    category: "Obstétrico",
+    title: "Obstétrico Simples",
+    thumb: thumbObstetrico,
+    shortDesc: "Avaliação básica da gestação para acompanhamento de rotina.",
+    longDesc:
+      "Exame obstétrico de rotina que avalia vitalidade fetal, biometria, líquido amniótico e posição placentária ao longo da gestação.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Exames anteriores da gestação"],
+  },
+
+  // ---------------- Medicina Interna (complementos) ----------------
+  {
+    slug: "pelvico-infantil",
+    legacySlug: "/pelvico-infantil",
+    category: "Medicina Interna",
+    title: "Pélvico Infantil",
+    thumb: thumbGeral,
+    shortDesc: "Avaliação pélvica delicada em meninas, por via abdominal.",
+    longDesc:
+      "Ultrassonografia pélvica realizada por via abdominal (bexiga cheia), indicada para avaliação de útero e ovários em pacientes pediátricas.",
+    preparation: BEXIGA_CHEIA,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico"],
+  },
+  {
+    slug: "partes-moles",
+    legacySlug: "/partes-moles",
+    category: "Medicina Interna",
+    title: "Partes Moles",
+    thumb: thumbGeral,
+    shortDesc: "Investigação de nódulos, cistos e lesões superficiais.",
+    longDesc:
+      "Avaliação ultrassonográfica de tecidos superficiais (pele, subcutâneo, músculos), útil para caracterizar nódulos, cistos, lipomas e processos inflamatórios.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Indicação da região a ser avaliada"],
+  },
+
+  // ---------------- Vascular ----------------
+  {
+    slug: "duplex-scan-mmii",
+    legacySlug: "/duplex-scan",
+    category: "Vascular",
+    title: "Duplex Scan dos Membros Inferiores",
+    thumb: thumbVascular,
+    shortDesc: "Avaliação de artérias e veias dos membros inferiores.",
+    longDesc:
+      "Ultrassonografia com Doppler colorido das artérias e veias dos membros inferiores, indicada para investigação de varizes, trombose venosa e doença arterial periférica.",
+    preparation: SEM_PREPARO,
+    duration: "30 minutos",
+    whatToBring: ["Pedido médico", "Exames vasculares anteriores"],
+  },
+  {
+    slug: "carotidas-vertebrais",
+    legacySlug: "/carotidas-vertebrais",
+    category: "Vascular",
+    title: "Carótidas e Vertebrais",
+    thumb: thumbVascular,
+    shortDesc: "Doppler das artérias do pescoço para rastreio cerebrovascular.",
+    longDesc:
+      "Avaliação com Doppler das artérias carótidas e vertebrais, indicada na prevenção do AVC, controle de hipertensão e investigação de tonturas e sopros cervicais.",
+    preparation: SEM_PREPARO,
+    duration: "30 minutos",
+    whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
+  },
+  {
+    slug: "aorta-iliacas",
+    legacySlug: "/aorta-iliacas",
+    category: "Vascular",
+    title: "Aorta e Ilíacas",
+    thumb: thumbVascular,
+    shortDesc: "Investigação de aneurismas e doença arterial abdominal.",
+    longDesc:
+      "Ultrassonografia com Doppler da aorta abdominal e artérias ilíacas, indicada no rastreamento de aneurismas e na avaliação de doença arterial obstrutiva.",
+    preparation: JEJUM_6H,
+    duration: "30 minutos",
+    whatToBring: ["Pedido médico"],
+  },
+
+  // ---------------- Tireóide e Cervical ----------------
+  {
+    slug: "tireoide-doppler",
+    legacySlug: "/tireoide",
+    category: "Tireóide e Cervical",
+    title: "Tireóide com Doppler",
+    thumb: thumbTireoide,
+    shortDesc: "Avaliação da glândula tireoide com mapeamento de fluxo.",
+    longDesc:
+      "Ultrassonografia da tireoide com Doppler colorido, para caracterização de nódulos, bócio e tireoidites, com classificação TI-RADS quando indicada.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Exames laboratoriais e ultrassons anteriores"],
+  },
+  {
+    slug: "cervical-doppler",
+    legacySlug: "/cervical",
+    category: "Tireóide e Cervical",
+    title: "Cervical com Doppler",
+    thumb: thumbTireoide,
+    shortDesc: "Avaliação completa das estruturas cervicais e linfonodos.",
+    longDesc:
+      "Ultrassonografia cervical com Doppler, indicada para investigação de linfonodos, massas cervicais e acompanhamento pós-tratamento de doenças da região.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Exames anteriores"],
+  },
+  {
+    slug: "glandulas-salivares",
+    legacySlug: "/glandulas-salivares",
+    category: "Tireóide e Cervical",
+    title: "Glândulas Salivares",
+    thumb: thumbTireoide,
+    shortDesc: "Avaliação de parótidas, submandibulares e sublinguais.",
+    longDesc:
+      "Ultrassonografia das glândulas salivares, indicada na investigação de aumento glandular, cálculos, processos inflamatórios e nódulos.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico"],
+  },
+
+  // ---------------- Pediátrico ----------------
+  {
+    slug: "abdominal-total-pediatrico",
+    legacySlug: "/abdominal-pediatrico",
+    category: "Pediátrico",
+    title: "Abdominal Total (Pediátrico)",
+    thumb: thumbPediatrico,
+    shortDesc: "Ultrassom abdominal completo adaptado para crianças.",
+    longDesc:
+      "Avaliação ultrassonográfica completa do abdome em crianças, indicada para investigação de dor abdominal, alterações intestinais e doenças hepáticas e renais.",
+    preparation:
+      "Jejum de 4 horas para crianças até 2 anos; 6 horas acima de 2 anos.",
+    duration: "30 minutos",
+    whatToBring: ["Pedido médico", "Carteira de vacinação ou histórico clínico"],
+  },
+  {
+    slug: "rins-vias-urinarias-pediatrico",
+    legacySlug: "/rins-pediatrico",
+    category: "Pediátrico",
+    title: "Rins e Vias Urinárias (Pediátrico)",
+    thumb: thumbPediatrico,
+    shortDesc: "Avaliação dos rins e bexiga em bebês e crianças.",
+    longDesc:
+      "Ultrassonografia dos rins e vias urinárias em pacientes pediátricos, indicada para acompanhamento de infecções urinárias, hidronefrose e malformações.",
+    preparation:
+      "Bexiga cheia conforme orientação por idade — oferecer líquidos antes do exame.",
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Exames anteriores"],
+  },
+  {
+    slug: "transfontanela",
+    legacySlug: "/transfontanela",
+    category: "Pediátrico",
+    title: "Transfontanela",
+    thumb: thumbPediatrico,
+    shortDesc: "Avaliação do cérebro do bebê pela fontanela ainda aberta.",
+    longDesc:
+      "Ultrassonografia transfontanela, realizada enquanto a fontanela do bebê está aberta, indicada para avaliar estruturas cerebrais, hemorragias e malformações.",
+    preparation: SEM_PREPARO,
+    duration: "20 minutos",
+    whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
+  },
 ];
 
 export const getExamBySlug = (slug: string) =>
@@ -1297,6 +1492,9 @@ export const canonicalPathFor = (exam: Exam): string =>
 
 export const categories: ExamCategory[] = [
   "Obstétrico",
-  "Ginecológico",
   "Medicina Interna",
+  "Ginecológico",
+  "Vascular",
+  "Tireóide e Cervical",
+  "Pediátrico",
 ];

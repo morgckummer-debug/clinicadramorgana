@@ -1,52 +1,74 @@
-## Atualizar conteúdo dos 3 exames
+## Reestruturar categorias de exames conforme o site original
 
-Vou puxar os textos das páginas existentes em `dramorgana.com.br` e adaptá-los ao formato narrativo (hero + sections + faq) já usado em Translucência Nucal, Doppler e Morfológicos. Slugs e `legacySlug` preservados — só conteúdo muda.
-
-Arquivo único editado: `src/data/exams.ts` (3 objetos).
+Hoje o projeto tem **3 categorias** (Obstétrico, Ginecológico, Medicina Interna). O site oficial tem **6**. Vou expandir a tipagem, adicionar as 3 novas categorias e cadastrar os exames que faltam.
 
 ---
 
-### 1. Perfil Biofísico Fetal — `slug: "perfil-biofisico-fetal"` (`/pbf`)
+### Mapa final das categorias (igual ao site)
 
-- **hero.tagline:** "Avaliação do bem-estar fetal."
-- **hero.intro:** Texto adaptado do "O que é?": ultrassom que combina observação em tempo real com medida do líquido amniótico para verificar oxigenação e nutrição do bebê.
-- **Sections:**
-  1. `paragraph` — *Para que serve* — vitalidade do bebê em gestações de risco, suspeita de sofrimento fetal, hipertensão, diabetes gestacional, RCIU, diminuição de movimentos.
-  2. `list` — *Como é feito* — 4 parâmetros avaliados (movimentos corporais, movimentos respiratórios, tônus fetal, índice de líquido amniótico). Footer: "Cada item recebe 0 ou 2 pontos. Resultado final de 0 a 8."
-  3. `list` — *Como é interpretado* — 8/8 normal; 6/8 duvidoso (pode exigir cardiotocografia); 4/8 ou menos anormal (possível sofrimento fetal, pode exigir antecipação do parto).
-- **preparation / duration / whatToBring:** mantidos como já estão.
+**1. Obstétrico** (já existe — só adicionar 1 item)
+- Obstétrico Simples *(novo — entrada simples sem TN/Doppler)*
+- 1º Trimestre (TV) ✓
+- Obstétrico com TN ✓
+- Obstétrico com Doppler ✓
+- Morfológico 1º/2º/3º Trimestre ✓
+- Obstétrico 3D/4D ✓
+- PBF ✓
+- Ecocardiograma Fetal ✓
+- *(Colo Uterino e Cerclagem continuam aqui, embora não apareçam na grade do site — manter)*
+
+**2. Medicina Interna** (adicionar 2)
+- Abdome Total ✓ · Abdome Superior ✓ · Hipocôndrio Direito ✓ · Rins e Vias Urinárias ✓ · Pélvico Masculino ✓
+- Pélvico Infantil *(novo)*
+- Partes Moles *(novo)*
+
+**3. Ginecológico** (já completo)
+- Transvaginal ✓ · Transvaginal 3D ✓ · Transv. com Doppler ✓ · Rastreamento de Ovulação ✓ · Endometriose Profunda ✓ · Períneo ✓
+- *(Mamas e Axilas — verificar se já existe ou criar como novo)*
+
+**4. Vascular** *(categoria nova)*
+- Duplex Scan (MMII)
+- Carótidas e Vertebrais
+- Aorta e Ilíacas
+
+**5. Tireóide e Cervical** *(categoria nova)*
+- Tireóide com Doppler
+- Cervical com Doppler
+- Glândulas Salivares
+
+**6. Pediátrico** *(categoria nova)*
+- Abdominal Total
+- Rins e Vias Urinárias (pediátrico)
+- Transfontanela
 
 ---
 
-### 2. Ecocardiograma Fetal — `slug: "ecocardiograma-fetal"` (`/ecocardiograma`)
+### Mudanças técnicas em `src/data/exams.ts`
 
-- **hero.tagline:** "Um exame que salva vidas."
-- **hero.intro:** Ultrassom especializado que avalia em detalhes o coração do bebê — anatomia, funcionamento e fluxo sanguíneo.
-- **Sections:**
-  1. `paragraph` — *Por que é tão importante* — detecta cardiopatias congênitas precocemente, permitindo planejar intervenções no nascimento, acompanhamento na gravidez e escolha da maternidade adequada.
-  2. `highlight` — *Quando deve ser feito* — entre 24 e 28 semanas; mais cedo ou repetido em casos de suspeita ou histórico familiar.
-  3. `list` — *Benefícios* — atendimento imediato ao nascer (ex.: DSAV, Tetralogia de Fallot); preparo emocional dos pais; maior chance de recuperação; menor custo futuro.
-  4. `highlight` — *Indicação* — TODAS as gestantes, especialmente com diabetes, lúpus, gestação gemelar ou histórico familiar de cardiopatia.
-- **FAQ:** 5 perguntas do site (preparo, segurança, duração, substitui o morfológico?, e se for detectada alteração).
-- **duration:** "Cerca de 1 hora" (ajustado conforme o site).
+1. **Expandir `ExamCategory`:**
+   ```ts
+   export type ExamCategory =
+     | "Obstétrico"
+     | "Ginecológico"
+     | "Medicina Interna"
+     | "Vascular"
+     | "Tireóide e Cervical"
+     | "Pediátrico";
+   ```
 
----
+2. **Atualizar `categoryThumbs` e `categoryDescriptions`** com as 3 novas categorias. Reutilizar `thumb-pediatrico.jpg` (já existe em `src/assets/`). Para Vascular e Tireóide, gerar 2 thumbnails novas com `imagegen` no mesmo estilo (premium, fundo lilás/champagne, ilustração estilizada).
 
-### 3. Abdome Total — `slug: "abdome-total"` (`/abdome-total`)
+3. **Adicionar ~11 exames novos** ao array `exams[]`, todos com a mesma estrutura mínima (`slug`, `legacySlug` quando o site tiver URL própria, `category`, `title`, `shortDesc`, `longDesc`, `preparation`, `duration`, `whatToBring`). Conteúdo factual e enxuto — sem `sections` ricas nem `faq` por enquanto (posso enriquecer depois conforme você for me passando as URLs do site original, exatamente como fizemos com Colo Uterino e Cerclagem).
 
-- **hero.tagline:** "Avaliação completa dos órgãos abdominais."
-- **hero.intro:** Examina a maioria dos órgãos do abdome — fígado, rins, aorta, pâncreas, vesícula biliar, baço e bexiga. Não substitui exame específico para estômago e intestino.
-- **Sections:**
-  1. `list` — *O que ele pode detectar* — fígado/vesícula (cirrose, esteatose, cálculo, tumores, pólipos); rins (cálculos, cistos, tumores, hidronefrose, malformações); pâncreas (pancreatite, cistos, tumores); baço (esplenomegalia, tumores, cistos); aorta (aneurismas, trombose); bexiga (cálculos, tumores).
-  2. `paragraph` — *Importância do diagnóstico* — detecção precoce de patologias, monitoramento de condições crônicas, orientação para exames complementares.
-  3. `list` — *Preparo* — itens do site: jejum de 8h, dieta leve na véspera (orientações específicas), 4 copos de água 2h antes, não esvaziar a bexiga, Dimeticona/Simeticona de 6/6h na véspera e em jejum no dia. Footer com obs. 1 e 2 (crianças/tarde e sonda vesical).
-- **duration / whatToBring:** mantidos.
-- **preparation:** removido o campo simples (substituído pela seção de Preparo acima) para não duplicar.
+4. **Verificar grade da home (`src/components/site/Exams.tsx`)** — hoje ela tem categorias fictícias hard-coded (Ginecológico/3D/Geral/Doppler). Trocar para renderizar dinamicamente as 6 categorias reais a partir de `categoryDescriptions` + `getExamsByCategory`, espelhando o layout da imagem que você mandou.
 
 ---
 
-### Observações
+### O que NÃO faço neste plano
 
-- Não vou alterar imagens nem adicionar `hero.image` (não há assets locais para essas 3 páginas ainda). Se quiser que eu importe as imagens originais do site, é um passo extra.
-- Nenhum slug, rota ou `legacySlug` será alterado — `/pbf`, `/ecocardiograma` e `/abdome-total` continuam funcionando.
-- Nenhum outro arquivo é tocado.
+- **Não vou redigir o conteúdo completo** (sections, FAQ, imagens internas) dos 11 exames novos agora. Cada um entra com texto curto de placeholder médico. Depois você me passa as URLs (igual fizemos com `/colo-uterino` e `/cerclagem`) e eu enriqueço um por um.
+- **Não mexo em rotas / `legacySlug`** dos exames já existentes.
+
+### Pergunta antes de implementar
+
+Confirma que posso seguir assim? Ou prefere que eu **já redija o conteúdo completo dos 11 exames novos** agora (vai dar uma resposta longa e o texto será meu, não do site)?
