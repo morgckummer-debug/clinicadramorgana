@@ -56,7 +56,10 @@ import cerclagemHero from "@/assets/exams/cerclagem/hero.jpeg";
 export type ExamCategory =
   | "Obstétrico"
   | "Ginecológico"
-  | "Medicina Interna";
+  | "Medicina Interna"
+  | "Vascular"
+  | "Tireóide e Cervical"
+  | "Pediátrico";
 
 /**
  * Conteúdo narrativo de cada exame (novo formato).
