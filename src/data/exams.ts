@@ -872,7 +872,7 @@ export const exams: Exam[] = [
     hero: {
       tagline: "Um reforço para proteger o bebê.",
       intro:
-        "A cerclagem é um procedimento cirúrgico que coloca uma sutura ao redor do colo do útero, mantendo-o fechado durante a gestação. É indicada quando há risco aumentado de parto prematuro por incompetência ístmo-cervical ou [colo curto](/colo-uterino) identificado na ultrassonografia.",
+        "A cerclagem é um procedimento cirúrgico que coloca uma sutura ao redor do colo do útero, mantendo-o fechado durante a gestação. É indicada quando há risco aumentado de parto prematuro por incompetência ístmo-cervical (IIC), identificado na ultrassonografia ou CAFs prévias.",
       image: cerclagemHero,
     },
     sections: [
