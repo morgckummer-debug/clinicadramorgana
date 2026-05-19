@@ -488,7 +488,7 @@ export const exams: Exam[] = [
         kind: "paragraph",
         title: "Quais exames podem ser associados a ele?",
         body:
-          "O Doppler das Artérias Uterinas é fundamental para avaliar se a placenta está conseguindo receber sangue da mãe sem dificuldade, predizendo se a mãe tem risco aumentado de apresentar pré-eclâmpsia. A medida do colo do útero também é importante: através dela, vemos se a mãe tem risco aumentado de parto prematuro.",
+          "O Doppler das Artérias Uterinas é fundamental para avaliar se a placenta está conseguindo receber sangue da mãe sem dificuldade, predizendo se a mãe tem risco aumentado de apresentar pré-eclâmpsia. A medida do [colo do útero](/colo-uterino) também é importante: através dela, vemos se a mãe tem risco aumentado de parto prematuro.",
       },
     ],
     gallery: [
