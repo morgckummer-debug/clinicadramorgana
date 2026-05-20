@@ -1554,13 +1554,58 @@ export const exams: Exam[] = [
     legacySlug: "/pelvico-infantil",
     category: "Medicina Interna",
     title: "Pélvico Infantil",
-    thumb: thumbGeral,
-    shortDesc: "Avaliação pélvica delicada em meninas, por via abdominal.",
-    longDesc:
-      "Ultrassonografia pélvica realizada por via abdominal (bexiga cheia), indicada para avaliação de útero e ovários em pacientes pediátricas.",
+    thumb: thumbPediatrico,
+    shortDesc:
+      "Avaliação delicada de útero e ovários e investigação de puberdade precoce em meninas.",
+    hero: {
+      tagline: "Avaliação pélvica pediátrica com acolhimento",
+      intro:
+        "O ultrassom pélvico infantil é realizado por via abdominal, de forma totalmente não invasiva, para avaliar útero e ovários em meninas e investigar sinais de puberdade precoce. Um exame acolhedor, indolor e conduzido com toda a sensibilidade que a paciente pediátrica merece.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Para que serve",
+        body:
+          "Indicado para avaliar a anatomia e o desenvolvimento do útero e dos ovários em meninas, esclarecer queixas como dor pélvica, sangramento vaginal precoce ou alterações no desenvolvimento puberal, e auxiliar no diagnóstico e acompanhamento da puberdade precoce.",
+      },
+      {
+        kind: "list",
+        title: "O que o exame avalia",
+        items: [
+          "Tamanho, formato e volume do útero",
+          "Espessura e padrão do endométrio",
+          "Volume ovariano e presença de folículos",
+          "Sinais ultrassonográficos compatíveis com puberdade precoce",
+          "Cistos, malformações e outras alterações pélvicas",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Como é realizado",
+        body:
+          "O exame é feito exclusivamente por via abdominal — sem qualquer contato interno — com a bexiga cheia, que funciona como uma janela acústica natural para visualizar os órgãos pélvicos. A paciente permanece deitada e acompanhada por um responsável durante todo o exame.",
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "É necessário estar com a bexiga cheia. Orientação: ingerir 4 copos de água 1 hora antes do exame e não urinar até a sua realização. Para crianças menores, ajustamos o volume conforme a idade — orientações detalhadas são enviadas no agendamento.",
+      },
+      {
+        kind: "highlight",
+        title: "Cuidado humanizado",
+        body:
+          "Todo o atendimento é pensado para o conforto da criança e da família: linguagem acolhedora, ritmo respeitoso e a presença do responsável durante todo o exame.",
+      },
+    ],
     preparation: BEXIGA_CHEIA,
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico"],
+    duration: "20 a 30 minutos",
+    whatToBring: [
+      "Pedido médico",
+      "Exames e laudos anteriores, se houver",
+      "Documento da criança",
+    ],
   },
   {
     slug: "partes-moles",
