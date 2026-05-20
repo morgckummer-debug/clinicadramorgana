@@ -1525,12 +1525,57 @@ export const exams: Exam[] = [
     category: "Ginecológico",
     title: "Mamas e Axilas",
     thumb: thumbGinecologico,
-    shortDesc: "Avaliação detalhada da mama e cadeias axilares.",
-    longDesc:
-      "Ultrassonografia das mamas e axilas, indicada em complemento à mamografia ou em pacientes jovens, para investigação de nódulos, cistos e linfonodos.",
+    shortDesc:
+      "Investigação detalhada da mama e cadeias axilares — complemento à mamografia ou exame de escolha em mamas densas e pacientes jovens.",
+    hero: {
+      tagline: "Investigação detalhada da mama e cadeias axilares",
+      intro:
+        "Ultrassonografia das mamas e axilas realizada com transdutor de alta frequência, indicada como complemento à mamografia ou como exame de primeira linha em pacientes jovens, mamas densas, gestantes e lactantes. Permite caracterizar nódulos, cistos e linfonodos com precisão e conforto.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Para que serve",
+        body:
+          "Indicado como complemento à mamografia, na investigação de nódulos palpáveis, mastalgia, secreção mamilar e em situações em que a mamografia tem sensibilidade limitada — como mamas densas, pacientes jovens, gestantes e lactantes. Também útil no acompanhamento de cistos, próteses e linfonodos axilares.",
+      },
+      {
+        kind: "list",
+        title: "O que o exame avalia",
+        items: [
+          "Nódulos sólidos e císticos com classificação BI-RADS",
+          "Cadeias linfonodais axilares e supraclaviculares",
+          "Ductos mamários e processos inflamatórios",
+          "Próteses mamárias — integridade e contorno",
+          "Áreas palpáveis e alterações já identificadas em mamografia",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Como é realizado",
+        body:
+          "A paciente fica deitada, com o braço elevado. Com gel morno e transdutor de alta frequência, é feita a varredura completa das duas mamas e das axilas. O exame é totalmente indolor, não invasivo e sem radiação.",
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Não é necessário preparo específico. Recomenda-se evitar o uso de cremes, talcos e desodorantes na região das mamas e axilas no dia do exame.",
+      },
+      {
+        kind: "highlight",
+        title: "Quando indicar",
+        body:
+          "Pode ser solicitado a partir dos 25–30 anos como avaliação inicial, em qualquer idade para investigação de alterações palpáveis, ou conforme orientação do médico assistente.",
+      },
+    ],
     preparation: SEM_PREPARO,
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
+    duration: "20 a 30 minutos",
+    whatToBring: [
+      "Pedido médico",
+      "Mamografia recente, se houver",
+      "Exames e laudos anteriores",
+    ],
   },
 
   // ---------------- Obstétrico (complemento) ----------------
@@ -1552,7 +1597,7 @@ export const exams: Exam[] = [
   {
     slug: "pelvico-infantil",
     legacySlug: "/pelvico-infantil",
-    category: "Medicina Interna",
+    category: "Pediátrico",
     title: "Pélvico Infantil",
     thumb: thumbPediatrico,
     shortDesc:
@@ -1628,11 +1673,52 @@ export const exams: Exam[] = [
     category: "Vascular",
     title: "Duplex Scan dos Membros Inferiores",
     thumb: thumbVascular,
-    shortDesc: "Avaliação de artérias e veias dos membros inferiores.",
-    longDesc:
-      "Ultrassonografia com Doppler colorido das artérias e veias dos membros inferiores, indicada para investigação de varizes, trombose venosa e doença arterial periférica.",
+    shortDesc:
+      "Doppler colorido das artérias e veias dos membros inferiores — varizes, trombose e doença arterial.",
+    hero: {
+      tagline: "Doppler colorido das artérias e veias dos membros inferiores",
+      intro:
+        "Exame não invasivo que combina ultrassonografia e Doppler colorido para avaliar, em tempo real, o fluxo sanguíneo nas artérias e veias das pernas. Fundamental no diagnóstico de varizes, insuficiência venosa, trombose venosa profunda e doença arterial periférica.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Para que serve",
+        body:
+          "Indicado na investigação de varizes e insuficiência venosa crônica, suspeita de trombose venosa profunda (TVP), dor e inchaço nas pernas, claudicação, doença arterial periférica e no planejamento e seguimento de cirurgias vasculares.",
+      },
+      {
+        kind: "list",
+        title: "O que o exame avalia",
+        items: [
+          "Sistema venoso superficial e profundo",
+          "Refluxo venoso e válvulas insuficientes",
+          "Presença de trombos agudos ou crônicos",
+          "Fluxo arterial, placas e estenoses",
+          "Mapeamento pré e pós-operatório",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Como é realizado",
+        body:
+          "A avaliação venosa é feita com a paciente em pé (com manobras provocativas para detectar refluxo) e deitada. A avaliação arterial é feita deitada, com Doppler colorido e espectral analisando o fluxo em diferentes pontos do membro.",
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Não é necessário preparo específico. Recomenda-se vestir roupa confortável que permita expor as pernas com facilidade.",
+      },
+      {
+        kind: "highlight",
+        title: "Diferencial",
+        body:
+          "Exame indolor, não invasivo, sem radiação e sem contraste, com laudo detalhado entregue na hora.",
+      },
+    ],
     preparation: SEM_PREPARO,
-    duration: "30 minutos",
+    duration: "30 a 45 minutos",
     whatToBring: ["Pedido médico", "Exames vasculares anteriores"],
   },
   {
