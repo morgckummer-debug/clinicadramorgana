@@ -1673,11 +1673,52 @@ export const exams: Exam[] = [
     category: "Vascular",
     title: "Duplex Scan dos Membros Inferiores",
     thumb: thumbVascular,
-    shortDesc: "Avaliação de artérias e veias dos membros inferiores.",
-    longDesc:
-      "Ultrassonografia com Doppler colorido das artérias e veias dos membros inferiores, indicada para investigação de varizes, trombose venosa e doença arterial periférica.",
+    shortDesc:
+      "Doppler colorido das artérias e veias dos membros inferiores — varizes, trombose e doença arterial.",
+    hero: {
+      tagline: "Doppler colorido das artérias e veias dos membros inferiores",
+      intro:
+        "Exame não invasivo que combina ultrassonografia e Doppler colorido para avaliar, em tempo real, o fluxo sanguíneo nas artérias e veias das pernas. Fundamental no diagnóstico de varizes, insuficiência venosa, trombose venosa profunda e doença arterial periférica.",
+    },
+    sections: [
+      {
+        kind: "paragraph",
+        title: "Para que serve",
+        body:
+          "Indicado na investigação de varizes e insuficiência venosa crônica, suspeita de trombose venosa profunda (TVP), dor e inchaço nas pernas, claudicação, doença arterial periférica e no planejamento e seguimento de cirurgias vasculares.",
+      },
+      {
+        kind: "list",
+        title: "O que o exame avalia",
+        items: [
+          "Sistema venoso superficial e profundo",
+          "Refluxo venoso e válvulas insuficientes",
+          "Presença de trombos agudos ou crônicos",
+          "Fluxo arterial, placas e estenoses",
+          "Mapeamento pré e pós-operatório",
+        ],
+      },
+      {
+        kind: "paragraph",
+        title: "Como é realizado",
+        body:
+          "A avaliação venosa é feita com a paciente em pé (com manobras provocativas para detectar refluxo) e deitada. A avaliação arterial é feita deitada, com Doppler colorido e espectral analisando o fluxo em diferentes pontos do membro.",
+      },
+      {
+        kind: "paragraph",
+        title: "Preparo",
+        body:
+          "Não é necessário preparo específico. Recomenda-se vestir roupa confortável que permita expor as pernas com facilidade.",
+      },
+      {
+        kind: "highlight",
+        title: "Diferencial",
+        body:
+          "Exame indolor, não invasivo, sem radiação e sem contraste, com laudo detalhado entregue na hora.",
+      },
+    ],
     preparation: SEM_PREPARO,
-    duration: "30 minutos",
+    duration: "30 a 45 minutos",
     whatToBring: ["Pedido médico", "Exames vasculares anteriores"],
   },
   {
