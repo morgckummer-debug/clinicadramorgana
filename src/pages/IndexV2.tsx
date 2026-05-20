@@ -425,8 +425,8 @@ const Team = () => (
                   <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
                 </div>
               )}
-              <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
-                <img src={ultrasoundIcon} alt="" aria-hidden="true" className="w-4 h-4 object-contain" />
+              <div className="absolute -bottom-1 -right-1 w-16 h-16 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
+                <img src={ultrasoundIcon} alt="" aria-hidden="true" className="w-10 h-10 object-contain" />
               </div>
             </div>
 
