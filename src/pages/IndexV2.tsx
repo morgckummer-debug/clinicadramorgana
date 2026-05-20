@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight, Stethoscope } from "lucide-react";
+import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
@@ -13,6 +13,7 @@ import teamDarlei from "@/assets/team/darlei.png";
 import teamPaulo from "@/assets/team/paulo.png";
 import teamCarolina from "@/assets/team/carolina.png";
 import teamMariaAmelia from "@/assets/team/maria-amelia.png";
+import ultrasoundIcon from "@/assets/ultrasound-icon.png";
 import teamAndre from "@/assets/team/andre.png";
 
 /* Convênios — logos */
@@ -425,7 +426,7 @@ const Team = () => (
                 </div>
               )}
               <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
-                <Stethoscope className="w-4 h-4 text-wine-deep" strokeWidth={1.8} />
+                <img src={ultrasoundIcon} alt="" aria-hidden="true" className="w-4 h-4 object-contain" />
               </div>
             </div>
 
