@@ -1597,7 +1597,7 @@ export const exams: Exam[] = [
   {
     slug: "pelvico-infantil",
     legacySlug: "/pelvico-infantil",
-    category: "Medicina Interna",
+    category: "Pediátrico",
     title: "Pélvico Infantil",
     thumb: thumbPediatrico,
     shortDesc:
