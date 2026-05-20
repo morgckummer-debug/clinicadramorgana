@@ -13,6 +13,7 @@ import teamDarlei from "@/assets/team/darlei.png";
 import teamPaulo from "@/assets/team/paulo.png";
 import teamCarolina from "@/assets/team/carolina.png";
 import teamMariaAmelia from "@/assets/team/maria-amelia.png";
+import ultrasoundIcon from "@/assets/ultrasound-icon.png";
 import teamAndre from "@/assets/team/andre.png";
 
 /* Convênios — logos */
