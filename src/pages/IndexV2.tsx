@@ -426,7 +426,7 @@ const Team = () => (
                 </div>
               )}
               <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
-                <Stethoscope className="w-4 h-4 text-wine-deep" strokeWidth={1.8} />
+                <img src={ultrasoundIcon} alt="" aria-hidden="true" className="w-4 h-4 object-contain" />
               </div>
             </div>
 
