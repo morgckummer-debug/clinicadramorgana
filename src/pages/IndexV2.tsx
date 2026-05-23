@@ -391,56 +391,56 @@ const team = [
 ];
 
 const Team = () => (
-  <section id="corpo-clinico" className="py-12 md:py-16 bg-background relative">
+  <section
+    id="corpo-clinico"
+    className="py-16 md:py-24 relative"
+    style={{ background: "linear-gradient(160deg, hsl(var(--champagne) / 0.25), hsl(var(--background)))" }}
+  >
     <div className="container">
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <span className="text-wine text-[11px] tracking-[0.4em] uppercase">Corpo Clínico</span>
-        <h2 className="mt-4 text-wine-deep text-4xl md:text-5xl text-balance">
-          Profissionais que fazem a <span className="font-serif italic font-light">diferença</span>.
+      <div className="text-center max-w-xl mx-auto mb-12 md:mb-16">
+        <span className="text-wine text-[10px] tracking-[0.4em] uppercase">Nossa Equipe</span>
+        <h2 className="mt-4 font-serif italic font-light text-wine-deep text-3xl md:text-5xl text-balance">
+          Médicos que fazem a <em className="not-italic">diferença</em>.
         </h2>
-        <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
-        <p className="mt-8 text-muted-foreground font-light text-lg leading-relaxed">
-          Uma equipe multidisciplinar dedicada a cuidar de você em cada etapa.
+        <div className="mt-5 w-10 h-px bg-champagne mx-auto" />
+        <p className="mt-6 text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
+          Profissionais especializados, comprometidos com excelência diagnóstica e atendimento humanizado.
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 max-w-5xl mx-auto">
         {team.map((t) => (
           <article
             key={t.name}
-            className="group flex flex-col items-center text-center bg-card border border-border rounded-2xl p-7 shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
+            className="flex flex-col items-center text-center transition-transform duration-300 hover:-translate-y-1"
           >
-            {/* Foto circular ou placeholder com iniciais */}
-            <div className="relative w-32 h-32 mb-5">
-              <div className="absolute inset-0 rounded-full bg-gradient-wine shadow-deep" />
+            <div
+              className="overflow-hidden bg-wine-deep/10 border border-champagne/40 shadow-elegant"
+              style={{ width: "135px", height: "178px", borderRadius: "50% / 42%" }}
+            >
               {t.photo ? (
                 <img
                   src={t.photo}
                   alt={t.name}
                   loading="lazy"
-                  className="absolute inset-1 rounded-full object-cover w-[calc(100%-0.5rem)] h-[calc(100%-0.5rem)] bg-rose-deep"
+                  className="w-full h-full object-cover object-top block"
                 />
               ) : (
-                <div className="absolute inset-1 rounded-full bg-wine-deep flex items-center justify-center">
+                <div className="w-full h-full bg-wine-deep flex items-center justify-center">
                   <span className="font-serif italic text-3xl text-champagne">{t.initials}</span>
                 </div>
               )}
-              <div className="absolute -bottom-1 -right-1 w-16 h-16 rounded-full bg-champagne flex items-center justify-center shadow-elegant">
-                <img src={ultrasoundIcon} alt="" aria-hidden="true" className="w-10 h-10 object-contain" />
-              </div>
             </div>
 
-            <h3 className="text-base font-bold text-wine-deep leading-tight">{t.name}</h3>
-            <p className="mt-2 text-xs text-wine font-light leading-relaxed min-h-[2.5rem]">
-              {t.role}
-            </p>
-            <div className="mt-3 pt-3 border-t border-border w-full">
-              <p className="text-[10px] tracking-wide text-muted-foreground">{t.crm}</p>
+            <div className="pt-4 px-1">
+              <h3 className="font-serif text-base md:text-lg text-wine-deep leading-tight">{t.name}</h3>
+              <p className="mt-1 text-[9.5px] tracking-wider uppercase text-wine">{t.role}</p>
+              <p className="mt-1 text-[10px] font-light text-muted-foreground">{t.crm}</p>
+              <div className="mx-auto mt-2 w-6 h-px bg-champagne" />
             </div>
           </article>
         ))}
       </div>
-
     </div>
   </section>
 );
