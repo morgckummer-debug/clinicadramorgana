@@ -347,36 +347,49 @@ const ExamDetail = () => {
         </section>
       )}
 
-      {/* ---------------- CTA voltar ---------------- */}
-      <section className="bg-wine-deep text-wine-foreground py-10 border-t border-champagne/15">
-        <div className="container max-w-3xl text-center">
+      {/* ---------------- CTA final ---------------- */}
+      <section className="relative bg-wine-deep text-wine-foreground py-20 md:py-28 border-t border-champagne/15 overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-60" />
+        <div className="absolute -top-32 -right-24 w-[28rem] h-[28rem] rounded-full bg-rose-deep/15 blur-[140px] pointer-events-none" />
+        <div className="absolute -bottom-32 -left-24 w-[28rem] h-[28rem] rounded-full bg-wine/30 blur-[140px] pointer-events-none" />
+
+        <div className="relative container max-w-3xl text-center">
           <span className="text-champagne text-[10px] tracking-[0.45em] uppercase">
-            Continue navegando
+            Agende com tranquilidade
           </span>
-          <h2 className="mt-4 font-serif italic text-3xl md:text-4xl font-light text-balance">
-            Conheça a clínica e toda a nossa equipe.
+          <h2 className="mt-5 font-light text-3xl md:text-5xl text-balance leading-[1.1]">
+            Pronta para agendar seu{" "}
+            <span className="font-serif italic text-champagne">{exam.title}</span>?
           </h2>
+          <p className="mt-6 max-w-xl mx-auto text-wine-foreground/80 font-light text-base md:text-lg leading-relaxed">
+            Atendimento humanizado, equipamento de ponta e laudo entregue no mesmo dia.
+            Reserve seu horário pelo WhatsApp.
+          </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
-            >
-              <ArrowLeft className="w-4 h-4" /> Voltar à página inicial
-            </Link>
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-10 py-5 rounded-full text-[11px] tracking-[0.3em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
+            >
+              <MessageCircle className="w-4 h-4" /> Falar no WhatsApp
+            </a>
+            <Link
+              to="/"
               className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
             >
-              <MessageCircle className="w-4 h-4" /> Agendar pelo WhatsApp
-            </a>
+              <ArrowLeft className="w-4 h-4" /> Voltar à página inicial
+            </Link>
           </div>
+          <p className="mt-6 text-xs text-wine-foreground/60 tracking-wide">
+            Resposta em até 1h em horário comercial
+          </p>
         </div>
       </section>
 
       <Footer />
       <WhatsAppFab />
+      <ScheduleFab />
     </main>
   );
 };

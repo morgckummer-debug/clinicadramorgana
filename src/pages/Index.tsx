@@ -7,6 +7,8 @@ import { Convenios } from "@/components/site/Convenios";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { AnnouncementBar } from "@/components/site/AnnouncementBar";
+import { ScheduleFab } from "@/components/site/ScheduleFab";
 import { useEffect } from "react";
 
 const Index = () => {
