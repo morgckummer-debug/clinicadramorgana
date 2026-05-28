@@ -1,33 +1,36 @@
-## Ajustes solicitados
+## Correção: aplicar os ajustes em `src/pages/IndexV2.tsx`
 
-### 1. Navbar — logotipo em Comfortaa com hierarquia
+A rota `/` renderiza `IndexV2`, que tem `Navbar`, `Hero` e `Exams` definidos inline no próprio arquivo. As edições anteriores foram feitas em `Hero.tsx`/`Exams.tsx`/`Navbar.tsx` de `components/site`, que pertencem à página antiga (`/v1`). Por isso nada mudou no preview.
 
-Em `src/components/site/Navbar.tsx`, no `<a href="#top">`:
+### 1. Hero — título em Comfortaa (`IndexV2.tsx`, ~linhas 161-168)
 
-- Aplicar `font-comfortaa` ao bloco do logo.
-- "Clínica de Ultrassom" → texto menor, mantendo o estilo eyebrow (tracking amplo, champagne), em torno de `text-[10px]` / `text-[11px]`.
-- "Dra. Morgana Kummer" → bem maior e em destaque, algo como `text-2xl md:text-3xl font-bold` em Comfortaa, com `tracking-tight` ajustado para a fonte.
-- Ajustar `leading-none` para que as duas linhas fiquem próximas e equilibradas.
+- Eyebrow `<p>` "Clínica de Ultrassom" → adicionar `font-comfortaa` (continua pequeno com tracking amplo).
+- `<h1>` "Dra. Morgana / Kummer" → trocar `font-serif ... font-light` por `font-comfortaa font-bold`, mantendo o `clamp` de tamanho. Remover o `italic` do span "Kummer" (não combina com Comfortaa) e manter `text-champagne`, podendo deixar em `font-light` para criar contraste interno.
+- Resultado: "Dra. Morgana Kummer" claramente maior e em destaque sobre o "Clínica de Ultrassom".
 
-### 2. Bloco de Exames — listagem centralizada e maior
+### 2. Bloco de Exames — listagem centralizada e maior (`IndexV2.tsx`, ~linhas 319-339)
 
-Em `src/components/site/Exams.tsx`, dentro de cada `<article>`:
+Dentro do `<div className="p-6 ...">` de cada card:
 
-- Centralizar o conteúdo do card: `text-center`, header (thumb + título da categoria) em coluna centralizada (`flex-col items-center`), removendo o alinhamento à esquerda atual.
-- Lista `<ul>` centralizada: cada `<Link>` passa de `flex items-start` para `inline-flex justify-center items-center`, e o bullet champagne fica antes do nome alinhado verticalmente ao centro do texto.
-- Aumentar o tamanho dos nomes dos exames: de `text-sm` para `text-base` (ou `text-[15px]`), com `leading-relaxed`.
+- `h3` da categoria e `p` da descrição → adicionar `text-center`.
+- `<ul>` → adicionar `text-center` e aumentar espaçamento para `space-y-2.5`.
+- Cada `<Link>` dos exames:
+  - Trocar `text-xs` por `text-sm` (ou `text-[15px]`) e `leading-relaxed`.
+  - Trocar `flex items-center gap-2` por `inline-flex items-center justify-center gap-2.5` e envolver o `<li>` em `flex justify-center` para centralizar.
 
-### 3. Sublinhar exames com página própria
+### 3. Sublinhar exames com página própria (`IndexV2.tsx`, mesmo loop)
 
-Critério: um exame "tem página própria" quando possui o campo `hero` definido em `src/data/exams.ts` (conteúdo migrado completo). Os demais ainda caem em página genérica/fallback.
+Critério: exame "tem página própria" quando `exam.hero` está definido em `src/data/exams.ts` (conteúdo migrado completo).
 
-Em `Exams.tsx`, no `<Link>`:
-
-- Calcular `const hasOwnPage = !!exam.hero;`
-- Aplicar `underline underline-offset-4 decoration-champagne/60 hover:decoration-wine` quando `hasOwnPage` for true; demais permanecem sem sublinhado.
+- Calcular `const hasOwnPage = !!ex.hero;` dentro do `items.map`.
+- Aplicar sublinhado permanente ao `<span>` do título quando `hasOwnPage`: `underline underline-offset-4 decoration-champagne/70`. Quando `false`, manter o comportamento atual (sublinhado só no hover).
 
 ### O que NÃO muda
 
-- H2/H3, eyebrow labels, paleta e demais blocos.
-- Estrutura de dados de `exams.ts`.
-- Comportamento de roteamento (continua usando `canonicalPathFor`).
+- Logo da Navbar (continua como imagem).
+- Demais blocos da página.
+- Estrutura/rotas dos exames.
+
+### Observação
+
+Os componentes em `src/components/site/Hero.tsx`, `Exams.tsx` e `Navbar.tsx` (página `/v1`) ficam como estão após a edição anterior — não são revertidos, apenas não afetam a home atual.

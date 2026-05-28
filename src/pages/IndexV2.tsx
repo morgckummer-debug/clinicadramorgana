@@ -158,13 +158,13 @@ const Hero = () => (
           <span className="text-[10px] tracking-[0.45em] uppercase text-champagne font-medium">Sete Lagoas · Minas Gerais</span>
         </div>
 
-        <p className="text-wine-foreground/70 text-[11px] tracking-[0.5em] uppercase mb-6 font-medium">
+        <p className="font-comfortaa text-wine-foreground/70 text-[11px] tracking-[0.5em] uppercase mb-6 font-medium">
           Clínica de Ultrassom
         </p>
 
-        <h1 className="font-serif text-wine-foreground text-[clamp(2.6rem,7.5vw,5.5rem)] leading-[1.02] font-light">
+        <h1 className="font-comfortaa text-wine-foreground text-[clamp(2.6rem,7.5vw,5.5rem)] leading-[1.02] font-bold">
           Dra. Morgana<br />
-          <span className="italic text-champagne">Kummer</span>
+          <span className="font-light text-champagne">Kummer</span>
         </h1>
 
         <div className="mt-10 w-12 h-px bg-champagne/70" />
