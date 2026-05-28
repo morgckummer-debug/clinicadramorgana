@@ -76,7 +76,7 @@ export const Contact = () => {
           <h3 className="font-serif italic text-3xl md:text-4xl text-champagne mb-4">
             Agende seu exame
           </h3>
-          <p className="text-wine-foreground/80 font-light leading-relaxed mb-10">
+          <p className="font-comfortaa text-wine-foreground/80 font-light leading-relaxed mb-10">
             Atendimento humanizado, equipamento de ponta e laudo entregue no
             mesmo dia. Reserve seu horário pelo WhatsApp.
           </p>
