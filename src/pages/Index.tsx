@@ -27,6 +27,7 @@ const Index = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <AnnouncementBar />
       <Navbar />
       <Hero />
       <Credentials />
@@ -36,6 +37,7 @@ const Index = () => {
       <Contact />
       <Footer />
       <WhatsAppFab />
+      <ScheduleFab />
     </main>
   );
 };
