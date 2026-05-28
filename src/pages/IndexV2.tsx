@@ -317,24 +317,33 @@ const Exams = () => (
                 />
               </div>
               <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold text-wine-deep">{cat}</h3>
-                <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed">
+                <h3 className="text-xl font-bold text-wine-deep text-center">{cat}</h3>
+                <p className="mt-2 text-sm text-muted-foreground font-light leading-relaxed text-center">
                   {categoryDescriptions[cat]}
                 </p>
-                <ul className="mt-4 space-y-1.5">
-                  {items.map((ex) => (
-                    <li key={ex.slug}>
-                      <Link
-                        to={canonicalPathFor(ex)}
-                        className="text-xs text-foreground/80 hover:text-wine-deep flex items-center gap-2 font-light transition-colors group/item"
-                      >
-                        <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
-                        <span className="group-hover/item:underline underline-offset-4 decoration-champagne">
-                          {ex.title}
-                        </span>
-                      </Link>
-                    </li>
-                  ))}
+                <ul className="mt-4 space-y-2.5 text-center">
+                  {items.map((ex) => {
+                    const hasOwnPage = !!ex.hero;
+                    return (
+                      <li key={ex.slug} className="flex justify-center">
+                        <Link
+                          to={canonicalPathFor(ex)}
+                          className="text-[15px] leading-relaxed text-foreground/80 hover:text-wine-deep inline-flex items-center justify-center gap-2.5 font-light transition-colors group/item"
+                        >
+                          <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
+                          <span
+                            className={
+                              hasOwnPage
+                                ? "underline underline-offset-4 decoration-champagne/70"
+                                : "group-hover/item:underline underline-offset-4 decoration-champagne"
+                            }
+                          >
+                            {ex.title}
+                          </span>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </article>
