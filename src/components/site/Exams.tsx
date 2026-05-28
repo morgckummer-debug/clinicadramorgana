@@ -30,8 +30,8 @@ export const Exams = () => {
           {categories.map((cat) => {
             const items = getExamsByCategory(cat);
             return (
-              <article key={cat} className="premium-card p-8 group">
-                <div className="flex items-center gap-4 mb-6">
+              <article key={cat} className="premium-card p-8 group text-center">
+                <div className="flex flex-col items-center gap-4 mb-6">
                   <div className="w-14 h-14 rounded-2xl overflow-hidden bg-rose flex-shrink-0">
                     <img
                       src={categoryThumbs[cat]}
@@ -51,18 +51,25 @@ export const Exams = () => {
                     </p>
                   </div>
                 </div>
-                <ul className="space-y-2.5">
-                  {items.map((exam) => (
-                    <li key={exam.slug}>
-                      <Link
-                        to={canonicalPathFor(exam)}
-                        className="text-sm text-foreground/75 hover:text-wine flex items-start gap-3 font-light transition-colors"
-                      >
-                        <span className="mt-2 w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
-                        {exam.title}
-                      </Link>
-                    </li>
-                  ))}
+                <ul className="space-y-3">
+                  {items.map((exam) => {
+                    const hasOwnPage = !!exam.hero;
+                    return (
+                      <li key={exam.slug} className="flex justify-center">
+                        <Link
+                          to={canonicalPathFor(exam)}
+                          className={`text-[15px] leading-relaxed text-foreground/80 hover:text-wine inline-flex items-center gap-3 font-light transition-colors ${
+                            hasOwnPage
+                              ? "underline underline-offset-4 decoration-champagne/60 hover:decoration-wine"
+                              : ""
+                          }`}
+                        >
+                          <span className="w-1 h-1 rounded-full bg-champagne flex-shrink-0" />
+                          {exam.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </article>
             );
