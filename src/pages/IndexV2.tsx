@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
+import { AnnouncementBar } from "@/components/site/AnnouncementBar";
+import { ScheduleFab } from "@/components/site/ScheduleFab";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
 import logoClinica from "@/assets/logo-clinica.png";
@@ -61,7 +63,8 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+      style={{ top: "var(--cta-bar-h, 0px)" }}
+      className={`fixed inset-x-0 z-50 transition-all duration-500 ${
         scrolled
           ? "bg-background/75 backdrop-blur-2xl border-b border-border/40"
           : "bg-transparent"
@@ -628,6 +631,7 @@ const IndexV2 = () => {
   }, []);
   return (
     <main className="min-h-screen bg-background">
+      <AnnouncementBar />
       <Navbar />
       <Hero />
       <About />
@@ -638,6 +642,7 @@ const IndexV2 = () => {
       <Contact />
       <Footer />
       <WhatsAppFab />
+      <ScheduleFab />
     </main>
   );
 };

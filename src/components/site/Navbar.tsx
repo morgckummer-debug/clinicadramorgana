@@ -21,7 +21,8 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+      style={{ top: "var(--cta-bar-h, 0px)" }}
+      className={`fixed inset-x-0 z-50 transition-all duration-500 ${
         scrolled
           ? "bg-wine-deep/85 backdrop-blur-xl shadow-elegant"
           : "bg-transparent"
