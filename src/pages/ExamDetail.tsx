@@ -14,6 +14,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
+import { AnnouncementBar } from "@/components/site/AnnouncementBar";
+import { ScheduleFab } from "@/components/site/ScheduleFab";
 import {
   canonicalPathFor,
   getExamByPath,
@@ -132,6 +134,7 @@ const ExamDetail = () => {
 
   return (
     <main className="min-h-screen bg-background">
+      <AnnouncementBar />
       <Navbar />
 
       {/* ---------------- Hero ---------------- */}
