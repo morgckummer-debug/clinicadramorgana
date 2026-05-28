@@ -652,25 +652,6 @@ export const exams: Exam[] = [
     ],
   },
   {
-    slug: "obstetrico-3d-4d",
-    legacySlug: "/obstetrico-3d-4d",
-    category: "Obstétrico",
-    title: "Obstétrico 3D / 4D",
-    thumb: thumbObstetrico,
-    shortDesc:
-      "Imagens tridimensionais e em movimento do bebê em tempo real.",
-    longDesc:
-      "Permite visualizar o rostinho e os movimentos do bebê em imagens tridimensionais e em tempo real — um momento especial para toda a família.",
-    indications: [
-      "Vínculo afetivo entre família e bebê",
-      "Complemento ao exame morfológico",
-      "Registro de momento especial da gestação",
-    ],
-    preparation: "Ideal entre 26 e 32 semanas, com boa quantidade de líquido amniótico.",
-    duration: "30 a 45 minutos",
-    whatToBring: ["Pedido médico"],
-  },
-  {
     slug: "perfil-biofisico-fetal",
     legacySlug: "/pbf",
     category: "Obstétrico",
