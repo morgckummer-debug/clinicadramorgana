@@ -1559,20 +1559,6 @@ export const exams: Exam[] = [
     ],
   },
 
-  // ---------------- Obstétrico (complemento) ----------------
-  {
-    slug: "obstetrico-simples",
-    legacySlug: "/obstetrico-simples",
-    category: "Obstétrico",
-    title: "Obstétrico Simples",
-    thumb: thumbObstetrico,
-    shortDesc: "Avaliação básica da gestação para acompanhamento de rotina.",
-    longDesc:
-      "Exame obstétrico de rotina que avalia vitalidade fetal, biometria, líquido amniótico e posição placentária ao longo da gestação.",
-    preparation: SEM_PREPARO,
-    duration: "20 minutos",
-    whatToBring: ["Pedido médico", "Exames anteriores da gestação"],
-  },
 
   // ---------------- Medicina Interna (complementos) ----------------
   {
