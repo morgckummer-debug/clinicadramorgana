@@ -29,13 +29,13 @@ export const Hero = () => {
           Sete Lagoas · Minas Gerais
         </span>
 
-        <h1 className="text-wine-foreground font-bold text-balance animate-fade-up text-[clamp(2.4rem,6vw,4.8rem)] leading-[1.05]">
+        <h1 className="font-comfortaa text-wine-foreground font-bold text-balance animate-fade-up text-[clamp(2.4rem,6vw,4.8rem)] leading-[1.05]">
           Cuidado de excelência<br />
-          em <span className="font-serif italic font-light text-champagne">cada imagem</span>.
+          em <span className="font-comfortaa font-light text-champagne">cada imagem</span>.
         </h1>
 
         <p
-          className="mt-8 text-wine-foreground/85 text-lg md:text-xl max-w-xl font-light leading-relaxed animate-fade-up"
+          className="font-comfortaa mt-8 text-wine-foreground/85 text-lg md:text-xl max-w-xl font-light leading-relaxed animate-fade-up"
           style={{ animationDelay: "0.2s" }}
         >
           Ultrassonografia obstétrica, ginecológica e fetal com a sensibilidade
