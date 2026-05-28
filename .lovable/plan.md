@@ -1,46 +1,72 @@
-# Plano: CTAs de "Agendar exame" em destaque
-
 ## Objetivo
-Aumentar a conversão de agendamentos via WhatsApp com 3 pontos de contato visualmente integrados ao design atual (wine + champagne, Comfortaa), sem poluir a experiência.
 
-## 1. Barra fixa no topo (todas as páginas)
-Novo componente `src/components/site/AnnouncementBar.tsx`:
-- Faixa fina (~36px) acima da Navbar, fundo `bg-wine-deep` com linha champagne sutil
-- Texto curto à esquerda: "Atendimento humanizado · Laudo no mesmo dia"
-- CTA à direita: "Agendar exame no WhatsApp →" em champagne
-- Botão de fechar (X) com persistência em `localStorage` (`cta-bar-dismissed`)
-- Responsivo: em mobile mostra só o CTA
-- Ajustar `Navbar` para `top-9` quando a barra está ativa (estado compartilhado simples via `localStorage` + custom event)
+Adicionar uma seção premium na home destacando o atendimento exclusivo da Dra. Morgana, com CTA levando para o site dedicado (`https://dramorganakummer.lovable.app`). Sem mexer no Hero nem reformular o layout existente.
 
-Incluir em `IndexV2.tsx`, `Index.tsx` e `ExamDetail.tsx`.
+## Localização
 
-## 2. Botão flutuante lateral "Agendar exame"
-Novo componente `src/components/site/ScheduleFab.tsx`:
-- Pílula vertical fixa na lateral direita, abaixo do WhatsApp atual
-- Fundo champagne, texto wine-deep, rotacionado 90°: "Agendar exame"
-- Aparece após scroll > 600px com fade-up
-- Some/aparece junto com o WhatsAppFab existente
-- Em mobile vira um segundo FAB redondo (ícone calendário) empilhado acima do WhatsApp
+Inserir **entre a seção "Sobre" e a seção "Exames"** em `src/pages/IndexV2.tsx` (entre as linhas 300 e 305). Esse ponto é natural: depois da apresentação da clínica, antes do catálogo de exames — funciona como uma "promessa" antes da lista.
 
-Adicionar nas mesmas páginas onde o `WhatsAppFab` já existe.
+## Novo componente
 
-## 3. Banner final nas páginas de exame
-Novo bloco em `src/pages/ExamDetail.tsx`, logo antes do `Footer`:
-- Seção full-width com fundo `bg-wine-deep`, padding generoso
-- Título grande Comfortaa: "Pronta para agendar seu {nome do exame}?"
-- Subtítulo curto sobre atendimento humanizado / laudo no mesmo dia
-- CTA grande champagne: "Falar no WhatsApp"
-- Linha decorativa champagne em cima, igual ao padrão do `Contact`
+Criar `src/components/site/PremiumExperience.tsx` — bloco isolado e reutilizável.
+
+### Visual
+
+- Container `container mx-auto` com `py-16 md:py-24` (respiro generoso)
+- Card horizontal com:
+  - Fundo `bg-gradient-to-br from-champagne via-champagne-light to-champagne` (dourado suave)
+  - Borda fina `border border-champagne-dark/30`
+  - `rounded-3xl`, `shadow-[0_20px_60px_-20px_hsl(var(--wine-deep)/0.25)]`
+  - Padding `p-10 md:p-16`
+  - Texto em `text-wine-deep` (roxo profundo já existente no design system)
+- Layout grid `md:grid-cols-[1.4fr_1fr]`:
+  - Coluna esquerda: eyebrow ("Atendimento exclusivo" em uppercase, tracking-widest, com linha champagne), headline em Comfortaa, parágrafo, CTA
+  - Coluna direita: lista vertical dos 4 diferenciais, cada um com ícone fino lucide (`UserRound`, `Sparkles`, `HeartHandshake`, `Clock`) em circulo champagne-dark/15
+
+### Brilho de fundo (discreto)
+
+Pseudo-blob radial `before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_right,hsl(var(--champagne-light)/0.6),transparent_60%)]` + um segundo blob sutil pulsando lentamente (`animate-[pulse_6s_ease-in-out_infinite]`) — muito leve, longe de "anúncio".
+
+### Animação de entrada
+
+`IntersectionObserver` ativando classes `opacity-100 translate-y-0` (de `opacity-0 translate-y-6`) com `transition-all duration-700 ease-out`. Sem libs extras.
+
+### CTA
+
+Botão `<a href="https://dramorganakummer.lovable.app" target="_blank" rel="noopener">`:
+- `bg-wine-deep text-wine-foreground`
+- `rounded-full px-8 py-4`
+- Texto: **"Reservar horário exclusivo"** + ícone `ArrowUpRight`
+- Hover: `hover:bg-wine` + `group-hover:translate-x-1` no ícone + brilho leve via `shadow-[0_10px_30px_-10px_hsl(var(--wine-deep)/0.5)]`
+
+## Conteúdo (literal)
+
+- **Eyebrow:** "Atendimento exclusivo"
+- **Headline:** "Uma experiência diferenciada em medicina fetal"
+- **Parágrafo:** "Atendimento realizado pessoalmente pela Dra. Morgana, referência em ultrassonografia obstétrica e medicina fetal, em um ambiente exclusivo pensado para proporcionar mais acolhimento, tecnologia e tranquilidade."
+- **Diferenciais:**
+  - Atendimento pessoal e individualizado
+  - Equipamentos de última geração
+  - Ambiente exclusivo e acolhedor
+  - Mais tempo dedicado ao exame
+- **CTA:** "Reservar horário exclusivo"
+
+## Integração
+
+Em `src/pages/IndexV2.tsx`:
+1. `import { PremiumExperience } from "@/components/site/PremiumExperience"`
+2. Inserir `<PremiumExperience />` logo após o fechamento da seção `#sobre` (linha 300), antes de `#exames`.
+
+## Fora do escopo
+
+- Não alterar Hero, Navbar, Footer, AnnouncementBar, FABs.
+- Não alterar `Index.tsx` antigo nem `ExamDetail.tsx`.
+- Não mexer em `dramorganakummer.lovable.app` — apenas linkar.
+- Sem tracking/analytics novos.
 
 ## Detalhes técnicos
-- WhatsApp link reutilizado: `https://api.whatsapp.com/send?phone=5531993910212`
-- Todos os CTAs usam tokens semânticos já definidos (`wine-deep`, `champagne`, `wine-foreground`) — sem cores hardcoded
-- Animações suaves (`animate-fade-up`, `transition-all duration-500`) seguindo o padrão atual
-- Z-index coordenado: AnnouncementBar (z-50), Navbar (z-40 quando há barra), FABs (z-40)
-- Acessibilidade: `aria-label` em todos os botões e ícones, foco visível
-- Sem mudanças de dados, rotas ou lógica de negócio
 
-## Fora de escopo
-- Link para `dramorganakummer.lovable.app` (decidido: não agora)
-- Mudanças no formulário de contato ou no componente `Contact` existente
-- Nova lógica de tracking/analytics
+- Tokens semânticos já existentes: `champagne`, `champagne-light`, `champagne-dark`, `wine-deep`, `wine`, `wine-foreground`.
+- Sem cores hard-coded. Sem novas dependências.
+- Mobile-first: em telas <md, grid colapsa para 1 coluna, diferenciais ficam abaixo do CTA com `gap-4`.
+- Acessibilidade: `aria-label` no CTA explicando que abre site externo, `aria-labelledby` na section.
