@@ -15,6 +15,7 @@ export default {
         sans: ['Jost', 'system-ui', 'sans-serif'],
         serif: ['"Cormorant Garamond"', 'serif'],
         display: ['"Cormorant Garamond"', 'serif'],
+        comfortaa: ['Comfortaa', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
