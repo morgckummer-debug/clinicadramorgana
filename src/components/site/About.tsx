@@ -34,7 +34,7 @@ export const About = () => {
             foi o meu maior sonho."
           </p>
 
-          <p className="mt-8 text-foreground/80 leading-relaxed text-lg font-light max-w-lg">
+          <p className="mt-8 font-comfortaa text-foreground/80 leading-relaxed text-lg font-light max-w-lg">
             Hoje realizo o propósito de oferecer um atendimento acolhedor e de
             excelência, sendo referência em ultrassonografia em Sete Lagoas.
           </p>
