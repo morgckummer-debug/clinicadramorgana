@@ -1,24 +1,20 @@
-## Uniformizar fundo das fotos do Corpo Clínico
-
-### Diagnóstico
-
-As fotos `src/assets/team/paulo.png` e `andre.png` foram salvas com um **fundo rosa opaco embutido** (~rgb 223,186,223). As demais (`morgana`, `barbara`, `darlei`, `carolina`, `maria-amelia`) são **transparentes**, então deixam aparecer a cor da moldura oval (`bg-wine-deep/10` em `IndexV2.tsx`), que é o rosa claro que o usuário quer manter.
+## Trocar imagem do bloco "Sobre a Clínica"
 
 ### Ação
 
-Reprocessar apenas os dois PNGs problemáticos, removendo o fundo rosa e salvando como transparente — sem tocar nas demais fotos nem no componente.
+1. **Copiar a nova foto** `user-uploads://MK.png` para `src/assets/dra-morgana-sobre.png` (PNG transparente, preservando o recorte sem fundo).
 
-Script (Python/Pillow):
-- Para cada PNG (`paulo.png`, `andre.png`):
-  - Abrir em RGBA.
-  - Fazer flood-fill a partir dos 4 cantos com tolerância suficiente para apagar todo o fundo rosa contíguo (~±35 por canal), tornando alpha=0.
-  - Suavizar borda do alpha (leve blur de 1px) para evitar serrilhado.
-  - Salvar sobrescrevendo o arquivo original.
-
-Após o processamento, as duas fotos ficam transparentes e a moldura oval do componente passa a determinar a cor de fundo, igualando o visual ao das outras.
+2. **Atualizar `src/pages/IndexV2.tsx`** (seção `About`, linhas 237-256):
+   - Trocar o import `draHeroV2` pela nova imagem.
+   - Substituir o `<img>` por uma estrutura com **fundo esfumaçado** atrás da foto recortada, em harmonia com a paleta do site (wine/champagne/rosa suave):
+     - Container com gradiente radial suave: do `champagne/30` no centro para `transparent` nas bordas, criando halo aveludado.
+     - Camada extra com `bg-gradient-rose` em baixa opacidade para dar profundidade.
+     - Leve `blur` nas camadas de fundo para o efeito "esfumaçado".
+     - Foto (PNG transparente) sobreposta, sem `rounded-sm`/`shadow-elegant` recortando o sujeito — sombra sutil apenas embaixo via drop-shadow.
+   - Manter a moldura champagne deslocada e o badge "+50 mil pacientes" como estão.
 
 ### O que NÃO muda
 
-- Código da seção Corpo Clínico em `IndexV2.tsx`.
-- Demais fotos da equipe.
-- Cor/forma da moldura oval.
+- Texto, tipografia, layout em grid, badge de estatística.
+- Demais seções da página.
+- Tokens de cor do design system (uso apenas dos existentes: `champagne`, `wine-deep`, `gradient-rose`).
