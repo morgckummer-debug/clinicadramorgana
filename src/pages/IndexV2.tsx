@@ -331,7 +331,7 @@ const Exams = () => (
                   width={768}
                   height={768}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
+                  className={`w-full h-full object-cover ${cat === "Vascular" ? "object-bottom" : "object-center"} transition-transform duration-[1.4s] group-hover:scale-105`}
                 />
               </div>
               <div className="p-6 flex-1 flex flex-col">
