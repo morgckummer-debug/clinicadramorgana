@@ -20,7 +20,7 @@ export const Exams = () => {
             <span className="font-serif italic font-light">cuidado próprio</span>.
           </h2>
           <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
-          <p className="mt-8 text-muted-foreground font-light text-lg leading-relaxed">
+          <p className="mt-8 font-comfortaa text-muted-foreground font-light text-lg leading-relaxed">
             Procedimentos realizados em equipamento de última geração, com laudo
             detalhado entregue na hora.
           </p>

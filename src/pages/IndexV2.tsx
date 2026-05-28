@@ -403,7 +403,7 @@ const Team = () => (
           Médicos que fazem a <em className="not-italic">diferença</em>.
         </h2>
         <div className="mt-5 w-10 h-px bg-champagne mx-auto" />
-        <p className="mt-6 text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
+        <p className="mt-6 font-comfortaa text-sm text-muted-foreground font-light leading-relaxed max-w-md mx-auto">
           Profissionais especializados, comprometidos com excelência diagnóstica e atendimento humanizado.
         </p>
       </div>
