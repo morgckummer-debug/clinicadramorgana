@@ -1,72 +1,46 @@
-## Objetivo
+## Alterações na seção PremiumExperience
 
-Adicionar uma seção premium na home destacando o atendimento exclusivo da Dra. Morgana, com CTA levando para o site dedicado (`https://dramorganakummer.lovable.app`). Sem mexer no Hero nem reformular o layout existente.
+Atualizar `src/components/site/PremiumExperience.tsx` com nova paleta, novos textos e imagem.
 
-## Localização
+### 1. Paleta — dourado / branco / amarelo com texto roxo
 
-Inserir **entre a seção "Sobre" e a seção "Exames"** em `src/pages/IndexV2.tsx` (entre as linhas 300 e 305). Esse ponto é natural: depois da apresentação da clínica, antes do catálogo de exames — funciona como uma "promessa" antes da lista.
+Substituir o gradiente atual (champagne/wine) por uma combinação dourada elegante:
 
-## Novo componente
+- Fundo do card: `linear-gradient(135deg, #FFFDF7 0%, #FBF3DC 45%, #F5E6B8 100%)` (branco quente → dourado claro → dourado champanhe)
+- Borda fina dourada: `border-[#E8D38A]/60`
+- Brilhos radiais sutis em tons de dourado/amarelo pálido (substituem os blobs atuais)
+- Sombra: `0 30px 80px -30px hsl(var(--wine-deep) / 0.25)` (mantém o roxo discreto para coesão)
+- **Toda a tipografia** (eyebrow, headline, parágrafo, diferenciais) em `text-wine-deep` (roxo já existente no design system)
+- Círculos dos ícones: fundo dourado suave `bg-[#F5E6B8]/60` com borda `border-[#E8D38A]` e ícone em `text-wine-deep`
+- CTA: mantém `bg-wine-deep text-wine-foreground` (roxo profundo) — único acento roxo sólido, contrasta lindamente com o dourado
 
-Criar `src/components/site/PremiumExperience.tsx` — bloco isolado e reutilizável.
+Os dois hex dourados (`#FBF3DC`, `#F5E6B8`, `#E8D38A`, `#FFFDF7`) ficam isolados neste componente premium — não poluem o design system global.
 
-### Visual
+### 2. Textos
 
-- Container `container mx-auto` com `py-16 md:py-24` (respiro generoso)
-- Card horizontal com:
-  - Fundo `bg-gradient-to-br from-champagne via-champagne-light to-champagne` (dourado suave)
-  - Borda fina `border border-champagne-dark/30`
-  - `rounded-3xl`, `shadow-[0_20px_60px_-20px_hsl(var(--wine-deep)/0.25)]`
-  - Padding `p-10 md:p-16`
-  - Texto em `text-wine-deep` (roxo profundo já existente no design system)
-- Layout grid `md:grid-cols-[1.4fr_1fr]`:
-  - Coluna esquerda: eyebrow ("Atendimento exclusivo" em uppercase, tracking-widest, com linha champagne), headline em Comfortaa, parágrafo, CTA
-  - Coluna direita: lista vertical dos 4 diferenciais, cada um com ícone fino lucide (`UserRound`, `Sparkles`, `HeartHandshake`, `Clock`) em circulo champagne-dark/15
+- **Headline:** "Uma experiência diferenciada com a Dra. Morgana"
+- **Parágrafo (novo):** "Atendimento realizado pessoalmente pela Dra. Morgana, em um ambiente exclusivo pensado para proporcionar mais acolhimento, tecnologia e tranquilidade."
+- Eyebrow, diferenciais e CTA permanecem iguais.
 
-### Brilho de fundo (discreto)
+### 3. Imagem da gestante à direita
 
-Pseudo-blob radial `before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top_right,hsl(var(--champagne-light)/0.6),transparent_60%)]` + um segundo blob sutil pulsando lentamente (`animate-[pulse_6s_ease-in-out_infinite]`) — muito leve, longe de "anúncio".
+- Gerar imagem com `imagegen` (premium): retrato editorial de uma gestante feliz, luz natural quente, tons creme/dourado suaves, sorriso sereno, mão sobre a barriga, fundo desfocado neutro — estética premium, sem cara de banco de imagens médico.
+- Salvar em `src/assets/premium-pregnant.jpg`, formato retrato (768×1024).
+- Importar como ES6 e renderizar na coluna direita dentro de um `rounded-2xl overflow-hidden` com leve sombra dourada.
 
-### Animação de entrada
+### 4. Layout
 
-`IntersectionObserver` ativando classes `opacity-100 translate-y-0` (de `opacity-0 translate-y-6`) com `transition-all duration-700 ease-out`. Sem libs extras.
+Reestruturar grid para acomodar a imagem:
 
-### CTA
+- `md:grid-cols-2` com `gap-10 md:gap-14`, `items-center`
+- **Coluna esquerda:** eyebrow + headline + parágrafo + lista de diferenciais (compacta, abaixo do parágrafo) + CTA
+- **Coluna direita:** imagem da gestante em card arredondado, com leve glow dourado atrás
+- Mobile: imagem aparece acima do conteúdo textual
 
-Botão `<a href="https://dramorganakummer.lovable.app" target="_blank" rel="noopener">`:
-- `bg-wine-deep text-wine-foreground`
-- `rounded-full px-8 py-4`
-- Texto: **"Reservar horário exclusivo"** + ícone `ArrowUpRight`
-- Hover: `hover:bg-wine` + `group-hover:translate-x-1` no ícone + brilho leve via `shadow-[0_10px_30px_-10px_hsl(var(--wine-deep)/0.5)]`
+A lista de diferenciais que antes ocupava a coluna direita migra para baixo do parágrafo na esquerda, em formato compacto de 2 colunas (`grid-cols-1 sm:grid-cols-2 gap-3`), cada item com ícone pequeno + texto.
 
-## Conteúdo (literal)
+### 5. Fora do escopo
 
-- **Eyebrow:** "Atendimento exclusivo"
-- **Headline:** "Uma experiência diferenciada em medicina fetal"
-- **Parágrafo:** "Atendimento realizado pessoalmente pela Dra. Morgana, referência em ultrassonografia obstétrica e medicina fetal, em um ambiente exclusivo pensado para proporcionar mais acolhimento, tecnologia e tranquilidade."
-- **Diferenciais:**
-  - Atendimento pessoal e individualizado
-  - Equipamentos de última geração
-  - Ambiente exclusivo e acolhedor
-  - Mais tempo dedicado ao exame
-- **CTA:** "Reservar horário exclusivo"
-
-## Integração
-
-Em `src/pages/IndexV2.tsx`:
-1. `import { PremiumExperience } from "@/components/site/PremiumExperience"`
-2. Inserir `<PremiumExperience />` logo após o fechamento da seção `#sobre` (linha 300), antes de `#exames`.
-
-## Fora do escopo
-
-- Não alterar Hero, Navbar, Footer, AnnouncementBar, FABs.
-- Não alterar `Index.tsx` antigo nem `ExamDetail.tsx`.
-- Não mexer em `dramorganakummer.lovable.app` — apenas linkar.
-- Sem tracking/analytics novos.
-
-## Detalhes técnicos
-
-- Tokens semânticos já existentes: `champagne`, `champagne-light`, `champagne-dark`, `wine-deep`, `wine`, `wine-foreground`.
-- Sem cores hard-coded. Sem novas dependências.
-- Mobile-first: em telas <md, grid colapsa para 1 coluna, diferenciais ficam abaixo do CTA com `gap-4`.
-- Acessibilidade: `aria-label` no CTA explicando que abre site externo, `aria-labelledby` na section.
+- Não mexer em Hero, Navbar, Footer, outras seções.
+- Não alterar tokens globais do design system.
+- Sem novas dependências.
