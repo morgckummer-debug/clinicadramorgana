@@ -1,20 +1,20 @@
-## Trocar imagem do bloco "Sobre a Clínica"
+# Padronizar títulos com Comfortaa
 
-### Ação
+## Objetivo
+Todos os títulos principais (h1–h6) do site passam a usar **Comfortaa** como fonte padrão, mantendo a Cormorant Garamond apenas para destaques editoriais em itálico (ex: `font-serif italic` já usado em palavras como "acolhe", "principais planos", "cada imagem").
 
-1. **Copiar a nova foto** `user-uploads://MK.png` para `src/assets/dra-morgana-sobre.png` (PNG transparente, preservando o recorte sem fundo).
+## Mudanças
 
-2. **Atualizar `src/pages/IndexV2.tsx`** (seção `About`, linhas 237-256):
-   - Trocar o import `draHeroV2` pela nova imagem.
-   - Substituir o `<img>` por uma estrutura com **fundo esfumaçado** atrás da foto recortada, em harmonia com a paleta do site (wine/champagne/rosa suave):
-     - Container com gradiente radial suave: do `champagne/30` no centro para `transparent` nas bordas, criando halo aveludado.
-     - Camada extra com `bg-gradient-rose` em baixa opacidade para dar profundidade.
-     - Leve `blur` nas camadas de fundo para o efeito "esfumaçado".
-     - Foto (PNG transparente) sobreposta, sem `rounded-sm`/`shadow-elegant` recortando o sujeito — sombra sutil apenas embaixo via drop-shadow.
-   - Manter a moldura champagne deslocada e o badge "+50 mil pacientes" como estão.
+### 1. `src/index.css`
+- Alterar a regra base de `h1, h2, h3, h4, h5, h6` para usar `'Comfortaa', cursive` no lugar de `'Cormorant Garamond', serif`.
+- Ajustar `font-weight` para 600/700 (Comfortaa fica melhor em pesos mais firmes para títulos) e `letter-spacing` levemente negativo para manter elegância.
+- Manter `.font-serif` intacto — destaques itálicos editoriais continuam em Cormorant.
 
-### O que NÃO muda
+### 2. Sem alterações em componentes
+- Os títulos já usam tags semânticas (`h1`, `h2`) e classes utilitárias de tamanho. A troca via CSS base propaga automaticamente para todas as páginas (Home, IndexV2, ExamDetail, etc.).
+- Trechos com `font-serif italic` (ex: "acolhe", "principais planos") permanecem em Cormorant — isso preserva o contraste tipográfico premium já estabelecido.
 
-- Texto, tipografia, layout em grid, badge de estatística.
-- Demais seções da página.
-- Tokens de cor do design system (uso apenas dos existentes: `champagne`, `wine-deep`, `gradient-rose`).
+## Resultado
+- Identidade tipográfica unificada com a Hero e a Navbar (que já usam Comfortaa).
+- Destaques editoriais em itálico continuam funcionando como acento sofisticado.
+- Zero mudança de layout, espaçamento ou cor.
