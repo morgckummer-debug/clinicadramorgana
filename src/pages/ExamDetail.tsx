@@ -161,7 +161,7 @@ const ExamDetail = () => {
               <span className="text-[11px] tracking-[0.45em] uppercase text-champagne font-medium">
                 {exam.category}
               </span>
-              <h1 className="mt-6 font-serif font-light text-wine-foreground text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.05] text-balance">
+              <h1 className="mt-6 font-light text-wine-foreground text-[clamp(2.2rem,6vw,4.5rem)] leading-[1.05] text-balance">
                 {exam.title}
               </h1>
               {hero.tagline && (

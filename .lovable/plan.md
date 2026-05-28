@@ -1,20 +1,13 @@
-# Padronizar títulos com Comfortaa
+## Problema
 
-## Objetivo
-Todos os títulos principais (h1–h6) do site passam a usar **Comfortaa** como fonte padrão, mantendo a Cormorant Garamond apenas para destaques editoriais em itálico (ex: `font-serif italic` já usado em palavras como "acolhe", "principais planos", "cada imagem").
+Os títulos das páginas de exames (ex.: "Obstétrico com Translucência Nucal") ainda aparecem em Cormorant Garamond porque o `<h1>` em `src/pages/ExamDetail.tsx` (linha ~146) usa explicitamente a classe `font-serif`, que sobrescreve a regra base do `index.css`.
 
-## Mudanças
+## Mudança
 
-### 1. `src/index.css`
-- Alterar a regra base de `h1, h2, h3, h4, h5, h6` para usar `'Comfortaa', cursive` no lugar de `'Cormorant Garamond', serif`.
-- Ajustar `font-weight` para 600/700 (Comfortaa fica melhor em pesos mais firmes para títulos) e `letter-spacing` levemente negativo para manter elegância.
-- Manter `.font-serif` intacto — destaques itálicos editoriais continuam em Cormorant.
+Em `src/pages/ExamDetail.tsx`, remover `font-serif` do `<h1>` do hero do exame, mantendo o restante das classes (peso, tamanho responsivo, leading, balance). Assim o h1 herda Comfortaa da regra global definida em `index.css`.
 
-### 2. Sem alterações em componentes
-- Os títulos já usam tags semânticas (`h1`, `h2`) e classes utilitárias de tamanho. A troca via CSS base propaga automaticamente para todas as páginas (Home, IndexV2, ExamDetail, etc.).
-- Trechos com `font-serif italic` (ex: "acolhe", "principais planos") permanecem em Cormorant — isso preserva o contraste tipográfico premium já estabelecido.
+Os demais usos de `font-serif` (itálicos editoriais como "ser visto", "dúvidas", "relacionados", e o CTA "Conheça a clínica…") permanecem em Cormorant como acento.
 
 ## Resultado
-- Identidade tipográfica unificada com a Hero e a Navbar (que já usam Comfortaa).
-- Destaques editoriais em itálico continuam funcionando como acento sofisticado.
-- Zero mudança de layout, espaçamento ou cor.
+
+Todos os títulos principais das páginas de exames passam a usar Comfortaa, unificando com o restante do site. Nenhuma outra alteração de layout, cor ou espaçamento.
