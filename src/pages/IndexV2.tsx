@@ -4,6 +4,7 @@ import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHa
 import { canonicalPathFor, categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { ScheduleFab } from "@/components/site/ScheduleFab";
+import { PremiumExperience } from "@/components/site/PremiumExperience";
 import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
 import logoClinica from "@/assets/logo-clinica.png";
@@ -635,6 +636,7 @@ const IndexV2 = () => {
       <Navbar />
       <Hero />
       <About />
+      <PremiumExperience />
       <Exams />
       
       <Team />
