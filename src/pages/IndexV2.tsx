@@ -6,6 +6,7 @@ import logoWine from "@/assets/logo-wine.png";
 import logoWhite from "@/assets/logo-white.png";
 import logoClinica from "@/assets/logo-clinica.png";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.png";
+import draSobre from "@/assets/dra-morgana-sobre.png";
 import draCutout from "@/assets/dra-morgana-cutout.png";
 import teamMorgana from "@/assets/team/morgana.png";
 import teamBarbara from "@/assets/team/barbara.png";
@@ -238,16 +239,33 @@ const About = () => (
   <section id="sobre" className="py-12 md:py-16 bg-background relative overflow-hidden">
     <div className="container grid md:grid-cols-12 gap-8 md:gap-8 items-center">
       <div className="relative max-w-md mx-auto md:mx-0 order-2 md:order-1 md:col-span-5">
+        {/* Moldura champagne deslocada */}
         <div className="absolute -inset-3 border border-champagne/40 rounded-sm -translate-x-3 -translate-y-3" />
+
+        {/* Fundo esfumaçado: halo champagne + gradient rose, com blur */}
+        <div className="absolute inset-0 overflow-hidden rounded-sm">
+          <div className="absolute inset-0 bg-gradient-rose opacity-70" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 45%, hsl(var(--champagne) / 0.35) 0%, hsl(var(--champagne) / 0.15) 35%, transparent 70%)",
+              filter: "blur(24px)",
+            }}
+          />
+        </div>
+
+        {/* Foto recortada por cima */}
         <img
-          src={draHeroV2}
-          alt="Dra. Morgana em seu consultório"
+          src={draSobre}
+          alt="Dra. Morgana Kummer"
           width={520}
           height={650}
           loading="lazy"
-          className="relative rounded-sm shadow-elegant w-full object-cover"
+          className="relative w-full object-contain [filter:drop-shadow(0_25px_30px_hsl(var(--wine-deep)/0.18))]"
         />
-        <div className="absolute -bottom-8 -right-4 md:-right-10 bg-background border border-border/70 px-6 py-5 max-w-[210px]">
+
+        <div className="absolute -bottom-8 -right-4 md:-right-10 bg-background border border-border/70 px-6 py-5 max-w-[210px] z-10">
           <div className="font-serif italic text-3xl text-wine-deep leading-none">+50 mil</div>
           <div className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground mt-2">
             pacientes atendidos
