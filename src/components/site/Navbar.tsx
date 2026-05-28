@@ -28,11 +28,11 @@ export const Navbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between h-20">
-        <a href="#top" className="flex flex-col leading-none text-wine-foreground">
+        <a href="#top" className="font-comfortaa flex flex-col leading-none text-wine-foreground">
           <span className="text-[10px] tracking-[0.35em] uppercase text-champagne">
             Clínica de Ultrassom
           </span>
-          <span className="text-lg font-bold tracking-tight">Dra. Morgana Kummer</span>
+          <span className="mt-1.5 text-xl md:text-2xl font-bold tracking-tight">Dra. Morgana Kummer</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-10">
