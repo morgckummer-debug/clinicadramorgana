@@ -630,7 +630,6 @@ const IndexV2 = () => {
   }, []);
   return (
     <main className="min-h-screen bg-background">
-      <AnnouncementBar />
       <Navbar />
       <Hero />
       <About />
@@ -642,7 +641,6 @@ const IndexV2 = () => {
       <Contact />
       <Footer />
       <WhatsAppFab />
-      <ScheduleFab />
     </main>
   );
 };
