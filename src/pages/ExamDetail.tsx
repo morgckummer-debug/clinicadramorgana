@@ -22,7 +22,7 @@ import {
   type ExamSection,
 } from "@/data/exams";
 
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=5531993910212";
+const WHATSAPP_URL = "https://wa.me/5531993910212";
 const SITE_ORIGIN = "https://dramorgana.com.br";
 
 /**

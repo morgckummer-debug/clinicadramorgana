@@ -37,7 +37,7 @@ import convMedGold from "@/assets/convenios/medgold.png";
 import convEvangelize from "@/assets/convenios/evangelize.png";
 
 /* ---------------- Constantes globais ---------------- */
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=5531993910212";
+const WHATSAPP_URL = "https://wa.me/5531993910212";
 const INSTAGRAM_URL = "https://instagram.com/dramorganak";
 const INSTAGRAM_HANDLE = "@dramorganak";
 
