@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import IndexV2 from "./pages/IndexV2.tsx";
 import ExamDetail from "./pages/ExamDetail.tsx";
+import Videos from "./pages/Videos.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { exams } from "./data/exams";
 
@@ -34,6 +35,7 @@ const App = () => (
 
           {/* Rotas dos exames pelo slug novo */}
           <Route path="/exames/:slug" element={<ExamDetail />} />
+          <Route path="/videos" element={<Videos />} />
 
           {/* Rotas históricas preservadas para SEO / Ads / Analytics */}
           {legacyRoutes.map((path) => (

@@ -1,8 +1,17 @@
 import { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+
+const setMeta = (name: string, content: string) => {
+  let tag = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
+  if (!tag) {
+    tag = document.createElement("meta");
+    tag.name = name;
+    document.head.appendChild(tag);
+  }
+  tag.content = content;
+};
 
 const ULTRASTUDIO_URL =
   "https://customer.ultrastudio.com.br/index.html?locator=b1f9a9c4-00eb-471a-a288-d5b359418fa7&nl=1";
@@ -40,17 +49,20 @@ const Videos = () => {
     document.body.appendChild(script);
   }, []);
 
+  useEffect(() => {
+    const prev = document.title;
+    document.title = "Vídeos | Clínica Dra. Morgana Kummer";
+    setMeta(
+      "description",
+      "Acesse o vídeo do seu ultrassom. Digite a senha recebida na clínica para visualizar o vídeo do seu bebê.",
+    );
+    return () => {
+      document.title = prev;
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
-        <title>Vídeos | Clínica Dra. Morgana Kummer</title>
-        <meta
-          name="description"
-          content="Acesse o vídeo do seu ultrassom. Digite a senha recebida na clínica para visualizar o vídeo do seu bebê."
-        />
-        <link rel="canonical" href="https://clinicadramorgana.com.br/videos" />
-      </Helmet>
-
       <Navbar />
 
       <main className="pt-32 pb-20">

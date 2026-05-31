@@ -2,10 +2,11 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#exames", label: "Exames" },
-  { href: "#sobre", label: "Sobre" },
-  { href: "#convenios", label: "Convênios" },
-  { href: "#contato", label: "Contato" },
+  { href: "/#exames", label: "Exames" },
+  { href: "/#sobre", label: "Sobre" },
+  { href: "/#convenios", label: "Convênios" },
+  { href: "/videos", label: "Vídeos" },
+  { href: "/#contato", label: "Contato" },
 ];
 
 export const Navbar = () => {
