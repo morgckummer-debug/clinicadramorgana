@@ -78,16 +78,21 @@ export const Navbar = () => {
           />
         </Link>
         <nav className="hidden md:flex items-center gap-10">
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              to={l.href.startsWith("/") ? l.href : `/${l.href}`}
-              className="text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium"
-            >
-              {l.label}
-              <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
-            </Link>
-          ))}
+          {navLinks.map((l) => {
+            const isRoute = l.href.startsWith("/");
+            const className = "text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium";
+            const inner = (
+              <>
+                {l.label}
+                <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
+              </>
+            );
+            return isRoute ? (
+              <Link key={l.href} to={l.href} className={className}>{inner}</Link>
+            ) : (
+              <a key={l.href} href={l.href} className={className}>{inner}</a>
+            );
+          })}
         </nav>
         <button className="md:hidden text-wine-deep" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -96,11 +101,15 @@ export const Navbar = () => {
       {open && (
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
-            {navLinks.map((l) => (
-              <Link key={l.href} to={l.href.startsWith("/") ? l.href : `/${l.href}`} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
-                {l.label}
-              </Link>
-            ))}
+            {navLinks.map((l) => {
+              const isRoute = l.href.startsWith("/");
+              const className = "text-wine-deep text-[12px] tracking-[0.2em] uppercase";
+              return isRoute ? (
+                <Link key={l.href} to={l.href} onClick={() => setOpen(false)} className={className}>{l.label}</Link>
+              ) : (
+                <a key={l.href} href={l.href} onClick={() => setOpen(false)} className={className}>{l.label}</a>
+              );
+            })}
           </nav>
         </div>
       )}
