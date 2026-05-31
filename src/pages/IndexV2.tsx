@@ -44,9 +44,9 @@ const INSTAGRAM_HANDLE = "@dramorganak";
 /* ---------------- Navbar ---------------- */
 const navLinks = [
   { href: "#exames", label: "Exames" },
-  { href: "#sobre", label: "Sobre" },
   { href: "#corpo-clinico", label: "Corpo Clínico" },
   { href: "#convenios", label: "Convênios" },
+  { href: "/videos", label: "Vídeos" },
   { href: "#contato", label: "Contato" },
 ];
 
@@ -81,21 +81,13 @@ export const Navbar = () => {
           {navLinks.map((l) => (
             <Link
               key={l.href}
-              to={`/${l.href}`}
+              to={l.href.startsWith("/") ? l.href : `/${l.href}`}
               className="text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium"
             >
               {l.label}
               <span className="absolute -bottom-1.5 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
             </Link>
           ))}
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-wine-deep/30 text-wine-deep text-[11px] tracking-[0.22em] uppercase px-5 py-2 rounded-full hover:bg-wine-deep hover:text-wine-foreground hover:border-wine-deep transition-all duration-500"
-          >
-            Agendar <ArrowRight className="w-3 h-3" />
-          </a>
         </nav>
         <button className="md:hidden text-wine-deep" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -105,7 +97,7 @@ export const Navbar = () => {
         <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => (
-              <Link key={l.href} to={`/${l.href}`} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
+              <Link key={l.href} to={l.href.startsWith("/") ? l.href : `/${l.href}`} onClick={() => setOpen(false)} className="text-wine-deep text-[12px] tracking-[0.2em] uppercase">
                 {l.label}
               </Link>
             ))}

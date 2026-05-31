@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 const links = [
   { href: "/#exames", label: "Exames" },
-  { href: "/#sobre", label: "Sobre" },
   { href: "/#convenios", label: "Convênios" },
   { href: "/videos", label: "Vídeos" },
   { href: "/#contato", label: "Contato" },
@@ -48,12 +47,6 @@ export const Navbar = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-champagne transition-all duration-500 group-hover:w-full" />
             </a>
           ))}
-          <a
-            href="#contato"
-            className="text-xs tracking-[0.25em] uppercase border border-champagne/60 text-champagne px-5 py-2.5 rounded-full hover:bg-champagne hover:text-wine-deep transition-all duration-500"
-          >
-            Agendar
-          </a>
         </nav>
 
         <button
