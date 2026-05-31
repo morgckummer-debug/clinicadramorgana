@@ -1,22 +1,23 @@
-Remover os CTAs redundantes de WhatsApp/agendamento, mantendo apenas o botão flutuante do WhatsApp.
+## Compactar seção "Experiência diferenciada com a Dra. Morgana"
 
-## O que será feito
+### 1. Nova imagem
+Gerar `src/assets/premium-belly.jpg` — close em formato quadrado/paisagem das mãos da gestante sobre a barriga, luz natural quente, tom acolhedor e sofisticado, paleta combinando com dourado/vinho.
 
-1. **Remover `<AnnouncementBar />`** das páginas:
-   - `src/pages/Index.tsx`
-   - `src/pages/IndexV2.tsx`
-   - `src/pages/ExamDetail.tsx`
+### 2. Reduzir tamanho da seção
+Em `src/components/site/PremiumExperience.tsx`:
+- Padding da section: `py-16 md:py-24` → `py-10 md:py-14`
+- Padding do card: `p-8 md:p-14` → `p-6 md:p-10`
+- Gap do grid: `gap-10 md:gap-14` → `gap-8 md:gap-10`
+- Título: `text-3xl md:text-[2.6rem]` → `text-2xl md:text-[1.9rem]`
+- Subtítulo: `text-base md:text-lg` → `text-sm md:text-base`, encurtar margens
+- Lista de diferenciais: reduzir margem superior e tamanho dos ícones/círculos
+- Botão CTA: reduzir padding `px-7 py-4` → `px-6 py-3`
 
-2. **Remover `<ScheduleFab />`** das mesmas 3 páginas.
+### 3. Trocar imagem e proporção
+- Substituir `premium-pregnant.jpg` por `premium-belly.jpg`
+- Aspect ratio: `aspect-[3/4]` → `aspect-square` (ou `aspect-[4/5]`) para reduzir altura vertical
+- Atualizar `alt` para refletir o novo conteúdo ("Close das mãos da gestante sobre a barriga")
+- Remover o arquivo antigo `src/assets/premium-pregnant.jpg`
 
-3. **Remover os imports** correspondentes em cada arquivo.
-
-4. **Deletar os arquivos** `src/components/site/AnnouncementBar.tsx` e `src/components/site/ScheduleFab.tsx` (não serão mais utilizados).
-
-## Nota técnica
-
-A `Navbar` utiliza a variável CSS `--cta-bar-h` (definida pela `AnnouncementBar`) para calcular seu posicionamento vertical. Como a barra será removida, essa variável passa a valer `0px` (fallback já existente), fazendo a navbar ficar naturalmente no topo da página — comportamento correto.
-
-## Resultado esperado
-
-Apenas o botão redondo fixo do WhatsApp (`<WhatsAppFab />`) permanecerá visível no canto inferior direito, tanto em desktop quanto mobile.
+### Fora de escopo
+HERO, restante do layout, paleta, copy textual da seção (mantém título, subtítulo e diferenciais atuais).
