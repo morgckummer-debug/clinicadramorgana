@@ -1,21 +1,12 @@
-Existem dois menus no projeto:
+## Mudança
 
-1. **Navbar compartilhado** (`src/components/site/Navbar.tsx`) — já tem "Vídeos", precisa remover "Sobre" e o botão "Agendar".
-2. **Navbar inline da homepage** (`src/pages/IndexV2.tsx`, linhas 45-117) — precisa remover "Sobre", remover o botão "Agendar" e adicionar o item "Vídeos".
+**`src/pages/ExamDetail.tsx`** (CTA final, ~linhas 365-380)
 
-## Mudanças
+Como a cerclagem é procedimento cirúrgico (não ultrassom), no CTA final renderizar condicionalmente:
 
-**`src/components/site/Navbar.tsx`**
-- Remover `{ href: "/#sobre", label: "Sobre" }` do array `links`.
-- Remover o `<a>` "Agendar" do nav desktop.
+- Se `exam.slug === "cerclagem"`: mostrar apenas o link "Voltar à página inicial" (estilizado como botão primário, centralizado, para não ficar solto).
+- Demais exames: comportamento atual (botão "Falar no WhatsApp" + link "Voltar").
 
-**`src/pages/IndexV2.tsx`**
-- Remover `{ href: "#sobre", label: "Sobre" }` do `navLinks`.
-- Adicionar `{ href: "/videos", label: "Vídeos" }` ao `navLinks`.
-- Ajustar o `to=` dos `<Link>` (desktop e mobile) para tratar tanto rotas absolutas (`/videos`) quanto âncoras (`#exames`):
-  ```tsx
-  to={l.href.startsWith("/") ? l.href : `/${l.href}`}
-  ```
-- Remover o `<a>` "Agendar" do nav desktop.
+Também ocultar, para cerclagem, a linha "Resposta em até 1h em horário comercial" (relacionada ao agendamento WhatsApp).
 
-A seção `#sobre` continua existindo na página; apenas sai do menu. Nenhuma outra alteração.
+O `WhatsAppFab` (botão flutuante) e demais seções permanecem inalterados.
