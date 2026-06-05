@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
+import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
 import { PremiumExperience } from "@/components/site/PremiumExperience";
 import logoWine from "@/assets/logo-wine.png";
@@ -195,12 +195,6 @@ const Hero = () => (
           </a>
         </div>
 
-        {/* Selos de credibilidade */}
-        <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
-          <span className="flex items-center gap-2"><Award className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Laudos no mesmo dia</span>
-          <span className="flex items-center gap-2"><HeartHandshake className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Atendimento humanizado</span>
-          <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> Equipamentos de última geração</span>
-        </div>
       </div>
     </div>
   </section>
