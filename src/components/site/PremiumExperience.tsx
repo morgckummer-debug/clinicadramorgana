@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Heart, Sparkles, Clock, Star } from "lucide-react";
+import { ArrowUpRight, Heart, Sparkles, Clock } from "lucide-react";
 import draCutout from "@/assets/dra-morgana-cutout.png";
 
 const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
@@ -8,7 +8,6 @@ const features = [
   { Icon: Heart, label: "Acolhimento\nque conforta" },
   { Icon: Sparkles, label: "Tecnologia de\nalta precisão" },
   { Icon: Clock, label: "Tempo de qualidade\ncom você e seu bebê" },
-  { Icon: Star, label: "Cuidado em\ncada detalhe" },
 ];
 
 const LotusIcon = () => (
@@ -96,7 +95,7 @@ export const PremiumExperience = () => {
           </div>
 
           {/* Features */}
-          <div className="mt-7 grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 w-full max-w-lg mx-auto">
+          <div className="mt-7 grid grid-cols-3 gap-x-6 gap-y-5 w-full max-w-lg mx-auto">
             {features.map(({ Icon, label }) => (
               <div key={label} className="flex flex-col items-center gap-2">
                 <div className="w-9 h-9 rounded-full flex items-center justify-center border" style={{ borderColor: "#C9A84C55", background: "#FFFDF7" }}>
