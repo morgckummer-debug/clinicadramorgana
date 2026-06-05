@@ -71,19 +71,22 @@ export const PremiumExperience = () => {
           {/* Título */}
           <h2
             id="premium-experience-title"
-            className="mt-6 leading-[1.2] text-balance"
-            style={{ color: "#4A2060", fontSize: "clamp(1.9rem, 5vw, 3rem)" }}
+            className="mt-6 leading-[1.3] text-balance"
+            style={{ color: "#4A2060", fontSize: "clamp(1.5rem, 4vw, 2.4rem)" }}
           >
-            <span className="font-light" style={{ fontFamily: "'Comfortaa', sans-serif" }}>Uma experiência</span>
+            <span className="font-light" style={{ fontFamily: "'Comfortaa', sans-serif" }}>Quer ter uma experiência</span>
             <br />
-            <em className="font-serif not-italic" style={{ fontFamily: "Georgia, serif", fontStyle: "italic", color: "#8B6914", fontSize: "1.1em" }}>
+            <em style={{ fontFamily: "Georgia, serif", fontStyle: "italic", color: "#8B6914", fontSize: "1.12em" }}>
               diferenciada
             </em>
-            <br />
-            <span className="font-light" style={{ fontFamily: "'Comfortaa', sans-serif" }}>com a Dra. Morgana</span>
+            <span className="font-light" style={{ fontFamily: "'Comfortaa', sans-serif" }}> com a Dra. Morgana?</span>
             {" "}
             <span style={{ color: "#A05070", fontSize: "0.75em" }}>♡</span>
           </h2>
+
+          <p className="mt-4 font-light leading-relaxed max-w-md" style={{ color: "#6B4A80", fontSize: "clamp(0.95rem, 2vw, 1.1rem)" }}>
+            Confira os exames que você pode realizar com ela e reserve o seu horário com todo o cuidado que você merece.
+          </p>
 
           {/* Divisor lotus pequeno */}
           <div className="mt-7 flex items-center justify-center gap-2">
