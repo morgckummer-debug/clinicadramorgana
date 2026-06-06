@@ -3,38 +3,37 @@ import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryDescriptions, categoryThumbs, getExamsByCategory } from "@/data/exams";
 import { PremiumExperience } from "@/components/site/PremiumExperience";
-import logoWine from "@/assets/logo-wine.png";
-import logoWhite from "@/assets/logo-white.png";
-import logoClinica from "@/assets/logo-clinica.png";
-import draHeroV2 from "@/assets/dra-morgana-hero-v2.png";
-import draSobre from "@/assets/dra-morgana-sobre.png";
-import draCutout from "@/assets/dra-morgana-cutout.png";
-import teamMorgana from "@/assets/team/morgana.png";
-import teamBarbara from "@/assets/team/barbara.png";
-import teamDarlei from "@/assets/team/darlei.png";
-import teamPaulo from "@/assets/team/paulo.png";
-import teamCarolina from "@/assets/team/carolina.png";
-import teamMariaAmelia from "@/assets/team/maria-amelia.png";
-import ultrasoundIcon from "@/assets/ultrasound-icon.png";
-import teamAndre from "@/assets/team/andre.png";
+import logoWine from "@/assets/logo-wine.webp";
+import logoWhite from "@/assets/logo-white.webp";
+import logoClinica from "@/assets/logo-clinica.webp";
+import draHeroV2 from "@/assets/dra-morgana-hero-v2.webp";
+import draSobre from "@/assets/dra-morgana-sobre.webp";
+import draCutout from "@/assets/dra-morgana-cutout.webp";
+import teamMorgana from "@/assets/team/morgana.webp";
+import teamBarbara from "@/assets/team/barbara.webp";
+import teamDarlei from "@/assets/team/darlei.webp";
+import teamPaulo from "@/assets/team/paulo.webp";
+import teamCarolina from "@/assets/team/carolina.webp";
+import teamMariaAmelia from "@/assets/team/maria-amelia.webp";
+import teamAndre from "@/assets/team/andre.webp";
 
 /* Convênios — logos */
 import convHapvida from "@/assets/convenios/hapvida.png";
 import convAurora from "@/assets/convenios/aurora-2.png";
 import convGrupoZelo from "@/assets/convenios/grupo-zelo.png";
-import convFusex from "@/assets/convenios/fusex-1.png";
-import convStellantis from "@/assets/convenios/stellantis.png";
+import convFusex from "@/assets/convenios/fusex-1.webp";
+import convStellantis from "@/assets/convenios/stellantis.webp";
 import convCemig from "@/assets/convenios/cemig.png";
-import convBomPastor from "@/assets/convenios/bom-pastor.png";
-import convSantaClara from "@/assets/convenios/santa-clara.png";
-import convFundafem from "@/assets/convenios/fundafem.png";
+import convBomPastor from "@/assets/convenios/bom-pastor.webp";
+import convSantaClara from "@/assets/convenios/santa-clara.webp";
+import convFundafem from "@/assets/convenios/fundafem.webp";
 import convNotreDame from "@/assets/convenios/notredame.png";
 import convCasembrapa from "@/assets/convenios/casembrapa.png";
 import convCopass from "@/assets/convenios/copass.png";
-import convPax from "@/assets/convenios/pax.png";
+import convPax from "@/assets/convenios/pax.webp";
 import convAgebras from "@/assets/convenios/agebras.png";
 import convMedGold from "@/assets/convenios/medgold.png";
-import convEvangelize from "@/assets/convenios/evangelize.png";
+import convEvangelize from "@/assets/convenios/evangelize.webp";
 
 /* ---------------- Constantes globais ---------------- */
 const WHATSAPP_URL = "https://wa.me/5531993910212";
@@ -143,7 +142,7 @@ const Hero = () => (
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
         poster="/videos/hero-clinic-poster.jpg"
         aria-label="Vídeo da Clínica Dra. Morgana Kummer"
       >
