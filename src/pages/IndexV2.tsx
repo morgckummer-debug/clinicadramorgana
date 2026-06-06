@@ -136,17 +136,17 @@ const Hero = () => (
     {/* Vídeo da clínica — ocupa toda a extensão do Hero */}
     <div className="absolute inset-0 pointer-events-none">
       <video
-        key="hero-clinic-video-v4"
+        key="hero-clinic-video-v5"
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        poster="/videos/hero-clinic-poster.jpg"
         aria-label="Vídeo da Clínica Dra. Morgana Kummer"
+        onError={(e) => console.error("hero video error", e)}
       >
-        <source src="/videos/hero-clinic.mp4?v=3" type="video/mp4" />
+        <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
       </video>
       {/* Overlay cinematográfico — legibilidade preservando o vídeo */}
       <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/80 via-wine-deep/45 to-wine-deep/10 md:from-wine-deep/85 md:via-wine-deep/40 md:to-transparent" />
