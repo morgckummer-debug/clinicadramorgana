@@ -284,7 +284,7 @@ const About = () => (
         <p className="mt-10 text-foreground/85 leading-[1.8] text-lg font-light max-w-xl">
           Referência em ultrassonografia em Sete Lagoas, oferecemos diagnóstico
           por imagem com rigor técnico e atendimento profundamente humano — em
-          um espaço pensado para que cada paciente se sinta cuidada de verdade.
+          um espaço pensado para que cada paciente se sinta cuidado(a) de verdade.
         </p>
 
         <p className="mt-6 text-foreground/70 leading-[1.8] text-base font-light max-w-xl">
