@@ -84,10 +84,10 @@ export const PremiumExperience = () => {
               href={DRA_MORGANA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Reservar horário exclusivo com a Dra. Morgana (abre em nova aba)"
+              aria-label="Conheça o atendimento exclusivo da Dra. Morgana (abre em nova aba)"
               className="group inline-flex items-center gap-2 rounded-full bg-wine-deep px-5 py-2.5 text-wine-foreground text-sm tracking-wide transition-all duration-300 hover:bg-wine hover:shadow-[0_14px_32px_-10px_hsl(var(--wine-deep)/0.55)] hover:-translate-y-0.5"
             >
-              <span>Reservar horário exclusivo</span>
+              <span>Conheça o atendimento exclusivo</span>
               <ArrowUpRight
                 size={15}
                 className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
