@@ -144,6 +144,7 @@ const Hero = () => (
         loop
         playsInline
         preload="auto"
+        poster="/videos/hero-clinic-poster.jpg"
         aria-label="Vídeo da Clínica Dra. Morgana Kummer"
       >
         <source src="/videos/hero-clinic.mp4?v=3" type="video/mp4" />
