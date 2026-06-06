@@ -148,10 +148,9 @@ const Hero = () => (
       >
         <source src="/videos/hero-clinic.mp4?v=3" type="video/mp4" />
       </video>
-      {/* Overlay cinematográfico — mais profundo e com vinheta */}
-      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/95 via-wine-deep/70 to-wine-deep/40" />
-      <div className="absolute inset-0 bg-gradient-to-b from-wine-deep/40 via-transparent to-wine-deep" />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 30% 50%, transparent 0%, hsl(311 42% 12% / 0.45) 90%)" }} />
+      {/* Overlay cinematográfico — legibilidade preservando o vídeo */}
+      <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/80 via-wine-deep/45 to-wine-deep/10 md:from-wine-deep/85 md:via-wine-deep/40 md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-wine-deep/30 via-transparent to-wine-deep/90" />
     </div>
 
     {/* Conteúdo */}
