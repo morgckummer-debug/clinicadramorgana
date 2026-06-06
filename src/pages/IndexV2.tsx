@@ -162,7 +162,7 @@ const Hero = () => (
           <span className="text-[10px] tracking-[0.45em] uppercase text-champagne font-medium">Sete Lagoas · Minas Gerais</span>
         </div>
 
-        <p className="font-comfortaa text-wine-foreground/70 text-[11px] tracking-[0.5em] uppercase mb-6 font-medium">
+        <p className="font-comfortaa text-wine-foreground/70 text-[13px] md:text-[15px] tracking-[0.5em] uppercase mb-6 font-medium">
           Clínica de Ultrassom
         </p>
 
