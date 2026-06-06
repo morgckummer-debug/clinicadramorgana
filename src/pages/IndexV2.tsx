@@ -142,7 +142,7 @@ const Hero = () => (
         muted
         loop
         playsInline
-        preload="none"
+        preload="metadata"
         poster="/videos/hero-clinic-poster.jpg"
         aria-label="Vídeo da Clínica Dra. Morgana Kummer"
       >
