@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import premiumBelly from "@/assets/premium-belly.jpg";
 
 const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
 
@@ -27,73 +26,83 @@ export const PremiumExperience = () => {
   return (
     <section
       aria-labelledby="premium-experience-title"
-      className="bg-background py-10 md:py-14"
+      className="relative overflow-hidden py-20 md:py-28"
+      style={{
+        background:
+          "linear-gradient(135deg, #FFFDF7 0%, #FBF3DC 40%, #F5E6B8 70%, #EDD690 100%)",
+      }}
     >
-      <div className="container">
+      {/* Orbes decorativos de fundo */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full opacity-50 blur-3xl"
+        style={{ background: "radial-gradient(circle, #E8D38A 0%, transparent 70%)" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full opacity-40 blur-3xl"
+        style={{ background: "radial-gradient(circle, #D4A843 0%, transparent 70%)" }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full opacity-20 blur-3xl animate-[pulse_8s_ease-in-out_infinite]"
+        style={{ background: "radial-gradient(circle, #6d3263 0%, transparent 60%)" }}
+      />
+
+      {/* Linha decorativa superior */}
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, #D4A843 30%, #D4A843 70%, transparent)" }}
+      />
+      {/* Linha decorativa inferior */}
+      <div
+        aria-hidden
+        className="absolute bottom-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, #D4A843 30%, #D4A843 70%, transparent)" }}
+      />
+
+      <div className="container relative">
         <div
           ref={ref}
-          className={`relative overflow-hidden rounded-3xl border border-[#E8D38A]/60 p-6 md:p-8 transition-all duration-700 ease-out max-w-lg mx-auto ${
+          className={`flex flex-col items-center text-center gap-6 transition-all duration-700 ease-out ${
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
-          style={{
-            background:
-              "linear-gradient(135deg, #FFFDF7 0%, #FBF3DC 45%, #F5E6B8 100%)",
-            boxShadow: "0 30px 80px -30px hsl(var(--wine-deep) / 0.25)",
-          }}
         >
-          {/* Brilho dourado suave */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-70 blur-3xl animate-[pulse_6s_ease-in-out_infinite]"
-            style={{
-              background:
-                "radial-gradient(circle, #F5E6B8 0%, transparent 70%)",
-            }}
-          />
-
-          <div className="relative flex flex-col items-center text-center gap-5">
-            <div className="relative w-40 h-40 md:w-44 md:h-44 rounded-2xl overflow-hidden shadow-[0_20px_50px_-15px_rgba(120,80,30,0.35)] ring-1 ring-[#E8D38A]/50 shrink-0">
-              <img
-                src={premiumBelly}
-                alt="Close das mãos da gestante sobre a barriga, em luz natural quente"
-                width={1024}
-                height={1024}
-                loading="lazy"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="text-wine-deep">
-              <div className="flex items-center justify-center gap-3">
-                <span className="h-px w-6 bg-wine-deep/40" />
-                <span className="text-[10px] tracking-[0.4em] uppercase text-wine-deep/80">
-                  Atendimento exclusivo
-                </span>
-                <span className="h-px w-6 bg-wine-deep/40" />
-              </div>
-
-              <h2
-                id="premium-experience-title"
-                className="mt-2 font-['Comfortaa'] text-xl md:text-[1.7rem] leading-[1.2] text-balance"
-              >
-                Uma experiência diferenciada com a Dra. Morgana
-              </h2>
-            </div>
-
-            <a
-              href={DRA_MORGANA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Conheça o atendimento exclusivo da Dra. Morgana (abre em nova aba)"
-              className="group inline-flex items-center gap-2 rounded-full bg-wine-deep px-5 py-2.5 text-wine-foreground text-sm tracking-wide transition-all duration-300 hover:bg-wine hover:shadow-[0_14px_32px_-10px_hsl(var(--wine-deep)/0.55)] hover:-translate-y-0.5"
-            >
-              <span>Conheça o atendimento exclusivo</span>
-              <ArrowUpRight
-                size={15}
-                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
-            </a>
+          <div className="flex items-center gap-3">
+            <span className="h-px w-10 bg-wine-deep/50" />
+            <span className="text-[10px] tracking-[0.45em] uppercase text-wine-deep/70">
+              Atendimento exclusivo
+            </span>
+            <span className="h-px w-10 bg-wine-deep/50" />
           </div>
+
+          <h2
+            id="premium-experience-title"
+            className="font-['Comfortaa'] text-2xl md:text-4xl leading-[1.25] text-wine-deep max-w-xl text-balance"
+          >
+            Uma experiência diferenciada com a{" "}
+            <span className="italic font-['Cormorant_Garamond']">Dra. Morgana</span>
+          </h2>
+
+          <p className="text-wine-deep/70 text-sm md:text-base max-w-md leading-relaxed">
+            Consultas com atenção plena, tempo dedicado e todo o cuidado que você
+            merece — do pré-natal ao acompanhamento ginecológico.
+          </p>
+
+          <a
+            href={DRA_MORGANA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Conheça o atendimento exclusivo da Dra. Morgana (abre em nova aba)"
+            className="group mt-2 inline-flex items-center gap-2 rounded-full bg-wine-deep px-6 py-3 text-wine-foreground text-sm tracking-wide transition-all duration-300 hover:bg-wine hover:shadow-[0_14px_32px_-10px_hsl(var(--wine-deep)/0.55)] hover:-translate-y-0.5"
+          >
+            <span>Conheça o atendimento exclusivo</span>
+            <ArrowUpRight
+              size={15}
+              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            />
+          </a>
         </div>
       </div>
     </section>
