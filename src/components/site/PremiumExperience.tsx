@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
 
 export const PremiumExperience = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const el = ref.current;
@@ -32,7 +34,6 @@ export const PremiumExperience = () => {
           "linear-gradient(135deg, #FFFDF7 0%, #FBF3DC 40%, #F5E6B8 70%, #EDD690 100%)",
       }}
     >
-      {/* Orbes decorativos de fundo */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full opacity-50 blur-3xl"
@@ -48,14 +49,11 @@ export const PremiumExperience = () => {
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full opacity-20 blur-3xl animate-[pulse_8s_ease-in-out_infinite]"
         style={{ background: "radial-gradient(circle, #6d3263 0%, transparent 60%)" }}
       />
-
-      {/* Linha decorativa superior */}
       <div
         aria-hidden
         className="absolute top-0 left-0 right-0 h-px"
         style={{ background: "linear-gradient(90deg, transparent, #D4A843 30%, #D4A843 70%, transparent)" }}
       />
-      {/* Linha decorativa inferior */}
       <div
         aria-hidden
         className="absolute bottom-0 left-0 right-0 h-px"
@@ -72,7 +70,7 @@ export const PremiumExperience = () => {
           <div className="flex items-center gap-3">
             <span className="h-px w-10 bg-wine-deep/50" />
             <span className="text-[10px] tracking-[0.45em] uppercase text-wine-deep/70">
-              Atendimento exclusivo
+              {t.premium.label}
             </span>
             <span className="h-px w-10 bg-wine-deep/50" />
           </div>
@@ -81,23 +79,22 @@ export const PremiumExperience = () => {
             id="premium-experience-title"
             className="font-['Comfortaa'] text-2xl md:text-4xl leading-[1.25] text-wine-deep max-w-xl text-balance"
           >
-            Uma experiência diferenciada com a{" "}
-            <span className="italic font-['Cormorant_Garamond']">Dra. Morgana</span>
+            {t.premium.titleBefore}{" "}
+            <span className="italic font-['Cormorant_Garamond']">{t.premium.titleName}</span>
           </h2>
 
           <p className="text-wine-deep/70 text-sm md:text-base max-w-md leading-relaxed">
-            Consultas com atenção plena, tempo dedicado e todo o cuidado que você
-            merece — do pré-natal ao acompanhamento ginecológico.
+            {t.premium.description}
           </p>
 
           <a
             href={DRA_MORGANA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Conheça o atendimento exclusivo da Dra. Morgana (abre em nova aba)"
+            aria-label={t.premium.buttonAriaLabel}
             className="group mt-2 inline-flex items-center gap-2 rounded-full bg-wine-deep px-6 py-3 text-wine-foreground text-sm tracking-wide transition-all duration-300 hover:bg-wine hover:shadow-[0_14px_32px_-10px_hsl(var(--wine-deep)/0.55)] hover:-translate-y-0.5"
           >
-            <span>Conheça o atendimento exclusivo</span>
+            <span>{t.premium.button}</span>
             <ArrowUpRight
               size={15}
               className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
