@@ -11,7 +11,8 @@ export const Hero = () => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/videos/hero-clinic-poster.jpg"
           aria-label="Ambiente acolhedor da Clínica Dra. Morgana Kummer"
           className="h-full w-full object-cover"
         >
