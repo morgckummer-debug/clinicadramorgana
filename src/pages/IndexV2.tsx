@@ -408,7 +408,7 @@ const Exams = () => {
                                   : "group-hover/item:underline underline-offset-4 decoration-champagne"
                               }
                             >
-                              {ex.title}
+                              {t.exams.examTitles[ex.title] ?? ex.title}
                             </span>
                           </Link>
                         </li>
