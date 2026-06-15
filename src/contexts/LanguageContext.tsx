@@ -127,7 +127,7 @@ const translations = {
       titleBefore: "Uma experiência diferenciada com a",
       titleName: "Dra. Morgana",
       description:
-        "Consultas com atenção plena, tempo dedicado e todo o cuidado que você merece — do pré-natal ao acompanhamento ginecológico.",
+        "Ultrassonografia geral e medicina fetal realizadas com precisão técnica, tempo dedicado e a sensibilidade que cada imagem merece.",
       button: "Conheça o atendimento exclusivo",
       buttonAriaLabel: "Conheça o atendimento exclusivo da Dra. Morgana (abre em nova aba)",
     },
@@ -292,7 +292,7 @@ const translations = {
       titleBefore: "A unique experience with",
       titleName: "Dr. Morgana",
       description:
-        "Appointments with full attention, dedicated time and all the care you deserve — from prenatal to gynaecological follow-up.",
+        "General ultrasound and fetal medicine performed with technical precision, dedicated time and the sensitivity each image deserves.",
       button: "Discover exclusive care",
       buttonAriaLabel: "Discover exclusive care with Dr. Morgana (opens in new tab)",
     },
