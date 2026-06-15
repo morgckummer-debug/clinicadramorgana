@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-import { Navbar } from "@/components/site/Navbar";
-import { Footer } from "@/components/site/Footer";
-import { WhatsAppFab } from "@/components/site/WhatsAppFab";
+import { Navbar, Footer, WhatsAppFab } from "@/pages/IndexV2";
 
 const setMeta = (name: string, content: string) => {
   let tag = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
