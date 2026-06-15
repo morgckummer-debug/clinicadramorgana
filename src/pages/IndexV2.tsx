@@ -192,8 +192,7 @@ const Hero = () => {
           muted
           loop
           playsInline
-          preload="metadata"
-          poster="/videos/hero-clinic-poster.jpg"
+          preload="auto"
           aria-label={t.hero.videoAriaLabel}
           onError={(e) => console.error("hero video error", e)}
         >
