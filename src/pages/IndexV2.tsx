@@ -71,6 +71,31 @@ const convenios = [
   { name: "Projeto Evangelize",     logo: convEvangelize },
 ];
 
+/* ---------------- Flag SVGs ---------------- */
+const FlagUK = () => (
+  <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <rect width="60" height="30" fill="#012169" />
+    {/* White saltire (St Andrew + St Patrick base) */}
+    <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="7" />
+    {/* Red saltire (St Patrick) — narrower, offset */}
+    <path d="M0,0 L60,30" stroke="#C8102E" strokeWidth="2.5" />
+    <path d="M60,0 L0,30" stroke="#C8102E" strokeWidth="2.5" />
+    {/* White cross (St George base) */}
+    <path d="M30,0 V30 M0,15 H60" stroke="#fff" strokeWidth="11" />
+    {/* Red cross (St George) */}
+    <path d="M30,0 V30 M0,15 H60" stroke="#C8102E" strokeWidth="6" />
+  </svg>
+);
+
+const FlagBR = () => (
+  <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <rect width="30" height="20" fill="#009C3B" />
+    <polygon points="15,2 28,10 15,18 2,10" fill="#FFDF00" />
+    <circle cx="15" cy="10" r="5.2" fill="#002776" />
+    <path d="M9.8,10 a5.2,5.2 0 0,1 10.4,0" stroke="#fff" strokeWidth="0.9" fill="none" />
+  </svg>
+);
+
 /* ---------------- Language toggle button ---------------- */
 const LangToggle = () => {
   const { lang, toggle } = useLanguage();
@@ -81,9 +106,7 @@ const LangToggle = () => {
       title={lang === "pt" ? "English" : "Português"}
       className="flex items-center justify-center w-7 h-7 rounded-full overflow-hidden border border-champagne/40 hover:border-champagne transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne flex-shrink-0"
     >
-      <span className="text-base leading-none select-none">
-        {lang === "pt" ? "🇬🇧" : "🇧🇷"}
-      </span>
+      {lang === "pt" ? <FlagUK /> : <FlagBR />}
     </button>
   );
 };
