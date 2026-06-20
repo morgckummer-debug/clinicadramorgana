@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, User, FileText, Calendar, Clock, Stethoscope, CreditCard } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
-
-const WHATSAPP_NUMBER = '5531993910212'
 
 interface Detalhe {
   id: string
@@ -33,6 +31,17 @@ const turnoLabel: Record<string, string> = {
   indiferente: 'Sem preferência',
 }
 
+const medicoLabel: Record<string, string> = {
+  'dra-morgana': 'Dra. Morgana Kummer',
+  'dra-barbara': 'Dra. Bárbara Rodrigues',
+  'dr-darlei': 'Dr. Darlei Carneiro',
+  'dr-paulo': 'Dr. Paulo Gontijo Jr.',
+  'dra-carolina': 'Dra. Carolina Martins',
+  'dra-maria-amelia': 'Dra. Maria Amélia',
+  'dr-andre': 'Dr. André Mourão',
+  'sem-preferencia': 'Sem preferência',
+}
+
 const statusOptions = [
   { value: 'pendente', label: 'Pendente' },
   { value: 'em_atendimento', label: 'Em atendimento' },
@@ -51,13 +60,29 @@ function calcIdade(dataNasc: string | null) {
 }
 
 function formatCpf(cpf: string) {
-  const c = cpf.replace(/\D/g, '')
-  return c.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+  return cpf.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 }
 
 function formatTel(tel: string) {
-  const t = tel.replace(/\D/g, '')
-  return t.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
+  return tel.replace(/\D/g, '').replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
+}
+
+function primeiroNome(nome: string) {
+  const partes = nome.trim().split(' ')
+  return partes.slice(0, 2).join(' ')
+}
+
+function formatExame(slug: string | null) {
+  if (!slug) return '—'
+  return slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .replace(/\bDe\b/g, 'de')
+    .replace(/\bDo\b/g, 'do')
+    .replace(/\bDa\b/g, 'da')
+    .replace(/\bCom\b/g, 'com')
+    .replace(/\bE\b/g, 'e')
+    .replace(/\bO\b/g, 'o')
 }
 
 export default function Detalhe() {
@@ -90,10 +115,10 @@ export default function Detalhe() {
 
   const openWhatsApp = () => {
     if (!item?.pacientes) return
-    const nome = item.pacientes.nome.split(' ')[0]
-    const exame = item.exame ?? 'ultrassom'
+    const nome = primeiroNome(item.pacientes.nome)
+    const exame = formatExame(item.exame)
     const msg = encodeURIComponent(
-      `Olá, ${nome}! 😊 Vi aqui no sistema que você gostaria de agendar um ${exame}. Vou verificar a disponibilidade para você!`
+      `Olá, ${nome}! 😊 Vi aqui no sistema que você gostaria de agendar: ${exame}. Vou verificar a disponibilidade para você!`
     )
     const tel = item.pacientes.telefone.replace(/\D/g, '')
     window.open(`https://wa.me/55${tel}?text=${msg}`, '_blank')
@@ -121,94 +146,93 @@ export default function Detalhe() {
   }
 
   const idade = calcIdade(item.pacientes?.data_nascimento ?? null)
+  const nomeExibido = item.pacientes?.nome ? primeiroNome(item.pacientes.nome) : '—'
+  const exameFormatado = formatExame(item.exame)
+  const medicoFormatado = medicoLabel[item.medico_preferido ?? ''] ?? item.medico_preferido ?? '—'
 
   return (
     <PainelLayout>
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <button
-          onClick={() => navigate('/painel')}
-          className="flex items-center gap-1.5 text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
-        >
-          <ArrowLeft className="w-3.5 h-3.5" />
-          Lista
-        </button>
-      </div>
+      {/* Voltar */}
+      <button
+        onClick={() => navigate('/painel')}
+        className="flex items-center gap-1.5 text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300 mb-5"
+      >
+        <ArrowLeft className="w-3.5 h-3.5" />
+        Lista
+      </button>
 
-      <div className="flex items-start justify-between gap-4 mb-8 flex-wrap">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-base font-semibold text-wine-deep">
+      {/* Header compacto */}
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
+            <span className="text-sm font-semibold text-wine-deep">
               {item.pacientes?.nome?.charAt(0).toUpperCase() ?? '?'}
             </span>
           </div>
           <div>
-            <h1 className="font-comfortaa text-wine-deep text-xl font-light">
+            <h1 className="font-comfortaa text-wine-deep text-lg font-light leading-none">
               {item.pacientes?.nome ?? '—'}
             </h1>
             {idade !== null && (
-              <p className="text-xs text-muted-foreground font-light">{idade} anos</p>
+              <p className="text-xs text-muted-foreground font-light mt-0.5">{idade} anos</p>
             )}
           </div>
         </div>
         <StatusBadge status={item.status} />
       </div>
 
-      <div className="grid gap-3 mb-6">
+      {/* Grid principal 2 colunas */}
+      <div className="grid grid-cols-2 gap-3 mb-3">
 
-        {/* Dados pessoais */}
-        <Section title="Paciente">
-          <Row icon={<User className="w-3.5 h-3.5" />} label="Nome" value={item.pacientes?.nome ?? '—'} />
-          <Row icon={<CreditCard className="w-3.5 h-3.5" />} label="CPF" value={item.pacientes?.cpf ? formatCpf(item.pacientes.cpf) : '—'} />
-          <Row icon={<Calendar className="w-3.5 h-3.5" />} label="Nascimento" value={item.pacientes?.data_nascimento ?? '—'} />
-          <Row icon={<MessageCircle className="w-3.5 h-3.5" />} label="Telefone" value={item.pacientes?.telefone ? formatTel(item.pacientes.telefone) : '—'} />
-        </Section>
+        {/* Coluna esquerda — paciente */}
+        <div className="bg-white border border-border/50 rounded-2xl p-4 space-y-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Paciente</p>
+          <Chip label="Nome" value={item.pacientes?.nome ?? '—'} />
+          <Chip label="CPF" value={item.pacientes?.cpf ? formatCpf(item.pacientes.cpf) : '—'} />
+          <Chip label="Nascimento" value={item.pacientes?.data_nascimento ?? '—'} />
+          <Chip label="Telefone" value={item.pacientes?.telefone ? formatTel(item.pacientes.telefone) : '—'} />
+        </div>
 
-        {/* Exame */}
-        <Section title="Exame solicitado">
-          <Row icon={<Stethoscope className="w-3.5 h-3.5" />} label="Exame" value={item.exame ?? '—'} />
-          <Row icon={<Clock className="w-3.5 h-3.5" />} label="Turno preferido" value={turnoLabel[item.preferencia_turno ?? ''] ?? '—'} />
-          <Row icon={<User className="w-3.5 h-3.5" />} label="Médico preferido" value={item.medico_preferido ?? '—'} />
-          {item.convenio && item.convenio.length > 0 && (
-            <Row icon={<CreditCard className="w-3.5 h-3.5" />} label="Convênio" value={item.convenio.join(', ')} />
-          )}
-        </Section>
-
-        {/* Observações */}
-        {item.observacoes && (
-          <Section title="Observações">
-            <p className="text-sm text-foreground/80 font-light leading-relaxed px-1">
-              {item.observacoes}
-            </p>
-          </Section>
-        )}
-
-        {/* Pedido médico */}
-        {item.pedido_url && (
-          <Section title="Pedido médico">
-            <a
-              href={item.pedido_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4"
-            >
-              <FileText className="w-4 h-4" />
-              Ver documento
-            </a>
-          </Section>
-        )}
+        {/* Coluna direita — exame */}
+        <div className="bg-white border border-border/50 rounded-2xl p-4 space-y-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Exame</p>
+          <Chip label="Exame" value={exameFormatado} />
+          <Chip label="Turno" value={turnoLabel[item.preferencia_turno ?? ''] ?? '—'} />
+          <Chip label="Médico" value={medicoFormatado} />
+          <Chip label="Convênio" value={item.convenio?.join(', ') ?? '—'} />
+        </div>
       </div>
 
-      {/* Atualizar status */}
-      <Section title="Atualizar status">
-        <div className="flex flex-wrap gap-2 pt-1">
+      {/* Observações (se houver) */}
+      {item.observacoes && (
+        <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Observações</p>
+          <p className="text-sm text-foreground/80 font-light leading-relaxed">{item.observacoes}</p>
+        </div>
+      )}
+
+      {/* Pedido médico (se houver) */}
+      {item.pedido_url && (
+        <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Pedido médico</p>
+          <a href={item.pedido_url} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4">
+            <FileText className="w-4 h-4" /> Ver documento
+          </a>
+        </div>
+      )}
+
+      {/* Status + WhatsApp na mesma linha */}
+      <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5">Status</p>
+        <div className="flex flex-wrap gap-2">
           {statusOptions.map((opt) => (
             <button
               key={opt.value}
               onClick={() => updateStatus(opt.value)}
               disabled={updatingStatus || item.status === opt.value}
               className={[
-                'px-4 py-1.5 rounded-full text-[11px] tracking-[0.12em] uppercase font-medium border transition-all duration-300',
+                'px-3 py-1.5 rounded-full text-[11px] tracking-[0.12em] uppercase font-medium border transition-all duration-300',
                 item.status === opt.value
                   ? 'bg-wine-deep text-wine-foreground border-wine-deep'
                   : 'bg-white border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep',
@@ -219,43 +243,25 @@ export default function Detalhe() {
             </button>
           ))}
         </div>
-      </Section>
+      </div>
 
       {/* Botão WhatsApp */}
       <button
         onClick={openWhatsApp}
-        className="mt-6 w-full flex items-center justify-center gap-3 bg-[#25D366] text-white px-6 py-4 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft hover:shadow-elegant"
+        className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
       >
-        <MessageCircle className="w-5 h-5" />
-        Abrir conversa no WhatsApp
+        <MessageCircle className="w-4 h-4" />
+        Abrir conversa com {nomeExibido} no WhatsApp
       </button>
-
-      <p className="text-center text-[11px] text-muted-foreground font-light mt-3">
-        Abre o WhatsApp com mensagem pré-preenchida para {item.pacientes?.nome?.split(' ')[0] ?? 'a paciente'}.
-      </p>
     </PainelLayout>
   )
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Chip({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-white border border-border/50 rounded-2xl p-5">
-      <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-3">
-        {title}
-      </p>
-      <div className="space-y-2.5">{children}</div>
-    </div>
-  )
-}
-
-function Row({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="flex items-start gap-2.5">
-      <span className="text-muted-foreground mt-0.5 flex-shrink-0">{icon}</span>
-      <div className="min-w-0">
-        <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">{label}</p>
-        <p className="text-sm text-foreground/85 font-light mt-0.5">{value}</p>
-      </div>
+    <div>
+      <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium leading-none">{label}</p>
+      <p className="text-sm text-foreground/85 font-light mt-0.5 leading-snug">{value}</p>
     </div>
   )
 }
