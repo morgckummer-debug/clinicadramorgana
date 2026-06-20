@@ -1,4 +1,4 @@
-import { Question } from '@/data/conversation/preAgendamento'
+import { Question, examsByCategory } from '@/data/conversation/preAgendamento'
 import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
@@ -8,6 +8,7 @@ interface QuestionRendererProps {
   value: string | string[]
   onChange: (value: string | string[]) => void
   onAutoAdvance?: () => void
+  answers?: Record<string, string | string[]>
 }
 
 export function QuestionRenderer({
@@ -15,14 +16,23 @@ export function QuestionRenderer({
   value,
   onChange,
   onAutoAdvance,
+  answers = {},
 }: QuestionRendererProps) {
-  const { type, options, placeholder } = question
+  const { type, placeholder } = question
+
+  // q2 resolve suas opções dinamicamente com base na categoria escolhida em q1
+  const options = question.id === 'q2'
+    ? (examsByCategory[answers['q1'] as string] ?? []).map((name) => ({
+        label: name,
+        value: name.toLowerCase().replace(/\s+/g, '-').replace(/[()º/ç]/g, ''),
+      }))
+    : question.options ?? []
 
   if (type === 'buttons') {
     const selected = typeof value === 'string' ? value : ''
     return (
       <div className="space-y-2.5">
-        {options?.map((opt) => (
+        {options.map((opt) => (
           <OptionButton
             key={opt.value}
             label={opt.label}
@@ -49,7 +59,7 @@ export function QuestionRenderer({
     }
     return (
       <div className="space-y-2.5">
-        {options?.map((opt) => (
+        {options.map((opt) => (
           <OptionButton
             key={opt.value}
             label={opt.label}

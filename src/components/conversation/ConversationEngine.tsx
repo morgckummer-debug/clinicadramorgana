@@ -95,6 +95,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
           question={currentQuestion}
           value={currentAnswer}
           onChange={setAnswer}
+          answers={answers}
           onAutoAdvance={
             currentQuestion.type === 'buttons' ? advance : undefined
           }
