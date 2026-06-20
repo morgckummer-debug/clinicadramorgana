@@ -1,0 +1,23 @@
+import { Link } from 'react-router-dom'
+
+export function ConversationHeader() {
+  return (
+    <div className="flex items-center justify-between mb-10">
+      <Link to="/" className="flex flex-col gap-0.5 group">
+        <span className="text-[10px] tracking-[0.35em] uppercase text-muted-foreground font-medium transition-colors duration-300 group-hover:text-wine-deep">
+          Clínica
+        </span>
+        <span className="font-comfortaa text-wine-deep text-sm font-semibold leading-none tracking-wide transition-colors duration-300 group-hover:text-wine">
+          Dra. Morgana Kummer
+        </span>
+      </Link>
+
+      <div className="flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full bg-champagne animate-pulse-soft" />
+        <span className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">
+          Assistente MK
+        </span>
+      </div>
+    </div>
+  )
+}
