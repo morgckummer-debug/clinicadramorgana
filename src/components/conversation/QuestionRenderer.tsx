@@ -79,6 +79,7 @@ export function QuestionRenderer({
         type={type}
         value={typeof value === 'string' ? value : ''}
         placeholder={placeholder}
+        mask={question.mask}
         onChange={onChange}
       />
     )

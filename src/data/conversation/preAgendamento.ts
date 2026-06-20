@@ -11,12 +11,15 @@ export interface QuestionOption {
   value: string
 }
 
+export type QuestionMask = 'cpf' | 'date' | 'phone' | 'none'
+
 export interface Question {
   id: string
   type: QuestionType
   title: string
   subtitle?: string
   placeholder?: string
+  mask?: QuestionMask
   options?: QuestionOption[]
   next: string | null
 }
@@ -144,6 +147,7 @@ export const preAgendamentoFlow: ConversationFlow = {
     q4: {
       id: 'q4',
       type: 'input',
+      mask: 'cpf',
       title: 'Qual o seu CPF?',
       subtitle: 'Usado para identificar seu cadastro e evitar duplicidades.',
       placeholder: '000.000.000-00',
@@ -154,6 +158,7 @@ export const preAgendamentoFlow: ConversationFlow = {
     q5: {
       id: 'q5',
       type: 'input',
+      mask: 'date',
       title: 'Qual a sua data de nascimento?',
       placeholder: 'DD/MM/AAAA',
       next: 'q6',
@@ -163,6 +168,7 @@ export const preAgendamentoFlow: ConversationFlow = {
     q6: {
       id: 'q6',
       type: 'input',
+      mask: 'phone',
       title: 'Qual o melhor número para contato?',
       subtitle: 'Nossa equipe entrará em contato por WhatsApp neste número.',
       placeholder: '(31) 99999-9999',
