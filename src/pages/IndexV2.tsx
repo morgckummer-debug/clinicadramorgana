@@ -125,6 +125,8 @@ export const Navbar = () => {
     { href: "#contato",      label: t.nav.contato },
   ];
 
+  const preAgendamentoLabel = "Pré-Agendamento";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -167,6 +169,12 @@ export const Navbar = () => {
           })}
         </nav>
         <div className="flex items-center gap-3">
+          <Link
+            to="/pre-agendamento"
+            className="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-champagne text-wine-deep text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-300 shadow-soft hover:shadow-elegant"
+          >
+            {preAgendamentoLabel}
+          </Link>
           <LangToggle />
           <button className="md:hidden text-wine-deep" onClick={() => setOpen(!open)} aria-label={t.nav.menuAriaLabel}>
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -185,6 +193,13 @@ export const Navbar = () => {
                 <a key={l.href} href={l.href} onClick={() => setOpen(false)} className={className}>{l.label}</a>
               );
             })}
+            <Link
+              to="/pre-agendamento"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center justify-center mt-2 px-5 py-3 rounded-full bg-champagne text-wine-deep text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300"
+            >
+              {preAgendamentoLabel}
+            </Link>
           </nav>
         </div>
       )}
