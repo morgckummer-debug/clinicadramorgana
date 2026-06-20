@@ -15,6 +15,12 @@ interface ConversationEngineProps {
   flow: ConversationFlow
 }
 
+function parseDateBR(ddmmaaaa: string): string {
+  const digits = ddmmaaaa.replace(/\D/g, '')
+  if (digits.length !== 8) return ddmmaaaa
+  return `${digits.slice(4, 8)}-${digits.slice(2, 4)}-${digits.slice(0, 2)}`
+}
+
 async function savePreAgendamento(answers: Record<string, string | string[]>) {
   const cpf = (answers['q4'] as string).replace(/\D/g, '')
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
@@ -37,7 +43,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
       .insert({
         nome: answers['q3'] as string,
         cpf,
-        data_nascimento: answers['q5'] as string,
+        data_nascimento: parseDateBR(answers['q5'] as string),
         telefone,
       })
       .select('id')
