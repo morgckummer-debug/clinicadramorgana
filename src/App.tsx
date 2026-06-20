@@ -12,6 +12,7 @@ const Index = lazy(() => import("./pages/Index.tsx"));
 const ExamDetail = lazy(() => import("./pages/ExamDetail.tsx"));
 const Videos = lazy(() => import("./pages/Videos.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => (
             {/* Rotas dos exames pelo slug novo */}
             <Route path="/exames/:slug" element={<ExamDetail />} />
             <Route path="/videos" element={<Videos />} />
+            <Route path="/pre-agendamento" element={<PreAgendamento />} />
 
             {/* Rotas históricas preservadas para SEO / Ads / Analytics */}
             {legacyRoutes.map((path) => (
