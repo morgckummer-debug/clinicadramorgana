@@ -16,27 +16,41 @@ interface ConversationEngineProps {
 }
 
 async function savePreAgendamento(answers: Record<string, string | string[]>) {
-  // 1. Upsert paciente por CPF
-  const { data: paciente, error: pacienteError } = await supabase
-    .from('pacientes')
-    .upsert(
-      {
-        nome: answers['q3'] as string,
-        cpf: (answers['q4'] as string).replace(/\D/g, ''),
-        data_nascimento: answers['q5'] as string,
-        telefone: (answers['q6'] as string).replace(/\D/g, ''),
-      },
-      { onConflict: 'cpf' }
-    )
-    .select('id')
-    .single()
+  const cpf = (answers['q4'] as string).replace(/\D/g, '')
+  const telefone = (answers['q6'] as string).replace(/\D/g, '')
 
-  if (pacienteError) throw pacienteError
+  // 1. Buscar paciente existente por CPF
+  let pacienteId: string
+
+  const { data: existing } = await supabase
+    .from('pacientes')
+    .select('id')
+    .eq('cpf', cpf)
+    .maybeSingle()
+
+  if (existing) {
+    pacienteId = existing.id
+  } else {
+    // Inserir novo paciente
+    const { data: novo, error: insertError } = await supabase
+      .from('pacientes')
+      .insert({
+        nome: answers['q3'] as string,
+        cpf,
+        data_nascimento: answers['q5'] as string,
+        telefone,
+      })
+      .select('id')
+      .single()
+
+    if (insertError) throw insertError
+    pacienteId = novo.id
+  }
 
   // 2. Inserir pré-agendamento
   const convenio = answers['q7']
   const { error: agendError } = await supabase.from('pre_agendamentos').insert({
-    paciente_id: paciente.id,
+    paciente_id: pacienteId,
     canal: 'site',
     categoria: answers['q1'] as string,
     exame: answers['q2'] as string,
