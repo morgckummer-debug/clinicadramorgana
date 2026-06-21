@@ -111,8 +111,8 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order('criado_em', { ascending: true })
-      .limit(5)
+      .order('criado_em', { ascending: false })
+      .limit(50)
 
     if (filter !== 'todos') query = query.eq('status', filter)
 
@@ -154,7 +154,7 @@ export default function Dashboard() {
         if (filter === 'pendente' || filter === 'todos') {
           setItems((prev) =>
             [...prev, novo].sort((a, b) =>
-              new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime()
+              new Date(b.criado_em).getTime() - new Date(a.criado_em).getTime()
             )
           )
         }
