@@ -154,7 +154,20 @@ export const preAgendamentoFlow: ConversationFlow = {
       mask: 'date',
       title: 'Qual foi a data da sua última menstruação?',
       placeholder: 'DD/MM/AAAA',
-      next: 'q3',
+      next: 'q2e',
+      branch: true,
+    },
+
+    q2e: {
+      id: 'q2e',
+      type: 'buttons',
+      title: 'Você tem o pedido médico?',
+      subtitle: 'Pode ser foto ou PDF.',
+      options: [
+        { label: 'Sim, tenho.', value: 'sim' },
+        { label: 'Não tenho.', value: 'nao' },
+      ],
+      next: 'q2f',
       branch: true,
     },
 
@@ -180,11 +193,24 @@ export const preAgendamentoFlow: ConversationFlow = {
       branch: true,
     },
 
+    q2h: {
+      id: 'q2h',
+      type: 'buttons',
+      title: 'Você tem o resultado do exame de beta-HCG?',
+      subtitle: 'Precisamos do pedido médico ou do beta-HCG para agendar corretamente.',
+      options: [
+        { label: 'Sim, tenho.', value: 'sim' },
+        { label: 'Não tenho.', value: 'nao' },
+      ],
+      next: 'q2g',
+      branch: true,
+    },
+
     q2g: {
       id: 'q2g',
       type: 'upload',
-      title: 'Você tem o resultado do beta-HCG para anexar?',
-      subtitle: 'Sem a DUM ou o pedido, precisamos do beta-HCG para calcular a idade gestacional e agendar corretamente.',
+      title: 'Ótimo! Anexe o resultado do beta-HCG aqui.',
+      subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
       next: 'q3',
       branch: true,
     },

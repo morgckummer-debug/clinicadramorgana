@@ -55,7 +55,7 @@ const medicoLabel: Record<string, string> = {
 
 const statusOptions = [
   { value: 'pendente', label: 'Pendente' },
-  { value: 'em_atendimento', label: 'Atendido' },
+  { value: 'em_atendimento', label: 'Em atendimento' },
   { value: 'agendado', label: 'Agendado' },
   { value: 'cancelado', label: 'Cancelado' },
 ]
@@ -339,7 +339,7 @@ export default function Detalhe() {
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Exame</p>
           <Chip label="Exame" value={exameFormatado} />
           <Chip label="Turno" value={turnoLabel[item.preferencia_turno ?? ''] ?? '—'} />
-          <Chip label="Médico" value={medicoFormatado} />
+          <Chip label="Médico preferencial" value={medicoFormatado} />
           <Chip label="Convênio" value={item.convenio?.join(', ') ?? '—'} />
         </div>
       </div>

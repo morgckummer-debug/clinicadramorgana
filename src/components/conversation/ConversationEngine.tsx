@@ -101,6 +101,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
   const [currentId, setCurrentId] = useState(flow.firstQuestion)
   const [history, setHistory] = useState<string[]>([])
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
+  const [blockedReturnId, setBlockedReturnId] = useState<string>('q2g')
 
   const mainQuestionIds = Object.keys(flow.questions).filter(
     (id) => !flow.questions[id].branch
@@ -128,9 +129,20 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2c' : 'q2d'
     }
+    if (currentId === 'q2c') {
+      const categoria = answers['q1'] as string
+      return categoria === 'gestacao' ? 'q2e' : 'q3'
+    }
     if (currentId === 'q2d') {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2f' : 'q2g'
+    }
+    if (currentId === 'q2e') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'q2f' : 'q2h'
+    }
+    if (currentId === 'q2h') {
+      return 'q2g'
     }
     if (currentId === 'q6') {
       // Rastreamento de Ovulação não tem convenio associado — pula q7
@@ -145,10 +157,19 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
   const advance = useCallback(async (selectedValue?: string) => {
     const nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
+    if (currentId === 'q2h') {
+      const val = selectedValue ?? (nextAnswers['q2h'] as string)
+      if (val === 'nao') {
+        setBlockedReturnId('q2h')
+        setStep('blocked')
+        return
+      }
+    }
     if (currentId === 'q2g') {
       const q2g = nextAnswers['q2g']
       const isEmpty = !q2g || (Array.isArray(q2g) && q2g.length === 0)
       if (isEmpty) {
+        setBlockedReturnId('q2g')
         setStep('blocked')
         return
       }
@@ -247,10 +268,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
             Não conseguimos finalizar o pré-agendamento
           </p>
           <p className="text-muted-foreground font-light text-sm mb-4 leading-relaxed">
-            Para agendar um ultrassom obstétrico, precisamos da <strong>data da última menstruação (DUM)</strong> ou do <strong>resultado do beta-HCG</strong> (ou um ultrassom anterior) para calcular corretamente a idade gestacional.
+            Para agendar um ultrassom obstétrico, precisamos de pelo menos um destes documentos: <strong>pedido médico</strong> ou <strong>resultado do exame de beta-HCG</strong>.
           </p>
           <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
-            Assim que tiver esse documento em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp:
+            Assim que tiver um desses documentos em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp:
           </p>
           <a
             href="https://wa.me/5531993910212"
@@ -264,10 +285,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
           <div className="mt-8">
             <button
               type="button"
-              onClick={() => { setStep('question'); setCurrentId('q2d') }}
+              onClick={() => { setStep('question'); setCurrentId(blockedReturnId) }}
               className="text-[10px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide underline underline-offset-4"
             >
-              Voltar e anexar documento
+              {blockedReturnId === 'q2g' ? 'Voltar e anexar documento' : 'Tentar novamente'}
             </button>
           </div>
         </div>
