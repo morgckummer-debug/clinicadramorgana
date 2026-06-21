@@ -60,17 +60,17 @@ export default function Login() {
 
       <div className="relative w-full max-w-sm animate-fade-up">
         <div className="flex justify-center mb-5">
-          <img src="/Logo horiz.png" alt="Clínica Dra. Morgana Kummer" className="h-14 w-auto object-contain" />
+          <img src="/Logo%20horiz.png" alt="Clínica Dra. Morgana Kummer" className="h-16 w-auto object-contain" />
         </div>
 
         <div className="text-center mb-10">
           <h1 className="font-serif leading-tight" style={{ fontSize: '2rem', color: '#3B1A5C', letterSpacing: '0.04em' }}>
             Assistente de<br />Agendamento
           </h1>
-          <div className="flex items-center justify-center gap-3 mt-2">
-            <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to right, transparent, #C9A84C)' }} />
-            <span className="font-serif text-2xl font-light" style={{ color: '#C9A84C', letterSpacing: '0.3em' }}>MK</span>
-            <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
+          <div className="flex items-center justify-center gap-3 mt-3">
+            <div className="h-px flex-1" style={{ background: 'linear-gradient(to right, transparent, #5B2D8E)' }} />
+            <span className="font-serif text-3xl font-bold" style={{ color: '#5B2D8E', letterSpacing: '0.25em' }}>MK</span>
+            <div className="h-px flex-1" style={{ background: 'linear-gradient(to left, transparent, #5B2D8E)' }} />
           </div>
         </div>
 
