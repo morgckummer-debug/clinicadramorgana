@@ -37,10 +37,10 @@ export function QuestionRenderer({
 
   // q2 resolve suas opções dinamicamente com base na categoria escolhida em q1
   const options = question.id === 'q2'
-    ? (examsByCategory[answers['q1'] as string] ?? []).map((name) => ({
-        label: name,
-        value: name,
-      }))
+    ? [
+        ...(examsByCategory[answers['q1'] as string] ?? []).map((name) => ({ label: name, value: name })),
+        { label: 'Não sei ao certo / letra ilegível', value: 'nao-sei' },
+      ]
     : question.options ?? []
 
   if (type === 'buttons') {

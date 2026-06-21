@@ -119,6 +119,7 @@ function primeiroNome(nome: string) {
 
 function formatExame(slug: string | null) {
   if (!slug) return '—'
+  if (slug === 'nao-sei') return '⚠️ Não identificado — verificar pedido'
   return slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase())
