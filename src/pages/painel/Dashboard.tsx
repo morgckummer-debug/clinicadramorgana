@@ -222,19 +222,21 @@ export default function Dashboard() {
           <p className="text-sm text-muted-foreground font-light mt-1">
             Pacientes que solicitaram atendimento pelo site
           </p>
-          <div className="mt-3 inline-flex items-center gap-2 bg-wine-deep/5 border border-wine-deep/15 rounded-full px-4 py-1.5">
-            <span className="text-[11px] tracking-[0.12em] uppercase text-wine-deep/70 font-medium">Pendentes para agendar</span>
-            <span className="text-sm font-bold text-wine-deep">{pendingCount}</span>
-          </div>
         </div>
-        <button
-          onClick={() => fetchData('manual')}
-          disabled={refreshing}
-          className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
-          Atualizar
-        </button>
+        <div className="flex items-center gap-3">
+          <div className="flex flex-col items-end gap-1 rounded-2xl px-4 py-2.5" style={{ backgroundColor: '#FDDCB5' }}>
+            <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
+            <span className="text-2xl font-bold leading-none" style={{ color: '#5B2D8E' }}>{pendingCount}</span>
+          </div>
+          <button
+            onClick={() => fetchData('manual')}
+            disabled={refreshing}
+            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
+            Atualizar
+          </button>
+        </div>
       </div>
 
       {/* Filtros */}

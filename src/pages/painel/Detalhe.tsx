@@ -306,18 +306,18 @@ export default function Detalhe() {
 
       {/* Header compacto */}
       <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
-            <span className="text-sm font-semibold text-wine-deep">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-full bg-champagne/30 flex items-center justify-center flex-shrink-0">
+            <span className="text-xl font-bold text-wine-deep">
               {item.pacientes?.nome?.charAt(0).toUpperCase() ?? '?'}
             </span>
           </div>
           <div>
-            <h1 className="font-comfortaa text-wine-deep text-lg font-light leading-none">
+            <h1 className="font-comfortaa text-wine-deep text-2xl font-bold leading-tight">
               {item.pacientes?.nome ?? '—'}
             </h1>
             {idade !== null && (
-              <p className="text-xs text-muted-foreground font-light mt-0.5">{idade} anos</p>
+              <p className="text-sm text-muted-foreground font-light mt-0.5">{idade} anos</p>
             )}
           </div>
         </div>
