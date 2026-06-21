@@ -86,7 +86,12 @@ export function QuestionRenderer({
   }
 
   if (type === 'upload') {
-    return <UploadArea />
+    return (
+      <UploadArea
+        value={typeof value === 'string' ? value : ''}
+        onChange={onChange}
+      />
+    )
   }
 
   return null

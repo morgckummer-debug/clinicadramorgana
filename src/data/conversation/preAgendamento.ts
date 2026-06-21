@@ -181,6 +181,7 @@ export const preAgendamentoFlow: ConversationFlow = {
       title: 'Você possui convênio ou parceria conosco?',
       subtitle: 'Pode selecionar mais de um se precisar.',
       options: [
+        { label: 'PARTICULAR', value: 'particular' },
         { label: 'AGEBRAS', value: 'agebras' },
         { label: 'Aurora Saúde', value: 'aurora' },
         { label: 'Casembrapa', value: 'casembrapa' },
@@ -192,7 +193,6 @@ export const preAgendamentoFlow: ConversationFlow = {
         { label: 'Hapvida', value: 'hapvida' },
         { label: 'MedGold Saúde', value: 'medgold' },
         { label: 'NotreDame Intermédica', value: 'notredame' },
-        { label: 'Particular', value: 'particular' },
         { label: 'Pax de Minas', value: 'pax-minas' },
         { label: 'Projeto Bom Pastor', value: 'bom-pastor' },
         { label: 'Projeto Evangelize', value: 'evangelize' },
