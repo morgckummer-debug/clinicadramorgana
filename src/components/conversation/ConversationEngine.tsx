@@ -48,6 +48,7 @@ const EXAMES_EXCLUSIVOS_MORGANA = new Set([
 function precisaDUM(answers: Record<string, string | string[]>): boolean {
   const categoria = answers['q1'] as string
   const exame = answers['q2'] as string
+  if (exame === 'nao-sei') return false
   return categoria === 'gestacao' || EXAMES_COM_DUM.has(exame)
 }
 
