@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
+import { supabase } from '@/lib/supabase'
 import { Input } from '@/components/ui/input'
 import { SECRETARIAS, nomeParaEmail } from '@/lib/secretarias'
 
@@ -13,6 +14,19 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [resetMsg, setResetMsg] = useState('')
+
+  const handleForgotPassword = async () => {
+    if (!SECRETARIAS.includes(nome)) {
+      setError('Selecione seu nome antes de redefinir a senha.')
+      return
+    }
+    const email = nomeParaEmail(nome)
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/painel/login`,
+    })
+    setResetMsg(`E-mail de redefinição enviado para ${email}.`)
+  }
 
   if (!loading && session) return <Navigate to="/painel" replace />
 
@@ -116,6 +130,9 @@ export default function Login() {
           {error && (
             <p className="text-sm text-red-500 font-light text-center">{error}</p>
           )}
+          {resetMsg && (
+            <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>{resetMsg}</p>
+          )}
 
           <button
             type="submit"
@@ -130,7 +147,18 @@ export default function Login() {
           </button>
         </div>
 
-        <p className="text-center text-[10px] font-light mt-6 tracking-widest" style={{ color: 'rgba(91,45,142,0.3)' }}>
+        <div className="text-center mt-4">
+          <button
+            type="button"
+            onClick={handleForgotPassword}
+            className="text-[10px] font-light tracking-widest underline underline-offset-4 transition-opacity hover:opacity-70"
+            style={{ color: 'rgba(91,45,142,0.45)' }}
+          >
+            Esqueceu a senha?
+          </button>
+        </div>
+
+        <p className="text-center text-[10px] font-light mt-4 tracking-widest" style={{ color: 'rgba(91,45,142,0.3)' }}>
           Acesso exclusivo · Equipe MK
         </p>
       </div>

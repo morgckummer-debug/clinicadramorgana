@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Clock, RefreshCw } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Clock, RefreshCw, TriangleAlert, User } from 'lucide-react'
+import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
+import { useAuth } from '@/contexts/AuthContext'
 
 type StatusFilter = 'pendente' | 'em_atendimento' | 'agendado' | 'todos'
 
 interface PreAgendamento {
   id: string
+  paciente_id: string
   exame: string | null
   preferencia_turno: string | null
   status: string
+  atendente_nome: string | null
   criado_em: string
   pacientes: {
     nome: string
@@ -33,11 +37,72 @@ function formatData(iso: string) {
   return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
 }
 
+function playNotificationSound() {
+  try {
+    const ctx = new AudioContext()
+
+    const osc1 = ctx.createOscillator()
+    const g1 = ctx.createGain()
+    osc1.connect(g1)
+    g1.connect(ctx.destination)
+    osc1.type = 'sine'
+    osc1.frequency.value = 523 // C5
+    g1.gain.setValueAtTime(0.22, ctx.currentTime)
+    g1.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
+    osc1.start()
+    osc1.stop(ctx.currentTime + 0.3)
+
+    const osc2 = ctx.createOscillator()
+    const g2 = ctx.createGain()
+    osc2.connect(g2)
+    g2.connect(ctx.destination)
+    osc2.type = 'sine'
+    osc2.frequency.value = 659 // E5
+    g2.gain.setValueAtTime(0, ctx.currentTime + 0.18)
+    g2.gain.setValueAtTime(0.22, ctx.currentTime + 0.18)
+    g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.65)
+    osc2.start(ctx.currentTime + 0.18)
+    osc2.stop(ctx.currentTime + 0.65)
+  } catch (_) {}
+}
+
+const SELECT_FIELDS =
+  'id, paciente_id, exame, preferencia_turno, status, atendente_nome, criado_em, pacientes(nome, telefone)'
+
+async function fetchPendingCount() {
+  const { count } = await supabase
+    .from('pre_agendamentos')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'pendente')
+  return count ?? 0
+}
+
 export default function Dashboard() {
+  const navigate = useNavigate()
+  const { userName } = useAuth()
   const [items, setItems] = useState<PreAgendamento[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<StatusFilter>('pendente')
   const [refreshing, setRefreshing] = useState(false)
+  const [newPendingCount, setNewPendingCount] = useState(0)
+  const [pendingCount, setPendingCount] = useState(0)
+
+  // Título da aba reflete o número real de pendentes
+  useEffect(() => {
+    document.title = pendingCount > 0 ? `(${pendingCount}) Painel · MK` : 'Painel · MK'
+    return () => { document.title = 'Painel · MK' }
+  }, [pendingCount])
+
+  // paciente_ids que aparecem mais de uma vez na lista atual
+  const duplicatePacienteIds = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const item of items) counts[item.paciente_id] = (counts[item.paciente_id] ?? 0) + 1
+    return new Set(
+      Object.entries(counts)
+        .filter(([, c]) => c > 1)
+        .map(([id]) => id)
+    )
+  }, [items])
 
   const fetchData = async (showRefreshing = false) => {
     if (showRefreshing) setRefreshing(true)
@@ -45,18 +110,80 @@ export default function Dashboard() {
 
     let query = supabase
       .from('pre_agendamentos')
-      .select('id, exame, preferencia_turno, status, criado_em, pacientes(nome, telefone)')
-      .order('criado_em', { ascending: false })
+      .select(SELECT_FIELDS)
+      .order('criado_em', { ascending: true })
 
     if (filter !== 'todos') query = query.eq('status', filter)
 
-    const { data } = await query
+    const [{ data }, count] = await Promise.all([query, fetchPendingCount()])
     setItems((data as unknown as PreAgendamento[]) ?? [])
+    setPendingCount(count)
     setLoading(false)
     setRefreshing(false)
   }
 
+  useEffect(() => {
+    const channel = supabase
+      .channel('dashboard_realtime')
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'pre_agendamentos' }, (payload) => {
+        const novo = payload.new as { id: string; status: string; atendente_nome: string | null }
+        setItems((prev) => {
+          const atualizado = prev.map((item) =>
+            item.id === novo.id
+              ? { ...item, status: novo.status, atendente_nome: novo.atendente_nome }
+              : item
+          )
+          if (filter !== 'todos' && novo.status !== filter) {
+            return atualizado.filter((item) => item.id !== novo.id)
+          }
+          return atualizado
+        })
+        fetchPendingCount().then(setPendingCount)
+      })
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pre_agendamentos' }, async (payload) => {
+        const { data } = await supabase
+          .from('pre_agendamentos')
+          .select(SELECT_FIELDS)
+          .eq('id', payload.new.id)
+          .single()
+
+        if (!data) return
+        const novo = data as unknown as PreAgendamento
+
+        if (filter === 'pendente' || filter === 'todos') {
+          setItems((prev) => [...prev, novo])
+        }
+
+        playNotificationSound()
+        toast.info(`Novo paciente: ${novo.pacientes?.nome ?? 'sem nome'}`, {
+          description: novo.exame ?? 'Exame não informado',
+        })
+
+        if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
+        fetchPendingCount().then(setPendingCount)
+      })
+      .subscribe()
+
+    return () => { supabase.removeChannel(channel) }
+  }, [filter])
+
   useEffect(() => { fetchData() }, [filter])
+
+  const handleSelectPaciente = async (item: PreAgendamento) => {
+    if (item.status === 'pendente') {
+      await supabase
+        .from('pre_agendamentos')
+        .update({ status: 'em_atendimento', atendente_nome: userName })
+        .eq('id', item.id)
+        .eq('status', 'pendente') // garante que só uma secretária "pega" o paciente
+    }
+    navigate(`/painel/${item.id}`)
+  }
+
+  const handleFilterChange = (key: StatusFilter) => {
+    setFilter(key)
+    if (key === 'pendente') setNewPendingCount(0)
+  }
 
   const filters: { key: StatusFilter; label: string }[] = [
     { key: 'pendente', label: 'Pendentes' },
@@ -91,15 +218,20 @@ export default function Dashboard() {
         {filters.map((f) => (
           <button
             key={f.key}
-            onClick={() => setFilter(f.key)}
+            onClick={() => handleFilterChange(f.key)}
             className={[
-              'px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300',
+              'relative px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300',
               filter === f.key
                 ? 'bg-wine-deep text-wine-foreground'
                 : 'bg-white border border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep',
             ].join(' ')}
           >
             {f.label}
+            {f.key === 'pendente' && newPendingCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[1rem] h-4 px-0.5 rounded-full bg-red-500 text-white text-[9px] flex items-center justify-center font-bold">
+                {newPendingCount}
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -118,10 +250,11 @@ export default function Dashboard() {
       ) : (
         <div className="space-y-2">
           {items.map((item) => (
-            <Link
+            <button
               key={item.id}
-              to={`/painel/${item.id}`}
-              className="flex items-center justify-between bg-white border border-border/50 rounded-2xl px-5 py-4 hover:border-champagne/60 hover:shadow-soft transition-all duration-300 group"
+              type="button"
+              onClick={() => handleSelectPaciente(item)}
+              className="w-full flex items-center justify-between bg-white border border-border/50 rounded-2xl px-5 py-4 hover:border-champagne/60 hover:shadow-soft transition-all duration-300 group text-left"
             >
               <div className="flex items-center gap-4 min-w-0">
                 <div className="w-9 h-9 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
@@ -130,8 +263,14 @@ export default function Dashboard() {
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-wine-deep truncate">
+                  <p className="text-sm font-medium text-wine-deep truncate flex items-center gap-1.5">
                     {item.pacientes?.nome ?? '—'}
+                    {duplicatePacienteIds.has(item.paciente_id) && (
+                      <TriangleAlert
+                        className="w-3.5 h-3.5 text-amber-500 flex-shrink-0"
+                        title="Paciente com múltiplos registros nesta lista"
+                      />
+                    )}
                   </p>
                   <p className="text-xs text-muted-foreground font-light truncate">
                     {item.exame ?? 'Exame não informado'}
@@ -142,15 +281,23 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 flex-shrink-0 ml-4">
-                <StatusBadge status={item.status} />
-                <div className="flex items-center gap-1 text-muted-foreground text-[11px] hidden sm:flex">
-                  <Clock className="w-3 h-3" />
-                  <span>{formatData(item.criado_em)} {formatHora(item.criado_em)}</span>
+              <div className="flex flex-col items-end gap-1 flex-shrink-0 ml-4">
+                <div className="flex items-center gap-3">
+                  <StatusBadge status={item.status} />
+                  <div className="flex items-center gap-1 text-muted-foreground text-[11px] hidden sm:flex">
+                    <Clock className="w-3 h-3" />
+                    <span>{formatData(item.criado_em)} {formatHora(item.criado_em)}</span>
+                  </div>
+                  <span className="text-muted-foreground group-hover:text-wine-deep transition-colors text-xs">›</span>
                 </div>
-                <span className="text-muted-foreground group-hover:text-wine-deep transition-colors text-xs">›</span>
+                {item.status === 'em_atendimento' && item.atendente_nome && (
+                  <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                    <User className="w-3 h-3" />
+                    {item.atendente_nome}
+                  </div>
+                )}
               </div>
-            </Link>
+            </button>
           ))}
         </div>
       )}

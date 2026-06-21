@@ -1,11 +1,11 @@
-export const SECRETARIAS = ['Adriana', 'Morgana', 'Yasmin']
+const SECRETARIAS_MAP: { nome: string; email: string }[] = [
+  { nome: 'Adriana', email: 'adriana@dramorgana.com.br' },
+  { nome: 'Morgana', email: 'morgckummer@gmail.com' },
+  { nome: 'Yasmin',  email: 'yasmin@dramorgana.com.br' },
+]
 
-const EMAIL_MAP: Record<string, string> = {
-  Adriana: 'adriana@dramorgana.com.br',
-  Morgana: 'morgckummer@gmail.com',
-  Yasmin:  'yasmin@dramorgana.com.br',
-}
+export const SECRETARIAS = SECRETARIAS_MAP.map((s) => s.nome)
 
 export function nomeParaEmail(nome: string): string {
-  return EMAIL_MAP[nome] ?? `${nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')}@secretaria.mk`
+  return SECRETARIAS_MAP.find((s) => s.nome === nome)?.email ?? ''
 }

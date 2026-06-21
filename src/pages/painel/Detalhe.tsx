@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
 import { useAuth } from '@/contexts/AuthContext'
 
+interface OtherRecord {
+  id: string
+  exame: string | null
+  status: string
+  criado_em: string
+}
+
 interface Detalhe {
   id: string
+  paciente_id: string
   canal: string
   categoria: string | null
   exame: string | null
@@ -17,6 +25,7 @@ interface Detalhe {
   pedido_url: string | null
   observacoes: string | null
   status: string
+  atendente_nome: string | null
   criado_em: string
   pacientes: {
     nome: string
@@ -73,6 +82,10 @@ function fmtDate(date: Date): string {
   return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
+function fmtISO(iso: string) {
+  return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
+}
+
 function userObs(obs: string | null): string | null {
   if (!obs) return null
   // Remove a linha de DUM/IG gerada automaticamente
@@ -123,6 +136,7 @@ export default function Detalhe() {
   const [item, setItem] = useState<Detalhe | null>(null)
   const [loading, setLoading] = useState(true)
   const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [otherRecords, setOtherRecords] = useState<OtherRecord[]>([])
 
   useEffect(() => {
     if (!id) return
@@ -137,11 +151,38 @@ export default function Detalhe() {
       })
   }, [id])
 
+  // Busca outros registros da mesma paciente (todos os status)
+  useEffect(() => {
+    if (!item?.paciente_id) return
+    supabase
+      .from('pre_agendamentos')
+      .select('id, exame, status, criado_em')
+      .eq('paciente_id', item.paciente_id)
+      .neq('id', item.id)
+      .order('criado_em', { ascending: false })
+      .then(({ data }) => setOtherRecords((data as OtherRecord[]) ?? []))
+  }, [item?.paciente_id, item?.id])
+
+  // Título da aba com nome da paciente
+  useEffect(() => {
+    const nome = item?.pacientes?.nome?.trim().split(' ')[0]
+    if (!nome) return
+    document.title = `${nome} · Painel · MK`
+    return () => { document.title = 'Painel · MK' }
+  }, [item?.pacientes?.nome])
+
   const updateStatus = async (newStatus: string) => {
     if (!id) return
     setUpdatingStatus(true)
-    await supabase.from('pre_agendamentos').update({ status: newStatus }).eq('id', id)
-    setItem((prev) => prev ? { ...prev, status: newStatus } : prev)
+    const update: Record<string, string | null> = { status: newStatus }
+    if (newStatus === 'em_atendimento') update.atendente_nome = userName
+    await supabase.from('pre_agendamentos').update(update).eq('id', id)
+    setItem((prev) => {
+      if (!prev) return prev
+      const next = { ...prev, status: newStatus }
+      if (newStatus === 'em_atendimento') next.atendente_nome = userName
+      return next
+    })
     setUpdatingStatus(false)
   }
 
@@ -231,6 +272,36 @@ export default function Detalhe() {
         Lista
       </button>
 
+      {/* Banner de duplicata */}
+      {otherRecords.length > 0 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-5">
+          <div className="flex items-center gap-2 mb-2.5">
+            <TriangleAlert className="w-4 h-4 text-amber-600 flex-shrink-0" />
+            <p className="text-sm font-medium text-amber-800">
+              Esta paciente já tem {otherRecords.length === 1 ? 'outro registro' : `mais ${otherRecords.length} registros`}
+            </p>
+          </div>
+          <div className="space-y-2">
+            {otherRecords.map((rec) => (
+              <div key={rec.id} className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <StatusBadge status={rec.status} />
+                  <span className="text-xs text-amber-700 font-light truncate">
+                    {rec.exame ?? 'Exame não informado'} · {fmtISO(rec.criado_em)}
+                  </span>
+                </div>
+                <Link
+                  to={`/painel/${rec.id}`}
+                  className="text-[11px] tracking-wide text-amber-600 underline underline-offset-2 flex-shrink-0 hover:text-amber-800 transition-colors"
+                >
+                  Ver
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Header compacto */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
@@ -282,7 +353,7 @@ export default function Detalhe() {
           <p className="text-sm text-foreground/70 font-light">
             DUM: {fmtDate(dum)}
           </p>
-          {igCalculada && <p className="text-base text-wine-deep font-bold">IG: {igCalculada}</p>}
+          {igCalculada && !isOvulacao && <p className="text-base text-wine-deep font-bold">IG: {igCalculada}</p>}
           {janelas.length > 0 && (
             <div className="space-y-2 pt-1 border-t border-border/40">
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Janelas ideais para agendamento</p>
@@ -339,7 +410,7 @@ export default function Detalhe() {
         </div>
       )}
 
-      {/* Status + WhatsApp na mesma linha */}
+      {/* Status */}
       <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
         <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5">Status</p>
         <div className="flex flex-wrap gap-2">
@@ -360,6 +431,14 @@ export default function Detalhe() {
             </button>
           ))}
         </div>
+        {item.status === 'em_atendimento' && item.atendente_nome && (
+          <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-border/30">
+            <User className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+            <p className="text-[11px] text-muted-foreground">
+              Atendido por <span className="text-wine-deep font-medium">{item.atendente_nome}</span>
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Botão WhatsApp */}
