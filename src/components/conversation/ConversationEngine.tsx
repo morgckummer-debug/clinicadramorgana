@@ -65,8 +65,8 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
   const convenio = answers['q7']
 
-  // Calcula IG a partir da DUM, mas só para gestação (não para rastreamento de ovulação)
-  const dum = answers['q2c'] as string | undefined
+  // Calcula IG a partir da DUM (q2c = fluxo genérico, ob1_b = Obstétrico 1º Trimestre)
+  const dum = (answers['ob1_b'] || answers['q2c']) as string | undefined
   const isOvulacao = (answers['q2'] as string) === 'Rastreamento de Ovulação'
   const dumLinhas: string[] = []
   if (dum) {
@@ -80,10 +80,16 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   const obsUsuario = (answers['q11'] as string) || ''
   const observacoes = [obsExtra, obsUsuario].filter(Boolean).join('\n') || null
 
-  // Merge ultrassom anterior (q2d) + pedido médico (q10)
   const toArray = (v: string | string[] | undefined) =>
     Array.isArray(v) ? v : v ? [v] : []
-  const allUrls = [...toArray(answers['q2f']), ...toArray(answers['q2g']), ...toArray(answers['q10'])]
+  const allUrls = [
+    ...toArray(answers['q2f']),   // pedido médico (fluxo genérico)
+    ...toArray(answers['q2g']),   // beta-HCG (fluxo genérico)
+    ...toArray(answers['ob1_d']), // pedido médico (ob1)
+    ...toArray(answers['ob1_g']), // beta-HCG (ob1)
+    ...toArray(answers['ob1_h']), // ultrassom anterior (ob1)
+    ...toArray(answers['q10']),   // upload extra opcional
+  ]
   const pedidoUrl = allUrls.length ? allUrls.join(',') : null
 
   const { error } = await supabase.rpc('criar_pre_agendamento', {
@@ -110,6 +116,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
   const [history, setHistory] = useState<string[]>([])
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
   const [blockedReturnId, setBlockedReturnId] = useState<string>('q2g')
+  const [blockedMessage, setBlockedMessage] = useState<string>('')
 
   const mainQuestionIds = Object.keys(flow.questions).filter(
     (id) => !flow.questions[id].branch
@@ -137,10 +144,36 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
   const getNextId = useCallback((selectedValue?: string): string | null => {
     if (currentId === 'q2') {
-      // selectedValue é passado pela auto-advance antes de answers ser atualizado (closure stale)
       const answersComQ2 = selectedValue ? { ...answers, q2: selectedValue } : answers
+      const exame = (answersComQ2['q2'] as string) ?? ''
+      // Obstétrico do 1º Trimestre tem fluxo próprio
+      if (exame === 'Obstétrico do 1º Trimestre') return 'ob1_a'
       return precisaDUM(answersComQ2) ? 'q2b' : 'q3'
     }
+
+    // ── Fluxo exclusivo: Obstétrico do 1º Trimestre ──
+    if (currentId === 'ob1_a') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'ob1_b' : 'ob1_c'
+    }
+    if (currentId === 'ob1_b') return 'ob1_c'
+    if (currentId === 'ob1_c') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'ob1_d' : 'ob1_e'
+    }
+    if (currentId === 'ob1_d') return 'ob1_f'
+    if (currentId === 'ob1_e') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'ob1_g' : null // 'nao' → blocked, tratado em advance
+    }
+    if (currentId === 'ob1_g') return 'ob1_f'
+    if (currentId === 'ob1_f') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'ob1_h' : 'q3'
+    }
+    if (currentId === 'ob1_h') return 'q3'
+    // ── Fim do fluxo exclusivo ────────────────────────
+
     if (currentId === 'q2b') {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2c' : 'q2d'
@@ -161,11 +194,9 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       return 'q2g'
     }
     if (currentId === 'q6') {
-      // Rastreamento de Ovulação não tem convenio associado — pula q7
       return (answers['q2'] as string) === 'Rastreamento de Ovulação' ? 'q8' : 'q7'
     }
     if (currentId === 'q8') {
-      // Pula seleção de médico para exames exclusivos da Dra. Morgana
       return EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string) ? 'q10' : 'q9'
     }
     return currentQuestion?.next ?? null
@@ -173,6 +204,18 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
   const advance = useCallback(async (selectedValue?: string) => {
     const nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
+
+    // Bloqueio do fluxo Obstétrico do 1º Trimestre: sem pedido NEM beta-hCG
+    if (currentId === 'ob1_e') {
+      const val = selectedValue ?? (nextAnswers['ob1_e'] as string)
+      if (val === 'nao') {
+        setBlockedReturnId('ob1_e')
+        setBlockedMessage('Para agendar um ultrassom obstétrico de 1º trimestre é necessário possuir um pedido médico ou um exame de beta-hCG positivo.')
+        setStep('blocked')
+        return
+      }
+    }
+
     if (currentId === 'q2d' || currentId === 'q2e') {
       const val = selectedValue ?? (nextAnswers[currentId] as string)
       if (val === 'nao' && !EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) {
@@ -291,11 +334,8 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
           <p className="text-wine-deep font-comfortaa text-xl mb-3 font-light">
             Não conseguimos finalizar o pré-agendamento
           </p>
-          <p className="text-muted-foreground font-light text-sm mb-4 leading-relaxed">
-            Para agendar um ultrassom obstétrico, precisamos de pelo menos um destes documentos: <strong>pedido médico</strong> ou <strong>resultado do exame de beta-HCG</strong>.
-          </p>
           <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
-            Assim que tiver um desses documentos em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp:
+            {blockedMessage || 'Para agendar um ultrassom obstétrico, precisamos de pelo menos um destes documentos: pedido médico ou resultado do exame de beta-HCG. Assim que tiver um desses documentos em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp.'}
           </p>
           <a
             href="https://wa.me/5531993910212"
