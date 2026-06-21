@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Clock, RefreshCw, TriangleAlert, User } from 'lucide-react'
 import { toast } from 'sonner'
@@ -86,6 +86,8 @@ export default function Dashboard() {
   const [refreshing, setRefreshing] = useState(false)
   const [newPendingCount, setNewPendingCount] = useState(0)
   const [pendingCount, setPendingCount] = useState(0)
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 15
 
   // Título da aba reflete o número real de pendentes
   useEffect(() => {
@@ -104,9 +106,12 @@ export default function Dashboard() {
     )
   }, [items])
 
-  const fetchData = async (showRefreshing = false) => {
-    if (showRefreshing) setRefreshing(true)
-    else setLoading(true)
+  const filterRef = useRef(filter)
+  useEffect(() => { filterRef.current = filter }, [filter])
+
+  const fetchData = async (mode: 'initial' | 'manual' | 'silent' = 'initial') => {
+    if (mode === 'initial') setLoading(true)
+    if (mode === 'manual') setRefreshing(true)
 
     let query = supabase
       .from('pre_agendamentos')
@@ -114,7 +119,8 @@ export default function Dashboard() {
       .order('criado_em', { ascending: true })
       .limit(200)
 
-    if (filter !== 'todos') query = query.eq('status', filter)
+    const currentFilter = filterRef.current
+    if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
 
     const [{ data }, count] = await Promise.all([query, fetchPendingCount()])
     setItems((data as unknown as PreAgendamento[]) ?? [])
@@ -172,7 +178,12 @@ export default function Dashboard() {
     return () => { supabase.removeChannel(channel) }
   }, [filter])
 
-  useEffect(() => { fetchData() }, [filter])
+  useEffect(() => { fetchData('initial') }, [filter])
+
+  useEffect(() => {
+    const interval = setInterval(() => fetchData('silent'), 20_000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => fetchData(), 20_000)
@@ -192,8 +203,12 @@ export default function Dashboard() {
 
   const handleFilterChange = (key: StatusFilter) => {
     setFilter(key)
+    setPage(1)
     if (key === 'pendente') setNewPendingCount(0)
   }
+
+  const totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE))
+  const pagedItems = items.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const filters: { key: StatusFilter; label: string }[] = [
     { key: 'pendente', label: 'Pendentes' },
@@ -212,9 +227,13 @@ export default function Dashboard() {
           <p className="text-sm text-muted-foreground font-light mt-1">
             Pacientes que solicitaram atendimento pelo site
           </p>
+          <div className="mt-3 inline-flex items-center gap-2 bg-wine-deep/5 border border-wine-deep/15 rounded-full px-4 py-1.5">
+            <span className="text-[11px] tracking-[0.12em] uppercase text-wine-deep/70 font-medium">Pendentes para agendar</span>
+            <span className="text-sm font-bold text-wine-deep">{pendingCount}</span>
+          </div>
         </div>
         <button
-          onClick={() => fetchData(true)}
+          onClick={() => fetchData('manual')}
           disabled={refreshing}
           className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
         >
@@ -259,7 +278,7 @@ export default function Dashboard() {
         </div>
       ) : (
         <div className="space-y-2">
-          {items.map((item) => (
+          {pagedItems.map((item) => (
             <button
               key={item.id}
               type="button"
@@ -308,6 +327,29 @@ export default function Dashboard() {
               </div>
             </button>
           ))}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between pt-4 mt-2 border-t border-border/40">
+              <span className="text-xs text-muted-foreground font-light">
+                Página {page} de {totalPages} · {items.length} registros
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border border-border bg-white text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+                >
+                  ‹ Anterior
+                </button>
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border border-border bg-white text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+                >
+                  Próxima ›
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </PainelLayout>
