@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Clock, RefreshCw } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
@@ -34,6 +34,7 @@ function formatData(iso: string) {
 }
 
 export default function Dashboard() {
+  const navigate = useNavigate()
   const [items, setItems] = useState<PreAgendamento[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<StatusFilter>('pendente')
@@ -46,7 +47,7 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select('id, exame, preferencia_turno, status, criado_em, pacientes(nome, telefone)')
-      .order('criado_em', { ascending: false })
+      .order('criado_em', { ascending: true })
 
     if (filter !== 'todos') query = query.eq('status', filter)
 
@@ -56,7 +57,41 @@ export default function Dashboard() {
     setRefreshing(false)
   }
 
+  // Real-time: atualiza o status na lista quando outra secretária muda
+  useEffect(() => {
+    const channel = supabase
+      .channel('dashboard_realtime')
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'pre_agendamentos' }, (payload) => {
+        const novo = payload.new as { id: string; status: string }
+        setItems((prev) => {
+          const atualizado = prev.map((item) =>
+            item.id === novo.id ? { ...item, status: novo.status } : item
+          )
+          // Se o filtro ativo não inclui o novo status, remove da lista
+          if (filter !== 'todos' && novo.status !== filter) {
+            return atualizado.filter((item) => item.id !== novo.id)
+          }
+          return atualizado
+        })
+      })
+      .subscribe()
+
+    return () => { supabase.removeChannel(channel) }
+  }, [filter])
+
   useEffect(() => { fetchData() }, [filter])
+
+  // Clique no paciente: muda para "em atendimento" se ainda pendente e navega
+  const handleSelectPaciente = async (item: PreAgendamento) => {
+    if (item.status === 'pendente') {
+      await supabase
+        .from('pre_agendamentos')
+        .update({ status: 'em_atendimento' })
+        .eq('id', item.id)
+        .eq('status', 'pendente') // garante que só uma secretária "pega" o paciente
+    }
+    navigate(`/painel/${item.id}`)
+  }
 
   const filters: { key: StatusFilter; label: string }[] = [
     { key: 'pendente', label: 'Pendentes' },
@@ -118,10 +153,11 @@ export default function Dashboard() {
       ) : (
         <div className="space-y-2">
           {items.map((item) => (
-            <Link
+            <button
               key={item.id}
-              to={`/painel/${item.id}`}
-              className="flex items-center justify-between bg-white border border-border/50 rounded-2xl px-5 py-4 hover:border-champagne/60 hover:shadow-soft transition-all duration-300 group"
+              type="button"
+              onClick={() => handleSelectPaciente(item)}
+              className="w-full flex items-center justify-between bg-white border border-border/50 rounded-2xl px-5 py-4 hover:border-champagne/60 hover:shadow-soft transition-all duration-300 group text-left"
             >
               <div className="flex items-center gap-4 min-w-0">
                 <div className="w-9 h-9 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
@@ -150,7 +186,7 @@ export default function Dashboard() {
                 </div>
                 <span className="text-muted-foreground group-hover:text-wine-deep transition-colors text-xs">›</span>
               </div>
-            </Link>
+            </button>
           ))}
         </div>
       )}
