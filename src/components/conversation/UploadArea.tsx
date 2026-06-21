@@ -8,6 +8,9 @@ interface UploadAreaProps {
 }
 
 async function uploadFile(file: File): Promise<string> {
+  const { data: { session } } = await supabase.auth.getSession()
+  if (!session) await supabase.auth.signInAnonymously()
+
   const ext = file.name.split('.').pop()
   const path = `${crypto.randomUUID()}.${ext}`
   const { data, error } = await supabase.storage
