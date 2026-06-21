@@ -111,7 +111,7 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order('criado_em', { ascending: false })
+      .order('criado_em', { ascending: true })
       .limit(5)
 
     if (filter !== 'todos') query = query.eq('status', filter)
@@ -152,7 +152,11 @@ export default function Dashboard() {
         const novo = data as unknown as PreAgendamento
 
         if (filter === 'pendente' || filter === 'todos') {
-          setItems((prev) => [...prev, novo])
+          setItems((prev) =>
+            [...prev, novo].sort((a, b) =>
+              new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime()
+            )
+          )
         }
 
         playNotificationSound()
@@ -264,7 +268,7 @@ export default function Dashboard() {
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-wine-deep truncate flex items-center gap-1.5">
+                  <p className="text-base font-semibold text-wine-deep truncate flex items-center gap-1.5">
                     {item.pacientes?.nome ?? '—'}
                     {duplicatePacienteIds.has(item.paciente_id) && (
                       <span title="Paciente com múltiplos registros nesta lista" className="inline-flex">
