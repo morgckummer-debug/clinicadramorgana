@@ -326,7 +326,8 @@ export default function Detalhe() {
           <button
             onClick={() => updateStatus('pendente')}
             disabled={updatingStatus}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border text-muted-foreground text-xs font-medium hover:border-amber-400 hover:text-amber-700 transition-all duration-300"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300"
+            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >
             <PhoneMissed className="w-3.5 h-3.5" />
             Devolver para a fila
@@ -508,7 +509,8 @@ export default function Detalhe() {
           <button
             onClick={() => updateStatus('pendente')}
             disabled={updatingStatus}
-            className="w-full flex items-center justify-center gap-2.5 bg-white border border-border text-muted-foreground px-6 py-3 rounded-2xl text-sm font-medium tracking-wide hover:border-amber-400 hover:text-amber-700 transition-all duration-300"
+            className="w-full flex items-center justify-center gap-2.5 px-6 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all duration-300"
+            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >
             <PhoneMissed className="w-4 h-4" />
             Não consegui contato — devolver para fila
