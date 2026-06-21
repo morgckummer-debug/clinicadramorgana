@@ -117,18 +117,10 @@ function primeiroNome(nome: string) {
   return partes.slice(0, 2).join(' ')
 }
 
-function formatExame(slug: string | null) {
-  if (!slug) return '—'
-  if (slug === 'nao-sei') return '⚠️ Não identificado — verificar pedido'
-  return slug
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase())
-    .replace(/\bDe\b/g, 'de')
-    .replace(/\bDo\b/g, 'do')
-    .replace(/\bDa\b/g, 'da')
-    .replace(/\bCom\b/g, 'com')
-    .replace(/\bE\b/g, 'e')
-    .replace(/\bO\b/g, 'o')
+function formatExame(valor: string | null) {
+  if (!valor) return '—'
+  if (valor === 'nao-sei') return '⚠️ Não identificado — verificar pedido'
+  return valor
 }
 
 export default function Detalhe() {
