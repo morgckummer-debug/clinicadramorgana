@@ -50,6 +50,18 @@ const EXAMES_EXCLUSIVOS_MORGANA = new Set([
   'Morfológico do 3º Trimestre',
 ])
 
+// Exames obstétricos que exigem upload obrigatório do pedido médico em q2f
+// (Obstétrico 1º Trimestre tem fluxo próprio; 3D Completo e Sexo Fetal são isentos)
+const GESTACAO_PEDIDO_UPLOAD_OBRIGATORIO = new Set([
+  'Obstétrico com Translucência Nucal',
+  'Obstétrico com Doppler',
+  'Morfológico do 1º Trimestre',
+  'Morfológico do 2º Trimestre',
+  'Morfológico do 3º Trimestre',
+  'Perfil Biofísico Fetal (PBF)',
+  'Ecocardiograma Fetal',
+])
+
 function precisaDUM(answers: Record<string, string | string[]>): boolean {
   const categoria = answers['q1'] as string
   const exame = answers['q2'] as string
@@ -238,6 +250,16 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         return
       }
     }
+    if (currentId === 'q2f') {
+      const q2f = nextAnswers['q2f']
+      const isEmpty = !q2f || (Array.isArray(q2f) && q2f.length === 0)
+      if (isEmpty && GESTACAO_PEDIDO_UPLOAD_OBRIGATORIO.has(answers['q2'] as string)) {
+        setBlockedReturnId('q2f')
+        setBlockedMessage('Para agendar este exame obstétrico é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
+        setStep('blocked')
+        return
+      }
+    }
     if (currentId === 'q2g') {
       const q2g = nextAnswers['q2g']
       const isEmpty = !q2g || (Array.isArray(q2g) && q2g.length === 0)
@@ -358,7 +380,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
               onClick={() => { setStep('question'); setCurrentId(blockedReturnId) }}
               className="text-[10px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide underline underline-offset-4"
             >
-              {blockedReturnId === 'q2g' ? 'Voltar e anexar documento' : 'Tentar novamente'}
+              {blockedReturnId === 'q2f' || blockedReturnId === 'q2g' ? 'Voltar e anexar documento' : 'Tentar novamente'}
             </button>
           </div>
         </div>
