@@ -112,7 +112,7 @@ export default function Dashboard() {
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
       .order('criado_em', { ascending: true })
-      .limit(5)
+      .limit(200)
 
     if (filter !== 'todos') query = query.eq('status', filter)
 
