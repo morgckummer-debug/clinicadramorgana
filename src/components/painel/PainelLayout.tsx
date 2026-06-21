@@ -80,18 +80,16 @@ export function PainelLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#faf9f8] flex flex-col">
       <header className="bg-white border-b border-border/50 px-6 py-3.5 flex items-center justify-between sticky top-0 z-10">
-        <Link to="/painel" className="flex flex-col gap-0.5">
+        <Link to="/painel" className="flex flex-col items-start gap-1">
+          <img src="/Logo horiz.png" alt="Clínica Dra. Morgana Kummer" className="h-7 w-auto object-contain" />
           <div className="flex items-baseline gap-1.5 leading-none">
-            <span className="font-comfortaa font-light tracking-wide" style={{ fontSize: '1.05rem', color: '#5B2D8E' }}>
+            <span className="font-comfortaa font-light tracking-wide" style={{ fontSize: '0.95rem', color: '#5B2D8E' }}>
               Assistente de Agendamento
             </span>
-            <span className="font-comfortaa font-bold tracking-widest" style={{ fontSize: '1.1rem', color: '#C9A84C', letterSpacing: '0.18em' }}>
+            <span className="font-comfortaa font-bold" style={{ fontSize: '1rem', color: '#C9A84C', letterSpacing: '0.18em' }}>
               MK
             </span>
           </div>
-          <span className="text-[9px] tracking-[0.3em] uppercase font-light" style={{ color: 'rgba(91,45,142,0.4)', marginTop: '3px' }}>
-            Clínica Dra. Morgana Kummer
-          </span>
         </Link>
 
         <div className="flex items-center gap-4">
