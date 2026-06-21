@@ -3,9 +3,9 @@ import logoClinica from '@/assets/logo-clinica.png'
 
 export function ConversationHeader() {
   return (
-    <div className="flex items-center justify-between mb-10">
+    <div className="flex items-center justify-between mb-7">
       <Link to="/">
-        <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-10 w-auto" />
+        <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-14 w-auto" />
       </Link>
 
       <div className="flex items-center gap-2">
