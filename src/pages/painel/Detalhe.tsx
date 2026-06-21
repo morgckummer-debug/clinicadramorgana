@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
@@ -441,14 +441,27 @@ export default function Detalhe() {
         )}
       </div>
 
-      {/* Botão WhatsApp */}
-      <button
-        onClick={openWhatsApp}
-        className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
-      >
-        <MessageCircle className="w-4 h-4" />
-        Abrir conversa com {nomeExibido} no WhatsApp
-      </button>
+      {/* Ações de contato */}
+      <div className="flex flex-col gap-2.5">
+        <button
+          onClick={openWhatsApp}
+          className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
+        >
+          <MessageCircle className="w-4 h-4" />
+          Abrir conversa com {nomeExibido} no WhatsApp
+        </button>
+
+        {item.status !== 'pendente' && (
+          <button
+            onClick={() => updateStatus('pendente')}
+            disabled={updatingStatus}
+            className="w-full flex items-center justify-center gap-2.5 bg-white border border-border text-muted-foreground px-6 py-3 rounded-2xl text-sm font-medium tracking-wide hover:border-amber-400 hover:text-amber-700 transition-all duration-300"
+          >
+            <PhoneMissed className="w-4 h-4" />
+            Não consegui contato — devolver para fila
+          </button>
+        )}
+      </div>
     </PainelLayout>
   )
 }
