@@ -251,20 +251,12 @@ const Hero = () => {
           </p>
 
           <div className="mt-12 flex flex-wrap gap-4 items-center">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-[#1ebe5d] transition-all duration-500 shadow-soft"
-            >
-              <MessageCircle className="w-4 h-4" /> {t.hero.ctaWhatsApp}
-            </a>
             <Link
-              to="/pre-agendamento"
+              to="/agendar"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold border transition-all duration-500 shadow-soft hover:opacity-90"
               style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', borderColor: '#5B2D8E' }}
             >
-              Pré-agendamento
+              <ArrowRight className="w-4 h-4" /> Agendar meu exame
             </Link>
           </div>
 
