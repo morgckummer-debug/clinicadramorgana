@@ -10,6 +10,7 @@ interface OtherRecord {
   id: string
   exame: string | null
   status: string
+  atendente_nome: string | null
   criado_em: string
 }
 
@@ -156,7 +157,7 @@ export default function Detalhe() {
     if (!item?.paciente_id) return
     supabase
       .from('pre_agendamentos')
-      .select('id, exame, status, criado_em')
+      .select('id, exame, status, atendente_nome, criado_em')
       .eq('paciente_id', item.paciente_id)
       .neq('id', item.id)
       .order('criado_em', { ascending: false })
@@ -284,11 +285,18 @@ export default function Detalhe() {
           <div className="space-y-2">
             {otherRecords.map((rec) => (
               <div key={rec.id} className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 min-w-0">
-                  <StatusBadge status={rec.status} />
-                  <span className="text-xs text-amber-700 font-light truncate">
-                    {rec.exame ?? 'Exame não informado'} · {fmtISO(rec.criado_em)}
-                  </span>
+                <div className="flex flex-col gap-0.5 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <StatusBadge status={rec.status} />
+                    <span className="text-xs text-amber-700 font-light truncate">
+                      {rec.exame ?? 'Exame não informado'} · {fmtISO(rec.criado_em)}
+                    </span>
+                  </div>
+                  {rec.atendente_nome && (
+                    <span className="text-[11px] text-amber-600 font-light pl-1">
+                      Atendido por <span className="font-medium">{rec.atendente_nome}</span> em {fmtISO(rec.criado_em)}
+                    </span>
+                  )}
                 </div>
                 <Link
                   to={`/painel/${rec.id}`}
