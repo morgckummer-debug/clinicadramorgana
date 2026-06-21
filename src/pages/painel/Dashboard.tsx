@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Clock, RefreshCw, TriangleAlert, User } from 'lucide-react'
 import { toast } from 'sonner'
@@ -106,9 +106,12 @@ export default function Dashboard() {
     )
   }, [items])
 
-  const fetchData = async (showRefreshing = false) => {
-    if (showRefreshing) setRefreshing(true)
-    else setLoading(true)
+  const filterRef = useRef(filter)
+  useEffect(() => { filterRef.current = filter }, [filter])
+
+  const fetchData = async (mode: 'initial' | 'manual' | 'silent' = 'initial') => {
+    if (mode === 'initial') setLoading(true)
+    if (mode === 'manual') setRefreshing(true)
 
     let query = supabase
       .from('pre_agendamentos')
@@ -116,7 +119,8 @@ export default function Dashboard() {
       .order('criado_em', { ascending: true })
       .limit(200)
 
-    if (filter !== 'todos') query = query.eq('status', filter)
+    const currentFilter = filterRef.current
+    if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
 
     const [{ data }, count] = await Promise.all([query, fetchPendingCount()])
     setItems((data as unknown as PreAgendamento[]) ?? [])
@@ -174,12 +178,12 @@ export default function Dashboard() {
     return () => { supabase.removeChannel(channel) }
   }, [filter])
 
-  useEffect(() => { fetchData() }, [filter])
+  useEffect(() => { fetchData('initial') }, [filter])
 
   useEffect(() => {
-    const interval = setInterval(() => fetchData(), 20_000)
+    const interval = setInterval(() => fetchData('silent'), 20_000)
     return () => clearInterval(interval)
-  }, [filter])
+  }, [])
 
   const handleSelectPaciente = async (item: PreAgendamento) => {
     if (item.status === 'pendente') {
@@ -224,7 +228,7 @@ export default function Dashboard() {
           </div>
         </div>
         <button
-          onClick={() => fetchData(true)}
+          onClick={() => fetchData('manual')}
           disabled={refreshing}
           className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
         >
