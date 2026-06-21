@@ -320,6 +320,17 @@ export default function Detalhe() {
             )}
           </div>
         </div>
+
+        {item.status !== 'pendente' && (
+          <button
+            onClick={() => updateStatus('pendente')}
+            disabled={updatingStatus}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border text-muted-foreground text-xs font-medium hover:border-amber-400 hover:text-amber-700 transition-all duration-300"
+          >
+            <PhoneMissed className="w-3.5 h-3.5" />
+            Devolver para a fila
+          </button>
+        )}
       </div>
 
       {/* Grid principal 2 colunas */}
@@ -441,27 +452,14 @@ export default function Detalhe() {
         )}
       </div>
 
-      {/* Ações de contato */}
-      <div className="flex flex-col gap-2.5">
-        <button
-          onClick={openWhatsApp}
-          className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
-        >
-          <MessageCircle className="w-4 h-4" />
-          Abrir conversa com {nomeExibido} no WhatsApp
-        </button>
-
-        {item.status !== 'pendente' && (
-          <button
-            onClick={() => updateStatus('pendente')}
-            disabled={updatingStatus}
-            className="w-full flex items-center justify-center gap-2.5 bg-white border border-border text-muted-foreground px-6 py-3 rounded-2xl text-sm font-medium tracking-wide hover:border-amber-400 hover:text-amber-700 transition-all duration-300"
-          >
-            <PhoneMissed className="w-4 h-4" />
-            Não consegui contato — devolver para fila
-          </button>
-        )}
-      </div>
+      {/* Botão WhatsApp */}
+      <button
+        onClick={openWhatsApp}
+        className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
+      >
+        <MessageCircle className="w-4 h-4" />
+        Abrir conversa com {nomeExibido} no WhatsApp
+      </button>
     </PainelLayout>
   )
 }
