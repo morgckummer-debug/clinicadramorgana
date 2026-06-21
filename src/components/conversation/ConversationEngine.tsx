@@ -194,7 +194,16 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       return (answers['q2'] as string) === 'Rastreamento de Ovulação' ? 'q8' : 'q7'
     }
     if (currentId === 'q8') {
-      return EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string) ? 'q10' : 'q9'
+      // Se pedido já foi tratado no início do fluxo, pula q10 quando volta da seleção de médico
+      const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c'])
+      if (EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string)) {
+        return pedidoJaRespondido ? 'q11' : 'q10'
+      }
+      return 'q9'
+    }
+    if (currentId === 'q9') {
+      const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c'])
+      return pedidoJaRespondido ? 'q11' : 'q10'
     }
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])
