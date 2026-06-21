@@ -39,9 +39,12 @@ function calcIdadeGestacional(ddmmaaaa: string): string | null {
 
 const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
 
-// Beta-hCG como alternativa ao pedido médico é exclusivo do Obstétrico do 1º Trimestre,
-// que tem fluxo próprio (ob1_*). Todos os outros exames exigem pedido médico.
-const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set<string>([])
+// Exames que NÃO exigem pedido médico (podem ser feitos sem prescrição)
+// Obstétrico do 1º Trimestre também não exige, mas tem fluxo próprio (ob1_*)
+const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set([
+  'Obstétrico - Sexo Fetal',
+  '3D Completo',
+])
 
 // Exames realizados exclusivamente pela Dra. Morgana — pula a seleção de médico
 const EXAMES_EXCLUSIVOS_MORGANA = new Set([
@@ -136,6 +139,8 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (type === 'upload') {
       // ob1_d, ob1_g, ob1_h são opcionais — botão sempre habilitado
       if (currentId === 'ob1_d' || currentId === 'ob1_g' || currentId === 'ob1_h') return true
+      // q2f é opcional para exames que não exigem pedido
+      if (currentId === 'q2f' && EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) return true
       // q10 e q2f exigem ao menos um arquivo para habilitar "Continuar"
       const v = currentAnswer
       return Array.isArray(v) ? v.length > 0 : (typeof v === 'string' && v.length > 0)
@@ -150,7 +155,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       return strValue.trim() !== ''
     }
     return typeof currentAnswer === 'string' && currentAnswer.trim() !== ''
-  }, [currentQuestion, currentAnswer, currentId])
+  }, [currentQuestion, currentAnswer, currentId, answers])
 
   const getNextId = useCallback((selectedValue?: string): string | null => {
     if (currentId === 'q2') {
@@ -197,10 +202,12 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     }
     if (currentId === 'q2d') {
       const val = selectedValue ?? (currentAnswer as string)
+      if (val === 'nao' && EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) return 'q3'
       return val === 'sim' ? 'q2f' : 'q2g'
     }
     if (currentId === 'q2e') {
       const val = selectedValue ?? (currentAnswer as string)
+      if (val === 'nao' && EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) return 'q3'
       return val === 'sim' ? 'q2f' : 'q2h'
     }
     if (currentId === 'q2h') {
@@ -271,7 +278,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (currentId === 'q2f') {
       const q2f = nextAnswers['q2f']
       const isEmpty = !q2f || (Array.isArray(q2f) && q2f.length === 0)
-      if (isEmpty) {
+      if (isEmpty && !EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) {
         setBlockedReturnId('q2f')
         setBlockedMessage('Para realizar o pré-agendamento é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
         setStep('blocked')
@@ -298,7 +305,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         ...toArr(nextAnswers['ob1_d']),
         ...toArr(nextAnswers['ob1_g']),
       ].some(Boolean)
-      if (!hasFile) {
+      if (!hasFile && !EXAMES_SEM_PEDIDO_OBRIGATORIO.has(nextAnswers['q2'] as string)) {
         const returnId = nextAnswers['q2d'] !== undefined || nextAnswers['q2e'] !== undefined
           ? 'q2f'
           : 'q10'
@@ -341,7 +348,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (currentQuestion?.type === 'textarea') return true
     if (currentQuestion?.type !== 'upload') return false
     if (currentId === 'q10') return false
-    if (currentId === 'q2f') return false
+    if (currentId === 'q2f') return EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)
     return true // ob1_d, ob1_g, ob1_h são opcionais
   })()
 
