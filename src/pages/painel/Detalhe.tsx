@@ -181,8 +181,14 @@ export default function Detalhe() {
   const medicoFormatado = medicoLabel[item.medico_preferido ?? ''] ?? item.medico_preferido ?? '—'
 
   const dum = parseDUM(item.observacoes)
-  const ig = parseIG(item.observacoes)
   const obsUsuario = userObs(item.observacoes)
+
+  const igCalculada = dum ? (() => {
+    const diff = Math.floor((Date.now() - dum.getTime()) / 86400000)
+    if (diff < 0 || diff > 300) return null
+    const w = Math.floor(diff / 7), d = diff % 7
+    return `${w} semanas e ${d} dia${d !== 1 ? 's' : ''}`
+  })() : null
 
   const janelas = dum ? [
     { label: 'Morfológico 1º Trimestre', de: addDays(dum, 84), ate: addDays(dum, 97) },
@@ -244,15 +250,13 @@ export default function Detalhe() {
       </div>
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
-      {ig && (
+      {dum && (
         <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3 space-y-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Informações Obstétricas</p>
-          {dum && (
-            <p className="text-sm text-foreground/70 font-light">
-              DUM: {fmtDate(dum)}
-            </p>
-          )}
-          <p className="text-sm text-wine-deep font-semibold">IG: {ig}</p>
+          <p className="text-sm text-foreground/70 font-light">
+            DUM: {fmtDate(dum)}
+          </p>
+          {igCalculada && <p className="text-sm text-wine-deep font-semibold">IG: {igCalculada}</p>}
           {janelas.length > 0 && (
             <div className="space-y-2 pt-1 border-t border-border/40">
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Janelas ideais para agendamento</p>
