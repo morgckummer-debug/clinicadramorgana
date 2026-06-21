@@ -92,7 +92,7 @@ export function QuestionRenderer({
   if (type === 'input' || type === 'textarea') {
     const strValue = typeof value === 'string' ? value : ''
     const isOvulacao = answers['q2'] === 'Rastreamento de Ovulação'
-    const ig = question.id === 'q2c' && !isOvulacao ? calcIG(strValue) : null
+    const ig = (question.id === 'q2c' || question.id === 'ob1_b') && !isOvulacao ? calcIG(strValue) : null
     const isDateComplete = question.mask === 'date' && strValue.replace(/\D/g, '').length === 8
     const dateError = isDateComplete && !isValidDateBR(strValue)
       ? 'Data inválida. Verifique dia, mês e ano.'
