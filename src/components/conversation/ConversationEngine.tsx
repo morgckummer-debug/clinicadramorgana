@@ -119,6 +119,11 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   if (error) throw error
 }
 
+function q10JaRespondido(answers: Record<string, string | string[]>): boolean {
+  const v = answers['q10']
+  return Array.isArray(v) ? v.length > 0 : !!v
+}
+
 export function ConversationEngine({ flow }: ConversationEngineProps) {
   const [step, setStep] = useState<Step>('welcome')
   const [currentId, setCurrentId] = useState(flow.firstQuestion)
@@ -157,7 +162,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const exame = (answersComQ2['q2'] as string) ?? ''
       // Obstétrico do 1º Trimestre tem fluxo próprio
       if (exame === 'Obstétrico do 1º Trimestre') return 'ob1_a'
-      return precisaDUM(answersComQ2) ? 'q2b' : 'q3'
+      // Gestação e Rastreamento de Ovulação: pede DUM antes de qualquer coisa
+      if (precisaDUM(answersComQ2)) return 'q2b'
+      // Demais categorias: pede pedido médico antes dos dados pessoais
+      return 'q10'
     }
 
     // ── Fluxo exclusivo: Obstétrico do 1º Trimestre ──
@@ -206,16 +214,20 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       return (answers['q2'] as string) === 'Rastreamento de Ovulação' ? 'q8' : 'q7'
     }
     if (currentId === 'q8') {
-      // Se pedido já foi tratado no início do fluxo, pula q10 quando volta da seleção de médico
-      const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c'])
+      const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c']) || q10JaRespondido(answers)
       if (EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string)) {
         return pedidoJaRespondido ? 'q11' : 'q10'
       }
       return 'q9'
     }
     if (currentId === 'q9') {
-      const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c'])
+      const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c']) || q10JaRespondido(answers)
       return pedidoJaRespondido ? 'q11' : 'q10'
+    }
+    // q10 visitado cedo (antes dos dados pessoais) → segue para q3
+    // q10 visitado tarde (após q9, só por segurança) → segue para q11
+    if (currentId === 'q10') {
+      return answers['q3'] ? 'q11' : 'q3'
     }
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])

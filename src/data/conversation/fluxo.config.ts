@@ -307,10 +307,10 @@ export const PERGUNTAS = {
     title: 'Tem preferência por algum médico?',
   },
 
-  // ETAPA 10 — Upload do pedido médico (opcional, para não-gestação)
+  // ETAPA 10 — Upload do pedido médico (obrigatório)
   q10: {
-    title: 'Tem algum pedido médico para anexar?',
-    subtitle: 'Opcional. Para gestação inicial, você pode enviar também o resultado do beta-HCG.',
+    title: 'Anexe o pedido médico.',
+    subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
   },
 
   // ETAPA 11 — Observações livres (opcional)
