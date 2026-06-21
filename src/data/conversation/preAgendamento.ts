@@ -160,9 +160,31 @@ export const preAgendamentoFlow: ConversationFlow = {
 
     q2d: {
       id: 'q2d',
+      type: 'buttons',
+      title: 'Você tem o pedido médico em mãos?',
+      subtitle: 'Pode ser foto ou PDF.',
+      options: [
+        { label: 'Sim, tenho o pedido', value: 'sim' },
+        { label: 'Não tenho o pedido', value: 'nao' },
+      ],
+      next: 'q3',
+      branch: true,
+    },
+
+    q2f: {
+      id: 'q2f',
       type: 'upload',
-      title: 'Você pode anexar o resultado do beta-HCG ou um ultrassom anterior?',
-      subtitle: 'Sem a DUM, precisamos de um desses documentos para calcular a idade gestacional e agendar corretamente.',
+      title: 'Ótimo! Anexe o pedido médico aqui.',
+      subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
+      next: 'q3',
+      branch: true,
+    },
+
+    q2g: {
+      id: 'q2g',
+      type: 'upload',
+      title: 'Você tem o resultado do beta-HCG para anexar?',
+      subtitle: 'Sem a DUM ou o pedido, precisamos do beta-HCG para calcular a idade gestacional e agendar corretamente.',
       next: 'q3',
       branch: true,
     },

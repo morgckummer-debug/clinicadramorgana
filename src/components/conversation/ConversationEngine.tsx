@@ -75,7 +75,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   // Merge ultrassom anterior (q2d) + pedido médico (q10)
   const toArray = (v: string | string[] | undefined) =>
     Array.isArray(v) ? v : v ? [v] : []
-  const allUrls = [...toArray(answers['q2d']), ...toArray(answers['q10'])]
+  const allUrls = [...toArray(answers['q2f']), ...toArray(answers['q2g']), ...toArray(answers['q10'])]
   const pedidoUrl = allUrls.length ? allUrls.join(',') : null
 
   const { error } = await supabase.rpc('criar_pre_agendamento', {
@@ -128,6 +128,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2c' : 'q2d'
     }
+    if (currentId === 'q2d') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'q2f' : 'q2g'
+    }
     if (currentId === 'q6') {
       // Rastreamento de Ovulação não tem convenio associado — pula q7
       return (answers['q2'] as string) === 'Rastreamento de Ovulação' ? 'q8' : 'q7'
@@ -140,12 +144,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
   }, [currentId, currentAnswer, currentQuestion, answers])
 
   const isObstetricaBlocked = useCallback((nextAnswers: Record<string, string | string[]>) => {
-    if (currentId !== 'q2d') return false
-    const categoria = nextAnswers['q1'] as string
-    const q2b = nextAnswers['q2b'] as string
-    const q2d = nextAnswers['q2d']
-    const isEmpty = !q2d || (Array.isArray(q2d) && q2d.length === 0)
-    return categoria === 'gestacao' && q2b === 'nao' && isEmpty
+    if (currentId !== 'q2g') return false
+    const q2g = nextAnswers['q2g']
+    const isEmpty = !q2g || (Array.isArray(q2g) && q2g.length === 0)
+    return isEmpty
   }, [currentId])
 
   const advance = useCallback(async (selectedValue?: string) => {
