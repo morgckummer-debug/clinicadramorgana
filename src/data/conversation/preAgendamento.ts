@@ -161,8 +161,8 @@ export const preAgendamentoFlow: ConversationFlow = {
     q2d: {
       id: 'q2d',
       type: 'upload',
-      title: 'Você pode anexar um ultrassom anterior?',
-      subtitle: 'Opcional, mas ajuda muito nossa equipe a se preparar para o exame.',
+      title: 'Você pode anexar o resultado do beta-HCG ou um ultrassom anterior?',
+      subtitle: 'Sem a DUM, precisamos de um desses documentos para calcular a idade gestacional e agendar corretamente.',
       next: 'q3',
       branch: true,
     },
