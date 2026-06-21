@@ -49,7 +49,8 @@ export const Hero = () => {
         >
           <a
             href="#contato"
-            className="group bg-champagne text-wine-deep px-8 py-4 rounded-full text-sm tracking-[0.2em] uppercase font-medium hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
+            className="group px-8 py-4 rounded-full text-sm tracking-[0.2em] uppercase font-medium transition-all duration-500 shadow-elegant"
+            style={{ background: '#FDDCB5', color: '#5B2D8E' }}
           >
             Agendar exame
           </a>
