@@ -99,6 +99,12 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
   const isOptional =
     currentQuestion?.type === 'upload' || currentQuestion?.type === 'textarea'
 
+  const showNext =
+    currentQuestion?.type === 'input' ||
+    currentQuestion?.type === 'textarea' ||
+    currentQuestion?.type === 'upload' ||
+    currentQuestion?.type === 'multi'
+
   if (step === 'welcome') {
     return (
       <>
@@ -175,6 +181,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         onBack={goBack}
         onNext={advance}
         nextDisabled={!isAnswered()}
+        showNext={showNext}
         optional={isOptional}
       />
     </>
