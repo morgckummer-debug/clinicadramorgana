@@ -24,49 +24,23 @@ function parseDateBR(ddmmaaaa: string): string {
 async function savePreAgendamento(answers: Record<string, string | string[]>) {
   const cpf = (answers['q4'] as string).replace(/\D/g, '')
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
-
-  // 1. Buscar paciente existente por CPF
-  let pacienteId: string
-
-  const { data: existing } = await supabase
-    .from('pacientes')
-    .select('id')
-    .eq('cpf', cpf)
-    .maybeSingle()
-
-  if (existing) {
-    pacienteId = existing.id
-  } else {
-    // Inserir novo paciente
-    const { data: novo, error: insertError } = await supabase
-      .from('pacientes')
-      .insert({
-        nome: answers['q3'] as string,
-        cpf,
-        data_nascimento: parseDateBR(answers['q5'] as string),
-        telefone,
-      })
-      .select('id')
-      .single()
-
-    if (insertError) throw insertError
-    pacienteId = novo.id
-  }
-
-  // 2. Inserir pré-agendamento
   const convenio = answers['q7']
-  const { error: agendError } = await supabase.from('pre_agendamentos').insert({
-    paciente_id: pacienteId,
-    canal: 'site',
-    categoria: answers['q1'] as string,
-    exame: answers['q2'] as string,
-    convenio: Array.isArray(convenio) ? convenio : [convenio],
-    preferencia_turno: answers['q8'] as string,
-    medico_preferido: answers['q9'] as string,
-    observacoes: (answers['q11'] as string) || null,
+
+  const { error } = await supabase.rpc('criar_pre_agendamento', {
+    p_nome: answers['q3'] as string,
+    p_cpf: cpf,
+    p_data_nascimento: parseDateBR(answers['q5'] as string),
+    p_telefone: telefone,
+    p_canal: 'site',
+    p_categoria: answers['q1'] as string,
+    p_exame: answers['q2'] as string,
+    p_convenio: Array.isArray(convenio) ? convenio : [convenio],
+    p_preferencia_turno: answers['q8'] as string,
+    p_medico_preferido: answers['q9'] as string,
+    p_observacoes: (answers['q11'] as string) || null,
   })
 
-  if (agendError) throw agendError
+  if (error) throw error
 }
 
 export function ConversationEngine({ flow }: ConversationEngineProps) {
