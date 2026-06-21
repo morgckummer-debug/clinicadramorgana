@@ -39,12 +39,9 @@ function calcIdadeGestacional(ddmmaaaa: string): string | null {
 
 const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
 
-// Exames obstétricos que não exigem pedido médico (aceitam beta-HCG como alternativa)
-const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set([
-  'Obstétrico do 1º Trimestre',
-  'Obstétrico - Sexo Fetal',
-  '3D Completo',
-])
+// Beta-hCG como alternativa ao pedido médico é exclusivo do Obstétrico do 1º Trimestre,
+// que tem fluxo próprio (ob1_*). Todos os outros exames exigem pedido médico.
+const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set<string>([])
 
 // Exames realizados exclusivamente pela Dra. Morgana — pula a seleção de médico
 const EXAMES_EXCLUSIVOS_MORGANA = new Set([
