@@ -261,7 +261,8 @@ const Hero = () => {
             </a>
             <Link
               to="/pre-agendamento"
-              className="inline-flex items-center gap-2 border border-wine-foreground/40 text-wine-foreground px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:border-champagne hover:text-champagne transition-all duration-500"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold border transition-all duration-500 shadow-soft hover:opacity-90"
+              style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', borderColor: '#5B2D8E' }}
             >
               Pré-agendamento
             </Link>

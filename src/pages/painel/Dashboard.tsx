@@ -266,10 +266,9 @@ export default function Dashboard() {
                   <p className="text-sm font-medium text-wine-deep truncate flex items-center gap-1.5">
                     {item.pacientes?.nome ?? '—'}
                     {duplicatePacienteIds.has(item.paciente_id) && (
-                      <TriangleAlert
-                        className="w-3.5 h-3.5 text-amber-500 flex-shrink-0"
-                        title="Paciente com múltiplos registros nesta lista"
-                      />
+                      <span title="Paciente com múltiplos registros nesta lista" className="inline-flex">
+                        <TriangleAlert className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" />
+                      </span>
                     )}
                   </p>
                   <p className="text-xs text-muted-foreground font-light truncate">
