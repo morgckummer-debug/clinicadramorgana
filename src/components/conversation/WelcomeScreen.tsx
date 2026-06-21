@@ -10,10 +10,6 @@ export function WelcomeScreen({ flow, onStart }: WelcomeScreenProps) {
   return (
     <div className="animate-fade-up">
       <div className="mb-12">
-        <span className="inline-block text-[16px] tracking-[0.4em] uppercase text-wine font-medium mb-6">
-          Assistente Virtual MK
-        </span>
-
         <h1 className="font-comfortaa text-wine-deep text-[clamp(1.9rem,6vw,2.8rem)] font-light leading-[1.15] text-balance mb-5">
           Olá!<br />Sou a Assistente Virtual MK.
         </h1>
