@@ -22,6 +22,7 @@ export interface Question {
   mask?: QuestionMask
   options?: QuestionOption[]
   next: string | null
+  branch?: boolean // exclui da contagem de progresso
 }
 
 export interface ConversationFlow {
@@ -131,6 +132,39 @@ export const preAgendamentoFlow: ConversationFlow = {
       // Opções preenchidas dinamicamente pelo QuestionRenderer com base na resposta de q1
       options: [],
       next: 'q3',
+    },
+
+    // ── Etapa 2b/2c/2d: DUM (apenas para gestação e rastreamento) ──
+    q2b: {
+      id: 'q2b',
+      type: 'buttons',
+      title: 'Você sabe a data da sua última menstruação (DUM)?',
+      subtitle: 'Isso nos ajuda a estimar a idade gestacional antes do exame.',
+      options: [
+        { label: 'Sim, sei a DUM', value: 'sim' },
+        { label: 'Não sei / não lembro', value: 'nao' },
+      ],
+      next: 'q3',
+      branch: true,
+    },
+
+    q2c: {
+      id: 'q2c',
+      type: 'input',
+      mask: 'date',
+      title: 'Qual foi a data da sua última menstruação?',
+      placeholder: 'DD/MM/AAAA',
+      next: 'q3',
+      branch: true,
+    },
+
+    q2d: {
+      id: 'q2d',
+      type: 'upload',
+      title: 'Você pode anexar um ultrassom anterior?',
+      subtitle: 'Opcional, mas ajuda muito nossa equipe a se preparar para o exame.',
+      next: 'q3',
+      branch: true,
     },
 
     // ── Etapa 3: nome completo ─────────────────────────────────────

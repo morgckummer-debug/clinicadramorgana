@@ -21,10 +21,51 @@ function parseDateBR(ddmmaaaa: string): string {
   return `${digits.slice(4, 8)}-${digits.slice(2, 4)}-${digits.slice(0, 2)}`
 }
 
+function calcIdadeGestacional(ddmmaaaa: string): string | null {
+  const digits = ddmmaaaa.replace(/\D/g, '')
+  if (digits.length !== 8) return null
+  const dum = new Date(
+    parseInt(digits.slice(4, 8)),
+    parseInt(digits.slice(2, 4)) - 1,
+    parseInt(digits.slice(0, 2))
+  )
+  const diffDays = Math.floor((Date.now() - dum.getTime()) / 86400000)
+  if (diffDays < 0 || diffDays > 300) return null
+  const weeks = Math.floor(diffDays / 7)
+  const days = diffDays % 7
+  return `${weeks} semanas e ${days} dia${days !== 1 ? 's' : ''}`
+}
+
+const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
+
+function precisaDUM(answers: Record<string, string | string[]>): boolean {
+  const categoria = answers['q1'] as string
+  const exame = answers['q2'] as string
+  return categoria === 'gestacao' || EXAMES_COM_DUM.has(exame)
+}
+
 async function savePreAgendamento(answers: Record<string, string | string[]>) {
   const cpf = (answers['q4'] as string).replace(/\D/g, '')
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
   const convenio = answers['q7']
+
+  // Calcula IG a partir da DUM e inclui nas observações
+  const dum = answers['q2c'] as string | undefined
+  const dumLinhas: string[] = []
+  if (dum) {
+    dumLinhas.push(`DUM: ${dum}`)
+    const ig = calcIdadeGestacional(dum)
+    if (ig) dumLinhas.push(`Idade gestacional estimada: ${ig}`)
+  }
+  const obsExtra = dumLinhas.join(' — ')
+  const obsUsuario = (answers['q11'] as string) || ''
+  const observacoes = [obsExtra, obsUsuario].filter(Boolean).join('\n') || null
+
+  // Merge ultrassom anterior (q2d) + pedido médico (q10)
+  const toArray = (v: string | string[] | undefined) =>
+    Array.isArray(v) ? v : v ? [v] : []
+  const allUrls = [...toArray(answers['q2d']), ...toArray(answers['q10'])]
+  const pedidoUrl = allUrls.length ? allUrls.join(',') : null
 
   const { error } = await supabase.rpc('criar_pre_agendamento', {
     p_nome: answers['q3'] as string,
@@ -37,8 +78,8 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_convenio: Array.isArray(convenio) ? convenio : [convenio],
     p_preferencia_turno: answers['q8'] as string,
     p_medico_preferido: answers['q9'] as string,
-    p_pedido_url: Array.isArray(answers['q10']) ? (answers['q10'] as string[]).join(',') : (answers['q10'] as string) || null,
-    p_observacoes: (answers['q11'] as string) || null,
+    p_pedido_url: pedidoUrl,
+    p_observacoes: observacoes,
   })
 
   if (error) throw error
@@ -50,9 +91,11 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
   const [history, setHistory] = useState<string[]>([])
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
 
-  const questionIds = Object.keys(flow.questions)
-  const totalQuestions = questionIds.length
-  const currentIndex = questionIds.indexOf(currentId) + 1
+  const mainQuestionIds = Object.keys(flow.questions).filter(
+    (id) => !flow.questions[id].branch
+  )
+  const totalQuestions = mainQuestionIds.length
+  const currentIndex = mainQuestionIds.indexOf(currentId) + 1 || mainQuestionIds.length
 
   const currentQuestion = flow.questions[currentId]
   const currentAnswer = answers[currentId] ?? ''
@@ -64,8 +107,18 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return typeof currentAnswer === 'string' && currentAnswer.trim() !== ''
   }, [currentQuestion, currentAnswer])
 
+  const getNextId = useCallback((): string | null => {
+    if (currentId === 'q2') {
+      return precisaDUM(answers) ? 'q2b' : 'q3'
+    }
+    if (currentId === 'q2b') {
+      return (currentAnswer as string) === 'sim' ? 'q2c' : 'q2d'
+    }
+    return currentQuestion?.next ?? null
+  }, [currentId, currentAnswer, currentQuestion, answers])
+
   const advance = useCallback(async () => {
-    const next = currentQuestion?.next
+    const next = getNextId()
     if (next === null) {
       setStep('saving')
       try {
@@ -74,11 +127,11 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       } catch {
         setStep('error')
       }
-    } else if (next) {
+    } else {
       setHistory((h) => [...h, currentId])
       setCurrentId(next)
     }
-  }, [currentQuestion, currentId, answers])
+  }, [getNextId, currentId, answers])
 
   const goBack = useCallback(() => {
     if (history.length === 0) {
