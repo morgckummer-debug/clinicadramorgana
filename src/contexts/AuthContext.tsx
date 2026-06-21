@@ -5,7 +5,8 @@ import { supabase } from '@/lib/supabase'
 interface AuthContextValue {
   session: Session | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<string | null>
+  userName: string | null
+  signIn: (email: string, password: string, nome: string) => Promise<string | null>
   signOut: () => Promise<void>
 }
 
@@ -14,6 +15,9 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+  const [userName, setUserName] = useState<string | null>(
+    () => localStorage.getItem('secretaria_nome')
+  )
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -23,14 +27,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
+      if (!session) {
+        setUserName(null)
+        localStorage.removeItem('secretaria_nome')
+      }
     })
 
     return () => listener.subscription.unsubscribe()
   }, [])
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string, nome: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    return error ? error.message : null
+    if (error) return error.message
+    setUserName(nome)
+    localStorage.setItem('secretaria_nome', nome)
+    return null
   }
 
   const signOut = async () => {
@@ -38,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ session, loading, signIn, signOut }}>
+    <AuthContext.Provider value={{ session, loading, userName, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   )
