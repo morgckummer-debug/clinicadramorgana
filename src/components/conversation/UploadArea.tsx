@@ -34,7 +34,7 @@ export function UploadArea({ value, onChange }: UploadAreaProps) {
     setUploading(false)
 
     if (uploadError) {
-      setError('Erro ao enviar. Tente novamente.')
+      setError(`Erro: ${uploadError.message}`)
       setFileName(null)
       return
     }
