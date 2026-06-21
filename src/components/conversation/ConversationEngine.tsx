@@ -85,7 +85,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_canal: 'site',
     p_categoria: answers['q1'] as string,
     p_exame: answers['q2'] as string,
-    p_convenio: Array.isArray(convenio) ? convenio : [convenio],
+    p_convenio: convenio ? (Array.isArray(convenio) ? convenio : [convenio]) : ['particular'],
     p_preferencia_turno: answers['q8'] as string,
     p_medico_preferido: (answers['q9'] as string) || 'dra-morgana',
     p_pedido_url: pedidoUrl,
@@ -126,6 +126,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (currentId === 'q2b') {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2c' : 'q2d'
+    }
+    if (currentId === 'q6') {
+      // Rastreamento de Ovulação não tem convenio associado — pula q7
+      return (answers['q2'] as string) === 'Rastreamento de Ovulação' ? 'q8' : 'q7'
     }
     if (currentId === 'q8') {
       // Pula seleção de médico para exames exclusivos da Dra. Morgana

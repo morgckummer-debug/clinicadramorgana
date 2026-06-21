@@ -90,7 +90,8 @@ export function QuestionRenderer({
 
   if (type === 'input' || type === 'textarea') {
     const strValue = typeof value === 'string' ? value : ''
-    const ig = question.id === 'q2c' ? calcIG(strValue) : null
+    const isOvulacao = answers['q2'] === 'Rastreamento de Ovulação'
+    const ig = question.id === 'q2c' && !isOvulacao ? calcIG(strValue) : null
     return (
       <div className="space-y-2">
         <TextAnswer
