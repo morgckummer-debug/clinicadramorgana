@@ -65,6 +65,17 @@ export const preAgendamentoFlow: ConversationFlow = {
       next: 'q3',
     },
 
+    // ── Fluxo exclusivo: Obstétrico do 1º Trimestre ──
+    ob1_a: { id: 'ob1_a', type: 'buttons', ...PERGUNTAS.ob1_a, next: 'ob1_c', branch: true },
+    ob1_b: { id: 'ob1_b', type: 'input', mask: 'date', ...PERGUNTAS.ob1_b, next: 'ob1_c', branch: true },
+    ob1_c: { id: 'ob1_c', type: 'buttons', ...PERGUNTAS.ob1_c, next: 'ob1_d', branch: true },
+    ob1_d: { id: 'ob1_d', type: 'upload', ...PERGUNTAS.ob1_d, next: 'ob1_f', branch: true },
+    ob1_e: { id: 'ob1_e', type: 'buttons', ...PERGUNTAS.ob1_e, next: 'ob1_g', branch: true },
+    ob1_g: { id: 'ob1_g', type: 'upload', ...PERGUNTAS.ob1_g, next: 'ob1_f', branch: true },
+    ob1_f: { id: 'ob1_f', type: 'buttons', ...PERGUNTAS.ob1_f, next: 'q3', branch: true },
+    ob1_h: { id: 'ob1_h', type: 'upload', ...PERGUNTAS.ob1_h, next: 'q3', branch: true },
+    // ── Fim do fluxo exclusivo ────────────────────────
+
     q2b: {
       id: 'q2b',
       type: 'buttons',

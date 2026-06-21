@@ -134,6 +134,74 @@ export const PERGUNTAS = {
     subtitle: 'Se tiver pedido médico, pode conferir o nome lá.',
   },
 
+  // ── FLUXO EXCLUSIVO: Obstétrico do 1º Trimestre ────────────────────────────
+
+  // OB1 – Sabe a DUM?
+  ob1_a: {
+    title: 'Você sabe a data do primeiro dia da sua última menstruação (DUM)?',
+    subtitle: '',
+    options: [
+      { label: 'Sim', value: 'sim' },
+      { label: 'Não', value: 'nao' },
+    ],
+  },
+
+  // OB1 – Informe a DUM
+  ob1_b: {
+    title: 'Informe a data da sua última menstruação (DUM).',
+    placeholder: 'DD/MM/AAAA',
+  },
+
+  // OB1 – Tem pedido médico?
+  ob1_c: {
+    title: 'Você possui pedido médico para este exame?',
+    subtitle: '',
+    options: [
+      { label: 'Sim', value: 'sim' },
+      { label: 'Não', value: 'nao' },
+    ],
+  },
+
+  // OB1 – Upload do pedido médico (opcional)
+  ob1_d: {
+    title: 'Anexe uma foto do pedido médico.',
+    subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
+  },
+
+  // OB1 – Tem resultado de beta-hCG positivo?
+  ob1_e: {
+    title: 'Você possui um exame de beta-hCG positivo?',
+    subtitle: '',
+    options: [
+      { label: 'Sim', value: 'sim' },
+      { label: 'Não', value: 'nao' },
+    ],
+  },
+
+  // OB1 – Upload do beta-hCG (opcional)
+  ob1_g: {
+    title: 'Anexe uma foto do resultado do beta-hCG.',
+    subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
+  },
+
+  // OB1 – Tem ultrassom anterior desta gestação?
+  ob1_f: {
+    title: 'Você possui algum ultrassom desta gestação?',
+    subtitle: '',
+    options: [
+      { label: 'Sim', value: 'sim' },
+      { label: 'Não', value: 'nao' },
+    ],
+  },
+
+  // OB1 – Upload do ultrassom anterior (opcional)
+  ob1_h: {
+    title: 'Anexe o ultrassom anterior.',
+    subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
+  },
+
+  // ── FIM DO FLUXO EXCLUSIVO ──────────────────────────────────────────────────
+
   // ETAPA 2b — Sabe a DUM? (só aparece para gestação e rastreamento de ovulação)
   q2b: {
     title: 'Você sabe a data da sua última menstruação (DUM)?',
