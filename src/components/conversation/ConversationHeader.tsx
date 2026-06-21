@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom'
+import logoClinica from '@/assets/logo-clinica.png'
 
 export function ConversationHeader() {
   return (
     <div className="flex items-center justify-between mb-10">
-      <Link to="/" className="flex flex-col gap-0.5 group">
-        <span className="text-[10px] tracking-[0.35em] uppercase text-muted-foreground font-medium transition-colors duration-300 group-hover:text-wine-deep">
-          Clínica
-        </span>
-        <span className="font-comfortaa text-wine-deep text-sm font-semibold leading-none tracking-wide transition-colors duration-300 group-hover:text-wine">
-          Dra. Morgana Kummer
-        </span>
+      <Link to="/">
+        <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-10 w-auto" />
       </Link>
 
       <div className="flex items-center gap-2">
