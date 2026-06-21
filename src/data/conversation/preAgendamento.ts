@@ -177,9 +177,9 @@ export const preAgendamentoFlow: ConversationFlow = {
     // ── Etapa 7: convênio ──────────────────────────────────────────
     q7: {
       id: 'q7',
-      type: 'multi',
+      type: 'buttons',
       title: 'Você possui convênio ou parceria conosco?',
-      subtitle: 'Pode selecionar mais de um se precisar.',
+      subtitle: 'Selecione seu convênio.',
       options: [
         { label: 'PARTICULAR', value: 'particular' },
         { label: 'AGEBRAS', value: 'agebras' },

@@ -115,14 +115,8 @@ export function UploadArea({ value = [], onChange }: UploadAreaProps) {
         />
       ))}
 
-      {/* Slot 1 — quando não há arquivo ainda */}
       {value.length === 0 && (
         <UploadSlot id="upload-1" loading={loading[0]} onFile={(f) => handleFile(0, f)} />
-      )}
-
-      {/* Slot 2 — aparece após o primeiro arquivo ser anexado */}
-      {value.length === 1 && (
-        <UploadSlot id="upload-2" loading={loading[1]} onFile={(f) => handleFile(1, f)} />
       )}
 
       {error && (
@@ -130,7 +124,7 @@ export function UploadArea({ value = [], onChange }: UploadAreaProps) {
       )}
 
       <p className="text-xs text-muted-foreground font-light text-center">
-        Opcional. Até 2 arquivos — PDF, JPG ou PNG, máx. 10 MB cada.
+        Opcional. PDF, JPG ou PNG, máx. 10 MB.
       </p>
     </div>
   )
