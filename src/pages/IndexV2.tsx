@@ -19,21 +19,21 @@ import teamMariaAmelia from "@/assets/team/maria-amelia.webp";
 import teamAndre from "@/assets/team/andre.webp";
 
 /* Convênios — logos */
-import convHapvida from "@/assets/convenios/hapvida.png";
-import convAurora from "@/assets/convenios/aurora-2.png";
-import convGrupoZelo from "@/assets/convenios/grupo-zelo.png";
+import convHapvida from "@/assets/convenios/hapvida.webp";
+import convAurora from "@/assets/convenios/aurora-2.webp";
+import convGrupoZelo from "@/assets/convenios/grupo-zelo.webp";
 import convFusex from "@/assets/convenios/fusex-1.webp";
 import convStellantis from "@/assets/convenios/stellantis.webp";
-import convCemig from "@/assets/convenios/cemig.png";
+import convCemig from "@/assets/convenios/cemig.webp";
 import convBomPastor from "@/assets/convenios/bom-pastor.webp";
 import convSantaClara from "@/assets/convenios/santa-clara.webp";
 import convFundafem from "@/assets/convenios/fundafem.webp";
-import convNotreDame from "@/assets/convenios/notredame.png";
-import convCasembrapa from "@/assets/convenios/casembrapa.png";
-import convCopass from "@/assets/convenios/copass.png";
+import convNotreDame from "@/assets/convenios/notredame.webp";
+import convCasembrapa from "@/assets/convenios/casembrapa.webp";
+import convCopass from "@/assets/convenios/copass.webp";
 import convPax from "@/assets/convenios/pax.webp";
-import convAgebras from "@/assets/convenios/agebras.png";
-import convMedGold from "@/assets/convenios/medgold.png";
+import convAgebras from "@/assets/convenios/agebras.webp";
+import convMedGold from "@/assets/convenios/medgold.webp";
 import convEvangelize from "@/assets/convenios/evangelize.webp";
 
 /* ---------------- Constantes globais ---------------- */
@@ -148,6 +148,8 @@ export const Navbar = () => {
           <img
             src={logoClinica}
             alt="Clínica de Ultrassom Dra. Morgana Kummer"
+            width={200}
+            height={48}
             className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12"}`}
           />
         </Link>
@@ -217,9 +219,9 @@ const Hero = () => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
+          poster="/videos/hero-clinic-poster.jpg"
           aria-label={t.hero.videoAriaLabel}
-          onError={(e) => console.error("hero video error", e)}
         >
           <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
         </video>
@@ -290,6 +292,8 @@ const Quote = () => {
             <img
               src={draHeroV2}
               alt="Dra. Morgana Kummer"
+              width={400}
+              height={500}
               loading="lazy"
               className="relative rounded-sm shadow-elegant w-full object-cover aspect-[4/5]"
             />
@@ -488,6 +492,8 @@ const Team = () => {
                   <img
                     src={member.photo}
                     alt={member.name}
+                    width={135}
+                    height={178}
                     loading="lazy"
                     className="w-full h-full object-cover object-top block"
                   />
@@ -535,6 +541,8 @@ const Convenios = () => {
               <img
                 src={c.logo}
                 alt={c.name}
+                width={120}
+                height={80}
                 loading="lazy"
                 className="max-h-full max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
               />
