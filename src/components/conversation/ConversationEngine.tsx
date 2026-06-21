@@ -250,6 +250,16 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         return
       }
     }
+    if (currentId === 'q10') {
+      const q10 = nextAnswers['q10']
+      const isEmpty = !q10 || (Array.isArray(q10) && q10.length === 0)
+      if (isEmpty) {
+        setBlockedReturnId('q10')
+        setBlockedMessage('Para realizar o pré-agendamento é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
+        setStep('blocked')
+        return
+      }
+    }
     if (currentId === 'q2f') {
       const q2f = nextAnswers['q2f']
       const isEmpty = !q2f || (Array.isArray(q2f) && q2f.length === 0)
@@ -380,7 +390,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
               onClick={() => { setStep('question'); setCurrentId(blockedReturnId) }}
               className="text-[10px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide underline underline-offset-4"
             >
-              {blockedReturnId === 'q2f' || blockedReturnId === 'q2g' ? 'Voltar e anexar documento' : 'Tentar novamente'}
+              {['q2f', 'q2g', 'q10'].includes(blockedReturnId) ? 'Voltar e anexar documento' : 'Tentar novamente'}
             </button>
           </div>
         </div>
