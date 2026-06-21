@@ -174,6 +174,11 @@ export default function Dashboard() {
 
   useEffect(() => { fetchData() }, [filter])
 
+  useEffect(() => {
+    const interval = setInterval(() => fetchData(), 20_000)
+    return () => clearInterval(interval)
+  }, [filter])
+
   const handleSelectPaciente = async (item: PreAgendamento) => {
     if (item.status === 'pendente') {
       await supabase
