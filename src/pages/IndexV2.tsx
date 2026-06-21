@@ -169,12 +169,6 @@ export const Navbar = () => {
           })}
         </nav>
         <div className="flex items-center gap-3">
-          <Link
-            to="/pre-agendamento"
-            className="hidden md:inline-flex items-center px-4 py-2 rounded-full bg-champagne text-wine-deep text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-300 shadow-soft hover:shadow-elegant"
-          >
-            {preAgendamentoLabel}
-          </Link>
           <LangToggle />
           <button className="md:hidden text-wine-deep" onClick={() => setOpen(!open)} aria-label={t.nav.menuAriaLabel}>
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -193,13 +187,6 @@ export const Navbar = () => {
                 <a key={l.href} href={l.href} onClick={() => setOpen(false)} className={className}>{l.label}</a>
               );
             })}
-            <Link
-              to="/pre-agendamento"
-              onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center mt-2 px-5 py-3 rounded-full bg-champagne text-wine-deep text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300"
-            >
-              {preAgendamentoLabel}
-            </Link>
           </nav>
         </div>
       )}
@@ -267,16 +254,16 @@ const Hero = () => {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
+              className="inline-flex items-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-[#1ebe5d] transition-all duration-500 shadow-soft"
             >
               <MessageCircle className="w-4 h-4" /> {t.hero.ctaWhatsApp}
             </a>
-            <a
-              href="#exames"
-              className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
+            <Link
+              to="/pre-agendamento"
+              className="inline-flex items-center gap-2 border border-wine-foreground/40 text-wine-foreground px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:border-champagne hover:text-champagne transition-all duration-500"
             >
-              {t.hero.ctaExames} <ArrowRight className="w-4 h-4" />
-            </a>
+              Pré-agendamento
+            </Link>
           </div>
 
           <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
