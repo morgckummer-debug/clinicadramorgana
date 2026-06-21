@@ -1,13 +1,21 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText, User } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
 import { useAuth } from '@/contexts/AuthContext'
 
+interface OtherRecord {
+  id: string
+  exame: string | null
+  status: string
+  criado_em: string
+}
+
 interface Detalhe {
   id: string
+  paciente_id: string
   canal: string
   categoria: string | null
   exame: string | null
@@ -74,6 +82,10 @@ function fmtDate(date: Date): string {
   return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
 }
 
+function fmtISO(iso: string) {
+  return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
+}
+
 function userObs(obs: string | null): string | null {
   if (!obs) return null
   // Remove a linha de DUM/IG gerada automaticamente
@@ -124,6 +136,7 @@ export default function Detalhe() {
   const [item, setItem] = useState<Detalhe | null>(null)
   const [loading, setLoading] = useState(true)
   const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [otherRecords, setOtherRecords] = useState<OtherRecord[]>([])
 
   useEffect(() => {
     if (!id) return
@@ -137,6 +150,26 @@ export default function Detalhe() {
         setLoading(false)
       })
   }, [id])
+
+  // Busca outros registros da mesma paciente (todos os status)
+  useEffect(() => {
+    if (!item?.paciente_id) return
+    supabase
+      .from('pre_agendamentos')
+      .select('id, exame, status, criado_em')
+      .eq('paciente_id', item.paciente_id)
+      .neq('id', item.id)
+      .order('criado_em', { ascending: false })
+      .then(({ data }) => setOtherRecords((data as OtherRecord[]) ?? []))
+  }, [item?.paciente_id, item?.id])
+
+  // Título da aba com nome da paciente
+  useEffect(() => {
+    const nome = item?.pacientes?.nome?.trim().split(' ')[0]
+    if (!nome) return
+    document.title = `${nome} · Painel · MK`
+    return () => { document.title = 'Painel · MK' }
+  }, [item?.pacientes?.nome])
 
   const updateStatus = async (newStatus: string) => {
     if (!id) return
@@ -238,6 +271,36 @@ export default function Detalhe() {
         <ArrowLeft className="w-3.5 h-3.5" />
         Lista
       </button>
+
+      {/* Banner de duplicata */}
+      {otherRecords.length > 0 && (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-5">
+          <div className="flex items-center gap-2 mb-2.5">
+            <TriangleAlert className="w-4 h-4 text-amber-600 flex-shrink-0" />
+            <p className="text-sm font-medium text-amber-800">
+              Esta paciente já tem {otherRecords.length === 1 ? 'outro registro' : `mais ${otherRecords.length} registros`}
+            </p>
+          </div>
+          <div className="space-y-2">
+            {otherRecords.map((rec) => (
+              <div key={rec.id} className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <StatusBadge status={rec.status} />
+                  <span className="text-xs text-amber-700 font-light truncate">
+                    {rec.exame ?? 'Exame não informado'} · {fmtISO(rec.criado_em)}
+                  </span>
+                </div>
+                <Link
+                  to={`/painel/${rec.id}`}
+                  className="text-[11px] tracking-wide text-amber-600 underline underline-offset-2 flex-shrink-0 hover:text-amber-800 transition-colors"
+                >
+                  Ver
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Header compacto */}
       <div className="flex items-center justify-between mb-5">

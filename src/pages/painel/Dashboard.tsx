@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Clock, RefreshCw, User } from 'lucide-react'
+import { Clock, RefreshCw, TriangleAlert, User } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
@@ -11,6 +11,7 @@ type StatusFilter = 'pendente' | 'em_atendimento' | 'agendado' | 'todos'
 
 interface PreAgendamento {
   id: string
+  paciente_id: string
   exame: string | null
   preferencia_turno: string | null
   status: string
@@ -65,7 +66,16 @@ function playNotificationSound() {
   } catch (_) {}
 }
 
-const SELECT_FIELDS = 'id, exame, preferencia_turno, status, atendente_nome, criado_em, pacientes(nome, telefone)'
+const SELECT_FIELDS =
+  'id, paciente_id, exame, preferencia_turno, status, atendente_nome, criado_em, pacientes(nome, telefone)'
+
+async function fetchPendingCount() {
+  const { count } = await supabase
+    .from('pre_agendamentos')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'pendente')
+  return count ?? 0
+}
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -75,6 +85,24 @@ export default function Dashboard() {
   const [filter, setFilter] = useState<StatusFilter>('pendente')
   const [refreshing, setRefreshing] = useState(false)
   const [newPendingCount, setNewPendingCount] = useState(0)
+  const [pendingCount, setPendingCount] = useState(0)
+
+  // Título da aba reflete o número real de pendentes
+  useEffect(() => {
+    document.title = pendingCount > 0 ? `(${pendingCount}) Painel · MK` : 'Painel · MK'
+    return () => { document.title = 'Painel · MK' }
+  }, [pendingCount])
+
+  // paciente_ids que aparecem mais de uma vez na lista atual
+  const duplicatePacienteIds = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const item of items) counts[item.paciente_id] = (counts[item.paciente_id] ?? 0) + 1
+    return new Set(
+      Object.entries(counts)
+        .filter(([, c]) => c > 1)
+        .map(([id]) => id)
+    )
+  }, [items])
 
   const fetchData = async (showRefreshing = false) => {
     if (showRefreshing) setRefreshing(true)
@@ -87,8 +115,9 @@ export default function Dashboard() {
 
     if (filter !== 'todos') query = query.eq('status', filter)
 
-    const { data } = await query
+    const [{ data }, count] = await Promise.all([query, fetchPendingCount()])
     setItems((data as unknown as PreAgendamento[]) ?? [])
+    setPendingCount(count)
     setLoading(false)
     setRefreshing(false)
   }
@@ -109,6 +138,7 @@ export default function Dashboard() {
           }
           return atualizado
         })
+        fetchPendingCount().then(setPendingCount)
       })
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pre_agendamentos' }, async (payload) => {
         const { data } = await supabase
@@ -129,9 +159,8 @@ export default function Dashboard() {
           description: novo.exame ?? 'Exame não informado',
         })
 
-        if (filter !== 'pendente') {
-          setNewPendingCount((c) => c + 1)
-        }
+        if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
+        fetchPendingCount().then(setPendingCount)
       })
       .subscribe()
 
@@ -234,8 +263,14 @@ export default function Dashboard() {
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-medium text-wine-deep truncate">
+                  <p className="text-sm font-medium text-wine-deep truncate flex items-center gap-1.5">
                     {item.pacientes?.nome ?? '—'}
+                    {duplicatePacienteIds.has(item.paciente_id) && (
+                      <TriangleAlert
+                        className="w-3.5 h-3.5 text-amber-500 flex-shrink-0"
+                        title="Paciente com múltiplos registros nesta lista"
+                      />
+                    )}
                   </p>
                   <p className="text-xs text-muted-foreground font-light truncate">
                     {item.exame ?? 'Exame não informado'}
