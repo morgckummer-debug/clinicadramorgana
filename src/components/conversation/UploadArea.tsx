@@ -3,131 +3,134 @@ import { Upload, FileText, X, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 interface UploadAreaProps {
-  value?: string
-  onChange?: (url: string) => void
+  value?: string[]
+  onChange?: (urls: string[]) => void
 }
 
-export function UploadArea({ value, onChange }: UploadAreaProps) {
-  const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [fileName, setFileName] = useState<string | null>(null)
+async function uploadFile(file: File): Promise<string> {
+  const ext = file.name.split('.').pop()
+  const path = `${crypto.randomUUID()}.${ext}`
+  const { data, error } = await supabase.storage
+    .from('pedidos')
+    .upload(path, file, { upsert: false })
+  if (error) throw error
+  const { data: { publicUrl } } = supabase.storage.from('pedidos').getPublicUrl(data.path)
+  return publicUrl
+}
 
-  const inputId = 'upload-pedido'
-
-  const handleFile = async (file: File) => {
-    if (file.size > 10 * 1024 * 1024) {
-      setError('Arquivo muito grande. Máximo 10 MB.')
-      return
-    }
-
-    setError(null)
-    setUploading(true)
-    setFileName(file.name)
-
-    const ext = file.name.split('.').pop()
-    const path = `${crypto.randomUUID()}.${ext}`
-
-    const { data, error: uploadError } = await supabase.storage
-      .from('pedidos')
-      .upload(path, file, { upsert: false })
-
-    setUploading(false)
-
-    if (uploadError) {
-      setError('Erro ao enviar. Tente novamente.')
-      setFileName(null)
-      return
-    }
-
-    const { data: { publicUrl } } = supabase.storage
-      .from('pedidos')
-      .getPublicUrl(data.path)
-
-    onChange?.(publicUrl)
-  }
-
-  const handleRemove = (e: React.MouseEvent) => {
-    e.preventDefault()
-    onChange?.('')
-    setFileName(null)
-    setError(null)
-  }
-
-  const hasFile = !!value
-
+function FileSlot({ name, onRemove }: { name: string; onRemove: () => void }) {
   return (
-    <div className="space-y-3">
-      <label
-        htmlFor={hasFile || uploading ? undefined : inputId}
-        className={[
-          'w-full border-2 border-dashed rounded-2xl p-10',
-          'flex flex-col items-center justify-center gap-3 text-center',
-          'transition-all duration-300',
-          hasFile || uploading ? '' : 'cursor-pointer hover:border-champagne/60 hover:bg-muted/30',
-          hasFile ? 'border-wine/40 bg-wine/5' : 'border-border/60',
-        ].join(' ')}
+    <div className="flex items-center gap-3 bg-wine/5 border border-wine/30 rounded-xl px-4 py-3">
+      <div className="w-8 h-8 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
+        <FileText className="w-4 h-4 text-wine-deep" />
+      </div>
+      <p className="text-sm text-wine-deep font-light truncate flex-1">{name}</p>
+      <button
+        type="button"
+        onClick={onRemove}
+        className="flex-shrink-0 w-7 h-7 rounded-full bg-muted hover:bg-destructive/10 flex items-center justify-center transition-colors duration-200"
+        aria-label="Remover arquivo"
       >
-        {uploading ? (
-          <>
-            <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-              <Loader2 className="w-5 h-5 text-wine-deep animate-spin" />
-            </div>
-            <p className="text-sm text-muted-foreground font-light">Enviando…</p>
-          </>
-        ) : hasFile ? (
-          <>
-            <div className="w-10 h-10 rounded-full bg-champagne/20 flex items-center justify-center">
-              <FileText className="w-5 h-5 text-wine-deep" />
-            </div>
-            <p className="text-sm text-wine-deep font-light truncate max-w-xs">
-              {fileName ?? 'Arquivo enviado'}
-            </p>
-            <button
-              type="button"
-              onClick={handleRemove}
-              className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-wine-deep transition-colors tracking-wide uppercase"
-            >
-              <X className="w-3 h-3" />
-              Remover
-            </button>
-          </>
-        ) : (
-          <>
-            <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-              <Upload className="w-4 h-4 text-muted-foreground" />
-            </div>
-            <div>
-              <p className="text-sm text-foreground/70 font-light">
-                Toque para selecionar um arquivo
-              </p>
-              <p className="text-xs text-muted-foreground font-light mt-1">
-                PDF, JPG ou PNG — até 10 MB
-              </p>
-            </div>
-          </>
-        )}
-      </label>
+        <X className="w-3.5 h-3.5 text-muted-foreground" />
+      </button>
+    </div>
+  )
+}
 
+function UploadSlot({ id, loading, onFile }: { id: string; loading: boolean; onFile: (f: File) => void }) {
+  return (
+    <label
+      htmlFor={loading ? undefined : id}
+      className="w-full border-2 border-dashed border-border/60 rounded-xl p-6 flex items-center justify-center gap-3 cursor-pointer hover:border-champagne/60 hover:bg-muted/20 transition-all duration-300"
+    >
+      {loading ? (
+        <>
+          <Loader2 className="w-4 h-4 text-wine-deep animate-spin flex-shrink-0" />
+          <span className="text-sm text-muted-foreground font-light">Enviando…</span>
+        </>
+      ) : (
+        <>
+          <Upload className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+          <span className="text-sm text-foreground/70 font-light">Toque para selecionar</span>
+        </>
+      )}
       <input
-        id={inputId}
+        id={id}
         type="file"
         accept=".pdf,.jpg,.jpeg,.png"
         className="sr-only"
         onChange={(e) => {
           const file = e.target.files?.[0]
-          if (file) handleFile(file)
+          if (file) onFile(file)
           e.target.value = ''
         }}
       />
+    </label>
+  )
+}
+
+export function UploadArea({ value = [], onChange }: UploadAreaProps) {
+  const [names, setNames] = useState<string[]>([])
+  const [loading, setLoading] = useState<[boolean, boolean]>([false, false])
+  const [error, setError] = useState<string | null>(null)
+
+  const handleFile = async (index: number, file: File) => {
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Arquivo muito grande. Máximo 10 MB.')
+      return
+    }
+    setError(null)
+    setLoading((l) => { const n = [...l] as [boolean, boolean]; n[index] = true; return n })
+    setNames((n) => { const a = [...n]; a[index] = file.name; return a })
+
+    try {
+      const url = await uploadFile(file)
+      const next = [...value]
+      next[index] = url
+      onChange?.(next.filter(Boolean))
+    } catch {
+      setError('Erro ao enviar. Tente novamente.')
+      setNames((n) => { const a = [...n]; delete a[index]; return a })
+    } finally {
+      setLoading((l) => { const n = [...l] as [boolean, boolean]; n[index] = false; return n })
+    }
+  }
+
+  const handleRemove = (index: number) => {
+    const next = [...value]
+    next.splice(index, 1)
+    onChange?.(next)
+    setNames((n) => { const a = [...n]; a.splice(index, 1); return a })
+  }
+
+  return (
+    <div className="space-y-3">
+      {/* Arquivos já anexados */}
+      {value.map((url, i) => (
+        <FileSlot
+          key={url}
+          name={names[i] || `Arquivo ${i + 1}`}
+          onRemove={() => handleRemove(i)}
+        />
+      ))}
+
+      {/* Slot 1 — quando não há arquivo ainda */}
+      {value.length === 0 && (
+        <UploadSlot id="upload-1" loading={loading[0]} onFile={(f) => handleFile(0, f)} />
+      )}
+
+      {/* Slot 2 — aparece após o primeiro arquivo ser anexado */}
+      {value.length === 1 && (
+        <UploadSlot id="upload-2" loading={loading[1]} onFile={(f) => handleFile(1, f)} />
+      )}
 
       {error && (
         <p className="text-xs text-destructive text-center font-light">{error}</p>
       )}
 
       <p className="text-xs text-muted-foreground font-light text-center">
-        Este campo é opcional. Você pode continuar sem anexar nenhum documento.
+        Opcional. Até 2 arquivos — PDF, JPG ou PNG, máx. 10 MB cada.
       </p>
     </div>
   )
 }
-

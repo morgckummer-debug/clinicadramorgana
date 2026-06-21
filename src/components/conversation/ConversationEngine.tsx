@@ -37,7 +37,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_convenio: Array.isArray(convenio) ? convenio : [convenio],
     p_preferencia_turno: answers['q8'] as string,
     p_medico_preferido: answers['q9'] as string,
-    p_pedido_url: (answers['q10'] as string) || null,
+    p_pedido_url: Array.isArray(answers['q10']) ? (answers['q10'] as string[]).join(',') : (answers['q10'] as string) || null,
     p_observacoes: (answers['q11'] as string) || null,
   })
 

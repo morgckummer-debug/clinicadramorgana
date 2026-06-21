@@ -88,8 +88,8 @@ export function QuestionRenderer({
   if (type === 'upload') {
     return (
       <UploadArea
-        value={typeof value === 'string' ? value : ''}
-        onChange={onChange}
+        value={Array.isArray(value) ? value : value ? [value as string] : []}
+        onChange={(urls) => onChange(urls)}
       />
     )
   }
