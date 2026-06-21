@@ -40,7 +40,7 @@ export function WelcomeScreen({ flow, onStart }: WelcomeScreenProps) {
       <button
         type="button"
         onClick={onStart}
-        className="w-full inline-flex items-center justify-center gap-3 bg-wine-deep text-wine-foreground px-8 py-5 rounded-2xl text-sm tracking-[0.2em] uppercase font-semibold hover:bg-wine transition-all duration-500 shadow-soft hover:shadow-elegant group"
+        className="w-full inline-flex items-center justify-center gap-3 bg-wine-deep text-wine-foreground px-8 py-6 rounded-2xl text-base tracking-[0.2em] uppercase font-bold hover:bg-wine transition-all duration-500 shadow-lg hover:shadow-elegant group"
       >
         Começar
         <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
