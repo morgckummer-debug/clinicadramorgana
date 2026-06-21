@@ -22,7 +22,7 @@ interface QuestionRendererProps {
   question: Question
   value: string | string[]
   onChange: (value: string | string[]) => void
-  onAutoAdvance?: () => void
+  onAutoAdvance?: (selectedValue: string) => void
   answers?: Record<string, string | string[]>
 }
 
@@ -56,7 +56,7 @@ export function QuestionRenderer({
             mode="single"
             onClick={(v) => {
               onChange(v)
-              setTimeout(() => onAutoAdvance?.(), 300)
+              setTimeout(() => onAutoAdvance?.(v), 300)
             }}
           />
         ))}

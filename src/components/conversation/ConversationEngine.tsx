@@ -107,18 +107,19 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return typeof currentAnswer === 'string' && currentAnswer.trim() !== ''
   }, [currentQuestion, currentAnswer])
 
-  const getNextId = useCallback((): string | null => {
+  const getNextId = useCallback((selectedValue?: string): string | null => {
     if (currentId === 'q2') {
       return precisaDUM(answers) ? 'q2b' : 'q3'
     }
     if (currentId === 'q2b') {
-      return (currentAnswer as string) === 'sim' ? 'q2c' : 'q2d'
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'q2c' : 'q2d'
     }
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])
 
-  const advance = useCallback(async () => {
-    const next = getNextId()
+  const advance = useCallback(async (selectedValue?: string) => {
+    const next = getNextId(selectedValue)
     if (next === null) {
       setStep('saving')
       try {

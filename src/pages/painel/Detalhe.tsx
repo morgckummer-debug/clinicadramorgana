@@ -49,6 +49,36 @@ const statusOptions = [
   { value: 'cancelado', label: 'Cancelado' },
 ]
 
+function parseDUM(obs: string | null): Date | null {
+  if (!obs) return null
+  const m = obs.match(/DUM:\s*(\d{2})\/(\d{2})\/(\d{4})/)
+  if (!m) return null
+  return new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1]))
+}
+
+function parseIG(obs: string | null): string | null {
+  if (!obs) return null
+  const m = obs.match(/Idade gestacional estimada:\s*([^\n\r]+)/)
+  return m ? m[1].trim() : null
+}
+
+function addDays(date: Date, days: number): Date {
+  const d = new Date(date)
+  d.setDate(d.getDate() + days)
+  return d
+}
+
+function fmtDate(date: Date): string {
+  return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+}
+
+function userObs(obs: string | null): string | null {
+  if (!obs) return null
+  // Remove a linha de DUM/IG gerada automaticamente
+  const cleaned = obs.replace(/^DUM:.*(\n|$)/m, '').trim()
+  return cleaned || null
+}
+
 function calcIdade(dataNasc: string | null) {
   if (!dataNasc) return null
   const [d, m, a] = dataNasc.split('/').map(Number)
@@ -150,6 +180,16 @@ export default function Detalhe() {
   const exameFormatado = formatExame(item.exame)
   const medicoFormatado = medicoLabel[item.medico_preferido ?? ''] ?? item.medico_preferido ?? '—'
 
+  const dum = parseDUM(item.observacoes)
+  const ig = parseIG(item.observacoes)
+  const obsUsuario = userObs(item.observacoes)
+
+  const janelas = dum ? [
+    { label: 'Morfológico 1º Trimestre', de: addDays(dum, 84), ate: addDays(dum, 97) },
+    { label: 'Translucência Nucal (TN)',  de: addDays(dum, 84), ate: addDays(dum, 97) },
+    { label: 'Morfológico 2º Trimestre', de: addDays(dum, 147), ate: addDays(dum, 182) },
+  ] : []
+
   return (
     <PainelLayout>
       {/* Voltar */}
@@ -203,11 +243,37 @@ export default function Detalhe() {
         </div>
       </div>
 
-      {/* Observações (se houver) */}
-      {item.observacoes && (
+      {/* Informações obstétricas (DUM + IG + janelas) */}
+      {ig && (
+        <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3 space-y-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Informações Obstétricas</p>
+          {dum && (
+            <p className="text-sm text-foreground/70 font-light">
+              DUM: {fmtDate(dum)}
+            </p>
+          )}
+          <p className="text-sm text-wine-deep font-semibold">IG: {ig}</p>
+          {janelas.length > 0 && (
+            <div className="space-y-2 pt-1 border-t border-border/40">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Janelas ideais para agendamento</p>
+              {janelas.map((j) => (
+                <div key={j.label} className="flex items-start justify-between gap-2">
+                  <p className="text-xs text-foreground/70 font-light">{j.label}</p>
+                  <p className="text-xs text-wine-deep font-medium whitespace-nowrap">
+                    {fmtDate(j.de)} – {fmtDate(j.ate)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Observações da paciente (se houver) */}
+      {obsUsuario && (
         <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Observações</p>
-          <p className="text-sm text-foreground/80 font-light leading-relaxed">{item.observacoes}</p>
+          <p className="text-sm text-foreground/80 font-light leading-relaxed">{obsUsuario}</p>
         </div>
       )}
 
