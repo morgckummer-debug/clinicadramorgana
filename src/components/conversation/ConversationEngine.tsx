@@ -9,7 +9,7 @@ import { QuestionRenderer } from './QuestionRenderer'
 import { NavigationButtons } from './NavigationButtons'
 import { SuccessScreen } from './SuccessScreen'
 
-type Step = 'welcome' | 'question' | 'saving' | 'success' | 'error'
+type Step = 'welcome' | 'question' | 'saving' | 'success' | 'error' | 'blocked'
 
 interface ConversationEngineProps {
   flow: ConversationFlow
@@ -139,7 +139,21 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])
 
+  const isObstetricaBlocked = useCallback((nextAnswers: Record<string, string | string[]>) => {
+    if (currentId !== 'q2d') return false
+    const categoria = nextAnswers['q1'] as string
+    const q2b = nextAnswers['q2b'] as string
+    const q2d = nextAnswers['q2d']
+    const isEmpty = !q2d || (Array.isArray(q2d) && q2d.length === 0)
+    return categoria === 'gestacao' && q2b === 'nao' && isEmpty
+  }, [currentId])
+
   const advance = useCallback(async (selectedValue?: string) => {
+    const nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
+    if (isObstetricaBlocked(nextAnswers)) {
+      setStep('blocked')
+      return
+    }
     const next = getNextId(selectedValue)
     if (next === null) {
       setStep('saving')
@@ -219,6 +233,44 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
           >
             Tentar novamente
           </button>
+        </div>
+      </>
+    )
+  }
+
+  if (step === 'blocked') {
+    return (
+      <>
+        <ConversationHeader />
+        <div className="animate-fade-up text-center py-12 px-4">
+          <div className="mb-6 text-4xl">⚠️</div>
+          <p className="text-wine-deep font-comfortaa text-xl mb-3 font-light">
+            Não conseguimos finalizar o pré-agendamento
+          </p>
+          <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
+            Para ultrassons obstétricos iniciais, precisamos da data da última menstruação (DUM) ou de um exame de ultrassom ou beta-HCG anterior para calcular a idade gestacional corretamente.
+          </p>
+          <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
+            Por favor, entre em contato diretamente com nossa equipe pelo WhatsApp para que possamos te ajudar da melhor forma:
+          </p>
+          <a
+            href="https://wa.me/5531993910212"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 shadow-soft"
+            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
+          >
+            Falar pelo WhatsApp
+          </a>
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={() => { setStep('question'); setCurrentId('q2d') }}
+              className="text-[10px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide underline underline-offset-4"
+            >
+              Voltar e anexar documento
+            </button>
+          </div>
         </div>
       </>
     )

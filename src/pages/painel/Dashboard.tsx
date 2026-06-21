@@ -111,7 +111,8 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order('criado_em', { ascending: true })
+      .order('criado_em', { ascending: false })
+      .limit(5)
 
     if (filter !== 'todos') query = query.eq('status', filter)
 
