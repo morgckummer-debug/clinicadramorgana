@@ -192,7 +192,7 @@ export default function Detalhe() {
     const exame = item.exame ?? 'seu exame'
     const secretaria = userName ?? 'a secretária'
     const msg = encodeURIComponent(
-      `Oi, ${nomePaciente}! Aqui é a ${secretaria} e serei responsável pelo seu agendamento, ok? Vi que você gostaria de marcar um ${exame}. Vou ver a disponibilidade pra você 🥰`
+      `Oi, ${nomePaciente}! Aqui é a ${secretaria} e serei responsável pelo seu agendamento, ok? Vi que você gostaria de marcar um ${exame}. Vou ver a disponibilidade pra você \u{1F970}`
     )
     const tel = item.pacientes.telefone.replace(/\D/g, '')
     window.open(`https://wa.me/55${tel}?text=${msg}`, '_blank')
