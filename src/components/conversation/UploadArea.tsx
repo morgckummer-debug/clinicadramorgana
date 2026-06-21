@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase'
 interface UploadAreaProps {
   value?: string[]
   onChange?: (urls: string[]) => void
+  optional?: boolean
 }
 
 async function uploadFile(file: File): Promise<string> {
@@ -72,7 +73,7 @@ function UploadSlot({ id, loading, onFile }: { id: string; loading: boolean; onF
   )
 }
 
-export function UploadArea({ value = [], onChange }: UploadAreaProps) {
+export function UploadArea({ value = [], onChange, optional = false }: UploadAreaProps) {
   const [names, setNames] = useState<string[]>([])
   const [loading, setLoading] = useState<[boolean, boolean]>([false, false])
   const [error, setError] = useState<string | null>(null)
@@ -127,7 +128,7 @@ export function UploadArea({ value = [], onChange }: UploadAreaProps) {
       )}
 
       <p className="text-xs text-muted-foreground font-light text-center">
-        Opcional. PDF, JPG ou PNG, máx. 10 MB.
+        {optional ? 'Opcional. ' : ''}PDF, JPG ou PNG, máx. 10 MB.
       </p>
     </div>
   )
