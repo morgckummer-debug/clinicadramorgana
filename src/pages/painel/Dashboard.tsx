@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Clock, RefreshCw, TriangleAlert, User } from 'lucide-react'
+import { Clock, TriangleAlert, User } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
@@ -223,19 +223,9 @@ export default function Dashboard() {
             Pacientes que solicitaram atendimento pelo site
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex flex-col items-end gap-1 rounded-2xl px-4 py-2.5" style={{ backgroundColor: '#FDDCB5' }}>
-            <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
-            <span className="text-2xl font-bold leading-none" style={{ color: '#5B2D8E' }}>{pendingCount}</span>
-          </div>
-          <button
-            onClick={() => fetchData('manual')}
-            disabled={refreshing}
-            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
-            Atualizar
-          </button>
+        <div className="flex flex-col items-end gap-1 rounded-2xl border px-4 py-3 shadow-soft" style={{ backgroundColor: '#FDDCB5', borderColor: '#e8c99a' }}>
+          <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
+          <span className="text-2xl font-bold leading-none" style={{ color: '#5B2D8E' }}>{pendingCount}</span>
         </div>
       </div>
 
