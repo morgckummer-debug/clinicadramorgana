@@ -3,6 +3,21 @@ import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
 
+function calcIG(ddmmaaaa: string): string | null {
+  const digits = ddmmaaaa.replace(/\D/g, '')
+  if (digits.length !== 8) return null
+  const dum = new Date(
+    parseInt(digits.slice(4, 8)),
+    parseInt(digits.slice(2, 4)) - 1,
+    parseInt(digits.slice(0, 2))
+  )
+  const diffDays = Math.floor((Date.now() - dum.getTime()) / 86400000)
+  if (diffDays < 0 || diffDays > 300) return null
+  const weeks = Math.floor(diffDays / 7)
+  const days = diffDays % 7
+  return `${weeks} semanas e ${days} dia${days !== 1 ? 's' : ''}`
+}
+
 interface QuestionRendererProps {
   question: Question
   value: string | string[]
@@ -74,14 +89,23 @@ export function QuestionRenderer({
   }
 
   if (type === 'input' || type === 'textarea') {
+    const strValue = typeof value === 'string' ? value : ''
+    const ig = question.id === 'q2c' ? calcIG(strValue) : null
     return (
-      <TextAnswer
-        type={type}
-        value={typeof value === 'string' ? value : ''}
-        placeholder={placeholder}
-        mask={question.mask}
-        onChange={onChange}
-      />
+      <div className="space-y-2">
+        <TextAnswer
+          type={type}
+          value={strValue}
+          placeholder={placeholder}
+          mask={question.mask}
+          onChange={onChange}
+        />
+        {ig && (
+          <p className="text-sm text-center text-wine-deep font-light animate-fade-in">
+            Idade gestacional estimada: <span className="font-medium">{ig}</span>
+          </p>
+        )}
+      </div>
     )
   }
 
