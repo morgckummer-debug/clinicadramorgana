@@ -323,8 +323,13 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     [currentId]
   )
 
-  const isOptional =
-    currentQuestion?.type === 'upload' || currentQuestion?.type === 'textarea'
+  const isOptional = (() => {
+    if (currentQuestion?.type === 'textarea') return true
+    if (currentQuestion?.type !== 'upload') return false
+    if (currentId === 'q10') return false
+    if (currentId === 'q2f') return !GESTACAO_PEDIDO_UPLOAD_OBRIGATORIO.has(answers['q2'] as string)
+    return true // ob1_d, ob1_g, ob1_h são opcionais
+  })()
 
   const showNext =
     currentQuestion?.type === 'input' ||
