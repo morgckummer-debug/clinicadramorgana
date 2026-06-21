@@ -59,13 +59,8 @@ export default function Login() {
       </div>
 
       <div className="relative w-full max-w-sm animate-fade-up">
-        <div className="flex justify-center mb-6">
-          <div
-            className="w-20 h-20 rounded-full flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #5B2D8E, #7C3FB5, #5B2D8E)', boxShadow: '0 0 40px rgba(91,45,142,0.25), 0 0 0 6px rgba(201,168,76,0.15)' }}
-          >
-            <span className="font-serif text-3xl font-light" style={{ color: '#E2C97E', letterSpacing: '0.05em' }}>MK</span>
-          </div>
+        <div className="flex justify-center mb-5">
+          <img src="/Logo horiz.png" alt="Clínica Dra. Morgana Kummer" className="h-14 w-auto object-contain" />
         </div>
 
         <div className="text-center mb-10">
@@ -77,9 +72,6 @@ export default function Login() {
             <span className="font-serif text-2xl font-light" style={{ color: '#C9A84C', letterSpacing: '0.3em' }}>MK</span>
             <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
           </div>
-          <p className="text-xs font-light mt-3 tracking-widest uppercase" style={{ color: 'rgba(91,45,142,0.4)' }}>
-            Clínica Dra. Morgana Kummer
-          </p>
         </div>
 
         <div className="rounded-2xl p-6 space-y-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 40px rgba(91,45,142,0.08)' }}>
@@ -91,7 +83,7 @@ export default function Login() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               required
-              className="w-full h-10 px-3 rounded-lg text-sm font-light focus:outline-none"
+              className="w-full h-12 px-3 rounded-lg text-base font-light focus:outline-none"
               style={{ background: 'rgba(91,45,142,0.04)', border: '1px solid rgba(201,168,76,0.35)', color: '#3B1A5C' }}
             >
               <option value="">Selecione seu nome</option>
@@ -113,7 +105,7 @@ export default function Login() {
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
-                className="pr-10 font-light border-0 focus-visible:ring-0"
+                className="pr-10 font-light border-0 focus-visible:ring-0 text-base h-12"
                 style={{ background: 'rgba(91,45,142,0.04)', border: '1px solid rgba(201,168,76,0.35)', color: '#3B1A5C' }}
               />
               <button
