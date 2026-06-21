@@ -15,11 +15,12 @@ export function WelcomeScreen({ flow, onStart }: WelcomeScreenProps) {
         </span>
 
         <h1 className="font-comfortaa text-wine-deep text-[clamp(1.9rem,6vw,2.8rem)] font-light leading-[1.15] text-balance mb-5">
-          {flow.title}
+          Olá!<br />Sou a Assistente Virtual MK.
         </h1>
 
         <p className="text-foreground/70 font-light text-base leading-relaxed text-balance">
-          {flow.subtitle}
+          Vou coletar algumas informações para facilitar seu atendimento.
+          Nossa equipe analisará tudo antes de entrar em contato, ok?
         </p>
       </div>
 
