@@ -256,7 +256,7 @@ export default function Detalhe() {
           <p className="text-sm text-foreground/70 font-light">
             DUM: {fmtDate(dum)}
           </p>
-          {igCalculada && <p className="text-sm text-wine-deep font-semibold">IG: {igCalculada}</p>}
+          {igCalculada && <p className="text-base text-wine-deep font-bold">IG: {igCalculada}</p>}
           {janelas.length > 0 && (
             <div className="space-y-2 pt-1 border-t border-border/40">
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Janelas ideais para agendamento</p>
