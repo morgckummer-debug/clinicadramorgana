@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { Input } from '@/components/ui/input'
-import { SECRETARIAS } from '@/lib/secretarias'
+import { SECRETARIAS, nomeParaEmail } from '@/lib/secretarias'
 
 export default function Login() {
   const { signIn, session, loading } = useAuth()
@@ -19,13 +19,12 @@ export default function Login() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
-    const secretaria = SECRETARIAS.find((s) => s.nome === nome)
-    if (!secretaria) {
+    if (!SECRETARIAS.includes(nome)) {
       setError('Nome não encontrado.')
       return
     }
     setSubmitting(true)
-    const err = await signIn(secretaria.email, password, nome)
+    const err = await signIn(nomeParaEmail(nome), password, nome)
     if (err) {
       setError('Nome ou senha incorretos.')
       setSubmitting(false)
@@ -63,7 +62,7 @@ export default function Login() {
             >
               <option value="">Selecione seu nome</option>
               {SECRETARIAS.map((s) => (
-                <option key={s.nome} value={s.nome}>{s.nome}</option>
+                <option key={s} value={s}>{s}</option>
               ))}
             </select>
           </div>
