@@ -3,11 +3,12 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { Input } from '@/components/ui/input'
+import { SECRETARIAS } from '@/lib/secretarias'
 
 export default function Login() {
   const { signIn, session, loading } = useAuth()
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const [nome, setNome] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -18,10 +19,15 @@ export default function Login() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
+    const secretaria = SECRETARIAS.find((s) => s.nome === nome)
+    if (!secretaria) {
+      setError('Nome não encontrado.')
+      return
+    }
     setSubmitting(true)
-    const err = await signIn(email, password)
+    const err = await signIn(secretaria.email, password, nome)
     if (err) {
-      setError('E-mail ou senha incorretos.')
+      setError('Nome ou senha incorretos.')
       setSubmitting(false)
     } else {
       navigate('/painel')
@@ -47,17 +53,19 @@ export default function Login() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
             <label className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground font-medium">
-              E-mail
+              Seu nome
             </label>
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
+            <select
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
               required
-              autoComplete="email"
-              className="bg-card border-border/60 font-light"
-            />
+              className="w-full h-10 px-3 rounded-md border border-border/60 bg-card text-sm font-light text-foreground focus:outline-none focus:ring-2 focus:ring-wine-deep/30"
+            >
+              <option value="">Selecione seu nome</option>
+              {SECRETARIAS.map((s) => (
+                <option key={s.nome} value={s.nome}>{s.nome}</option>
+              ))}
+            </select>
           </div>
 
           <div className="space-y-1.5">

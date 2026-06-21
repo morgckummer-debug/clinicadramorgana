@@ -4,6 +4,7 @@ import { ArrowLeft, MessageCircle, FileText } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
+import { useAuth } from '@/contexts/AuthContext'
 
 interface Detalhe {
   id: string
@@ -118,6 +119,7 @@ function formatExame(slug: string | null) {
 export default function Detalhe() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { userName } = useAuth()
   const [item, setItem] = useState<Detalhe | null>(null)
   const [loading, setLoading] = useState(true)
   const [updatingStatus, setUpdatingStatus] = useState(false)
@@ -145,10 +147,11 @@ export default function Detalhe() {
 
   const openWhatsApp = () => {
     if (!item?.pacientes) return
-    const nome = primeiroNome(item.pacientes.nome)
-    const exame = formatExame(item.exame)
+    const nomePaciente = primeiroNome(item.pacientes.nome)
+    const exame = item.exame ?? 'seu exame'
+    const secretaria = userName ?? 'a secretária'
     const msg = encodeURIComponent(
-      `Olá, ${nome}! 😊 Vi aqui no sistema que você gostaria de agendar: ${exame}. Vou verificar a disponibilidade para você!`
+      `Oi, ${nomePaciente}! Aqui é a ${secretaria} e serei responsável pelo seu agendamento, ok? Vi que você gostaria de marcar um ${exame}. Vou ver a disponibilidade pra você 🥰`
     )
     const tel = item.pacientes.telefone.replace(/\D/g, '')
     window.open(`https://wa.me/55${tel}?text=${msg}`, '_blank')
@@ -191,9 +194,8 @@ export default function Detalhe() {
   })() : null
 
   const janelas = dum ? [
-    { label: 'Morfológico 1º Trimestre', de: addDays(dum, 84), ate: addDays(dum, 97) },
-    { label: 'Translucência Nucal (TN)',  de: addDays(dum, 84), ate: addDays(dum, 97) },
-    { label: 'Morfológico 2º Trimestre', de: addDays(dum, 147), ate: addDays(dum, 182) },
+    { label: 'Morfológico 1º Trimestre / TN', de: addDays(dum, 84), ate: addDays(dum, 97) },
+    { label: 'Morfológico 2º Trimestre',       de: addDays(dum, 147), ate: addDays(dum, 182) },
   ] : []
 
   return (
