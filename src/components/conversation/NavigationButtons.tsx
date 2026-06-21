@@ -44,8 +44,9 @@ export function NavigationButtons({
               'transition-all duration-500',
               nextDisabled
                 ? 'bg-muted text-muted-foreground cursor-not-allowed'
-                : 'bg-wine-deep text-wine-foreground hover:bg-wine hover:gap-3.5 shadow-soft hover:shadow-elegant',
+                : 'hover:gap-3.5 shadow-soft hover:shadow-elegant',
             ].join(' ')}
+            style={!nextDisabled ? { backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' } : undefined}
           >
             Continuar
             <ArrowRight className="w-3.5 h-3.5" />
