@@ -38,6 +38,13 @@ function calcIdadeGestacional(ddmmaaaa: string): string | null {
 
 const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
 
+// Exames realizados exclusivamente pela Dra. Morgana — pula a seleção de médico
+const EXAMES_EXCLUSIVOS_MORGANA = new Set([
+  'Rastreamento de Ovulação',
+  'Transvaginal 3D',
+  'Morfológico do 3º Trimestre',
+])
+
 function precisaDUM(answers: Record<string, string | string[]>): boolean {
   const categoria = answers['q1'] as string
   const exame = answers['q2'] as string
@@ -80,7 +87,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_exame: answers['q2'] as string,
     p_convenio: Array.isArray(convenio) ? convenio : [convenio],
     p_preferencia_turno: answers['q8'] as string,
-    p_medico_preferido: answers['q9'] as string,
+    p_medico_preferido: (answers['q9'] as string) || 'dra-morgana',
     p_pedido_url: pedidoUrl,
     p_observacoes: observacoes,
   })
@@ -119,6 +126,10 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (currentId === 'q2b') {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2c' : 'q2d'
+    }
+    if (currentId === 'q8') {
+      // Pula seleção de médico para exames exclusivos da Dra. Morgana
+      return EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string) ? 'q10' : 'q9'
     }
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])
