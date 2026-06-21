@@ -319,7 +319,6 @@ export default function Detalhe() {
             )}
           </div>
         </div>
-        <StatusBadge status={item.status} />
       </div>
 
       {/* Grid principal 2 colunas */}
