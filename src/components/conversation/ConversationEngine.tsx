@@ -143,18 +143,15 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])
 
-  const isObstetricaBlocked = useCallback((nextAnswers: Record<string, string | string[]>) => {
-    if (currentId !== 'q2g') return false
-    const q2g = nextAnswers['q2g']
-    const isEmpty = !q2g || (Array.isArray(q2g) && q2g.length === 0)
-    return isEmpty
-  }, [currentId])
-
   const advance = useCallback(async (selectedValue?: string) => {
     const nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
-    if (isObstetricaBlocked(nextAnswers)) {
-      setStep('blocked')
-      return
+    if (currentId === 'q2g') {
+      const q2g = nextAnswers['q2g']
+      const isEmpty = !q2g || (Array.isArray(q2g) && q2g.length === 0)
+      if (isEmpty) {
+        setStep('blocked')
+        return
+      }
     }
     const next = getNextId(selectedValue)
     if (next === null) {
