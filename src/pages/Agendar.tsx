@@ -10,7 +10,7 @@ export default function Agendar() {
       {/* Header mínimo */}
       <header className="flex items-center justify-between px-6 py-5 border-b border-champagne/20">
         <Link to="/">
-          <img src={logoWine} alt="Clínica Dra. Morgana" className="h-8" />
+          <img src={logoWine} alt="Clínica Dra. Morgana" className="h-14 w-auto" />
         </Link>
         <Link
           to="/"
@@ -25,7 +25,7 @@ export default function Agendar() {
         <div className="w-full max-w-2xl">
           <div className="mb-10 text-center">
             <h1 className="font-comfortaa text-wine-deep text-[clamp(1.6rem,5vw,2.4rem)] font-light leading-[1.2] mb-3">
-              Como você prefere ser atendida?
+              Como você prefere ser atendido(a)?
             </h1>
             <p className="text-foreground/60 font-light text-base">
               Escolha a opção que for mais confortável para você.
