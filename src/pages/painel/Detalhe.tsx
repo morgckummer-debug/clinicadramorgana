@@ -215,10 +215,14 @@ export default function Detalhe() {
       {item.pedido_url && (
         <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Pedido médico</p>
-          <a href={item.pedido_url} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4">
-            <FileText className="w-4 h-4" /> Ver documento
-          </a>
+          <div className="flex flex-col gap-2">
+            {item.pedido_url.split(',').filter(Boolean).map((url, i) => (
+              <a key={i} href={url.trim()} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4">
+                <FileText className="w-4 h-4" /> Documento {item.pedido_url!.split(',').length > 1 ? i + 1 : ''}
+              </a>
+            ))}
+          </div>
         </div>
       )}
 
