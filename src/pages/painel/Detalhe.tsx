@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, User } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
@@ -17,6 +17,7 @@ interface Detalhe {
   pedido_url: string | null
   observacoes: string | null
   status: string
+  atendente_nome: string | null
   criado_em: string
   pacientes: {
     nome: string
@@ -140,8 +141,15 @@ export default function Detalhe() {
   const updateStatus = async (newStatus: string) => {
     if (!id) return
     setUpdatingStatus(true)
-    await supabase.from('pre_agendamentos').update({ status: newStatus }).eq('id', id)
-    setItem((prev) => prev ? { ...prev, status: newStatus } : prev)
+    const update: Record<string, string | null> = { status: newStatus }
+    if (newStatus === 'em_atendimento') update.atendente_nome = userName
+    await supabase.from('pre_agendamentos').update(update).eq('id', id)
+    setItem((prev) => {
+      if (!prev) return prev
+      const next = { ...prev, status: newStatus }
+      if (newStatus === 'em_atendimento') next.atendente_nome = userName
+      return next
+    })
     setUpdatingStatus(false)
   }
 
@@ -339,7 +347,7 @@ export default function Detalhe() {
         </div>
       )}
 
-      {/* Status + WhatsApp na mesma linha */}
+      {/* Status */}
       <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
         <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5">Status</p>
         <div className="flex flex-wrap gap-2">
@@ -360,6 +368,14 @@ export default function Detalhe() {
             </button>
           ))}
         </div>
+        {item.status === 'em_atendimento' && item.atendente_nome && (
+          <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-border/30">
+            <User className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+            <p className="text-[11px] text-muted-foreground">
+              Atendido por <span className="text-wine-deep font-medium">{item.atendente_nome}</span>
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Botão WhatsApp */}

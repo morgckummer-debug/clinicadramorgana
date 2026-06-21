@@ -32,9 +32,10 @@ export type Database = {
           pedido_url: string | null
           observacoes: string | null
           status: string
+          atendente_nome: string | null
           criado_em: string
         }
-        Insert: Omit<Database['public']['Tables']['pre_agendamentos']['Row'], 'id' | 'criado_em' | 'status'>
+        Insert: Omit<Database['public']['Tables']['pre_agendamentos']['Row'], 'id' | 'criado_em' | 'status' | 'atendente_nome'>
       }
     }
   }
