@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Upload, FileText, X, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
@@ -8,10 +8,11 @@ interface UploadAreaProps {
 }
 
 export function UploadArea({ value, onChange }: UploadAreaProps) {
-  const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [fileName, setFileName] = useState<string | null>(null)
+
+  const inputId = 'upload-pedido'
 
   const handleFile = async (file: File) => {
     if (file.size > 10 * 1024 * 1024) {
@@ -45,30 +46,19 @@ export function UploadArea({ value, onChange }: UploadAreaProps) {
     onChange?.(publicUrl)
   }
 
-  const handleRemove = () => {
+  const handleRemove = (e: React.MouseEvent) => {
+    e.preventDefault()
     onChange?.('')
     setFileName(null)
     setError(null)
-    if (inputRef.current) inputRef.current.value = ''
   }
 
   const hasFile = !!value
 
   return (
     <div className="space-y-3">
-      <input
-        ref={inputRef}
-        type="file"
-        accept=".pdf,.jpg,.jpeg,.png"
-        className="hidden"
-        onChange={(e) => {
-          const file = e.target.files?.[0]
-          if (file) handleFile(file)
-        }}
-      />
-
-      <div
-        onClick={() => !hasFile && !uploading && inputRef.current?.click()}
+      <label
+        htmlFor={hasFile || uploading ? undefined : inputId}
         className={[
           'w-full border-2 border-dashed rounded-2xl p-10',
           'flex flex-col items-center justify-center gap-3 text-center',
@@ -94,7 +84,7 @@ export function UploadArea({ value, onChange }: UploadAreaProps) {
             </p>
             <button
               type="button"
-              onClick={(e) => { e.stopPropagation(); handleRemove() }}
+              onClick={handleRemove}
               className="inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-wine-deep transition-colors tracking-wide uppercase"
             >
               <X className="w-3 h-3" />
@@ -116,7 +106,19 @@ export function UploadArea({ value, onChange }: UploadAreaProps) {
             </div>
           </>
         )}
-      </div>
+      </label>
+
+      <input
+        id={inputId}
+        type="file"
+        accept=".pdf,.jpg,.jpeg,.png"
+        className="sr-only"
+        onChange={(e) => {
+          const file = e.target.files?.[0]
+          if (file) handleFile(file)
+          e.target.value = ''
+        }}
+      />
 
       {error && (
         <p className="text-xs text-destructive text-center font-light">{error}</p>
@@ -128,3 +130,4 @@ export function UploadArea({ value, onChange }: UploadAreaProps) {
     </div>
   )
 }
+
