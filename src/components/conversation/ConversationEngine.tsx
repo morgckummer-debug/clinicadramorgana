@@ -50,17 +50,6 @@ const EXAMES_EXCLUSIVOS_MORGANA = new Set([
   'Morfológico do 3º Trimestre',
 ])
 
-// Exames obstétricos que exigem upload obrigatório do pedido médico em q2f
-// (Obstétrico 1º Trimestre tem fluxo próprio; 3D Completo e Sexo Fetal são isentos)
-const GESTACAO_PEDIDO_UPLOAD_OBRIGATORIO = new Set([
-  'Obstétrico com Translucência Nucal',
-  'Obstétrico com Doppler',
-  'Morfológico do 1º Trimestre',
-  'Morfológico do 2º Trimestre',
-  'Morfológico do 3º Trimestre',
-  'Perfil Biofísico Fetal (PBF)',
-  'Ecocardiograma Fetal',
-])
 
 function precisaDUM(answers: Record<string, string | string[]>): boolean {
   const categoria = answers['q1'] as string
@@ -143,7 +132,14 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
   const isAnswered = useCallback(() => {
     const type = currentQuestion?.type
-    if (type === 'upload' || type === 'textarea') return true
+    if (type === 'textarea') return true
+    if (type === 'upload') {
+      // ob1_d, ob1_g, ob1_h são opcionais — botão sempre habilitado
+      if (currentId === 'ob1_d' || currentId === 'ob1_g' || currentId === 'ob1_h') return true
+      // q10 e q2f exigem ao menos um arquivo para habilitar "Continuar"
+      const v = currentAnswer
+      return Array.isArray(v) ? v.length > 0 : (typeof v === 'string' && v.length > 0)
+    }
     if (type === 'multi') return Array.isArray(currentAnswer) && currentAnswer.length > 0
     if (type === 'input') {
       const strValue = typeof currentAnswer === 'string' ? currentAnswer : ''
@@ -154,7 +150,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       return strValue.trim() !== ''
     }
     return typeof currentAnswer === 'string' && currentAnswer.trim() !== ''
-  }, [currentQuestion, currentAnswer])
+  }, [currentQuestion, currentAnswer, currentId])
 
   const getNextId = useCallback((selectedValue?: string): string | null => {
     if (currentId === 'q2') {
@@ -275,9 +271,9 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (currentId === 'q2f') {
       const q2f = nextAnswers['q2f']
       const isEmpty = !q2f || (Array.isArray(q2f) && q2f.length === 0)
-      if (isEmpty && GESTACAO_PEDIDO_UPLOAD_OBRIGATORIO.has(answers['q2'] as string)) {
+      if (isEmpty) {
         setBlockedReturnId('q2f')
-        setBlockedMessage('Para agendar este exame obstétrico é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
+        setBlockedMessage('Para realizar o pré-agendamento é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
         setStep('blocked')
         return
       }
@@ -293,6 +289,24 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     }
     const next = getNextId(selectedValue)
     if (next === null) {
+      // Guarda final: ao menos um arquivo (pedido ou beta-hCG) deve ter sido anexado
+      const toArr = (v: string | string[] | undefined) =>
+        Array.isArray(v) ? v : v ? [v] : []
+      const hasFile = [
+        ...toArr(nextAnswers['q10']),
+        ...toArr(nextAnswers['q2f']),
+        ...toArr(nextAnswers['ob1_d']),
+        ...toArr(nextAnswers['ob1_g']),
+      ].some(Boolean)
+      if (!hasFile) {
+        const returnId = nextAnswers['q2d'] !== undefined || nextAnswers['q2e'] !== undefined
+          ? 'q2f'
+          : 'q10'
+        setBlockedReturnId(returnId)
+        setBlockedMessage('Para finalizar o pré-agendamento é obrigatório anexar o pedido médico. Volte e tente novamente.')
+        setStep('blocked')
+        return
+      }
       setStep('saving')
       try {
         await savePreAgendamento(answers)
@@ -327,7 +341,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     if (currentQuestion?.type === 'textarea') return true
     if (currentQuestion?.type !== 'upload') return false
     if (currentId === 'q10') return false
-    if (currentId === 'q2f') return !GESTACAO_PEDIDO_UPLOAD_OBRIGATORIO.has(answers['q2'] as string)
+    if (currentId === 'q2f') return false
     return true // ob1_d, ob1_g, ob1_h são opcionais
   })()
 
