@@ -24,7 +24,7 @@ export function QuestionRenderer({
   const options = question.id === 'q2'
     ? (examsByCategory[answers['q1'] as string] ?? []).map((name) => ({
         label: name,
-        value: name.toLowerCase().replace(/\s+/g, '-').replace(/[()º/ç]/g, ''),
+        value: name,
       }))
     : question.options ?? []
 
