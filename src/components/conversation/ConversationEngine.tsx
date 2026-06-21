@@ -39,6 +39,13 @@ function calcIdadeGestacional(ddmmaaaa: string): string | null {
 
 const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
 
+// Exames obstétricos que não exigem pedido médico (aceitam beta-HCG como alternativa)
+const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set([
+  'Obstétrico do 1º Trimestre',
+  'Obstétrico - Sexo Fetal',
+  '3D Completo',
+])
+
 // Exames realizados exclusivamente pela Dra. Morgana — pula a seleção de médico
 const EXAMES_EXCLUSIVOS_MORGANA = new Set([
   'Rastreamento de Ovulação',
@@ -166,6 +173,14 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
   const advance = useCallback(async (selectedValue?: string) => {
     const nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
+    if (currentId === 'q2d' || currentId === 'q2e') {
+      const val = selectedValue ?? (nextAnswers[currentId] as string)
+      if (val === 'nao' && !EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) {
+        setBlockedReturnId(currentId)
+        setStep('blocked')
+        return
+      }
+    }
     if (currentId === 'q2h') {
       const val = selectedValue ?? (nextAnswers['q2h'] as string)
       if (val === 'nao') {

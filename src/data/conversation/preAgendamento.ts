@@ -38,6 +38,8 @@ export interface ConversationFlow {
 export const examsByCategory: Record<string, string[]> = {
   gestacao: [
     'Obstétrico do 1º Trimestre',
+    'Obstétrico - Sexo Fetal',
+    '3D Completo',
     'Obstétrico com Translucência Nucal',
     'Obstétrico com Doppler',
     'Morfológico do 1º Trimestre',
@@ -115,7 +117,7 @@ export const preAgendamentoFlow: ConversationFlow = {
         { label: 'Gestação', value: 'gestacao' },
         { label: 'Ginecológico', value: 'ginecologico' },
         { label: 'Abdome', value: 'abdome' },
-        { label: 'Mama', value: 'mama' },
+        { label: 'Mamas e Axilas', value: 'mama' },
         { label: 'Vascular', value: 'vascular' },
         { label: 'Tireoide / Cervical', value: 'tireoide' },
         { label: 'Pediátrico', value: 'pediatrico' },
