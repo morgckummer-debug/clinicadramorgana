@@ -46,12 +46,15 @@ const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set([
   '3D Completo',
 ])
 
-// Exames realizados exclusivamente pela Dra. Morgana — pula a seleção de médico
-const EXAMES_EXCLUSIVOS_MORGANA = new Set([
-  'Rastreamento de Ovulação',
-  'Transvaginal 3D',
-  'Morfológico do 3º Trimestre',
-])
+// Exames com médico fixo — pula a seleção de médico e usa o valor abaixo
+const EXAME_MEDICO_FIXO: Record<string, string> = {
+  'Rastreamento de Ovulação':           'dra-morgana',
+  'Transvaginal 3D':                    'dra-morgana',
+  'Morfológico do 3º Trimestre':        'dra-morgana',
+  '3D Completo':                        'dra-morgana',
+  'Mapeamento de Endometriose Profunda':'dra-barbara',
+  'Ecocardiograma Fetal':               'dr-darlei',
+}
 
 
 function precisaDUM(answers: Record<string, string | string[]>): boolean {
@@ -103,7 +106,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_exame: answers['q2'] as string,
     p_convenio: convenio ? (Array.isArray(convenio) ? convenio : [convenio]) : ['particular'],
     p_preferencia_turno: answers['q8'] as string,
-    p_medico_preferido: (answers['q9'] as string) || 'dra-morgana',
+    p_medico_preferido: (answers['q9'] as string) || EXAME_MEDICO_FIXO[answers['q2'] as string] || 'dra-morgana',
     p_pedido_url: pedidoUrl,
     p_observacoes: observacoes,
   })
@@ -218,7 +221,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     }
     if (currentId === 'q8') {
       const pedidoJaRespondido = !!(answers['q2d'] || answers['q2e'] || answers['ob1_c']) || q10JaRespondido(answers)
-      if (EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string)) {
+      if ((answers['q2'] as string) in EXAME_MEDICO_FIXO) {
         return pedidoJaRespondido ? 'q11' : 'q10'
       }
       return 'q9'
