@@ -320,6 +320,17 @@ export default function Detalhe() {
             )}
           </div>
         </div>
+
+        {item.status !== 'pendente' && (
+          <button
+            onClick={() => updateStatus('pendente')}
+            disabled={updatingStatus}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-border text-muted-foreground text-xs font-medium hover:border-amber-400 hover:text-amber-700 transition-all duration-300"
+          >
+            <PhoneMissed className="w-3.5 h-3.5" />
+            Devolver para a fila
+          </button>
+        )}
       </div>
 
       {/* Grid principal 2 colunas */}
