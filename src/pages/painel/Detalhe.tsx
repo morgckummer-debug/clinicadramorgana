@@ -193,10 +193,32 @@ export default function Detalhe() {
     return `${w} semanas e ${d} dia${d !== 1 ? 's' : ''}`
   })() : null
 
-  const janelas = dum ? [
+  const isOvulacao = item.exame === 'Rastreamento de Ovulação'
+
+  const janelas = dum && !isOvulacao ? [
     { label: 'Morfológico 1º Trimestre / TN', de: addDays(dum, 84), ate: addDays(dum, 97) },
     { label: 'Morfológico 2º Trimestre',       de: addDays(dum, 147), ate: addDays(dum, 182) },
   ] : []
+
+  const diasCiclo = dum && isOvulacao ? (() => {
+    const CICLO = 28
+    const hoje = new Date()
+    const diasSinceDUM = Math.floor((hoje.getTime() - dum.getTime()) / 86400000)
+    const ciclosCompletos = Math.floor(diasSinceDUM / CICLO)
+    let inicioAtual = addDays(dum, ciclosCompletos * CICLO)
+    const d10 = addDays(inicioAtual, 9)
+    const d12 = addDays(inicioAtual, 11)
+    const d14 = addDays(inicioAtual, 13)
+    // se o dia 14 já passou, avança para o próximo ciclo
+    if (d14 < hoje) {
+      inicioAtual = addDays(inicioAtual, CICLO)
+    }
+    return {
+      d10: addDays(inicioAtual, 9),
+      d12: addDays(inicioAtual, 11),
+      d14: addDays(inicioAtual, 13),
+    }
+  })() : null
 
   return (
     <PainelLayout>
@@ -254,7 +276,9 @@ export default function Detalhe() {
       {/* Informações obstétricas (DUM + IG + janelas) */}
       {dum && (
         <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3 space-y-3">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Informações Obstétricas</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">
+            {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
+          </p>
           <p className="text-sm text-foreground/70 font-light">
             DUM: {fmtDate(dum)}
           </p>
@@ -270,6 +294,23 @@ export default function Detalhe() {
                   </p>
                 </div>
               ))}
+            </div>
+          )}
+          {diasCiclo && (
+            <div className="space-y-2 pt-1 border-t border-border/40">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Dias ideais para agendar (ciclo atual/próximo)</p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs text-foreground/70 font-light">10º dia do ciclo</p>
+                <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d10)}</p>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs text-foreground/70 font-light">12º dia do ciclo</p>
+                <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d12)}</p>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-xs text-foreground/70 font-light">14º dia do ciclo</p>
+                <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d14)}</p>
+              </div>
             </div>
           )}
         </div>

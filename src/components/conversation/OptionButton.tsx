@@ -14,12 +14,12 @@ export function OptionButton({ label, value, selected, mode, onClick }: OptionBu
       type="button"
       onClick={() => onClick(value)}
       className={[
-        'w-full flex items-center justify-between px-5 py-4 rounded-2xl border text-left',
-        'transition-all duration-300 font-light text-sm',
+        'w-full flex items-center justify-between px-4 py-4 rounded-2xl border text-left',
+        'transition-all duration-300 font-normal text-base leading-snug',
         'hover:border-champagne hover:shadow-soft hover:-translate-y-px',
         selected
           ? 'border-wine bg-wine/5 text-wine-deep shadow-soft'
-          : 'border-border bg-card text-foreground/80',
+          : 'border-border bg-card text-wine-deep/75',
       ].join(' ')}
     >
       <span>{label}</span>
