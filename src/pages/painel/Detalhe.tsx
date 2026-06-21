@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
@@ -131,6 +131,7 @@ export default function Detalhe() {
   const [loading, setLoading] = useState(true)
   const [updatingStatus, setUpdatingStatus] = useState(false)
   const [otherRecords, setOtherRecords] = useState<OtherRecord[]>([])
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
 
   useEffect(() => {
     if (!id) return
@@ -412,11 +413,52 @@ export default function Detalhe() {
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Pedido médico</p>
           <div className="flex flex-col gap-2">
             {item.pedido_url.split(',').filter(Boolean).map((url, i) => (
-              <a key={i} href={url.trim()} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4">
-                <FileText className="w-4 h-4" /> Documento {item.pedido_url!.split(',').length > 1 ? i + 1 : ''}
-              </a>
+              <button
+                key={i}
+                type="button"
+                onClick={() => setPreviewUrl(url.trim())}
+                className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4 text-left"
+              >
+                <FileText className="w-4 h-4 flex-shrink-0" />
+                Documento {item.pedido_url!.split(',').length > 1 ? i + 1 : ''}
+              </button>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Modal de preview do arquivo */}
+      {previewUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => setPreviewUrl(null)}
+        >
+          <div
+            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/40">
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">Pedido médico</p>
+              <button
+                type="button"
+                onClick={() => setPreviewUrl(null)}
+                className="w-7 h-7 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4 text-foreground/60" />
+              </button>
+            </div>
+            {/\.(jpg|jpeg|png|webp|gif)(\?|$)/i.test(previewUrl) ? (
+              <div className="overflow-auto flex items-center justify-center p-4 flex-1">
+                <img src={previewUrl} alt="Pedido médico" className="max-w-full max-h-[75vh] object-contain rounded-lg" />
+              </div>
+            ) : (
+              <iframe
+                src={previewUrl}
+                title="Pedido médico"
+                className="flex-1 w-full"
+                style={{ minHeight: '70vh' }}
+              />
+            )}
           </div>
         </div>
       )}
