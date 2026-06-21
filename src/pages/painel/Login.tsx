@@ -36,40 +36,41 @@ export default function Login() {
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center px-4"
-      style={{ background: 'linear-gradient(160deg, #1a0a2e 0%, #2d1457 50%, #1a0a2e 100%)' }}
+      style={{ background: 'linear-gradient(160deg, #faf8f5 0%, #f3eef9 50%, #faf8f5 100%)' }}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #C9A84C, transparent)' }} />
-        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #7C3FB5, transparent)' }} />
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #C9A84C, transparent)' }} />
+        <div className="absolute bottom-1/3 right-1/4 w-56 h-56 rounded-full opacity-15" style={{ background: 'radial-gradient(circle, #7C3FB5, transparent)' }} />
+        <div className="absolute top-2/3 left-1/3 w-40 h-40 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #C9A84C, transparent)' }} />
       </div>
 
       <div className="relative w-full max-w-sm animate-fade-up">
         <div className="flex justify-center mb-6">
           <div
             className="w-20 h-20 rounded-full flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, #C9A84C, #E2C97E, #C9A84C)', boxShadow: '0 0 40px rgba(201,168,76,0.3)' }}
+            style={{ background: 'linear-gradient(135deg, #5B2D8E, #7C3FB5, #5B2D8E)', boxShadow: '0 0 40px rgba(91,45,142,0.25), 0 0 0 6px rgba(201,168,76,0.15)' }}
           >
-            <span className="font-serif text-3xl font-light" style={{ color: '#2d1457', letterSpacing: '0.05em' }}>MK</span>
+            <span className="font-serif text-3xl font-light" style={{ color: '#E2C97E', letterSpacing: '0.05em' }}>MK</span>
           </div>
         </div>
 
         <div className="text-center mb-10">
-          <h1 className="font-serif leading-tight" style={{ fontSize: '2rem', color: '#E2C97E', letterSpacing: '0.04em', textShadow: '0 2px 20px rgba(201,168,76,0.4)' }}>
+          <h1 className="font-serif leading-tight" style={{ fontSize: '2rem', color: '#3B1A5C', letterSpacing: '0.04em' }}>
             Assistente de<br />Agendamento
           </h1>
           <div className="flex items-center justify-center gap-3 mt-2">
-            <div className="h-px flex-1 opacity-30" style={{ background: 'linear-gradient(to right, transparent, #C9A84C)' }} />
+            <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to right, transparent, #C9A84C)' }} />
             <span className="font-serif text-2xl font-light" style={{ color: '#C9A84C', letterSpacing: '0.3em' }}>MK</span>
-            <div className="h-px flex-1 opacity-30" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
+            <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
           </div>
-          <p className="text-xs font-light mt-3 tracking-widest uppercase" style={{ color: 'rgba(226,201,126,0.5)' }}>
+          <p className="text-xs font-light mt-3 tracking-widest uppercase" style={{ color: 'rgba(91,45,142,0.4)' }}>
             Clínica Dra. Morgana Kummer
           </p>
         </div>
 
-        <div className="rounded-2xl p-6 space-y-4" style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(12px)', border: '1px solid rgba(201,168,76,0.2)' }}>
+        <div className="rounded-2xl p-6 space-y-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 40px rgba(91,45,142,0.08)' }}>
           <div className="space-y-1.5">
-            <label className="text-[10px] tracking-[0.3em] uppercase font-medium" style={{ color: 'rgba(226,201,126,0.7)' }}>
+            <label className="text-[10px] tracking-[0.3em] uppercase font-medium" style={{ color: 'rgba(91,45,142,0.6)' }}>
               Seu nome
             </label>
             <select
@@ -77,17 +78,17 @@ export default function Login() {
               onChange={(e) => setNome(e.target.value)}
               required
               className="w-full h-10 px-3 rounded-lg text-sm font-light focus:outline-none"
-              style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(201,168,76,0.3)', color: '#f0e6d3', colorScheme: 'dark' }}
+              style={{ background: 'rgba(91,45,142,0.04)', border: '1px solid rgba(201,168,76,0.35)', color: '#3B1A5C' }}
             >
-              <option value="" style={{ background: '#2d1457' }}>Selecione seu nome</option>
+              <option value="">Selecione seu nome</option>
               {SECRETARIAS.map((s) => (
-                <option key={s} value={s} style={{ background: '#2d1457' }}>{s}</option>
+                <option key={s} value={s}>{s}</option>
               ))}
             </select>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-[10px] tracking-[0.3em] uppercase font-medium" style={{ color: 'rgba(226,201,126,0.7)' }}>
+            <label className="text-[10px] tracking-[0.3em] uppercase font-medium" style={{ color: 'rgba(91,45,142,0.6)' }}>
               Senha
             </label>
             <div className="relative">
@@ -99,13 +100,13 @@ export default function Login() {
                 required
                 autoComplete="current-password"
                 className="pr-10 font-light border-0 focus-visible:ring-0"
-                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(201,168,76,0.3)', color: '#f0e6d3' }}
+                style={{ background: 'rgba(91,45,142,0.04)', border: '1px solid rgba(201,168,76,0.35)', color: '#3B1A5C' }}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
-                style={{ color: 'rgba(226,201,126,0.5)' }}
+                style={{ color: 'rgba(91,45,142,0.4)' }}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -113,7 +114,7 @@ export default function Login() {
           </div>
 
           {error && (
-            <p className="text-sm text-red-400 font-light text-center">{error}</p>
+            <p className="text-sm text-red-500 font-light text-center">{error}</p>
           )}
 
           <button
@@ -121,15 +122,15 @@ export default function Login() {
             disabled={submitting}
             onClick={handleSubmit}
             className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-[11px] tracking-[0.3em] uppercase font-semibold transition-all duration-500 disabled:opacity-60 disabled:cursor-not-allowed mt-1"
-            style={{ background: 'linear-gradient(135deg, #C9A84C, #E2C97E, #C9A84C)', color: '#2d1457', boxShadow: '0 4px 20px rgba(201,168,76,0.3)' }}
+            style={{ background: 'linear-gradient(135deg, #5B2D8E, #7C3FB5, #5B2D8E)', color: '#E2C97E', boxShadow: '0 4px 20px rgba(91,45,142,0.3)' }}
           >
             {submitting ? (
-              <span className="w-4 h-4 rounded-full border-2 border-[#2d1457]/40 border-t-[#2d1457] animate-spin" />
+              <span className="w-4 h-4 rounded-full border-2 border-[#E2C97E]/40 border-t-[#E2C97E] animate-spin" />
             ) : 'Entrar'}
           </button>
         </div>
 
-        <p className="text-center text-[10px] font-light mt-6 tracking-widest" style={{ color: 'rgba(226,201,126,0.3)' }}>
+        <p className="text-center text-[10px] font-light mt-6 tracking-widest" style={{ color: 'rgba(91,45,142,0.3)' }}>
           Acesso exclusivo · Equipe MK
         </p>
       </div>

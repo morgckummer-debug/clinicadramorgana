@@ -28,7 +28,7 @@ function AlterarSenhaModal({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 animate-fade-up">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="font-comfortaa text-wine-deep text-lg font-light">Alterar senha</h2>
+          <h2 className="font-serif text-lg font-light" style={{ color: '#5B2D8E' }}>Alterar senha</h2>
           <button onClick={onClose} className="text-muted-foreground hover:text-wine-deep transition-colors">
             <X className="w-4 h-4" />
           </button>
@@ -37,7 +37,7 @@ function AlterarSenhaModal({ onClose }: { onClose: () => void }) {
         {ok ? (
           <div className="text-center py-4 space-y-3">
             <p className="text-sm text-foreground/80 font-light">Senha alterada com sucesso!</p>
-            <button onClick={onClose} className="text-[11px] tracking-[0.2em] uppercase text-wine-deep underline underline-offset-4">
+            <button onClick={onClose} className="text-[11px] tracking-[0.2em] uppercase underline underline-offset-4" style={{ color: '#5B2D8E' }}>
               Fechar
             </button>
           </div>
@@ -55,9 +55,10 @@ function AlterarSenhaModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-wine-deep text-wine-foreground px-6 py-3 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-300 hover:bg-wine disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed"
+              style={{ background: 'linear-gradient(135deg, #5B2D8E, #7C3FB5)', color: '#E2C97E' }}
             >
-              {loading ? <span className="w-4 h-4 rounded-full border-2 border-wine-foreground/40 border-t-wine-foreground animate-spin" /> : 'Salvar'}
+              {loading ? <span className="w-4 h-4 rounded-full border-2 border-[#E2C97E]/40 border-t-[#E2C97E] animate-spin" /> : 'Salvar'}
             </button>
           </form>
         )}
@@ -80,10 +81,10 @@ export function PainelLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-[#faf9f8] flex flex-col">
       <header className="bg-white border-b border-border/50 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
         <Link to="/painel" className="flex flex-col gap-0.5">
-          <span className="text-[10px] tracking-[0.35em] uppercase text-muted-foreground font-medium">
-            Painel Interno
+          <span className="font-serif leading-none" style={{ fontSize: '1.15rem', color: '#5B2D8E', letterSpacing: '0.04em' }}>
+            Assistente de Agendamento <span style={{ color: '#C9A84C' }}>MK</span>
           </span>
-          <span className="font-comfortaa text-wine-deep text-sm font-semibold leading-none">
+          <span className="text-[10px] tracking-[0.25em] uppercase font-light" style={{ color: 'rgba(91,45,142,0.45)', marginTop: '2px' }}>
             Clínica Dra. Morgana Kummer
           </span>
         </Link>
