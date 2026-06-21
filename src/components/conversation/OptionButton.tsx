@@ -15,11 +15,11 @@ export function OptionButton({ label, value, selected, mode, onClick }: OptionBu
       onClick={() => onClick(value)}
       className={[
         'w-full flex items-center justify-between px-4 py-4 rounded-2xl border text-left',
-        'transition-all duration-300 font-normal text-base leading-snug',
+        'transition-all duration-300 font-normal text-[17px] leading-snug',
         'hover:border-champagne hover:shadow-soft hover:-translate-y-px',
         selected
           ? 'border-wine bg-wine/5 text-wine-deep shadow-soft'
-          : 'border-border bg-card text-wine-deep/75',
+          : 'border-border bg-card text-wine-deep',
       ].join(' ')}
     >
       <span>{label}</span>

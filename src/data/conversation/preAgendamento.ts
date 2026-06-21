@@ -139,7 +139,7 @@ export const preAgendamentoFlow: ConversationFlow = {
       id: 'q2b',
       type: 'buttons',
       title: 'Você sabe a data da sua última menstruação (DUM)?',
-      subtitle: 'Isso nos ajuda a estimar a idade gestacional antes do exame.',
+      subtitle: 'Isso nos ajuda a calcular as datas ideais para o seu exame.',
       options: [
         { label: 'Sim, sei a DUM', value: 'sim' },
         { label: 'Não sei / não lembro', value: 'nao' },

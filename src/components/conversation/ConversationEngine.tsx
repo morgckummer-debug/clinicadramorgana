@@ -38,6 +38,13 @@ function calcIdadeGestacional(ddmmaaaa: string): string | null {
 
 const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
 
+// Exames realizados exclusivamente pela Dra. Morgana — pula a seleção de médico
+const EXAMES_EXCLUSIVOS_MORGANA = new Set([
+  'Rastreamento de Ovulação',
+  'Transvaginal 3D',
+  'Morfológico do 3º Trimestre',
+])
+
 function precisaDUM(answers: Record<string, string | string[]>): boolean {
   const categoria = answers['q1'] as string
   const exame = answers['q2'] as string
@@ -49,13 +56,16 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
   const convenio = answers['q7']
 
-  // Calcula IG a partir da DUM e inclui nas observações
+  // Calcula IG a partir da DUM, mas só para gestação (não para rastreamento de ovulação)
   const dum = answers['q2c'] as string | undefined
+  const isOvulacao = (answers['q2'] as string) === 'Rastreamento de Ovulação'
   const dumLinhas: string[] = []
   if (dum) {
     dumLinhas.push(`DUM: ${dum}`)
-    const ig = calcIdadeGestacional(dum)
-    if (ig) dumLinhas.push(`Idade gestacional estimada: ${ig}`)
+    if (!isOvulacao) {
+      const ig = calcIdadeGestacional(dum)
+      if (ig) dumLinhas.push(`Idade gestacional estimada: ${ig}`)
+    }
   }
   const obsExtra = dumLinhas.join(' — ')
   const obsUsuario = (answers['q11'] as string) || ''
@@ -77,7 +87,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_exame: answers['q2'] as string,
     p_convenio: Array.isArray(convenio) ? convenio : [convenio],
     p_preferencia_turno: answers['q8'] as string,
-    p_medico_preferido: answers['q9'] as string,
+    p_medico_preferido: (answers['q9'] as string) || 'dra-morgana',
     p_pedido_url: pedidoUrl,
     p_observacoes: observacoes,
   })
@@ -109,11 +119,17 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
   const getNextId = useCallback((selectedValue?: string): string | null => {
     if (currentId === 'q2') {
-      return precisaDUM(answers) ? 'q2b' : 'q3'
+      // selectedValue é passado pela auto-advance antes de answers ser atualizado (closure stale)
+      const answersComQ2 = selectedValue ? { ...answers, q2: selectedValue } : answers
+      return precisaDUM(answersComQ2) ? 'q2b' : 'q3'
     }
     if (currentId === 'q2b') {
       const val = selectedValue ?? (currentAnswer as string)
       return val === 'sim' ? 'q2c' : 'q2d'
+    }
+    if (currentId === 'q8') {
+      // Pula seleção de médico para exames exclusivos da Dra. Morgana
+      return EXAMES_EXCLUSIVOS_MORGANA.has(answers['q2'] as string) ? 'q10' : 'q9'
     }
     return currentQuestion?.next ?? null
   }, [currentId, currentAnswer, currentQuestion, answers])
