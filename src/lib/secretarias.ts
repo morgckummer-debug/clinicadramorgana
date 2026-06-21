@@ -1,7 +1,10 @@
-// Para adicionar uma secretária: só colocar o nome aqui.
-// O email interno é gerado automaticamente: nome@secretaria.mk
-export const SECRETARIAS = ['Adriana', 'Morgana']
+const SECRETARIAS_MAP: { nome: string; email: string }[] = [
+  { nome: 'Adriana', email: 'adriana@dramorgana.com.br' },
+  { nome: 'Morgana', email: 'morgckummer@gmail.com' },
+]
+
+export const SECRETARIAS = SECRETARIAS_MAP.map((s) => s.nome)
 
 export function nomeParaEmail(nome: string): string {
-  return `${nome.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')}@secretaria.mk`
+  return SECRETARIAS_MAP.find((s) => s.nome === nome)?.email ?? ''
 }
