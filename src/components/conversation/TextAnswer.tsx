@@ -9,6 +9,7 @@ interface TextAnswerProps {
   placeholder?: string
   mask?: Mask
   onChange: (value: string) => void
+  error?: string
 }
 
 function applyMask(raw: string, mask: Mask): string {
@@ -42,7 +43,7 @@ function applyMask(raw: string, mask: Mask): string {
   return raw
 }
 
-export function TextAnswer({ type, value, placeholder, mask = 'none', onChange }: TextAnswerProps) {
+export function TextAnswer({ type, value, placeholder, mask = 'none', onChange, error }: TextAnswerProps) {
   const baseClass = [
     'w-full bg-card border-border/60 rounded-xl font-light text-sm text-foreground',
     'placeholder:text-muted-foreground/50 focus-visible:ring-wine/30 focus-visible:border-wine/40',
@@ -66,12 +67,17 @@ export function TextAnswer({ type, value, placeholder, mask = 'none', onChange }
   }
 
   return (
-    <Input
-      value={value}
-      placeholder={placeholder}
-      onChange={(e) => handleChange(e.target.value)}
-      inputMode={mask !== 'none' ? 'numeric' : 'text'}
-      className={`${baseClass} h-13 px-5 py-4`}
-    />
+    <div className="space-y-1.5">
+      <Input
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => handleChange(e.target.value)}
+        inputMode={mask !== 'none' ? 'numeric' : 'text'}
+        className={`${baseClass} h-13 px-5 py-4`}
+      />
+      {error && (
+        <p className="text-xs text-red-500/80 font-light px-1 animate-fade-in">{error}</p>
+      )}
+    </div>
   )
 }

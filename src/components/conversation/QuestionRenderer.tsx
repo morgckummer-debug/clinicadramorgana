@@ -1,4 +1,5 @@
 import { Question, examsByCategory } from '@/data/conversation/preAgendamento'
+import { isValidDateBR } from '@/lib/utils'
 import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
@@ -92,6 +93,10 @@ export function QuestionRenderer({
     const strValue = typeof value === 'string' ? value : ''
     const isOvulacao = answers['q2'] === 'Rastreamento de Ovulação'
     const ig = question.id === 'q2c' && !isOvulacao ? calcIG(strValue) : null
+    const isDateComplete = question.mask === 'date' && strValue.replace(/\D/g, '').length === 8
+    const dateError = isDateComplete && !isValidDateBR(strValue)
+      ? 'Data inválida. Verifique dia, mês e ano.'
+      : undefined
     return (
       <div className="space-y-2">
         <TextAnswer
@@ -100,6 +105,7 @@ export function QuestionRenderer({
           placeholder={placeholder}
           mask={question.mask}
           onChange={onChange}
+          error={dateError}
         />
         {ig && (
           <p className="text-sm text-center text-wine-deep font-light animate-fade-in">

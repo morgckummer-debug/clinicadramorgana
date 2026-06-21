@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { ConversationFlow } from '@/data/conversation/preAgendamento'
 import { supabase } from '@/lib/supabase'
+import { isValidDateBR } from '@/lib/utils'
 import { ConversationHeader } from './ConversationHeader'
 import { ProgressBar } from './ProgressBar'
 import { WelcomeScreen } from './WelcomeScreen'
@@ -116,6 +117,14 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     const type = currentQuestion?.type
     if (type === 'upload' || type === 'textarea') return true
     if (type === 'multi') return Array.isArray(currentAnswer) && currentAnswer.length > 0
+    if (type === 'input') {
+      const strValue = typeof currentAnswer === 'string' ? currentAnswer : ''
+      if (currentQuestion?.mask === 'date') {
+        const digits = strValue.replace(/\D/g, '')
+        return digits.length === 8 && isValidDateBR(strValue)
+      }
+      return strValue.trim() !== ''
+    }
     return typeof currentAnswer === 'string' && currentAnswer.trim() !== ''
   }, [currentQuestion, currentAnswer])
 
