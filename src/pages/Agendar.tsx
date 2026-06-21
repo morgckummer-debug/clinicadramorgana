@@ -21,7 +21,7 @@ export default function Agendar() {
       </header>
 
       {/* Conteúdo principal */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+      <main className="flex-1 flex flex-col items-center justify-center px-6 pt-8 pb-16">
         <div className="w-full max-w-2xl">
           <div className="mb-10 text-center">
             <h1 className="font-comfortaa text-wine-deep text-[clamp(1.6rem,5vw,2.4rem)] font-light leading-[1.2] mb-3">
@@ -33,24 +33,6 @@ export default function Agendar() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {/* Card WhatsApp */}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col items-start p-7 rounded-3xl border border-border/50 bg-white hover:border-[#25D366]/40 transition-all duration-400 cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#25D366]/10 flex items-center justify-center mb-5">
-                <MessageCircle className="w-6 h-6 text-[#25D366]" strokeWidth={1.5} />
-              </div>
-              <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6 flex-1">
-                Falar diretamente com nossa equipe pelo WhatsApp.
-              </p>
-              <span className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-colors duration-300 w-full justify-center">
-                <MessageCircle className="w-3.5 h-3.5" /> Abrir WhatsApp
-              </span>
-            </a>
-
             {/* Card Assistente Virtual — destaque */}
             <Link
               to="/pre-agendamento"
@@ -81,6 +63,24 @@ export default function Agendar() {
                 Começar <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </span>
             </Link>
+
+            {/* Card WhatsApp */}
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col items-start p-7 rounded-3xl border border-border/50 bg-white hover:border-[#25D366]/40 transition-all duration-400 cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#25D366]/10 flex items-center justify-center mb-5">
+                <MessageCircle className="w-6 h-6 text-[#25D366]" strokeWidth={1.5} />
+              </div>
+              <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6 flex-1">
+                Falar diretamente com nossa equipe pelo WhatsApp.
+              </p>
+              <span className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-colors duration-300 w-full justify-center">
+                <MessageCircle className="w-3.5 h-3.5" /> Abrir WhatsApp
+              </span>
+            </a>
           </div>
         </div>
       </main>
