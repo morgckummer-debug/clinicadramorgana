@@ -88,8 +88,9 @@ export function UploadArea({ value = [], onChange }: UploadAreaProps) {
       const next = [...value]
       next[index] = url
       onChange?.(next.filter(Boolean))
-    } catch {
-      setError('Erro ao enviar. Tente novamente.')
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : JSON.stringify(e)
+      setError(`Erro: ${msg}`)
       setNames((n) => { const a = [...n]; delete a[index]; return a })
     } finally {
       setLoading((l) => { const n = [...l] as [boolean, boolean]; n[index] = false; return n })
