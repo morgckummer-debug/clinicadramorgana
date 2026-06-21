@@ -247,11 +247,11 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
           <p className="text-wine-deep font-comfortaa text-xl mb-3 font-light">
             Não conseguimos finalizar o pré-agendamento
           </p>
-          <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
-            Para ultrassons obstétricos iniciais, precisamos da data da última menstruação (DUM) ou de um exame de ultrassom ou beta-HCG anterior para calcular a idade gestacional corretamente.
+          <p className="text-muted-foreground font-light text-sm mb-4 leading-relaxed">
+            Para agendar um ultrassom obstétrico, precisamos da <strong>data da última menstruação (DUM)</strong> ou do <strong>resultado do beta-HCG</strong> (ou um ultrassom anterior) para calcular corretamente a idade gestacional.
           </p>
           <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
-            Por favor, entre em contato diretamente com nossa equipe pelo WhatsApp para que possamos te ajudar da melhor forma:
+            Assim que tiver esse documento em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp:
           </p>
           <a
             href="https://wa.me/5531993910212"
