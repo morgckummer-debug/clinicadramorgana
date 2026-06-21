@@ -25,6 +25,7 @@ interface QuestionRendererProps {
   onChange: (value: string | string[]) => void
   onAutoAdvance?: (selectedValue: string) => void
   answers?: Record<string, string | string[]>
+  optional?: boolean
 }
 
 export function QuestionRenderer({
@@ -33,6 +34,7 @@ export function QuestionRenderer({
   onChange,
   onAutoAdvance,
   answers = {},
+  optional = false,
 }: QuestionRendererProps) {
   const { type, placeholder } = question
 
@@ -121,6 +123,7 @@ export function QuestionRenderer({
       <UploadArea
         value={Array.isArray(value) ? value : value ? [value as string] : []}
         onChange={(urls) => onChange(urls)}
+        optional={optional}
       />
     )
   }
