@@ -187,7 +187,7 @@ export default function Dashboard() {
 
   const filters: { key: StatusFilter; label: string }[] = [
     { key: 'pendente', label: 'Pendentes' },
-    { key: 'em_atendimento', label: 'Em atendimento' },
+    { key: 'em_atendimento', label: 'Atendido' },
     { key: 'agendado', label: 'Agendados' },
     { key: 'todos', label: 'Todos' },
   ]

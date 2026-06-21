@@ -4,7 +4,7 @@ const config: Record<string, { label: string; className: string }> = {
     className: 'bg-amber-50 text-amber-700 border-amber-200',
   },
   em_atendimento: {
-    label: 'Em atendimento',
+    label: 'Atendido',
     className: 'bg-blue-50 text-blue-700 border-blue-200',
   },
   agendado: {
