@@ -510,8 +510,8 @@ export default function Detalhe() {
         )}
       </div>
 
-      {/* Grid principal 2 colunas */}
-      <div className="grid grid-cols-2 gap-3 mb-3">
+      {/* Grid principal 2 colunas — responsivo */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
 
         {/* Coluna esquerda — paciente */}
         <div className="bg-white border border-border/50 rounded-2xl p-4 space-y-3">
