@@ -230,6 +230,7 @@ const Hero = () => {
           loop
           playsInline
           preload="none"
+          poster="/videos/hero-clinic-poster.jpg"
           aria-label={t.hero.videoAriaLabel}
         >
           <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
