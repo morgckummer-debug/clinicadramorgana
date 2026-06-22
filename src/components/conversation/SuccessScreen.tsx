@@ -14,13 +14,12 @@ export function SuccessScreen() {
         Tudo certo
       </span>
 
-      <h2 className="font-comfortaa text-wine-deep text-xl sm:text-2xl md:text-3xl font-light leading-[1.3] mb-4 max-w-[16ch] mx-auto">
-        Pré-agendamento<br />realizado!
+      <h2 className="font-comfortaa text-wine-deep text-xl sm:text-2xl md:text-3xl font-light leading-[1.3] mb-4 mx-auto">
+        <span className="whitespace-nowrap">Pré-agendamento</span><br />realizado!
       </h2>
 
       <p className="text-foreground/70 font-light text-sm leading-relaxed text-balance mb-10 max-w-sm mx-auto">
-        Recebemos suas informações com sucesso.
-        Nossa equipe analisará seus dados e enviará as melhores opções de horários disponíveis.
+        Recebemos sua solicitação com sucesso. <strong className="text-foreground/90 font-medium">O agendamento ainda não está confirmado</strong> — nossa equipe entrará em contato para verificar disponibilidade e confirmar o horário.
       </p>
 
       <div className="space-y-3">
