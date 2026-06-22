@@ -9,7 +9,6 @@ import logoWhite from "@/assets/logo-white.webp";
 import logoClinica from "@/assets/logo-clinica.webp";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.webp";
 import draSobre from "@/assets/dra-morgana-sobre.webp";
-import draCutout from "@/assets/dra-morgana-cutout.webp";
 import teamMorgana from "@/assets/team/morgana.webp";
 import teamBarbara from "@/assets/team/barbara.webp";
 import teamDarlei from "@/assets/team/darlei.webp";
@@ -220,6 +219,7 @@ const Hero = () => {
           loop
           playsInline
           preload="none"
+          poster="/videos/hero-clinic-poster.jpg"
           aria-label={t.hero.videoAriaLabel}
         >
           <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
