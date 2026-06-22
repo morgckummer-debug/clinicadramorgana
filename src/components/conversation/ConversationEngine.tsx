@@ -67,12 +67,6 @@ function precisaDUM(answers: Record<string, string | string[]>): boolean {
   return categoria === 'gestacao' || EXAMES_COM_DUM.has(exame)
 }
 
-async function countPreAgendamentos(): Promise<number | null> {
-  const { count } = await supabase
-    .from('pre_agendamentos')
-    .select('id', { count: 'exact', head: true })
-  return count ?? null
-}
 
 async function savePreAgendamento(answers: Record<string, string | string[]>) {
   // Garante que o RPC é chamado com o papel 'anon', não com sessão anônima
@@ -111,9 +105,6 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   ]
   const pedidoUrl = allUrls.length ? allUrls.join(',') : null
 
-  // Conta registros antes do RPC para verificar se foi criado (se tiver permissão de leitura)
-  const countAntes = await countPreAgendamentos()
-
   const payload = {
     p_nome: answers['q3'] as string,
     p_cpf: cpf,
@@ -138,15 +129,6 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   }
 
   console.log('✅ RPC executado com sucesso')
-
-  // Se tiver permissão de leitura, verifica se o registro foi de fato criado.
-  // countAntes === null significa sem permissão de leitura — não é possível verificar.
-  if (countAntes !== null) {
-    const countDepois = await countPreAgendamentos()
-    if (countDepois !== null && countDepois <= countAntes) {
-      throw new Error('O agendamento não foi registrado. Por favor, tente novamente ou entre em contato pelo WhatsApp.')
-    }
-  }
 }
 
 function q10JaRespondido(answers: Record<string, string | string[]>): boolean {

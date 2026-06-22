@@ -790,7 +790,7 @@ export default function Detalhe() {
                   value={editForm.data_nascimento}
                   onChange={(e) => setEditForm({ ...editForm, data_nascimento: formatDataNascimentoInput(e.target.value) })}
                   placeholder="00.00.0000"
-                  maxLength="10"
+                  maxLength={10}
                   className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
                 />
               </div>

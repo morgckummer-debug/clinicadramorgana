@@ -1,27 +1,42 @@
-## Objetivo
+## Diagnóstico
 
-Adicionar validação completa de CPF brasileiro na pergunta de CPF (`q4`) do formulário de pré-agendamento, exibindo erro inline e bloqueando o avanço enquanto o CPF for inválido.
+O console do print mostra:
+- `📝 Enviando para RPC:` — payload OK
+- `✅ RPC executado com sucesso` — o `criar_pre_agendamento` retornou sem erro
 
-## Regras de validação
+Mesmo assim a tela mostra "Algo deu errado". A causa está em `savePreAgendamento` (`src/components/conversation/ConversationEngine.tsx`), no bloco que roda **depois** do RPC:
 
-- Aceitar entrada com ou sem máscara (a máscara `000.000.000-00` já existe).
-- Remover caracteres não numéricos antes de validar.
-- Exigir exatamente 11 dígitos.
-- Rejeitar sequências com todos os dígitos iguais (`00000000000`, `11111111111`, …, `99999999999`).
-- Validar os dois dígitos verificadores pelo algoritmo oficial (módulo 11).
-- Enquanto o CPF estiver incompleto (menos de 11 dígitos), **não** mostrar mensagem de erro — apenas manter o botão "Continuar" desabilitado.
-- Quando os 11 dígitos estiverem preenchidos e o CPF for inválido:
-  - Exibir a mensagem **"CPF inválido. Por favor, verifique os números digitados."** abaixo do campo (mesmo estilo já usado para erro de data).
-  - Manter o botão "Continuar" desabilitado, impedindo o avanço.
+```ts
+const countAntes = await countPreAgendamentos()
+// ... await supabase.rpc(...) ok ...
+if (countAntes !== null) {
+  const countDepois = await countPreAgendamentos()
+  if (countDepois !== null && countDepois <= countAntes) {
+    throw new Error('O agendamento não foi registrado...')
+  }
+}
+```
 
-## Mudanças técnicas
+O RPC é `SECURITY DEFINER` e insere normalmente, mas o role `anon` (sessão pública do formulário) não enxerga linhas de `pre_agendamentos` por RLS — o que é correto, pois são dados sensíveis de pacientes. Resultado: `countDepois` vê o mesmo número de antes, a função lança erro e a UI cai na tela "Algo deu errado", mesmo com o registro salvo. Quando o usuário clica "Tentar novamente", cria duplicatas — o que explica também o comportamento estranho que você relatou no painel logo após a remoção dos links.
 
-1. **`src/lib/utils.ts`** — adicionar utilitário `isValidCPF(value: string): boolean` que normaliza dígitos, descarta repetidos e valida os dois DVs por módulo 11.
+A verificação só fazia sentido enquanto o anon tinha leitura ampla. Hoje é um falso negativo garantido.
 
-2. **`src/components/conversation/QuestionRenderer.tsx`** (bloco `input`/`textarea`, linhas 94–118) — quando `question.mask === 'cpf'`:
-   - Calcular `isCpfComplete` (11 dígitos) e `cpfError`.
-   - Passar `error={cpfError}` ao `TextAnswer` (a infraestrutura de erro inline já existe, linhas 78–80 de `TextAnswer.tsx`).
+## Mudança
 
-3. **`src/components/conversation/ConversationEngine.tsx`** (função `isAnswered`, ~linhas 152–159) — para `mask === 'cpf'`, retornar `true` somente se `isValidCPF(strValue)`. Isso desabilita "Continuar" para CPF inválido sem alterar nenhuma outra lógica do fluxo.
+Arquivo único: `src/components/conversation/ConversationEngine.tsx`
 
-Nenhuma alteração em backend, RPC, schema ou demais perguntas. Comportamento dos outros campos (data, telefone, etc.) permanece intacto.
+1. Remover a função `countPreAgendamentos()`.
+2. Em `savePreAgendamento`, remover `countAntes = await countPreAgendamentos()` antes do RPC e todo o bloco `if (countAntes !== null) { ... }` após o RPC.
+3. Manter o `throw error` quando o próprio RPC retorna erro — essa é a única fonte de verdade confiável do lado do cliente.
+
+Nada mais muda: payload, fluxo, validações, telas de sucesso/erro/bloqueio permanecem iguais.
+
+## Verificação após implementar
+
+- Preencher o formulário até o fim → deve ir direto para a tela de sucesso.
+- Conferir no painel/Supabase que o registro aparece em `pre_agendamentos`.
+- Console deve continuar mostrando `✅ RPC executado com sucesso` e **não** deve mais cair no `catch`.
+
+## Observação (não faz parte desta mudança)
+
+Se no futuro quiser uma verificação real de gravação, o caminho correto é o próprio RPC `criar_pre_agendamento` retornar o `id` da linha criada e o cliente checar `data` — sem depender de RLS de SELECT no anon.
