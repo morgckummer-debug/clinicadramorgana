@@ -215,7 +215,7 @@ export const PERGUNTAS = {
   // ETAPA 2b_us — Tem ultrassom anterior? (quando não sabe DUM — gestação não ob1)
   q2b_us: {
     title: 'Você tem um ultrassom anterior desta gestação?',
-    subtitle: 'Um exame anterior nos ajuda a estimar a idade gestacional.',
+    subtitle: 'Estamos falando do primeiro exame em que apareceu o embrião com batimentos cardíacos.',
     options: [
       { label: 'Sim, tenho', value: 'sim' },
       { label: 'Não tenho', value: 'nao' },
@@ -224,13 +224,14 @@ export const PERGUNTAS = {
 
   // ETAPA 2b_us_data — Data do ultrassom anterior
   q2b_us_data: {
-    title: 'Qual a data em que esse ultrassom foi feito?',
+    title: 'Qual a data desse ultrassom?',
+    subtitle: 'Informe a data do primeiro ultrassom em que apareceu o embrião com batimentos cardíacos.',
     placeholder: 'DD/MM/AAAA',
   },
 
   // ETAPA 2b_us_sem — Semanas mostradas no ultrassom anterior
   q2b_us_sem: {
-    title: 'Quantas semanas mostrou o ultrassom?',
+    title: 'Quantas semanas mostrou esse ultrassom?',
     subtitle: 'Se o laudo informou semanas e dias, escreva assim: 12+3',
     placeholder: 'Ex: 12 ou 12+3',
   },
