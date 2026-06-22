@@ -106,6 +106,12 @@ export default function Login() {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    doLogin()
+                  }
+                }}
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
