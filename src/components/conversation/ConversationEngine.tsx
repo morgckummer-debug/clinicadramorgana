@@ -114,7 +114,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   // Conta registros antes do RPC para verificar se foi criado (se tiver permissão de leitura)
   const countAntes = await countPreAgendamentos()
 
-  const { error } = await supabase.rpc('criar_pre_agendamento', {
+  const payload = {
     p_nome: answers['q3'] as string,
     p_cpf: cpf,
     p_data_nascimento: parseDateBR(answers['q5'] as string),
@@ -127,9 +127,17 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_medico_preferido: (answers['q9'] as string) || EXAME_MEDICO_FIXO[answers['q2'] as string] || 'dra-morgana',
     p_pedido_url: pedidoUrl,
     p_observacoes: observacoes,
-  })
+  }
 
-  if (error) throw error
+  console.log('📝 Enviando para RPC:', payload)
+  const { error } = await supabase.rpc('criar_pre_agendamento', payload)
+
+  if (error) {
+    console.error('❌ Erro do RPC:', error)
+    throw error
+  }
+
+  console.log('✅ RPC executado com sucesso')
 
   // Se tiver permissão de leitura, verifica se o registro foi de fato criado.
   // countAntes === null significa sem permissão de leitura — não é possível verificar.
