@@ -38,7 +38,7 @@ export function NavigationButtons({
         <div className="flex flex-col items-end gap-1.5">
           <button
             type="button"
-            onClick={onNext}
+            onClick={() => onNext()}
             disabled={nextDisabled}
             className={[
               'inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-8 py-3 sm:py-3.5 rounded-full whitespace-nowrap',
@@ -60,7 +60,7 @@ export function NavigationButtons({
           {optional && (
             <button
               type="button"
-              onClick={onNext}
+              onClick={() => onNext()}
               className="text-[10px] sm:text-[11px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide"
             >
               Pular
