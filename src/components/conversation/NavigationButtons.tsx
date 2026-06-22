@@ -18,7 +18,7 @@ export function NavigationButtons({
   optional = false,
 }: NavigationButtonsProps) {
   return (
-    <div className="mt-8 flex items-center justify-between gap-2 sm:gap-4">
+    <div className="sticky bottom-0 mt-8 flex items-center justify-between gap-2 sm:gap-4 bg-background/95 backdrop-blur-sm pb-safe pt-3 pb-4 -mx-1 px-1">
       {showBack ? (
         <button
           type="button"

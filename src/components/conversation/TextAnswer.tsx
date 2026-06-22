@@ -45,7 +45,7 @@ function applyMask(raw: string, mask: Mask): string {
 
 export function TextAnswer({ type, value, placeholder, mask = 'none', onChange, error }: TextAnswerProps) {
   const baseClass = [
-    'w-full bg-card border-border/60 rounded-xl font-light text-xs sm:text-sm text-foreground',
+    'w-full bg-card border-border/60 rounded-xl font-light text-base text-foreground',
     'placeholder:text-muted-foreground/50 focus-visible:ring-wine/30 focus-visible:border-wine/40',
     'transition-all duration-300',
   ].join(' ')
