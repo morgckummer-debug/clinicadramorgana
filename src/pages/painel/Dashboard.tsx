@@ -185,14 +185,7 @@ export default function Dashboard() {
     return () => clearInterval(interval)
   }, [])
 
-  const handleSelectPaciente = async (item: PreAgendamento) => {
-    if (item.status === 'pendente') {
-      await supabase
-        .from('pre_agendamentos')
-        .update({ status: 'em_atendimento', atendente_nome: userName })
-        .eq('id', item.id)
-        .eq('status', 'pendente') // garante que só uma secretária "pega" o paciente
-    }
+  const handleSelectPaciente = (item: PreAgendamento) => {
     navigate(`/painel/${item.id}`)
   }
 

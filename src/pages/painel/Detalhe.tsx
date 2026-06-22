@@ -181,8 +181,21 @@ export default function Detalhe() {
     setUpdatingStatus(false)
   }
 
-  const openWhatsApp = () => {
+  const openWhatsApp = async () => {
     if (!item?.pacientes) return
+
+    if (item.status === 'pendente' && id) {
+      await supabase
+        .from('pre_agendamentos')
+        .update({ status: 'em_atendimento', atendente_nome: userName })
+        .eq('id', id)
+        .eq('status', 'pendente')
+      setItem((prev) => {
+        if (!prev) return prev
+        return { ...prev, status: 'em_atendimento', atendente_nome: userName }
+      })
+    }
+
     const nomePaciente = primeiroNome(item.pacientes.nome)
     const exame = item.exame ?? 'seu exame'
     const secretaria = userName ?? 'a secretária'
