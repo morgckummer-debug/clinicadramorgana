@@ -18,3 +18,21 @@ export function isValidDateBR(ddmmaaaa: string): boolean {
   if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return false
   return date <= new Date()
 }
+
+export function isValidCPF(value: string): boolean {
+  const digits = (value || '').replace(/\D/g, '')
+  if (digits.length !== 11) return false
+  if (/^(\d)\1{10}$/.test(digits)) return false
+
+  const calcCheck = (len: number) => {
+    let sum = 0
+    for (let i = 0; i < len; i++) {
+      sum += parseInt(digits.charAt(i), 10) * (len + 1 - i)
+    }
+    const mod = (sum * 10) % 11
+    return mod === 10 ? 0 : mod
+  }
+
+  return calcCheck(9) === parseInt(digits.charAt(9), 10)
+    && calcCheck(10) === parseInt(digits.charAt(10), 10)
+}
