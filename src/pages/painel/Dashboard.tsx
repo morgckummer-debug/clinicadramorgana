@@ -201,11 +201,21 @@ export default function Dashboard() {
     if (key === 'pendente') setNewPendingCount(0)
   }
 
-  const filteredItems = search.trim()
-    ? items.filter((item) =>
-        item.pacientes?.nome?.toLowerCase().includes(search.toLowerCase()) ||
-        item.exame?.toLowerCase().includes(search.toLowerCase())
-      )
+  const normalize = (s: string) =>
+    s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+  const searchTerm = normalize(search.trim())
+  const filteredItems = searchTerm
+    ? items.filter((item) => {
+        const nome = item.pacientes?.nome ? normalize(item.pacientes.nome) : ''
+        const exame = item.exame ? normalize(item.exame) : ''
+        const telefone = item.pacientes?.telefone ? item.pacientes.telefone.replace(/\D/g, '') : ''
+        const termoDigitos = searchTerm.replace(/\D/g, '')
+        return (
+          nome.includes(searchTerm) ||
+          exame.includes(searchTerm) ||
+          (termoDigitos.length >= 3 && telefone.includes(termoDigitos))
+        )
+      })
     : items
 
   const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE))

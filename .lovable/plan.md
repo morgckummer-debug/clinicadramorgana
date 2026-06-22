@@ -1,30 +1,29 @@
-## Plano
+Plano recomendado para você conseguir usar o sistema com segurança:
 
-Vou corrigir em duas frentes: garantir que o pré-agendamento seja realmente criado no banco e garantir que o painel mostre/acuse erros em vez de parecer vazio.
+1. Confirmar o que já voltou a funcionar
+- O erro principal do pré-agendamento foi corrigido no banco.
+- Vou considerar o fluxo de salvar pré-agendamento como prioridade máxima: paciente preenche, o pedido entra no painel e aparece em pendentes/procura.
 
-### 1. Corrigir a função de criação do pré-agendamento
-- Criar uma migration substituindo `criar_pre_agendamento` por uma versão determinística.
-- A função vai:
-  - validar nome, CPF e telefone mínimos;
-  - criar ou atualizar o paciente pelo CPF;
-  - sempre inserir um novo registro em `pre_agendamentos` com status `pendente`;
-  - retornar o `id` do pré-agendamento criado;
-  - não engolir erros silenciosamente.
-- Conceder permissão de execução da RPC para o formulário público e para usuários autenticados.
+2. Fazer um ajuste prático no envio de pedido médico
+- Hoje o upload depende de login anônimo, e isso está falhando com erro 422.
+- Minha sugestão é remover essa dependência frágil do fluxo: se o upload falhar, o sistema ainda deve deixar o paciente concluir o pré-agendamento e avisar no painel que o pedido precisa ser solicitado pelo WhatsApp.
+- Assim você não perde pacientes por causa de arquivo/anexo.
 
-### 2. Corrigir permissões de leitura/atualização do painel
-- Adicionar `GRANT`s explícitos para `pacientes` e `pre_agendamentos` para usuários autenticados do painel.
-- Manter dados sensíveis protegidos: não liberar leitura direta dessas tabelas para visitantes anônimos.
-- Garantir acesso administrativo interno com `service_role`.
+3. Melhorar a experiência para quem agenda
+- Trocar mensagens técnicas de erro por mensagens simples em português.
+- Garantir que o botão de finalizar não deixe a pessoa presa sem saber o que fazer.
+- Manter o fluxo calmo, direto e profissional.
 
-### 3. Corrigir falso sucesso no formulário
-- Atualizar `ConversationEngine.tsx` para tratar a RPC como sucesso apenas se ela retornar o `id` criado.
-- Se a função não retornar `id`, o formulário deve mostrar erro real em vez de tela de sucesso falsa.
+4. Melhorar o painel para uso diário
+- Verificar se novos pré-agendamentos aparecem em “Pendentes”.
+- Garantir que a busca encontre nomes como “Nayara”, mesmo com diferença de maiúsculas/minúsculas ou acentos.
+- Garantir que o médico preferido “Nayara” apareça com rótulo correto no detalhe e nas listas.
 
-### 4. Corrigir diagnóstico no painel
-- Atualizar `Dashboard.tsx` para não ignorar erros das consultas.
-- Se houver erro de permissão, join com paciente ou falha de consulta, exibir/logar o erro em vez de mostrar “nenhum resultado” silenciosamente.
+5. Limpar o registro de teste
+- Remover o pré-agendamento de teste criado na validação automática, para não poluir seu painel.
 
-### Resultado esperado
-- Um novo pré-agendamento, como “Nayara”, deve entrar como `pendente` e aparecer na lista do painel.
-- Se o banco recusar a gravação ou leitura, a aplicação vai mostrar/logar o erro real para não mascarar o problema novamente.
+Detalhes técnicos que eu vou cuidar sem você precisar mexer:
+- Revisar o componente de upload e o salvamento do RPC.
+- Revisar filtros/listagem do painel.
+- Ajustar mapeamento de médicos e busca.
+- Validar no navegador se o fluxo cria o pedido e aparece no painel.
