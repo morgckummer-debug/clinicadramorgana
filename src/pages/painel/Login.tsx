@@ -30,8 +30,7 @@ export default function Login() {
 
   if (!loading && session) return <Navigate to="/painel" replace />
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+  const doLogin = async () => {
     setError('')
     if (!SECRETARIAS.includes(nome)) {
       setError('Nome não encontrado.')
@@ -45,6 +44,11 @@ export default function Login() {
     } else {
       navigate('/painel')
     }
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    doLogin()
   }
 
   return (
