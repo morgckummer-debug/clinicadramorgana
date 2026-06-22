@@ -25,6 +25,25 @@ function parseDateBR(ddmmaaaa: string): string {
   return `${digits.slice(4, 8)}-${digits.slice(2, 4)}-${digits.slice(0, 2)}`
 }
 
+function calcIGFromUltrassom(usDate: string, usWeeks: string): string | null {
+  const digits = usDate.replace(/\D/g, '')
+  if (digits.length !== 8) return null
+  const us = new Date(
+    parseInt(digits.slice(4, 8)),
+    parseInt(digits.slice(2, 4)) - 1,
+    parseInt(digits.slice(0, 2))
+  )
+  const match = usWeeks.trim().match(/^(\d+)(?:\+(\d+))?$/)
+  if (!match) return null
+  const igDaysAtUS = parseInt(match[1]) * 7 + (match[2] ? parseInt(match[2]) : 0)
+  const daysSinceUS = Math.floor((Date.now() - us.getTime()) / 86400000)
+  if (daysSinceUS < 0) return null
+  const totalDays = igDaysAtUS + daysSinceUS
+  const w = Math.floor(totalDays / 7)
+  const d = totalDays % 7
+  return `${w} semanas e ${d} dia${d !== 1 ? 's' : ''}`
+}
+
 function calcIdadeGestacional(ddmmaaaa: string): string | null {
   const digits = ddmmaaaa.replace(/\D/g, '')
   if (digits.length !== 8) return null
@@ -88,6 +107,13 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
       const ig = calcIdadeGestacional(dum)
       if (ig) dumLinhas.push(`Idade gestacional estimada: ${ig}`)
     }
+  }
+  const usData = answers['q2b_us_data'] as string | undefined
+  const usSem = answers['q2b_us_sem'] as string | undefined
+  if (usData && usSem) {
+    dumLinhas.push(`US anterior: ${usData} (${usSem}sem)`)
+    const igFromUS = calcIGFromUltrassom(usData, usSem)
+    if (igFromUS) dumLinhas.push(`Idade gestacional estimada: ${igFromUS}`)
   }
   const obsExtra = dumLinhas.join(' — ')
   const obsUsuario = (answers['q11'] as string) || ''
@@ -226,8 +252,14 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
     if (currentId === 'q2b') {
       const val = selectedValue ?? (currentAnswer as string)
-      return val === 'sim' ? 'q2c' : 'q2d'
+      return val === 'sim' ? 'q2c' : 'q2b_us'
     }
+    if (currentId === 'q2b_us') {
+      const val = selectedValue ?? (currentAnswer as string)
+      return val === 'sim' ? 'q2b_us_data' : 'q2d'
+    }
+    if (currentId === 'q2b_us_data') return 'q2b_us_sem'
+    if (currentId === 'q2b_us_sem') return 'q2d'
     if (currentId === 'q2c') {
       const categoria = answers['q1'] as string
       return categoria === 'gestacao' ? 'q2e' : 'q3'

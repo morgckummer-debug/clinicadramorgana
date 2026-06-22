@@ -4,6 +4,25 @@ import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
 
+function calcIGFromUS(usDate: string, usWeeks: string): string | null {
+  const digits = usDate.replace(/\D/g, '')
+  if (digits.length !== 8) return null
+  const us = new Date(
+    parseInt(digits.slice(4, 8)),
+    parseInt(digits.slice(2, 4)) - 1,
+    parseInt(digits.slice(0, 2))
+  )
+  const match = usWeeks.trim().match(/^(\d+)(?:\+(\d+))?$/)
+  if (!match) return null
+  const igDaysAtUS = parseInt(match[1]) * 7 + (match[2] ? parseInt(match[2]) : 0)
+  const daysSinceUS = Math.floor((Date.now() - us.getTime()) / 86400000)
+  if (daysSinceUS < 0) return null
+  const totalDays = igDaysAtUS + daysSinceUS
+  const w = Math.floor(totalDays / 7)
+  const d = totalDays % 7
+  return `${w} semanas e ${d} dia${d !== 1 ? 's' : ''}`
+}
+
 function calcIG(ddmmaaaa: string): string | null {
   const digits = ddmmaaaa.replace(/\D/g, '')
   if (digits.length !== 8) return null
@@ -97,6 +116,10 @@ export function QuestionRenderer({
     const isOvulacao = answers['q2'] === 'Rastreamento de Ovulação'
     const isDUMQuestion = question.id === 'q2c' || question.id === 'ob1_b'
     const ig = isDUMQuestion && !isOvulacao ? calcIG(strValue) : null
+    const isUSWeeksQuestion = question.id === 'q2b_us_sem'
+    const usIg = isUSWeeksQuestion && strValue.trim() !== ''
+      ? calcIGFromUS((answers['q2b_us_data'] as string) ?? '', strValue)
+      : null
     const isDateComplete = question.mask === 'date' && strValue.replace(/\D/g, '').length === 8
     const dateError = isDateComplete && !isValidDateBR(strValue)
       ? 'Data inválida. Verifique dia, mês e ano.'
@@ -119,9 +142,9 @@ export function QuestionRenderer({
           error={isDUMExceeded ?? dateError ?? cpfError}
         />
 
-        {ig && (
+        {(ig ?? usIg) && (
           <p className="text-sm text-center text-wine-deep font-light animate-fade-in">
-            Idade gestacional estimada: <span className="font-medium">{ig}</span>
+            Idade gestacional estimada: <span className="font-medium">{ig ?? usIg}</span>
           </p>
         )}
       </div>
