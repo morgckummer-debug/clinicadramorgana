@@ -15,6 +15,12 @@ interface OtherRecord {
   criado_em: string
 }
 
+interface OtherRecordAnalyzed extends OtherRecord {
+  diasAtrás: number
+  éAlerta: boolean
+  éMesmoExame: boolean
+}
+
 interface Detalhe {
   id: string
   paciente_id: string
@@ -199,6 +205,19 @@ function converterDataDeEdicao(data: string) {
     return `${ano}-${mes}-${dia}`
   }
   return data
+}
+
+function analisarHistorico(currentItem: Detalhe, otherRecords: OtherRecord[]): OtherRecordAnalyzed[] {
+  return otherRecords.map((rec) => {
+    const diasAtrás = Math.floor(
+      (new Date(currentItem.criado_em).getTime() - new Date(rec.criado_em).getTime()) / 86400000
+    )
+    const éMesmoExame = rec.exame === currentItem.exame
+    const éMuitoRecente = diasAtrás < 7 && diasAtrás >= 0
+    const éAlerta = éMesmoExame && éMuitoRecente && rec.status === 'agendado'
+
+    return { ...rec, diasAtrás, éAlerta, éMesmoExame }
+  })
 }
 
 export default function Detalhe() {
@@ -451,42 +470,74 @@ export default function Detalhe() {
         Lista
       </button>
 
-      {/* Banner de duplicata */}
-      {otherRecords.length > 0 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-5">
-          <div className="flex items-center gap-2 mb-2.5">
-            <TriangleAlert className="w-4 h-4 text-amber-600 flex-shrink-0" />
-            <p className="text-sm font-medium text-amber-800">
-              Esta paciente já tem {otherRecords.length === 1 ? 'outro registro' : `mais ${otherRecords.length} registros`}
-            </p>
-          </div>
-          <div className="space-y-2">
-            {otherRecords.map((rec) => (
-              <div key={rec.id} className="flex items-center justify-between gap-3">
-                <div className="flex flex-col gap-0.5 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <StatusBadge status={rec.status} />
-                    <span className="text-xs text-amber-700 font-light truncate">
-                      {rec.exame ?? 'Exame não informado'} · {fmtISO(rec.criado_em)}
-                    </span>
-                  </div>
-                  {rec.atendente_nome && (
-                    <span className="text-[11px] text-amber-600 font-light pl-1">
-                      Atendido por <span className="font-medium">{rec.atendente_nome}</span> em {fmtISO(rec.criado_em)}
-                    </span>
-                  )}
-                </div>
-                <Link
-                  to={`/painel/${rec.id}`}
-                  className="text-[11px] tracking-wide text-amber-600 underline underline-offset-2 flex-shrink-0 hover:text-amber-800 transition-colors"
+      {/* Banner de histórico */}
+      {otherRecords.length > 0 && (() => {
+        const analyzed = analisarHistorico(item, otherRecords)
+        const temAlerta = analyzed.some((r) => r.éAlerta)
+
+        return (
+          <div className={`rounded-2xl p-4 mb-5 ${
+            temAlerta ? 'bg-red-50 border border-red-200' : 'bg-blue-50 border border-blue-200'
+          }`}>
+            <div className="flex items-center gap-2 mb-2.5">
+              <TriangleAlert className={`w-4 h-4 flex-shrink-0 ${
+                temAlerta ? 'text-red-600' : 'text-blue-600'
+              }`} />
+              <p className={`text-sm font-medium ${
+                temAlerta ? 'text-red-800' : 'text-blue-800'
+              }`}>
+                {temAlerta
+                  ? '⚠️ Agendamento recente do mesmo exame detectado'
+                  : `ℹ️ Esta paciente tem ${otherRecords.length === 1 ? 'outro registro' : `mais ${otherRecords.length} registros`}`
+                }
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              {analyzed.map((rec) => (
+                <div
+                  key={rec.id}
+                  className={`flex items-center justify-between gap-3 p-2.5 rounded-lg ${
+                    rec.éAlerta ? 'bg-red-100/50' : 'bg-white/50'
+                  }`}
                 >
-                  Ver
-                </Link>
-              </div>
-            ))}
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <StatusBadge status={rec.status} />
+                      <span className={`text-xs font-light truncate ${
+                        rec.éAlerta ? 'text-red-700' : 'text-blue-700'
+                      }`}>
+                        {rec.exame ?? 'Exame não informado'}
+                      </span>
+                    </div>
+                    <span className={`text-[11px] font-light pl-1 ${
+                      rec.éAlerta ? 'text-red-600' : 'text-blue-600'
+                    }`}>
+                      {fmtISO(rec.criado_em)} · há {rec.diasAtrás} dia{rec.diasAtrás !== 1 ? 's' : ''}
+                      {rec.atendente_nome && ` · ${rec.atendente_nome}`}
+                    </span>
+                    {rec.éMesmoExame && rec.éAlerta && (
+                      <span className="text-[10px] font-medium pl-1 text-red-700">
+                        Same exam within 7 days
+                      </span>
+                    )}
+                  </div>
+                  <Link
+                    to={`/painel/${rec.id}`}
+                    className={`text-[11px] tracking-wide underline underline-offset-2 flex-shrink-0 transition-colors ${
+                      rec.éAlerta
+                        ? 'text-red-600 hover:text-red-800'
+                        : 'text-blue-600 hover:text-blue-800'
+                    }`}
+                  >
+                    Ver
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )
+      })()}
 
       {/* Header compacto */}
       <div className="flex items-center justify-between mb-5">
