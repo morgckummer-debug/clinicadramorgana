@@ -329,10 +329,12 @@ export default function Detalhe() {
         data_nascimento: dataLimpa,
       }
 
-      await supabase
+      const { error: updateError } = await supabase
         .from('pacientes')
         .update(updateData)
         .eq('id', item.paciente_id)
+
+      if (updateError) throw updateError
 
       setItem((prev) => {
         if (!prev) return prev
