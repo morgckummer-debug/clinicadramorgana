@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Clock, TriangleAlert, User } from 'lucide-react'
+import { Clock, Search, TriangleAlert, User } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
@@ -86,6 +86,7 @@ export default function Dashboard() {
   const [refreshing, setRefreshing] = useState(false)
   const [newPendingCount, setNewPendingCount] = useState(0)
   const [pendingCount, setPendingCount] = useState(0)
+  const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const PAGE_SIZE = 15
 
@@ -195,8 +196,15 @@ export default function Dashboard() {
     if (key === 'pendente') setNewPendingCount(0)
   }
 
-  const totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE))
-  const pagedItems = items.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  const filteredItems = search.trim()
+    ? items.filter((item) =>
+        item.pacientes?.nome?.toLowerCase().includes(search.toLowerCase()) ||
+        item.exame?.toLowerCase().includes(search.toLowerCase())
+      )
+    : items
+
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE))
+  const pagedItems = filteredItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
   const filters: { key: StatusFilter; label: string }[] = [
     { key: 'pendente', label: 'Pendentes' },
@@ -217,6 +225,18 @@ export default function Dashboard() {
           <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
           <span className="text-2xl font-bold leading-none" style={{ color: '#5B2D8E' }}>{pendingCount}</span>
         </div>
+      </div>
+
+      {/* Busca por nome */}
+      <div className="relative mb-4">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground pointer-events-none" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => { setSearch(e.target.value); setPage(1) }}
+          placeholder="Buscar por nome ou exame…"
+          className="w-full pl-9 pr-4 py-2 text-sm rounded-full border border-border bg-white text-wine-deep placeholder:text-muted-foreground/60 focus:outline-none focus:border-wine-deep/40 transition-colors"
+        />
       </div>
 
       {/* Filtros */}
@@ -247,10 +267,12 @@ export default function Dashboard() {
         <div className="flex justify-center py-16">
           <div className="w-6 h-6 rounded-full border-2 border-champagne border-t-wine-deep animate-spin" />
         </div>
-      ) : items.length === 0 ? (
+      ) : filteredItems.length === 0 ? (
         <div className="text-center py-16">
           <p className="text-muted-foreground font-light text-sm">
-            Nenhum pré-agendamento {filter !== 'todos' ? `com status "${filter}"` : ''} encontrado.
+            {search.trim()
+              ? `Nenhum resultado para "${search}".`
+              : `Nenhum pré-agendamento ${filter !== 'todos' ? `com status "${filter}"` : ''} encontrado.`}
           </p>
         </div>
       ) : (
