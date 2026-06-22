@@ -155,6 +155,9 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         const digits = strValue.replace(/\D/g, '')
         return digits.length === 8 && isValidDateBR(strValue)
       }
+      if (currentQuestion?.mask === 'cpf') {
+        return isValidCPF(strValue)
+      }
       return strValue.trim() !== ''
     }
     return typeof currentAnswer === 'string' && currentAnswer.trim() !== ''
