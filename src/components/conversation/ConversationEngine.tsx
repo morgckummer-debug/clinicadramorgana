@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { ConversationFlow, examsByCategory } from '@/data/conversation/preAgendamento'
 import { supabase } from '@/lib/supabase'
 import { isValidDateBR, isValidCPF } from '@/lib/utils'
