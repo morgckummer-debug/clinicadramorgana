@@ -329,12 +329,13 @@ export default function Detalhe() {
         data_nascimento: dataLimpa,
       }
 
-      const { error: updateError } = await supabase
+      const { error: updateError, count } = await supabase
         .from('pacientes')
-        .update(updateData)
+        .update(updateData, { count: 'exact' })
         .eq('id', item.paciente_id)
 
       if (updateError) throw updateError
+      if (count === 0) throw new Error('Nenhuma linha atualizada — verifique as políticas RLS da tabela pacientes.')
 
       setItem((prev) => {
         if (!prev) return prev
