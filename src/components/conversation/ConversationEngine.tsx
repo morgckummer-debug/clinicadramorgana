@@ -329,7 +329,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       }
       setStep('saving')
       try {
-        await savePreAgendamento(answers)
+        await savePreAgendamento(nextAnswers)
         setStep('success')
       } catch {
         setStep('error')
