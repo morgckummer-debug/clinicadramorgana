@@ -19,6 +19,18 @@ export function isValidDateBR(ddmmaaaa: string): boolean {
   return date <= new Date()
 }
 
+export function isValidDUM(ddmmaaaa: string): boolean {
+  const digits = ddmmaaaa.replace(/\D/g, '')
+  if (digits.length !== 8) return true
+  const day = parseInt(digits.slice(0, 2), 10)
+  const month = parseInt(digits.slice(2, 4), 10)
+  const year = parseInt(digits.slice(4, 8), 10)
+  const dum = new Date(year, month - 1, day)
+  const diffDays = Math.floor((Date.now() - dum.getTime()) / 86400000)
+  // Máximo 41 semanas = 287 dias
+  return diffDays >= 0 && diffDays <= 287
+}
+
 export function isValidCPF(value: string): boolean {
   const digits = (value || '').replace(/\D/g, '')
   if (digits.length !== 11) return false

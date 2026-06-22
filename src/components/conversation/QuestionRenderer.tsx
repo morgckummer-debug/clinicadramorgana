@@ -1,5 +1,5 @@
 import { Question, examsByCategory } from '@/data/conversation/preAgendamento'
-import { isValidDateBR, isValidCPF } from '@/lib/utils'
+import { isValidDateBR, isValidCPF, isValidDUM } from '@/lib/utils'
 import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
@@ -13,7 +13,8 @@ function calcIG(ddmmaaaa: string): string | null {
     parseInt(digits.slice(0, 2))
   )
   const diffDays = Math.floor((Date.now() - dum.getTime()) / 86400000)
-  if (diffDays < 0 || diffDays > 300) return null
+  // Máximo 41 semanas = 287 dias
+  if (diffDays < 0 || diffDays > 287) return null
   const weeks = Math.floor(diffDays / 7)
   const days = diffDays % 7
   return `${weeks} semanas e ${days} dia${days !== 1 ? 's' : ''}`
@@ -94,10 +95,14 @@ export function QuestionRenderer({
   if (type === 'input' || type === 'textarea') {
     const strValue = typeof value === 'string' ? value : ''
     const isOvulacao = answers['q2'] === 'Rastreamento de Ovulação'
-    const ig = (question.id === 'q2c' || question.id === 'ob1_b') && !isOvulacao ? calcIG(strValue) : null
+    const isDUMQuestion = question.id === 'q2c' || question.id === 'ob1_b'
+    const ig = isDUMQuestion && !isOvulacao ? calcIG(strValue) : null
     const isDateComplete = question.mask === 'date' && strValue.replace(/\D/g, '').length === 8
     const dateError = isDateComplete && !isValidDateBR(strValue)
       ? 'Data inválida. Verifique dia, mês e ano.'
+      : undefined
+    const isDUMExceeded = isDUMQuestion && isDateComplete && !isValidDUM(strValue)
+      ? 'A DUM informada passa de 41 semanas. Por favor, verifique a data.'
       : undefined
     const isCpfComplete = question.mask === 'cpf' && strValue.replace(/\D/g, '').length === 11
     const cpfError = isCpfComplete && !isValidCPF(strValue)
@@ -111,7 +116,7 @@ export function QuestionRenderer({
           placeholder={placeholder}
           mask={question.mask}
           onChange={onChange}
-          error={dateError ?? cpfError}
+          error={isDUMExceeded ?? dateError ?? cpfError}
         />
 
         {ig && (
