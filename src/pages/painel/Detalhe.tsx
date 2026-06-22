@@ -112,6 +112,12 @@ function formatTel(tel: string) {
   return tel.replace(/\D/g, '').replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3')
 }
 
+function formatDataNascimento(data: string) {
+  if (!data) return '—'
+  const [ano, mes, dia] = data.split('-')
+  return `${dia}.${mes}.${ano}`
+}
+
 function primeiroNome(nome: string) {
   const partes = nome.trim().split(' ')
   return partes.slice(0, 2).join(' ')
@@ -363,7 +369,7 @@ export default function Detalhe() {
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Paciente</p>
           <Chip label="Nome" value={item.pacientes?.nome ?? '—'} />
           <Chip label="CPF" value={item.pacientes?.cpf ? formatCpf(item.pacientes.cpf) : '—'} />
-          <Chip label="Nascimento" value={item.pacientes?.data_nascimento ?? '—'} />
+          <Chip label="Nascimento" value={item.pacientes?.data_nascimento ? formatDataNascimento(item.pacientes.data_nascimento) : '—'} />
           <Chip label="Telefone" value={item.pacientes?.telefone ? formatTel(item.pacientes.telefone) : '—'} />
         </div>
 
