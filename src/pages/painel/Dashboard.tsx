@@ -123,12 +123,17 @@ export default function Dashboard() {
     const currentFilter = filterRef.current
     if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
 
-    const [{ data }, count] = await Promise.all([query, fetchPendingCount()])
-    setItems((data as unknown as PreAgendamento[]) ?? [])
+    const [listRes, count] = await Promise.all([query, fetchPendingCount()])
+    if (listRes.error) {
+      console.error('Erro ao carregar pré-agendamentos:', listRes.error)
+      if (mode !== 'silent') toast.error(`Erro ao carregar lista: ${listRes.error.message}`)
+    }
+    setItems((listRes.data as unknown as PreAgendamento[]) ?? [])
     setPendingCount(count)
     setLoading(false)
     setRefreshing(false)
   }
+
 
   useEffect(() => {
     const channel = supabase

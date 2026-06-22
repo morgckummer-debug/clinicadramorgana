@@ -121,15 +121,20 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   }
 
   console.log('📝 Enviando para RPC:', payload)
-  const { error } = await supabase.rpc('criar_pre_agendamento', payload)
+  const { data, error } = await supabase.rpc('criar_pre_agendamento', payload)
 
   if (error) {
     console.error('❌ Erro do RPC:', error)
     throw error
   }
 
-  console.log('✅ RPC executado com sucesso')
-}
+  if (!data) {
+    console.error('❌ RPC retornou sem id — pré-agendamento não foi criado.')
+    throw new Error('Pré-agendamento não foi criado (sem id de retorno).')
+  }
+
+  console.log('✅ Pré-agendamento criado, id:', data)
+
 
 function q10JaRespondido(answers: Record<string, string | string[]>): boolean {
   const v = answers['q10']
