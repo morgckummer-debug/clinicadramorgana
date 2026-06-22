@@ -10,16 +10,25 @@ interface UploadAreaProps {
 
 async function uploadFile(file: File): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession()
-  if (!session) await supabase.auth.signInAnonymously()
+  const signedInForUpload = !session
+  if (signedInForUpload) await supabase.auth.signInAnonymously()
 
-  const ext = file.name.split('.').pop()
-  const path = `${crypto.randomUUID()}.${ext}`
-  const { data, error } = await supabase.storage
-    .from('pedidos')
-    .upload(path, file, { upsert: false })
-  if (error) throw error
-  const { data: { publicUrl } } = supabase.storage.from('pedidos').getPublicUrl(data.path)
-  return publicUrl
+  try {
+    const ext = file.name.split('.').pop()
+    const path = `${crypto.randomUUID()}.${ext}`
+    const { data, error } = await supabase.storage
+      .from('pedidos')
+      .upload(path, file, { upsert: false })
+    if (error) throw error
+    const { data: { publicUrl } } = supabase.storage.from('pedidos').getPublicUrl(data.path)
+    return publicUrl
+  } finally {
+    // Remove a sessão anônima imediatamente após o upload para que o RPC
+    // de submissão do formulário seja chamado com o papel 'anon' correto.
+    if (signedInForUpload) {
+      await supabase.auth.signOut({ scope: 'local' }).catch(() => {})
+    }
+  }
 }
 
 function FileSlot({ name, onRemove }: { name: string; onRemove: () => void }) {

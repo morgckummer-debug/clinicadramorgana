@@ -65,6 +65,11 @@ function precisaDUM(answers: Record<string, string | string[]>): boolean {
 }
 
 async function savePreAgendamento(answers: Record<string, string | string[]>) {
+  // Garante que o RPC é chamado com o papel 'anon', não com sessão anônima
+  // que pode ter sido criada durante o upload de arquivo.
+  const { data: { session } } = await supabase.auth.getSession()
+  if (session) await supabase.auth.signOut({ scope: 'local' }).catch(() => {})
+
   const cpf = (answers['q4'] as string).replace(/\D/g, '')
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
   const convenio = answers['q7']
