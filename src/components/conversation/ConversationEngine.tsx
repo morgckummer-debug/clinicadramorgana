@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { ConversationFlow } from '@/data/conversation/preAgendamento'
 import { supabase } from '@/lib/supabase'
-import { isValidDateBR } from '@/lib/utils'
+import { isValidDateBR, isValidCPF } from '@/lib/utils'
 import { ConversationHeader } from './ConversationHeader'
 import { ProgressBar } from './ProgressBar'
 import { WelcomeScreen } from './WelcomeScreen'
