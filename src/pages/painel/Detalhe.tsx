@@ -372,21 +372,21 @@ export default function Detalhe() {
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
       {dum && (
-        <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3 space-y-3">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium text-center">
+        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#FDDCB5', border: '2px solid #5B2D8E' }}>
+          <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
             {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
           </p>
-          <p className="text-sm text-foreground/70 font-light text-center">
+          <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
             DUM: {fmtDate(dum)}
           </p>
-          {igCalculada && !isOvulacao && <p className="text-base text-wine-deep font-bold text-center">IG: {igCalculada}</p>}
+          {igCalculada && !isOvulacao && <p className="text-base font-bold text-center" style={{ color: '#5B2D8E' }}>IG: {igCalculada}</p>}
           {janelas.length > 0 && (
-            <div className="space-y-2 pt-1 border-t border-border/40">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium text-center">Janelas ideais para agendamento</p>
+            <div className="space-y-2 pt-1" style={{ borderTop: '1px solid #5B2D8E' }}>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>Janelas ideais para agendamento</p>
               {janelas.map((j) => (
                 <div key={j.label} className="flex flex-col items-center gap-1">
-                  <p className="text-xs text-foreground/70 font-light">{j.label}</p>
-                  <p className="text-xs text-wine-deep font-medium whitespace-nowrap">
+                  <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>{j.label}</p>
+                  <p className="text-xs font-medium whitespace-nowrap" style={{ color: '#5B2D8E' }}>
                     {fmtDate(j.de)} – {fmtDate(j.ate)}
                   </p>
                 </div>
@@ -394,19 +394,19 @@ export default function Detalhe() {
             </div>
           )}
           {diasCiclo && (
-            <div className="space-y-2 pt-1 border-t border-border/40">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium text-center">Dias ideais para agendar (ciclo atual/próximo)</p>
+            <div className="space-y-2 pt-1" style={{ borderTop: '1px solid #5B2D8E' }}>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>Dias ideais para agendar (ciclo atual/próximo)</p>
               <div className="flex flex-col items-center gap-1">
-                <p className="text-xs text-foreground/70 font-light">10º dia do ciclo</p>
-                <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d10)}</p>
+                <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>10º dia do ciclo</p>
+                <p className="text-xs font-medium" style={{ color: '#5B2D8E' }}>{fmtDate(diasCiclo.d10)}</p>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <p className="text-xs text-foreground/70 font-light">12º dia do ciclo</p>
-                <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d12)}</p>
+                <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>12º dia do ciclo</p>
+                <p className="text-xs font-medium" style={{ color: '#5B2D8E' }}>{fmtDate(diasCiclo.d12)}</p>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <p className="text-xs text-foreground/70 font-light">14º dia do ciclo</p>
-                <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d14)}</p>
+                <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>14º dia do ciclo</p>
+                <p className="text-xs font-medium" style={{ color: '#5B2D8E' }}>{fmtDate(diasCiclo.d14)}</p>
               </div>
             </div>
           )}
