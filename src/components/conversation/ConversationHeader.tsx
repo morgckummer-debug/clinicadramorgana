@@ -3,7 +3,9 @@ import logoClinica from '@/assets/logo-clinica.png'
 export function ConversationHeader() {
   return (
     <div className="flex items-center justify-between mb-7">
-      <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-14 w-auto" />
+      <a href="https://clinicadramorgana.lovable.app" target="_blank" rel="noopener noreferrer">
+        <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-14 w-auto" />
+      </a>
 
       <div className="flex items-center gap-2">
         <div className="w-1.5 h-1.5 rounded-full bg-champagne animate-pulse-soft" />
