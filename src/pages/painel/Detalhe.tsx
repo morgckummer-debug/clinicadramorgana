@@ -339,10 +339,10 @@ export default function Detalhe() {
           <button
             onClick={() => updateStatus('pendente')}
             disabled={updatingStatus}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300"
-            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap flex-shrink-0"
+            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1.5px solid #5B2D8E' }}
           >
-            <PhoneMissed className="w-3.5 h-3.5" />
+            <PhoneMissed className="w-4 h-4" />
             Devolver para a fila
           </button>
         )}
