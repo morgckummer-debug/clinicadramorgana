@@ -97,10 +97,24 @@ function fmtISO(iso: string) {
   return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
 }
 
+function parseUSData(obs: string | null): { date: Date; weeks: number; days: number } | null {
+  if (!obs) return null
+  const m = obs.match(/US anterior:\s*(\d{2})\/(\d{2})\/(\d{4})\s*\((\d+)(?:\+(\d+))?sem\)/)
+  if (!m) return null
+  return {
+    date: new Date(parseInt(m[3]), parseInt(m[2]) - 1, parseInt(m[1])),
+    weeks: parseInt(m[4]),
+    days: m[5] ? parseInt(m[5]) : 0,
+  }
+}
+
 function userObs(obs: string | null): string | null {
   if (!obs) return null
-  // Remove a linha de DUM/IG gerada automaticamente
-  const cleaned = obs.replace(/^DUM:.*(\n|$)/m, '').trim()
+  const cleaned = obs
+    .replace(/^DUM:[^\n]*(\n|$)/m, '')
+    .replace(/^US anterior:[^\n]*(\n|$)/m, '')
+    .replace(/^Idade gestacional estimada:[^\n]*/mg, '')
+    .trim()
   return cleaned || null
 }
 
@@ -430,6 +444,16 @@ export default function Detalhe() {
     return `${w} semanas e ${d} dia${d !== 1 ? 's' : ''}`
   })() : null
 
+  const usData = !dum ? parseUSData(item.observacoes) : null
+  const igFromUS = usData ? (() => {
+    const igDaysAtUS = usData.weeks * 7 + usData.days
+    const daysSince = Math.floor((Date.now() - usData.date.getTime()) / 86400000)
+    if (daysSince < 0) return null
+    const total = igDaysAtUS + daysSince
+    const w = Math.floor(total / 7), d = total % 7
+    return `${w} semanas e ${d} dia${d !== 1 ? 's' : ''}`
+  })() : null
+
   const isOvulacao = item.exame === 'Rastreamento de Ovulação'
 
   // Calcular semanas gestacionais para filtrar janelas
@@ -546,15 +570,26 @@ export default function Detalhe() {
       </div>
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
-      {dum && (
+      {(dum || igFromUS) && (
         <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#fff1da', border: '2px solid #5B2D8E' }}>
           <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
             {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
           </p>
-          <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
-            DUM: {fmtDate(dum)}
-          </p>
-          {igCalculada && !isOvulacao && <p className="text-base font-bold text-center" style={{ color: '#5B2D8E' }}>IG: {igCalculada}</p>}
+          {dum && (
+            <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
+              DUM: {fmtDate(dum)}
+            </p>
+          )}
+          {usData && (
+            <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
+              US anterior: {fmtDate(usData.date)} ({usData.weeks}{usData.days > 0 ? `+${usData.days}` : ''}sem)
+            </p>
+          )}
+          {(igCalculada || igFromUS) && !isOvulacao && (
+            <p className="text-xl font-bold text-center" style={{ color: '#5B2D8E' }}>
+              IG atual: {igCalculada ?? igFromUS}
+            </p>
+          )}
           {janelas.length > 0 && (
             <div className="space-y-2 pt-1" style={{ borderTop: '1px solid #5B2D8E' }}>
               <p className="text-[10px] tracking-[0.2em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>Janelas ideais para agendamento</p>
