@@ -1,0 +1,18 @@
+export const convenios = [
+  { name: "Hapvida",                logo: "/assets/convenios/hapvida.webp" },
+  { name: "Aurora Saúde",           logo: "/assets/convenios/aurora-2.webp" },
+  { name: "Grupo Zelo",             logo: "/assets/convenios/grupo-zelo.webp" },
+  { name: "Fusex",                  logo: "/assets/convenios/fusex-1.webp" },
+  { name: "Stellantis Saúde",       logo: "/assets/convenios/stellantis.webp" },
+  { name: "Cemig Saúde",            logo: "/assets/convenios/cemig.webp" },
+  { name: "Projeto Bom Pastor",     logo: "/assets/convenios/bom-pastor.webp" },
+  { name: "Santa Clara Assistencial", logo: "/assets/convenios/santa-clara.webp" },
+  { name: "Fundaffemg",             logo: "/assets/convenios/fundafem.webp" },
+  { name: "NotreDame Intermédica",  logo: "/assets/convenios/notredame.webp" },
+  { name: "Casembrapa",             logo: "/assets/convenios/casembrapa.webp" },
+  { name: "Copass Saúde",           logo: "/assets/convenios/copass.webp" },
+  { name: "Pax de Minas",           logo: "/assets/convenios/pax.webp" },
+  { name: "Agebras",                logo: "/assets/convenios/agebras.webp" },
+  { name: "MedGold Saúde",          logo: "/assets/convenios/medgold.webp" },
+  { name: "Projeto Evangelize",     logo: "/assets/convenios/evangelize.webp" },
+];

@@ -1,39 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import convHapvida from "@/assets/convenios/hapvida.webp";
-import convAurora from "@/assets/convenios/aurora-2.webp";
-import convGrupoZelo from "@/assets/convenios/grupo-zelo.webp";
-import convFusex from "@/assets/convenios/fusex-1.webp";
-import convStellantis from "@/assets/convenios/stellantis.webp";
-import convCemig from "@/assets/convenios/cemig.webp";
-import convBomPastor from "@/assets/convenios/bom-pastor.webp";
-import convSantaClara from "@/assets/convenios/santa-clara.webp";
-import convFundafem from "@/assets/convenios/fundafem.webp";
-import convNotreDame from "@/assets/convenios/notredame.webp";
-import convCasembrapa from "@/assets/convenios/casembrapa.webp";
-import convCopass from "@/assets/convenios/copass.webp";
-import convPax from "@/assets/convenios/pax.webp";
-import convAgebras from "@/assets/convenios/agebras.webp";
-import convMedGold from "@/assets/convenios/medgold.webp";
-import convEvangelize from "@/assets/convenios/evangelize.webp";
-
-const convenios = [
-  { name: "Hapvida",                logo: convHapvida },
-  { name: "Aurora Saúde",           logo: convAurora },
-  { name: "Grupo Zelo",             logo: convGrupoZelo },
-  { name: "Fusex",                  logo: convFusex },
-  { name: "Stellantis Saúde",       logo: convStellantis },
-  { name: "Cemig Saúde",            logo: convCemig },
-  { name: "Projeto Bom Pastor",     logo: convBomPastor },
-  { name: "Santa Clara Assistencial", logo: convSantaClara },
-  { name: "Fundaffemg",             logo: convFundafem },
-  { name: "NotreDame Intermédica",  logo: convNotreDame },
-  { name: "Casembrapa",             logo: convCasembrapa },
-  { name: "Copass Saúde",           logo: convCopass },
-  { name: "Pax de Minas",           logo: convPax },
-  { name: "Agebras",                logo: convAgebras },
-  { name: "MedGold Saúde",          logo: convMedGold },
-  { name: "Projeto Evangelize",     logo: convEvangelize },
-];
+import { convenios } from "@/data/convenios";
 
 export const ConveniosV2 = () => {
   const { t } = useLanguage();
