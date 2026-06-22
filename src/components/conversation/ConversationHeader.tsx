@@ -1,4 +1,4 @@
-import logoClinica from '@/assets/logo-clinica.png'
+import logoClinica from '@/assets/logo-clinica.webp'
 
 export function ConversationHeader() {
   return (
