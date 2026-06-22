@@ -80,13 +80,12 @@ export function PainelLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#faf9f8] flex flex-col">
       <header className="bg-white border-b border-border/50 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-        <Link to="/painel" className="flex flex-col gap-0.5">
-          <span className="font-serif leading-none" style={{ fontSize: '1.15rem', color: '#5B2D8E', letterSpacing: '0.04em' }}>
-            Assistente de Agendamento <span style={{ color: '#C9A84C' }}>MK</span>
-          </span>
-          <span className="text-[10px] tracking-[0.25em] uppercase font-light" style={{ color: 'rgba(91,45,142,0.45)', marginTop: '2px' }}>
-            Clínica Dra. Morgana Kummer
-          </span>
+        <Link to="/painel" className="flex items-center">
+          <img
+            src="/logo-horiz.png"
+            alt="Clínica Dra. Morgana Kummer"
+            className="h-10 w-auto object-contain"
+          />
         </Link>
 
         <div className="flex items-center gap-4">
