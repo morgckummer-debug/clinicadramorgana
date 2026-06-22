@@ -84,7 +84,7 @@ function UploadSlot({ id, loading, onFile }: { id: string; loading: boolean; onF
 
 export function UploadArea({ value = [], onChange, optional = false }: UploadAreaProps) {
   const [names, setNames] = useState<string[]>([])
-  const [loading, setLoading] = useState<[boolean, boolean]>([false, false])
+  const [loading, setLoading] = useState<boolean[]>([])
   const [error, setError] = useState<string | null>(null)
 
   const handleFile = async (index: number, file: File) => {
@@ -93,7 +93,7 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
       return
     }
     setError(null)
-    setLoading((l) => { const n = [...l] as [boolean, boolean]; n[index] = true; return n })
+    setLoading((l) => { const n = [...l]; n[index] = true; return n })
     setNames((n) => { const a = [...n]; a[index] = file.name; return a })
 
     try {
@@ -106,7 +106,7 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
       setError(`Erro: ${msg}`)
       setNames((n) => { const a = [...n]; delete a[index]; return a })
     } finally {
-      setLoading((l) => { const n = [...l] as [boolean, boolean]; n[index] = false; return n })
+      setLoading((l) => { const n = [...l]; n[index] = false; return n })
     }
   }
 
