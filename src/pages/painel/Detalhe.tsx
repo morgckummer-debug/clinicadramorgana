@@ -151,17 +151,8 @@ function formatDataNascimento(data: string) {
   return `${dia}.${mes}.${ano}`
 }
 
-const PREPOSICOES = new Set(['de', 'da', 'do', 'das', 'dos', 'e'])
-
 function primeiroNome(nome: string) {
-  const partes = nome.trim().split(' ').filter(p => p.length > 0)
-  const result: string[] = []
-  for (const parte of partes) {
-    if (PREPOSICOES.has(parte.toLowerCase())) continue
-    result.push(parte)
-    if (result.length === 2) break
-  }
-  return result.join(' ')
+  return nome.trim().split(' ')[0]
 }
 
 function formatExame(valor: string | null) {

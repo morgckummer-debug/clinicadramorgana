@@ -1,5 +1,4 @@
 import { CheckCircle2 } from 'lucide-react'
-import { Link } from 'react-router-dom'
 
 export function SuccessScreen() {
   return (
@@ -31,13 +30,6 @@ export function SuccessScreen() {
         >
           Falar com a equipe agora
         </a>
-
-        <Link
-          to="/"
-          className="flex items-center justify-center w-full gap-2 text-muted-foreground text-[11px] tracking-[0.2em] uppercase font-medium hover:text-wine-deep transition-colors duration-300 py-2"
-        >
-          Voltar ao site
-        </Link>
       </div>
     </div>
   )
