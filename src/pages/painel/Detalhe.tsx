@@ -6,6 +6,9 @@ import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
 import { useAuth } from '@/contexts/AuthContext'
+import { CONVENIOS } from '@/data/conversation/fluxo.config'
+
+const convenioLabel = Object.fromEntries(CONVENIOS.map(({ value, label }) => [value, label]))
 
 interface OtherRecord {
   id: string
@@ -539,7 +542,7 @@ export default function Detalhe() {
           <Chip label="Exame" value={exameFormatado} />
           <Chip label="Turno" value={turnoLabel[item.preferencia_turno ?? ''] ?? '—'} />
           <Chip label="Médico preferencial" value={medicoFormatado} />
-          <Chip label="Convênio" value={item.convenio?.join(', ') ?? '—'} />
+          <Chip label="Convênio" value={item.convenio?.map(v => convenioLabel[v] ?? v).join(', ') ?? '—'} />
         </div>
       </div>
 
