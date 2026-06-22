@@ -117,7 +117,7 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order('criado_em', { ascending: false })
+      .order('criado_em', { ascending: true })
       .limit(200)
 
     const currentFilter = filterRef.current
@@ -166,7 +166,7 @@ export default function Dashboard() {
         if (filter === 'pendente' || filter === 'todos') {
           setItems((prev) =>
             [...prev, novo].sort((a, b) =>
-              new Date(b.criado_em).getTime() - new Date(a.criado_em).getTime()
+              new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime()
             )
           )
         }
