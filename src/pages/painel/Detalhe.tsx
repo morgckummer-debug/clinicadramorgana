@@ -525,7 +525,7 @@ export default function Detalhe() {
       <div className="flex flex-col gap-2.5">
         <button
           onClick={openWhatsApp}
-          className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3.5 rounded-2xl text-sm font-semibold tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
+          className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3 rounded-2xl text-sm font-medium tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
         >
           <MessageCircle className="w-4 h-4" />
           Abrir conversa com {nomeExibido} no WhatsApp
