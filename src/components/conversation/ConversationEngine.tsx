@@ -18,7 +18,10 @@ interface ConversationEngineProps {
 
 function parseDateBR(ddmmaaaa: string): string {
   const digits = ddmmaaaa.replace(/\D/g, '')
-  if (digits.length !== 8) return ddmmaaaa
+  if (digits.length !== 8) {
+    console.error('Data inválida:', ddmmaaaa)
+    return ''
+  }
   return `${digits.slice(4, 8)}-${digits.slice(2, 4)}-${digits.slice(0, 2)}`
 }
 
@@ -120,7 +123,7 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
     p_categoria: answers['q1'] as string,
     p_exame: answers['q2'] as string,
     p_convenio: convenio ? (Array.isArray(convenio) ? convenio : [convenio]) : ['particular'],
-    p_preferencia_turno: answers['q8'] as string,
+    p_preferencia_turno: (answers['q8'] as string) || 'indiferente',
     p_medico_preferido: (answers['q9'] as string) || EXAME_MEDICO_FIXO[answers['q2'] as string] || 'dra-morgana',
     p_pedido_url: pedidoUrl,
     p_observacoes: observacoes,
