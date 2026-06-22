@@ -104,6 +104,32 @@ function calcIdade(dataNasc: string | null) {
   return idade
 }
 
+function calcIdadeFormatada(dataNasc: string | null) {
+  if (!dataNasc) return null
+  const [dia, mes, ano] = dataNasc.split('-').map(Number)
+  const hoje = new Date()
+  const anoNasc = ano
+  const mesNasc = mes
+  const diaNasc = dia
+
+  let anos = hoje.getFullYear() - anoNasc
+  let meses = hoje.getMonth() + 1 - mesNasc
+
+  if (meses < 0) {
+    anos--
+    meses += 12
+  }
+  if (hoje.getDate() < diaNasc) {
+    meses--
+    if (meses < 0) {
+      anos--
+      meses += 12
+    }
+  }
+
+  return `${anos}a${meses}m`
+}
+
 function formatCpf(cpf: string) {
   return cpf.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
 }
@@ -369,7 +395,10 @@ export default function Detalhe() {
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Paciente</p>
           <Chip label="Nome" value={item.pacientes?.nome ?? '—'} />
           <Chip label="CPF" value={item.pacientes?.cpf ? formatCpf(item.pacientes.cpf) : '—'} />
-          <Chip label="Nascimento" value={item.pacientes?.data_nascimento ? formatDataNascimento(item.pacientes.data_nascimento) : '—'} />
+          <Chip
+            label="Nascimento"
+            value={item.pacientes?.data_nascimento ? `${formatDataNascimento(item.pacientes.data_nascimento)} (${calcIdadeFormatada(item.pacientes.data_nascimento)})` : '—'}
+          />
           <Chip label="Telefone" value={item.pacientes?.telefone ? formatTel(item.pacientes.telefone) : '—'} />
         </div>
 
