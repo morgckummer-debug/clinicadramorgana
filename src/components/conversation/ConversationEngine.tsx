@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { ConversationFlow } from '@/data/conversation/preAgendamento'
+import { ConversationFlow, examsByCategory } from '@/data/conversation/preAgendamento'
 import { supabase } from '@/lib/supabase'
 import { isValidDateBR, isValidCPF } from '@/lib/utils'
 import { ConversationHeader } from './ConversationHeader'
@@ -272,9 +272,9 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
 
     // Auto-seleciona exame se há apenas 1 opção (ex: mama → "Mamas e Axilas")
     if (currentId === 'q1' && selectedValue) {
-      const examesDisponiveis = flow.questions['q2']?.options ?? []
+      const examesDisponiveis = examsByCategory[selectedValue] ?? []
       if (examesDisponiveis.length === 1) {
-        const exameUnico = examesDisponiveis[0].value
+        const exameUnico = examesDisponiveis[0]
         nextAnswers = { ...nextAnswers, q2: exameUnico }
         setAnswers(nextAnswers)
         setHistory((h) => [...h, currentId])
