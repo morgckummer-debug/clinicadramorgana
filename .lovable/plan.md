@@ -1,22 +1,27 @@
 ## Objetivo
-Corrigir o estilo do botão principal de pré-agendamento no Hero (`src/components/site/Hero.tsx`), garantindo fundo bege opaco, borda fina roxa e texto roxo, conforme solicitado.
 
-## O que será feito
+Adicionar validação completa de CPF brasileiro na pergunta de CPF (`q4`) do formulário de pré-agendamento, exibindo erro inline e bloqueando o avanço enquanto o CPF for inválido.
 
-1. **Localizar o botão**  
-   O botão "Agendar exame" está em `src/components/site/Hero.tsx`, atualmente com `style={{ background: '#FDDCB5', color: '#5B2D8E' }}` e sem borda.
+## Regras de validação
 
-2. **Aplicar os estilos solicitados**  
-   - Fundo bege sólido (`#FDDCB5`) — garantir que não fique transparente.  
-   - Borda fina roxa (`#5B2D8E`).  
-   - Texto roxo (`#5B2D8E`).  
-   - Manter o formato arredondado (`rounded-full`) e a sombra suave existente.
+- Aceitar entrada com ou sem máscara (a máscara `000.000.000-00` já existe).
+- Remover caracteres não numéricos antes de validar.
+- Exigir exatamente 11 dígitos.
+- Rejeitar sequências com todos os dígitos iguais (`00000000000`, `11111111111`, …, `99999999999`).
+- Validar os dois dígitos verificadores pelo algoritmo oficial (módulo 11).
+- Enquanto o CPF estiver incompleto (menos de 11 dígitos), **não** mostrar mensagem de erro — apenas manter o botão "Continuar" desabilitado.
+- Quando os 11 dígitos estiverem preenchidos e o CPF for inválido:
+  - Exibir a mensagem **"CPF inválido. Por favor, verifique os números digitados."** abaixo do campo (mesmo estilo já usado para erro de data).
+  - Manter o botão "Continuar" desabilitado, impedindo o avanço.
 
-3. **Preferência técnica**  
-   Se possível, converter o estilo inline para classes Tailwind usando os tokens semânticos do projeto (`bg-champagne`, `text-wine-deep`, `border-wine-deep`) para alinhar ao design system. Caso a cor bege específica (`#FDDCB5`) não tenha token equivalente, mantenho o valor inline apenas para esse par de cor/borda.
+## Mudanças técnicas
 
-4. **Validação**  
-   Verificar no preview se o botão aparece com fundo bege opaco, borda roxa fina e texto roxo, sem sobreposição transparente.
+1. **`src/lib/utils.ts`** — adicionar utilitário `isValidCPF(value: string): boolean` que normaliza dígitos, descarta repetidos e valida os dois DVs por módulo 11.
 
-## Resultado esperado
-Botão de "Agendar exame" no Hero com aparência sólida e elegante: fundo bege, contorno roxo fino e texto roxo.
+2. **`src/components/conversation/QuestionRenderer.tsx`** (bloco `input`/`textarea`, linhas 94–118) — quando `question.mask === 'cpf'`:
+   - Calcular `isCpfComplete` (11 dígitos) e `cpfError`.
+   - Passar `error={cpfError}` ao `TextAnswer` (a infraestrutura de erro inline já existe, linhas 78–80 de `TextAnswer.tsx`).
+
+3. **`src/components/conversation/ConversationEngine.tsx`** (função `isAnswered`, ~linhas 152–159) — para `mask === 'cpf'`, retornar `true` somente se `isValidCPF(strValue)`. Isso desabilita "Continuar" para CPF inválido sem alterar nenhuma outra lógica do fluxo.
+
+Nenhuma alteração em backend, RPC, schema ou demais perguntas. Comportamento dos outros campos (data, telefone, etc.) permanece intacto.
