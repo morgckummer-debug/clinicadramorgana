@@ -153,6 +153,30 @@ function formatExame(valor: string | null) {
   return valor
 }
 
+function formatCpfInput(value: string) {
+  return value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+    .slice(0, 14)
+}
+
+function formatTelefoneInput(value: string) {
+  return value
+    .replace(/\D/g, '')
+    .replace(/(\d{2})(\d)/, '($1) $2')
+    .replace(/(\d{5})(\d)/, '$1-$2')
+    .slice(0, 15)
+}
+
+function formatDataNascimentoInput(value: string) {
+  const numbers = value.replace(/\D/g, '')
+  if (numbers.length <= 4) return numbers
+  if (numbers.length <= 6) return `${numbers.slice(0, 4)}-${numbers.slice(4)}`
+  return `${numbers.slice(0, 4)}-${numbers.slice(4, 6)}-${numbers.slice(6, 8)}`
+}
+
 export default function Detalhe() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -686,36 +710,40 @@ export default function Detalhe() {
 
               <div>
                 <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
-                  CPF
+                  CPF (XXX.XXX.XXX-XX)
                 </label>
                 <input
                   type="text"
                   value={editForm.cpf}
-                  onChange={(e) => setEditForm({ ...editForm, cpf: e.target.value })}
+                  onChange={(e) => setEditForm({ ...editForm, cpf: formatCpfInput(e.target.value) })}
+                  placeholder="000.000.000-00"
                   className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
                 />
               </div>
 
               <div>
                 <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
-                  Telefone
+                  Telefone ((XX) XXXXX-XXXX)
                 </label>
                 <input
                   type="text"
                   value={editForm.telefone}
-                  onChange={(e) => setEditForm({ ...editForm, telefone: e.target.value })}
+                  onChange={(e) => setEditForm({ ...editForm, telefone: formatTelefoneInput(e.target.value) })}
+                  placeholder="(00) 00000-0000"
                   className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
                 />
               </div>
 
               <div>
                 <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
-                  Data de Nascimento (YYYY-MM-DD)
+                  Data de Nascimento (AAAA-MM-DD)
                 </label>
                 <input
                   type="text"
                   value={editForm.data_nascimento}
-                  onChange={(e) => setEditForm({ ...editForm, data_nascimento: e.target.value })}
+                  onChange={(e) => setEditForm({ ...editForm, data_nascimento: formatDataNascimentoInput(e.target.value) })}
+                  placeholder="0000-00-00"
+                  maxLength="10"
                   className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
                 />
               </div>
