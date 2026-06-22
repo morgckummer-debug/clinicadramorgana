@@ -151,6 +151,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
   const [blockedReturnId, setBlockedReturnId] = useState<string>('q2g')
   const [blockedMessage, setBlockedMessage] = useState<string>('')
+  const [saveErrorMessage, setSaveErrorMessage] = useState<string>('')
 
   const mainQuestionIds = Object.keys(flow.questions).filter(
     (id) => !flow.questions[id].branch
@@ -358,7 +359,9 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       try {
         await savePreAgendamento(nextAnswers)
         setStep('success')
-      } catch {
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : ''
+        setSaveErrorMessage(msg)
         setStep('error')
       }
     } else {
@@ -425,17 +428,33 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return (
       <>
         <ConversationHeader />
-        <div className="animate-fade-up text-center py-12">
+        <div className="animate-fade-up text-center py-12 px-4">
           <p className="text-wine-deep font-comfortaa text-xl mb-3">Algo deu errado</p>
-          <p className="text-muted-foreground font-light text-sm mb-8">
-            Não conseguimos registrar suas informações agora. Tente novamente ou entre em contato pelo WhatsApp.
+          <p className="text-muted-foreground font-light text-sm mb-3 leading-relaxed">
+            Não conseguimos registrar suas informações agora. Tente novamente em alguns instantes ou entre em contato pelo WhatsApp.
           </p>
-          <button
-            onClick={() => setStep('question')}
-            className="text-[11px] tracking-[0.2em] uppercase text-wine-deep underline underline-offset-4"
-          >
-            Tentar novamente
-          </button>
+          {saveErrorMessage && (
+            <p className="text-[11px] text-muted-foreground/70 font-light mb-8 italic">
+              Detalhe: {saveErrorMessage}
+            </p>
+          )}
+          <div className="flex flex-col items-center gap-4">
+            <button
+              onClick={() => { setSaveErrorMessage(''); setStep('question') }}
+              className="text-[11px] tracking-[0.2em] uppercase text-wine-deep underline underline-offset-4"
+            >
+              Tentar novamente
+            </button>
+            <a
+              href="https://wa.me/5531993910212"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold"
+              style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
+            >
+              Falar pelo WhatsApp
+            </a>
+          </div>
         </div>
       </>
     )
