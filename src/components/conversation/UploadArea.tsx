@@ -11,7 +11,13 @@ interface UploadAreaProps {
 async function uploadFile(file: File): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession()
   const signedInForUpload = !session
-  if (signedInForUpload) await supabase.auth.signInAnonymously()
+  if (signedInForUpload) {
+    try {
+      await supabase.auth.signInAnonymously()
+    } catch (e) {
+      console.warn('Falha ao fazer signin anônimo:', e)
+    }
+  }
 
   try {
     const ext = file.name.split('.').pop()
@@ -23,8 +29,6 @@ async function uploadFile(file: File): Promise<string> {
     const { data: { publicUrl } } = supabase.storage.from('pedidos').getPublicUrl(data.path)
     return publicUrl
   } finally {
-    // Remove a sessão anônima imediatamente após o upload para que o RPC
-    // de submissão do formulário seja chamado com o papel 'anon' correto.
     if (signedInForUpload) {
       await supabase.auth.signOut({ scope: 'local' }).catch(() => {})
     }
