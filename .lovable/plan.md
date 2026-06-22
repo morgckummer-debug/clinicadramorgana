@@ -1,42 +1,30 @@
-## Diagnóstico
+## Plano
 
-O console do print mostra:
-- `📝 Enviando para RPC:` — payload OK
-- `✅ RPC executado com sucesso` — o `criar_pre_agendamento` retornou sem erro
+Vou corrigir em duas frentes: garantir que o pré-agendamento seja realmente criado no banco e garantir que o painel mostre/acuse erros em vez de parecer vazio.
 
-Mesmo assim a tela mostra "Algo deu errado". A causa está em `savePreAgendamento` (`src/components/conversation/ConversationEngine.tsx`), no bloco que roda **depois** do RPC:
+### 1. Corrigir a função de criação do pré-agendamento
+- Criar uma migration substituindo `criar_pre_agendamento` por uma versão determinística.
+- A função vai:
+  - validar nome, CPF e telefone mínimos;
+  - criar ou atualizar o paciente pelo CPF;
+  - sempre inserir um novo registro em `pre_agendamentos` com status `pendente`;
+  - retornar o `id` do pré-agendamento criado;
+  - não engolir erros silenciosamente.
+- Conceder permissão de execução da RPC para o formulário público e para usuários autenticados.
 
-```ts
-const countAntes = await countPreAgendamentos()
-// ... await supabase.rpc(...) ok ...
-if (countAntes !== null) {
-  const countDepois = await countPreAgendamentos()
-  if (countDepois !== null && countDepois <= countAntes) {
-    throw new Error('O agendamento não foi registrado...')
-  }
-}
-```
+### 2. Corrigir permissões de leitura/atualização do painel
+- Adicionar `GRANT`s explícitos para `pacientes` e `pre_agendamentos` para usuários autenticados do painel.
+- Manter dados sensíveis protegidos: não liberar leitura direta dessas tabelas para visitantes anônimos.
+- Garantir acesso administrativo interno com `service_role`.
 
-O RPC é `SECURITY DEFINER` e insere normalmente, mas o role `anon` (sessão pública do formulário) não enxerga linhas de `pre_agendamentos` por RLS — o que é correto, pois são dados sensíveis de pacientes. Resultado: `countDepois` vê o mesmo número de antes, a função lança erro e a UI cai na tela "Algo deu errado", mesmo com o registro salvo. Quando o usuário clica "Tentar novamente", cria duplicatas — o que explica também o comportamento estranho que você relatou no painel logo após a remoção dos links.
+### 3. Corrigir falso sucesso no formulário
+- Atualizar `ConversationEngine.tsx` para tratar a RPC como sucesso apenas se ela retornar o `id` criado.
+- Se a função não retornar `id`, o formulário deve mostrar erro real em vez de tela de sucesso falsa.
 
-A verificação só fazia sentido enquanto o anon tinha leitura ampla. Hoje é um falso negativo garantido.
+### 4. Corrigir diagnóstico no painel
+- Atualizar `Dashboard.tsx` para não ignorar erros das consultas.
+- Se houver erro de permissão, join com paciente ou falha de consulta, exibir/logar o erro em vez de mostrar “nenhum resultado” silenciosamente.
 
-## Mudança
-
-Arquivo único: `src/components/conversation/ConversationEngine.tsx`
-
-1. Remover a função `countPreAgendamentos()`.
-2. Em `savePreAgendamento`, remover `countAntes = await countPreAgendamentos()` antes do RPC e todo o bloco `if (countAntes !== null) { ... }` após o RPC.
-3. Manter o `throw error` quando o próprio RPC retorna erro — essa é a única fonte de verdade confiável do lado do cliente.
-
-Nada mais muda: payload, fluxo, validações, telas de sucesso/erro/bloqueio permanecem iguais.
-
-## Verificação após implementar
-
-- Preencher o formulário até o fim → deve ir direto para a tela de sucesso.
-- Conferir no painel/Supabase que o registro aparece em `pre_agendamentos`.
-- Console deve continuar mostrando `✅ RPC executado com sucesso` e **não** deve mais cair no `catch`.
-
-## Observação (não faz parte desta mudança)
-
-Se no futuro quiser uma verificação real de gravação, o caminho correto é o próprio RPC `criar_pre_agendamento` retornar o `id` da linha criada e o cliente checar `data` — sem depender de RLS de SELECT no anon.
+### Resultado esperado
+- Um novo pré-agendamento, como “Nayara”, deve entrar como `pendente` e aparecer na lista do painel.
+- Se o banco recusar a gravação ou leitura, a aplicação vai mostrar/logar o erro real para não mascarar o problema novamente.
