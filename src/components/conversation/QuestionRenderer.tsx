@@ -1,5 +1,5 @@
 import { Question, examsByCategory } from '@/data/conversation/preAgendamento'
-import { isValidDateBR } from '@/lib/utils'
+import { isValidDateBR, isValidCPF } from '@/lib/utils'
 import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
