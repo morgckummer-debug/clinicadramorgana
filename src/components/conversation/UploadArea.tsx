@@ -128,7 +128,7 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
         />
       ))}
 
-      <UploadSlot id={`upload-${value.length}`} loading={loading[value.length]} onFile={(f) => handleFile(value.length, f)} />
+      <UploadSlot id={`upload-${value.length}`} loading={loading[value.length] ?? false} onFile={(f) => handleFile(value.length, f)} />
 
       {error && (
         <p className="text-xs text-destructive text-center font-light">{error}</p>
