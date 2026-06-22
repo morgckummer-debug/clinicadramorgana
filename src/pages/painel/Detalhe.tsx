@@ -522,24 +522,26 @@ export default function Detalhe() {
       </div>
 
       {/* Ações de contato */}
-      <div className="flex flex-col gap-2.5">
+      <div className="flex flex-col items-center gap-2.5">
         <button
           onClick={openWhatsApp}
-          className="w-full flex items-center justify-center gap-2.5 bg-[#25D366] text-white px-6 py-3 rounded-2xl text-sm font-medium tracking-wide hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
+          className="inline-flex items-center gap-1.5 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full whitespace-nowrap bg-[#25D366] text-white text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
         >
-          <MessageCircle className="w-4 h-4" />
-          Abrir conversa com {nomeExibido} no WhatsApp
+          <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+          <span className="hidden sm:inline">Abrir conversa no WhatsApp</span>
+          <span className="inline sm:hidden">WhatsApp</span>
         </button>
 
         {item.status !== 'pendente' && (
           <button
             onClick={() => updateStatus('pendente')}
             disabled={updatingStatus}
-            className="w-full flex items-center justify-center gap-2.5 px-6 py-3 rounded-2xl text-sm font-medium tracking-wide transition-all duration-300"
+            className="inline-flex items-center gap-1.5 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full whitespace-nowrap text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300"
             style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >
-            <PhoneMissed className="w-4 h-4" />
-            Não consegui contato — devolver para fila
+            <PhoneMissed className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+            <span className="hidden sm:inline">Devolver para fila</span>
+            <span className="inline sm:hidden">Devolver</span>
           </button>
         )}
       </div>
