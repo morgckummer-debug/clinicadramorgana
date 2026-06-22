@@ -134,6 +134,9 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   }
 
   console.log('✅ Pré-agendamento criado, id:', data)
+}
+
+
 
 
 function q10JaRespondido(answers: Record<string, string | string[]>): boolean {
