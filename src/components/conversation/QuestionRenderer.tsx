@@ -1,5 +1,5 @@
 import { Question, examsByCategory } from '@/data/conversation/preAgendamento'
-import { isValidDateBR } from '@/lib/utils'
+import { isValidDateBR, isValidCPF } from '@/lib/utils'
 import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
@@ -99,6 +99,10 @@ export function QuestionRenderer({
     const dateError = isDateComplete && !isValidDateBR(strValue)
       ? 'Data inválida. Verifique dia, mês e ano.'
       : undefined
+    const isCpfComplete = question.mask === 'cpf' && strValue.replace(/\D/g, '').length === 11
+    const cpfError = isCpfComplete && !isValidCPF(strValue)
+      ? 'CPF inválido. Por favor, verifique os números digitados.'
+      : undefined
     return (
       <div className="space-y-2">
         <TextAnswer
@@ -107,8 +111,9 @@ export function QuestionRenderer({
           placeholder={placeholder}
           mask={question.mask}
           onChange={onChange}
-          error={dateError}
+          error={dateError ?? cpfError}
         />
+
         {ig && (
           <p className="text-sm text-center text-wine-deep font-light animate-fade-in">
             Idade gestacional estimada: <span className="font-medium">{ig}</span>
