@@ -372,7 +372,7 @@ export default function Detalhe() {
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
       {dum && (
-        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#FDDCB5', border: '2px solid #5B2D8E' }}>
+        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#ffe7bf', border: '2px solid #5B2D8E' }}>
           <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
             {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
           </p>
