@@ -64,7 +64,7 @@ export default function Login() {
 
       <div className="relative w-full max-w-sm animate-fade-up">
         <div className="flex justify-center mb-5">
-          <img src="/logo-horiz.png" alt="Clínica Dra. Morgana Kummer" className="h-14 w-auto object-contain" />
+          <img src="/logo-horiz.png" alt="Clínica Dra. Morgana Kummer" width={350} height={56} className="h-14 w-auto object-contain" loading="eager" />
         </div>
 
         <div className="text-center mb-10">

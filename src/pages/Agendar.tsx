@@ -9,7 +9,7 @@ export default function Agendar() {
       {/* Header mínimo */}
       <header className="flex items-center justify-between px-6 py-5 border-b border-champagne/20">
         <Link to="/">
-          <img src="/logo-horiz.png" alt="Clínica Dra. Morgana" className="h-14 w-auto" />
+          <img src="/logo-horiz.png" alt="Clínica Dra. Morgana" width={350} height={56} className="h-14 w-auto" loading="eager" />
         </Link>
         <Link
           to="/"

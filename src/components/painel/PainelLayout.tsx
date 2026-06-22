@@ -84,7 +84,10 @@ export function PainelLayout({ children }: { children: ReactNode }) {
           <img
             src="/logo-horiz.png"
             alt="Clínica Dra. Morgana Kummer"
+            width={350}
+            height={40}
             className="h-10 w-auto object-contain"
+            loading="eager"
           />
         </Link>
 
