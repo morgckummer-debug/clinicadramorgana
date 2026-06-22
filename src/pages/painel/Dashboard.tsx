@@ -116,7 +116,7 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order('criado_em', { ascending: true })
+      .order('criado_em', { ascending: false })
       .limit(200)
 
     const currentFilter = filterRef.current
