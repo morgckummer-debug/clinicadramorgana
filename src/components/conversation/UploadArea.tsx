@@ -10,12 +10,17 @@ interface UploadAreaProps {
 
 async function uploadFile(file: File): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession()
-  const signedInForUpload = !session
-  if (signedInForUpload) {
+  let signedInForUpload = false
+
+  // Tenta entrar como anônimo — se falhar (signup anônimo desabilitado),
+  // tenta o upload mesmo assim (bucket pode aceitar anon direto).
+  if (!session) {
     try {
-      await supabase.auth.signInAnonymously()
+      const { error: signinError } = await supabase.auth.signInAnonymously()
+      if (!signinError) signedInForUpload = true
+      else console.warn('Signin anônimo indisponível, tentando upload direto:', signinError.message)
     } catch (e) {
-      console.warn('Falha ao fazer signin anônimo:', e)
+      console.warn('Signin anônimo falhou, tentando upload direto:', e)
     }
   }
 
@@ -25,7 +30,13 @@ async function uploadFile(file: File): Promise<string> {
     const { data, error } = await supabase.storage
       .from('pedidos')
       .upload(path, file, { upsert: false })
-    if (error) throw error
+    if (error) {
+      // Mensagem amigável em PT
+      const msg = /row-level security|unauthor|jwt|permission/i.test(error.message)
+        ? 'Não foi possível enviar o arquivo agora. Você pode finalizar o pré-agendamento e nossa equipe entrará em contato pelo WhatsApp para receber o pedido.'
+        : `Não foi possível enviar o arquivo: ${error.message}`
+      throw new Error(msg)
+    }
     const { data: { publicUrl } } = supabase.storage.from('pedidos').getPublicUrl(data.path)
     return publicUrl
   } finally {
@@ -106,8 +117,8 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
       next[index] = url
       onChange?.(next.filter(Boolean))
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : JSON.stringify(e)
-      setError(`Erro: ${msg}`)
+      const msg = e instanceof Error ? e.message : 'Erro inesperado ao enviar o arquivo.'
+      setError(msg)
       setNames((n) => { const a = [...n]; delete a[index]; return a })
     } finally {
       setLoading((l) => { const n = [...l]; n[index] = false; return n })
