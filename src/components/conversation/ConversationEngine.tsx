@@ -265,10 +265,23 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       return answers['q3'] ? 'q11' : 'q3'
     }
     return currentQuestion?.next ?? null
-  }, [currentId, currentAnswer, currentQuestion, answers])
+  }, [currentId, currentAnswer, currentQuestion, answers, flow.questions])
 
   const advance = useCallback(async (selectedValue?: string) => {
-    const nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
+    let nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
+
+    // Auto-seleciona exame se há apenas 1 opção (ex: mama → "Mamas e Axilas")
+    if (currentId === 'q1' && selectedValue) {
+      const examesDisponiveis = flow.questions['q2']?.options ?? []
+      if (examesDisponiveis.length === 1) {
+        const exameUnico = examesDisponiveis[0].value
+        nextAnswers = { ...nextAnswers, q2: exameUnico }
+        setAnswers(nextAnswers)
+        setHistory((h) => [...h, currentId])
+        setCurrentId('q2')
+        return
+      }
+    }
 
     // Bloqueio do fluxo Obstétrico do 1º Trimestre: sem pedido NEM beta-hCG
     if (currentId === 'ob1_e') {
@@ -386,6 +399,14 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     },
     [currentId]
   )
+
+  // Auto-avança q2 se já está pré-respondido (ex: mama com exame único)
+  useEffect(() => {
+    if (currentId === 'q2' && answers['q2']) {
+      const timer = setTimeout(() => advance(), 300)
+      return () => clearTimeout(timer)
+    }
+  }, [currentId, answers, advance])
 
   const isOptional = (() => {
     if (currentQuestion?.type === 'textarea') return true
