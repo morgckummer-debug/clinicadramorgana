@@ -177,6 +177,14 @@ function formatDataNascimentoInput(value: string) {
   return `${numbers.slice(0, 4)}-${numbers.slice(4, 6)}-${numbers.slice(6, 8)}`
 }
 
+function removeCpfMask(value: string) {
+  return value.replace(/\D/g, '')
+}
+
+function removeTelefoneMask(value: string) {
+  return value.replace(/\D/g, '')
+}
+
 export default function Detalhe() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -267,14 +275,16 @@ export default function Detalhe() {
     if (!item?.paciente_id) return
     setSavingEdit(true)
     try {
+      const updateData = {
+        nome: editForm.nome,
+        cpf: removeCpfMask(editForm.cpf),
+        telefone: removeTelefoneMask(editForm.telefone),
+        data_nascimento: editForm.data_nascimento,
+      }
+
       await supabase
         .from('pacientes')
-        .update({
-          nome: editForm.nome,
-          cpf: editForm.cpf,
-          telefone: editForm.telefone,
-          data_nascimento: editForm.data_nascimento,
-        })
+        .update(updateData)
         .eq('id', item.paciente_id)
 
       setItem((prev) => {
@@ -284,15 +294,17 @@ export default function Detalhe() {
           pacientes: {
             ...prev.pacientes!,
             nome: editForm.nome,
-            cpf: editForm.cpf,
-            telefone: editForm.telefone,
+            cpf: removeCpfMask(editForm.cpf),
+            telefone: removeTelefoneMask(editForm.telefone),
             data_nascimento: editForm.data_nascimento,
           },
         }
       })
       setEditingModal(false)
+      toast.success('Dados atualizados com sucesso!')
     } catch (error) {
       console.error('Erro ao salvar edição:', error)
+      toast.error('Erro ao salvar os dados')
     } finally {
       setSavingEdit(false)
     }
