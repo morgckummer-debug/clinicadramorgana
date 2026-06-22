@@ -372,19 +372,19 @@ export default function Detalhe() {
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
       {dum && (
-        <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3 space-y-3">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">
+        <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3 space-y-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium text-center">
             {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
           </p>
-          <p className="text-sm text-foreground/70 font-light">
+          <p className="text-sm text-foreground/70 font-light text-center">
             DUM: {fmtDate(dum)}
           </p>
-          {igCalculada && !isOvulacao && <p className="text-base text-wine-deep font-bold">IG: {igCalculada}</p>}
+          {igCalculada && !isOvulacao && <p className="text-base text-wine-deep font-bold text-center">IG: {igCalculada}</p>}
           {janelas.length > 0 && (
             <div className="space-y-2 pt-1 border-t border-border/40">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Janelas ideais para agendamento</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium text-center">Janelas ideais para agendamento</p>
               {janelas.map((j) => (
-                <div key={j.label} className="flex items-start justify-between gap-2">
+                <div key={j.label} className="flex flex-col items-center gap-1">
                   <p className="text-xs text-foreground/70 font-light">{j.label}</p>
                   <p className="text-xs text-wine-deep font-medium whitespace-nowrap">
                     {fmtDate(j.de)} – {fmtDate(j.ate)}
@@ -395,16 +395,16 @@ export default function Detalhe() {
           )}
           {diasCiclo && (
             <div className="space-y-2 pt-1 border-t border-border/40">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium">Dias ideais para agendar (ciclo atual/próximo)</p>
-              <div className="flex items-center justify-between gap-2">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-medium text-center">Dias ideais para agendar (ciclo atual/próximo)</p>
+              <div className="flex flex-col items-center gap-1">
                 <p className="text-xs text-foreground/70 font-light">10º dia do ciclo</p>
                 <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d10)}</p>
               </div>
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col items-center gap-1">
                 <p className="text-xs text-foreground/70 font-light">12º dia do ciclo</p>
                 <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d12)}</p>
               </div>
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-col items-center gap-1">
                 <p className="text-xs text-foreground/70 font-light">14º dia do ciclo</p>
                 <p className="text-xs text-wine-deep font-medium">{fmtDate(diasCiclo.d14)}</p>
               </div>
@@ -423,15 +423,15 @@ export default function Detalhe() {
 
       {/* Pedido médico (se houver) */}
       {item.pedido_url && (
-        <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Pedido médico</p>
-          <div className="flex flex-col gap-2">
+        <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5 text-center">Pedido médico</p>
+          <div className="flex flex-col gap-2 items-center">
             {item.pedido_url.split(',').filter(Boolean).map((url, i) => (
               <button
                 key={i}
                 type="button"
                 onClick={() => setPreviewUrl(url.trim())}
-                className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4 text-left"
+                className="inline-flex items-center gap-2 text-wine-deep text-sm underline underline-offset-4"
               >
                 <FileText className="w-4 h-4 flex-shrink-0" />
                 Documento {item.pedido_url!.split(',').length > 1 ? i + 1 : ''}
@@ -478,9 +478,9 @@ export default function Detalhe() {
       )}
 
       {/* Status */}
-      <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
-        <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5">Status</p>
-        <div className="flex flex-wrap gap-2">
+      <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3">
+        <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5 text-center">Status</p>
+        <div className="flex flex-wrap gap-2 justify-center">
           {statusOptions.map((opt) => (
             <button
               key={opt.value}
@@ -499,7 +499,7 @@ export default function Detalhe() {
           ))}
         </div>
         {item.status === 'em_atendimento' && item.atendente_nome && (
-          <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-border/30">
+          <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-border/30 justify-center">
             <User className="w-3 h-3 text-muted-foreground flex-shrink-0" />
             <p className="text-[11px] text-muted-foreground">
               Atendido por <span className="text-wine-deep font-medium">{item.atendente_nome}</span>
