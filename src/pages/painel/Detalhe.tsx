@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X, Pencil } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
@@ -161,6 +161,14 @@ export default function Detalhe() {
   const [updatingStatus, setUpdatingStatus] = useState(false)
   const [otherRecords, setOtherRecords] = useState<OtherRecord[]>([])
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [editingModal, setEditingModal] = useState(false)
+  const [editForm, setEditForm] = useState({
+    nome: '',
+    cpf: '',
+    telefone: '',
+    data_nascimento: '',
+  })
+  const [savingEdit, setSavingEdit] = useState(false)
 
   useEffect(() => {
     if (!id) return
@@ -208,6 +216,52 @@ export default function Detalhe() {
       return next
     })
     setUpdatingStatus(false)
+  }
+
+  const openEditModal = () => {
+    if (!item?.pacientes) return
+    setEditForm({
+      nome: item.pacientes.nome || '',
+      cpf: item.pacientes.cpf || '',
+      telefone: item.pacientes.telefone || '',
+      data_nascimento: item.pacientes.data_nascimento || '',
+    })
+    setEditingModal(true)
+  }
+
+  const saveEdit = async () => {
+    if (!item?.paciente_id) return
+    setSavingEdit(true)
+    try {
+      await supabase
+        .from('pacientes')
+        .update({
+          nome: editForm.nome,
+          cpf: editForm.cpf,
+          telefone: editForm.telefone,
+          data_nascimento: editForm.data_nascimento,
+        })
+        .eq('id', item.paciente_id)
+
+      setItem((prev) => {
+        if (!prev) return prev
+        return {
+          ...prev,
+          pacientes: {
+            ...prev.pacientes!,
+            nome: editForm.nome,
+            cpf: editForm.cpf,
+            telefone: editForm.telefone,
+            data_nascimento: editForm.data_nascimento,
+          },
+        }
+      })
+      setEditingModal(false)
+    } catch (error) {
+      console.error('Erro ao salvar edição:', error)
+    } finally {
+      setSavingEdit(false)
+    }
   }
 
   const openWhatsApp = async () => {
@@ -362,9 +416,18 @@ export default function Detalhe() {
             </span>
           </div>
           <div>
-            <h1 className="font-comfortaa text-wine-deep text-2xl font-bold leading-tight">
-              {item.pacientes?.nome ?? '—'}
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="font-comfortaa text-wine-deep text-2xl font-bold leading-tight">
+                {item.pacientes?.nome ?? '—'}
+              </h1>
+              <button
+                onClick={openEditModal}
+                className="p-1.5 rounded-lg hover:bg-champagne/20 transition-colors"
+                title="Editar dados do paciente"
+              >
+                <Pencil className="w-4 h-4 text-wine-deep" />
+              </button>
+            </div>
             {idade !== null && (
               <p className="text-sm text-muted-foreground font-light mt-0.5">{idade} anos</p>
             )}
@@ -571,6 +634,99 @@ export default function Detalhe() {
           </button>
         )}
       </div>
+
+      {/* Modal de edição */}
+      {editingModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => setEditingModal(false)}
+        >
+          <div
+            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/40">
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">Editar dados do paciente</p>
+              <button
+                type="button"
+                onClick={() => setEditingModal(false)}
+                className="w-7 h-7 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4 text-foreground/60" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
+                  Nome
+                </label>
+                <input
+                  type="text"
+                  value={editForm.nome}
+                  onChange={(e) => setEditForm({ ...editForm, nome: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
+                  CPF
+                </label>
+                <input
+                  type="text"
+                  value={editForm.cpf}
+                  onChange={(e) => setEditForm({ ...editForm, cpf: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
+                  Telefone
+                </label>
+                <input
+                  type="text"
+                  value={editForm.telefone}
+                  onChange={(e) => setEditForm({ ...editForm, telefone: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
+                  Data de Nascimento (YYYY-MM-DD)
+                </label>
+                <input
+                  type="text"
+                  value={editForm.data_nascimento}
+                  onChange={(e) => setEditForm({ ...editForm, data_nascimento: e.target.value })}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 px-4 py-3 border-t border-border/40">
+              <button
+                type="button"
+                onClick={() => setEditingModal(false)}
+                className="flex-1 px-4 py-2 rounded-lg border border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep text-sm font-medium transition-all"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={saveEdit}
+                disabled={savingEdit}
+                className="flex-1 px-4 py-2 rounded-lg text-sm font-medium text-white transition-all disabled:opacity-50"
+                style={{ backgroundColor: savingEdit ? '#ccc' : '#5B2D8E' }}
+              >
+                {savingEdit ? 'Salvando...' : 'Salvar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </PainelLayout>
   )
 }
