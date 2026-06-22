@@ -29,8 +29,8 @@ export function isValidCPF(value: string): boolean {
     for (let i = 0; i < len; i++) {
       sum += parseInt(digits.charAt(i), 10) * (len + 1 - i)
     }
-    const mod = (sum * 10) % 11
-    return mod === 10 ? 0 : mod
+    const remainder = sum % 11
+    return remainder < 2 ? 0 : 11 - remainder
   }
 
   return calcCheck(9) === parseInt(digits.charAt(9), 10)
