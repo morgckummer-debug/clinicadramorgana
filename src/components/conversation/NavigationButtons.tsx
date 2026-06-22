@@ -54,7 +54,7 @@ export function NavigationButtons({
                 : undefined
             }
           >
-            <span>Ok</span>
+            <span>Próximo</span>
             <ArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
           </button>
           {optional && (
