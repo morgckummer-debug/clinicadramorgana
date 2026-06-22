@@ -211,15 +211,25 @@ const Hero = () => {
       </div>
 
       <div className="absolute inset-0 pointer-events-none">
+        {/* Imagem estática no mobile — sem custo de vídeo */}
+        <img
+          src="/Hero2.jpg"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          width={828}
+          height={466}
+          className="absolute inset-0 w-full h-full object-cover block md:hidden"
+        />
+        {/* Vídeo apenas no desktop */}
         <video
           key="hero-clinic-video-v5"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
           autoPlay
           muted
           loop
           playsInline
           preload="none"
-          poster="/videos/hero-clinic-poster.jpg"
           aria-label={t.hero.videoAriaLabel}
         >
           <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
