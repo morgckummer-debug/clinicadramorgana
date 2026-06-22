@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X, Pencil } from 'lucide-react'
+import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X, Pencil, Copy, Check } from 'lucide-react'
+import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
@@ -169,6 +170,15 @@ export default function Detalhe() {
     data_nascimento: '',
   })
   const [savingEdit, setSavingEdit] = useState(false)
+  const [copiedCpf, setCopiedCpf] = useState(false)
+
+  const copyCpf = () => {
+    if (!item?.pacientes?.cpf) return
+    navigator.clipboard.writeText(item.pacientes.cpf)
+    setCopiedCpf(true)
+    toast.success('CPF copiado!')
+    setTimeout(() => setCopiedCpf(false), 2000)
+  }
 
   useEffect(() => {
     if (!id) return
@@ -454,7 +464,12 @@ export default function Detalhe() {
         <div className="bg-white border border-border/50 rounded-2xl p-4 space-y-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Paciente</p>
           <Chip label="Nome" value={item.pacientes?.nome ?? '—'} />
-          <Chip label="CPF" value={item.pacientes?.cpf ? formatCpf(item.pacientes.cpf) : '—'} />
+          <Chip
+            label="CPF"
+            value={item.pacientes?.cpf ? formatCpf(item.pacientes.cpf) : '—'}
+            onCopy={copyCpf}
+            isCopied={copiedCpf}
+          />
           <Chip
             label="Nascimento"
             value={item.pacientes?.data_nascimento ? `${formatDataNascimento(item.pacientes.data_nascimento)} (${calcIdadeFormatada(item.pacientes.data_nascimento)})` : '—'}
@@ -731,11 +746,26 @@ export default function Detalhe() {
   )
 }
 
-function Chip({ label, value }: { label: string; value: string }) {
+function Chip({ label, value, onCopy, isCopied }: { label: string; value: string; onCopy?: () => void; isCopied?: boolean }) {
   return (
     <div>
       <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium leading-none">{label}</p>
-      <p className="text-sm text-foreground/85 font-light mt-0.5 leading-snug">{value}</p>
+      <div className="flex items-center gap-2 mt-0.5">
+        <p className="text-sm text-foreground/85 font-light leading-snug">{value}</p>
+        {onCopy && value !== '—' && (
+          <button
+            onClick={onCopy}
+            className="p-1 rounded hover:bg-muted transition-colors flex-shrink-0"
+            title="Copiar"
+          >
+            {isCopied ? (
+              <Check className="w-3.5 h-3.5 text-green-600" />
+            ) : (
+              <Copy className="w-3.5 h-3.5 text-muted-foreground hover:text-wine-deep" />
+            )}
+          </button>
+        )}
+      </div>
     </div>
   )
 }
