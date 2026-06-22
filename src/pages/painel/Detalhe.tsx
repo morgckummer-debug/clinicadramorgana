@@ -106,20 +106,17 @@ function calcIdade(dataNasc: string | null) {
 
 function calcIdadeFormatada(dataNasc: string | null) {
   if (!dataNasc) return null
-  const [dia, mes, ano] = dataNasc.split('-').map(Number)
+  const [ano, mes, dia] = dataNasc.split('-').map(Number)
   const hoje = new Date()
-  const anoNasc = ano
-  const mesNasc = mes
-  const diaNasc = dia
 
-  let anos = hoje.getFullYear() - anoNasc
-  let meses = hoje.getMonth() + 1 - mesNasc
+  let anos = hoje.getFullYear() - ano
+  let meses = hoje.getMonth() + 1 - mes
 
   if (meses < 0) {
     anos--
     meses += 12
   }
-  if (hoje.getDate() < diaNasc) {
+  if (hoje.getDate() < dia) {
     meses--
     if (meses < 0) {
       anos--
