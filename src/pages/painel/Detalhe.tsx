@@ -244,9 +244,16 @@ export default function Detalhe() {
 
   const isOvulacao = item.exame === 'Rastreamento de Ovulação'
 
+  // Calcular semanas gestacionais para filtrar janelas
+  const semanasGestacionais = dum ? Math.floor((Date.now() - dum.getTime()) / 86400000 / 7) : null
+
   const janelas = dum && !isOvulacao ? [
-    { label: 'Morfológico 1º Trimestre / TN', de: addDays(dum, 84), ate: addDays(dum, 97) },
-    { label: 'Morfológico 2º Trimestre',       de: addDays(dum, 147), ate: addDays(dum, 182) },
+    ...(semanasGestacionais === null || semanasGestacionais < 15 ? [
+      { label: 'Morfológico 1º Trimestre / TN', de: addDays(dum, 84), ate: addDays(dum, 97) },
+    ] : []),
+    ...(semanasGestacionais === null || semanasGestacionais < 26 ? [
+      { label: 'Morfológico 2º Trimestre',       de: addDays(dum, 147), ate: addDays(dum, 182) },
+    ] : []),
   ] : []
 
   const diasCiclo = dum && isOvulacao ? (() => {
