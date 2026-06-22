@@ -30,8 +30,7 @@ export default function Login() {
 
   if (!loading && session) return <Navigate to="/painel" replace />
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
+  const doLogin = async () => {
     setError('')
     if (!SECRETARIAS.includes(nome)) {
       setError('Nome não encontrado.')
@@ -45,6 +44,11 @@ export default function Login() {
     } else {
       navigate('/painel')
     }
+  }
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    doLogin()
   }
 
   return (
@@ -102,6 +106,12 @@ export default function Login() {
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    doLogin()
+                  }
+                }}
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
