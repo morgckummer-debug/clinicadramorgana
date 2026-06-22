@@ -76,8 +76,8 @@ export default function Agendar() {
               <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6 flex-1">
                 Falar diretamente com nossa equipe pelo WhatsApp.
               </p>
-              <span className="inline-flex items-center gap-2 bg-[#25D366] text-white px-4 py-4 rounded-2xl text-sm font-normal hover:bg-[#1ebe5d] transition-colors duration-300 w-full justify-center">
-                <MessageCircle className="w-4 h-4" /> Abrir WhatsApp
+              <span className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-colors duration-300 w-full justify-center">
+                <MessageCircle className="w-3.5 h-3.5" /> Abrir WhatsApp
               </span>
             </a>
           </div>
