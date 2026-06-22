@@ -172,9 +172,9 @@ function formatTelefoneInput(value: string) {
 
 function formatDataNascimentoInput(value: string) {
   const numbers = value.replace(/\D/g, '')
-  if (numbers.length <= 4) return numbers
-  if (numbers.length <= 6) return `${numbers.slice(0, 4)}-${numbers.slice(4)}`
-  return `${numbers.slice(0, 4)}-${numbers.slice(4, 6)}-${numbers.slice(6, 8)}`
+  if (numbers.length <= 2) return numbers
+  if (numbers.length <= 4) return `${numbers.slice(0, 2)}.${numbers.slice(2)}`
+  return `${numbers.slice(0, 2)}.${numbers.slice(2, 4)}.${numbers.slice(4, 8)}`
 }
 
 function removeCpfMask(value: string) {
@@ -183,6 +183,22 @@ function removeCpfMask(value: string) {
 
 function removeTelefoneMask(value: string) {
   return value.replace(/\D/g, '')
+}
+
+function formatarDataParaEditar(data: string) {
+  if (!data) return ''
+  const [ano, mes, dia] = data.split('-')
+  return `${dia}.${mes}.${ano}`
+}
+
+function converterDataDeEdicao(data: string) {
+  if (!data) return ''
+  const parts = data.split('.')
+  if (parts.length === 3) {
+    const [dia, mes, ano] = parts
+    return `${ano}-${mes}-${dia}`
+  }
+  return data
 }
 
 export default function Detalhe() {
@@ -264,9 +280,9 @@ export default function Detalhe() {
     if (!item?.pacientes) return
     setEditForm({
       nome: item.pacientes.nome || '',
-      cpf: item.pacientes.cpf || '',
-      telefone: item.pacientes.telefone || '',
-      data_nascimento: item.pacientes.data_nascimento || '',
+      cpf: item.pacientes.cpf ? formatCpfInput(item.pacientes.cpf) : '',
+      telefone: item.pacientes.telefone ? formatTelefoneInput(item.pacientes.telefone) : '',
+      data_nascimento: item.pacientes.data_nascimento ? formatarDataParaEditar(item.pacientes.data_nascimento) : '',
     })
     setEditingModal(true)
   }
@@ -275,11 +291,15 @@ export default function Detalhe() {
     if (!item?.paciente_id) return
     setSavingEdit(true)
     try {
+      const cpfLimpo = removeCpfMask(editForm.cpf)
+      const telefoneLimpo = removeTelefoneMask(editForm.telefone)
+      const dataLimpa = converterDataDeEdicao(editForm.data_nascimento)
+
       const updateData = {
         nome: editForm.nome,
-        cpf: removeCpfMask(editForm.cpf),
-        telefone: removeTelefoneMask(editForm.telefone),
-        data_nascimento: editForm.data_nascimento,
+        cpf: cpfLimpo,
+        telefone: telefoneLimpo,
+        data_nascimento: dataLimpa,
       }
 
       await supabase
@@ -294,9 +314,9 @@ export default function Detalhe() {
           pacientes: {
             ...prev.pacientes!,
             nome: editForm.nome,
-            cpf: removeCpfMask(editForm.cpf),
-            telefone: removeTelefoneMask(editForm.telefone),
-            data_nascimento: editForm.data_nascimento,
+            cpf: cpfLimpo,
+            telefone: telefoneLimpo,
+            data_nascimento: dataLimpa,
           },
         }
       })
@@ -748,13 +768,13 @@ export default function Detalhe() {
 
               <div>
                 <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
-                  Data de Nascimento (AAAA-MM-DD)
+                  Data de Nascimento (DD.MM.AAAA)
                 </label>
                 <input
                   type="text"
                   value={editForm.data_nascimento}
                   onChange={(e) => setEditForm({ ...editForm, data_nascimento: formatDataNascimentoInput(e.target.value) })}
-                  placeholder="0000-00-00"
+                  placeholder="00.00.0000"
                   maxLength="10"
                   className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-wine-deep/40"
                 />
