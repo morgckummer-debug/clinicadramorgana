@@ -418,19 +418,19 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return (
       <>
         <ConversationHeader />
-        <div className="animate-fade-up text-center py-12 px-4">
-          <div className="mb-6 text-4xl">⚠️</div>
-          <p className="text-wine-deep font-comfortaa text-xl mb-3 font-light">
+        <div className="animate-fade-up text-center py-8 sm:py-12 px-3 sm:px-4">
+          <div className="mb-4 sm:mb-6 text-3xl sm:text-4xl">⚠️</div>
+          <p className="text-wine-deep font-comfortaa text-lg sm:text-xl mb-2 sm:mb-3 font-light">
             Não conseguimos finalizar o pré-agendamento
           </p>
-          <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
+          <p className="text-muted-foreground font-light text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed">
             {blockedMessage || 'Para agendar um ultrassom obstétrico, precisamos de pelo menos um destes documentos: pedido médico ou resultado do exame de beta-HCG (no caso de gestação inicial). Assim que tiver um desses documentos em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp.'}
           </p>
           <a
             href="https://wa.me/5531993910212"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 shadow-soft"
+            className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 shadow-soft whitespace-nowrap"
             style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >
             Falar pelo WhatsApp

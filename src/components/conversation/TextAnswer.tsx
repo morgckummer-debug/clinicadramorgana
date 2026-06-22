@@ -45,7 +45,7 @@ function applyMask(raw: string, mask: Mask): string {
 
 export function TextAnswer({ type, value, placeholder, mask = 'none', onChange, error }: TextAnswerProps) {
   const baseClass = [
-    'w-full bg-card border-border/60 rounded-xl font-light text-sm text-foreground',
+    'w-full bg-card border-border/60 rounded-xl font-light text-xs sm:text-sm text-foreground',
     'placeholder:text-muted-foreground/50 focus-visible:ring-wine/30 focus-visible:border-wine/40',
     'transition-all duration-300',
   ].join(' ')
@@ -73,10 +73,10 @@ export function TextAnswer({ type, value, placeholder, mask = 'none', onChange, 
         placeholder={placeholder}
         onChange={(e) => handleChange(e.target.value)}
         inputMode={mask !== 'none' ? 'numeric' : 'text'}
-        className={`${baseClass} h-13 px-5 py-4`}
+        className={`${baseClass} h-12 sm:h-13 px-3 sm:px-5 py-3 sm:py-4`}
       />
       {error && (
-        <p className="text-xs text-red-500/80 font-light px-1 animate-fade-in">{error}</p>
+        <p className="text-[10px] sm:text-xs text-red-500/80 font-light px-1 animate-fade-in">{error}</p>
       )}
     </div>
   )

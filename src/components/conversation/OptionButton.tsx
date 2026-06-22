@@ -14,8 +14,8 @@ export function OptionButton({ label, value, selected, mode, onClick }: OptionBu
       type="button"
       onClick={() => onClick(value)}
       className={[
-        'w-full flex items-center justify-between px-4 py-4 rounded-2xl border text-left',
-        'transition-all duration-300 font-normal text-[17px] leading-snug',
+        'w-full flex items-center justify-between px-3 sm:px-4 py-3 sm:py-4 rounded-2xl border text-left',
+        'transition-all duration-300 font-normal text-sm sm:text-base leading-snug',
         'hover:border-champagne hover:shadow-soft hover:-translate-y-px',
         selected
           ? 'border-wine bg-wine/5 text-wine-deep shadow-soft'
