@@ -264,16 +264,24 @@ export default function Detalhe() {
   const updateStatus = async (newStatus: string) => {
     if (!id) return
     setUpdatingStatus(true)
-    const update: Record<string, string | null> = { status: newStatus }
-    if (newStatus === 'em_atendimento') update.atendente_nome = userName
-    await supabase.from('pre_agendamentos').update(update).eq('id', id)
-    setItem((prev) => {
-      if (!prev) return prev
-      const next = { ...prev, status: newStatus }
-      if (newStatus === 'em_atendimento') next.atendente_nome = userName
-      return next
-    })
-    setUpdatingStatus(false)
+    try {
+      const update: Record<string, string | null> = { status: newStatus }
+      if (newStatus === 'em_atendimento') update.atendente_nome = userName
+      const { error } = await supabase.from('pre_agendamentos').update(update).eq('id', id)
+      if (error) throw error
+      setItem((prev) => {
+        if (!prev) return prev
+        const next = { ...prev, status: newStatus }
+        if (newStatus === 'em_atendimento') next.atendente_nome = userName
+        return next
+      })
+      toast.success('Status atualizado!')
+    } catch (error) {
+      console.error('Erro ao atualizar status:', error)
+      toast.error('Erro ao atualizar status')
+    } finally {
+      setUpdatingStatus(false)
+    }
   }
 
   const openEditModal = () => {
@@ -334,15 +342,22 @@ export default function Detalhe() {
     if (!item?.pacientes) return
 
     if (item.status === 'pendente' && id) {
-      await supabase
-        .from('pre_agendamentos')
-        .update({ status: 'em_atendimento', atendente_nome: userName })
-        .eq('id', id)
-        .eq('status', 'pendente')
-      setItem((prev) => {
-        if (!prev) return prev
-        return { ...prev, status: 'em_atendimento', atendente_nome: userName }
-      })
+      try {
+        const { error } = await supabase
+          .from('pre_agendamentos')
+          .update({ status: 'em_atendimento', atendente_nome: userName })
+          .eq('id', id)
+          .eq('status', 'pendente')
+        if (error) throw error
+        setItem((prev) => {
+          if (!prev) return prev
+          return { ...prev, status: 'em_atendimento', atendente_nome: userName }
+        })
+      } catch (error) {
+        console.error('Erro ao atualizar status:', error)
+        toast.error('Erro ao atualizar status do paciente')
+        return
+      }
     }
 
     const nomePaciente = primeiroNome(item.pacientes.nome)
