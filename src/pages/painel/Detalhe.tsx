@@ -288,7 +288,7 @@ export default function Detalhe() {
   }
 
   const saveEdit = async () => {
-    if (!item?.paciente_id) return
+    if (!item?.paciente_id || !id) return
     setSavingEdit(true)
     try {
       const cpfLimpo = removeCpfMask(editForm.cpf)
@@ -307,19 +307,17 @@ export default function Detalhe() {
         .update(updateData)
         .eq('id', item.paciente_id)
 
-      setItem((prev) => {
-        if (!prev) return prev
-        return {
-          ...prev,
-          pacientes: {
-            ...prev.pacientes!,
-            nome: editForm.nome,
-            cpf: cpfLimpo,
-            telefone: telefoneLimpo,
-            data_nascimento: dataLimpa,
-          },
-        }
-      })
+      // Refetch dos dados atualizados do banco
+      const { data } = await supabase
+        .from('pre_agendamentos')
+        .select('*, pacientes(*)')
+        .eq('id', id)
+        .single()
+
+      if (data) {
+        setItem(data as unknown as Detalhe)
+      }
+
       setEditingModal(false)
       toast.success('Dados atualizados com sucesso!')
     } catch (error) {
