@@ -14,8 +14,8 @@ export function SuccessScreen() {
         Tudo certo
       </span>
 
-      <h2 className="font-comfortaa text-wine-deep text-2xl md:text-3xl font-light leading-[1.2] text-balance mb-4">
-        Pré-agendamento realizado!
+      <h2 className="font-comfortaa text-wine-deep text-xl sm:text-2xl md:text-3xl font-light leading-[1.3] mb-4 max-w-[16ch] mx-auto">
+        Pré-agendamento<br />realizado!
       </h2>
 
       <p className="text-foreground/70 font-light text-sm leading-relaxed text-balance mb-10 max-w-sm mx-auto">
