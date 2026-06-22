@@ -271,14 +271,23 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     let nextAnswers = selectedValue ? { ...answers, [currentId]: selectedValue } : answers
 
     // Auto-seleciona exame se há apenas 1 opção (ex: mama → "Mamas e Axilas")
+    // Pula q2 inteiramente para não causar flash — calcula destino direto
     if (currentId === 'q1' && selectedValue) {
       const examesDisponiveis = examsByCategory[selectedValue] ?? []
       if (examesDisponiveis.length === 1) {
         const exameUnico = examesDisponiveis[0]
         nextAnswers = { ...nextAnswers, q2: exameUnico }
         setAnswers(nextAnswers)
-        setHistory((h) => [...h, currentId])
-        setCurrentId('q2')
+        let nextAfterQ2: string
+        if (exameUnico === 'Obstétrico do 1º Trimestre') {
+          nextAfterQ2 = 'ob1_a'
+        } else if (precisaDUM(nextAnswers)) {
+          nextAfterQ2 = 'q2b'
+        } else {
+          nextAfterQ2 = 'q10'
+        }
+        setHistory((h) => [...h, currentId, 'q2'])
+        setCurrentId(nextAfterQ2)
         return
       }
     }
@@ -399,14 +408,6 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     },
     [currentId]
   )
-
-  // Auto-avança q2 se já está pré-respondido (ex: mama com exame único)
-  useEffect(() => {
-    if (currentId === 'q2' && answers['q2']) {
-      const timer = setTimeout(() => advance(), 300)
-      return () => clearTimeout(timer)
-    }
-  }, [currentId, answers, advance])
 
   const isOptional = (() => {
     if (currentQuestion?.type === 'textarea') return true
