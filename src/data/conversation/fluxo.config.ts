@@ -212,6 +212,29 @@ export const PERGUNTAS = {
     ],
   },
 
+  // ETAPA 2b_us — Tem ultrassom anterior? (quando não sabe DUM — gestação não ob1)
+  q2b_us: {
+    title: 'Você tem um ultrassom anterior desta gestação?',
+    subtitle: 'Um exame anterior nos ajuda a estimar a idade gestacional.',
+    options: [
+      { label: 'Sim, tenho', value: 'sim' },
+      { label: 'Não tenho', value: 'nao' },
+    ],
+  },
+
+  // ETAPA 2b_us_data — Data do ultrassom anterior
+  q2b_us_data: {
+    title: 'Qual a data em que esse ultrassom foi feito?',
+    placeholder: 'DD/MM/AAAA',
+  },
+
+  // ETAPA 2b_us_sem — Semanas mostradas no ultrassom anterior
+  q2b_us_sem: {
+    title: 'Quantas semanas mostrou o ultrassom?',
+    subtitle: 'Se o laudo informou semanas e dias, escreva assim: 12+3',
+    placeholder: 'Ex: 12 ou 12+3',
+  },
+
   // ETAPA 2c — Qual a DUM? (só aparece se respondeu "sim" na 2b)
   q2c: {
     title: 'Qual foi a data da sua última menstruação?',

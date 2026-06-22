@@ -84,6 +84,31 @@ export const preAgendamentoFlow: ConversationFlow = {
       branch: true,
     },
 
+    q2b_us: {
+      id: 'q2b_us',
+      type: 'buttons',
+      ...PERGUNTAS.q2b_us,
+      next: 'q2d',
+      branch: true,
+    },
+
+    q2b_us_data: {
+      id: 'q2b_us_data',
+      type: 'input',
+      mask: 'date',
+      ...PERGUNTAS.q2b_us_data,
+      next: 'q2b_us_sem',
+      branch: true,
+    },
+
+    q2b_us_sem: {
+      id: 'q2b_us_sem',
+      type: 'input',
+      ...PERGUNTAS.q2b_us_sem,
+      next: 'q2d',
+      branch: true,
+    },
+
     q2c: {
       id: 'q2c',
       type: 'input',
