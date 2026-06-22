@@ -7,10 +7,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/painel/ProtectedRoute";
-import IndexV2 from "./pages/IndexV2.tsx";
 import { exams } from "./data/exams";
 
 const Index = lazy(() => import("./pages/Index.tsx"));
+const IndexV2 = lazy(() => import("./pages/IndexV2.tsx"));
 const ExamDetail = lazy(() => import("./pages/ExamDetail.tsx"));
 const Videos = lazy(() => import("./pages/Videos.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
