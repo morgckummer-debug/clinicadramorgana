@@ -212,9 +212,6 @@ export default function Dashboard() {
           <h1 className="font-comfortaa text-wine-deep text-2xl font-light">
             Pré-agendamentos
           </h1>
-          <p className="text-sm text-muted-foreground font-light mt-1">
-            Pacientes que solicitaram atendimento pelo site
-          </p>
         </div>
         <div className="flex flex-col items-end gap-1 rounded-2xl border px-4 py-3 shadow-soft" style={{ backgroundColor: '#FDDCB5', borderColor: '#e8c99a' }}>
           <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
