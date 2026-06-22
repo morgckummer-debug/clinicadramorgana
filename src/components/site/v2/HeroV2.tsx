@@ -1,9 +1,27 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const HeroV2 = () => {
   const { t } = useLanguage();
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
+    const handleMotionChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+
+    window.addEventListener("resize", handleResize);
+    window.matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", handleMotionChange);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.matchMedia("(prefers-reduced-motion: reduce)").removeEventListener("change", handleMotionChange);
+    };
+  }, []);
   return (
     <section
       id="top"
@@ -17,18 +35,29 @@ export const HeroV2 = () => {
       </div>
 
       <div className="absolute inset-0 pointer-events-none">
-        <video
-          key="hero-clinic-video-v5"
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="none"
-          aria-label={t.hero.videoAriaLabel}
-        >
-          <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
-        </video>
+        {isDesktop && !prefersReducedMotion && (
+          <video
+            key="hero-clinic-video-v5"
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-label={t.hero.videoAriaLabel}
+          >
+            <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
+          </video>
+        )}
+        {(!isDesktop || prefersReducedMotion) && (
+          <img
+            src="/videos/hero-clinic-poster.jpg"
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-wine-deep/80 via-wine-deep/45 to-wine-deep/10 md:from-wine-deep/85 md:via-wine-deep/40 md:to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-b from-wine-deep/30 via-transparent to-wine-deep/90" />
       </div>
