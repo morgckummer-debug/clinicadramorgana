@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
 
 export const PremiumExperience = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -87,19 +85,6 @@ export const PremiumExperience = () => {
             {t.premium.description}
           </p>
 
-          <a
-            href={DRA_MORGANA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t.premium.buttonAriaLabel}
-            className="group mt-2 inline-flex items-center gap-2 rounded-full bg-wine-deep px-6 py-3 text-wine-foreground text-sm tracking-wide transition-all duration-300 hover:bg-wine hover:shadow-[0_14px_32px_-10px_hsl(var(--wine-deep)/0.55)] hover:-translate-y-0.5"
-          >
-            <span>{t.premium.button}</span>
-            <ArrowUpRight
-              size={15}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-            />
-          </a>
         </div>
       </div>
     </section>
