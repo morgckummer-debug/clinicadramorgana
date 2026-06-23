@@ -66,7 +66,7 @@ export default function Agendar() {
             {/* Card WhatsApp */}
             <a
               href={WHATSAPP_URL}
-              target="_blank"
+              target="whatsapp"
               rel="noopener noreferrer"
               className="group flex flex-col items-start p-7 rounded-3xl border border-border/50 bg-white hover:border-[#25D366]/40 transition-all duration-400 cursor-pointer"
             >
