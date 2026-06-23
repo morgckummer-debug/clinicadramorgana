@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 import { CLINICA } from '@/lib/contato'
 
-export type CardActionKind = 'whatsapp' | 'maps' | 'link'
+export type CardActionKind = 'whatsapp' | 'maps' | 'link' | 'image'
 
 export type InfoCardData = {
   id: string
@@ -44,7 +44,12 @@ export const sections: Section[] = [
         id: 'estacionamento',
         icon: Car,
         titulo: 'Estacionamento',
-        descricao: 'Há opções de estacionamento próximas à clínica.',
+        descricao: 'Há opções de estacionamento próximas à clínica. Toque para ver o mapa.',
+        action: {
+          kind: 'image',
+          label: 'Ver mapa',
+          href: '/estacionamento.png',
+        },
       },
       {
         id: 'acessibilidade',
