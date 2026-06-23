@@ -103,9 +103,16 @@ function fmtISO(iso: string) {
 
 function userObs(obs: string | null): string | null {
   if (!obs) return null
-  // Remove a linha de DUM/IG gerada automaticamente
-  const cleaned = obs.replace(/^DUM:.*(\n|$)/m, '').trim()
+  const cleaned = obs
+    .replace(/^(DUM:|US anterior:).*(\n|$)/m, '')
+    .trim()
   return cleaned || null
+}
+
+function parseUSAnterior(obs: string | null): { data: string; sem: string } | null {
+  if (!obs) return null
+  const m = obs.match(/US anterior:\s*(\S+)\s*\(([^)]+)\)/)
+  return m ? { data: m[1], sem: m[2] } : null
 }
 
 function calcIdade(dataNasc: string | null) {
@@ -499,6 +506,8 @@ export default function Detalhe() {
   const medicoFormatado = medicoLabel[item.medico_preferido ?? ''] ?? item.medico_preferido ?? '—'
 
   const dum = parseDUM(item.observacoes)
+  const igDeObs = !dum ? parseIG(item.observacoes) : null
+  const usAnterior = !dum ? parseUSAnterior(item.observacoes) : null
   const obsUsuario = userObs(item.observacoes)
 
   const igCalculada = dum ? (() => {
@@ -666,6 +675,24 @@ export default function Detalhe() {
           <Chip label="Convênio" value={item.convenio?.map(v => convenioLabel[v] ?? v).join(', ') ?? '—'} />
         </div>
       </div>
+
+      {/* Informações obstétricas — caso US anterior (sem DUM) */}
+      {!dum && igDeObs && !isOvulacao && (
+        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#fff1da', border: '2px solid #5B2D8E' }}>
+          <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
+            Informações Obstétricas
+          </p>
+          {usAnterior && (
+            <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
+              US anterior: {usAnterior.data} ({usAnterior.sem})
+            </p>
+          )}
+          <div className="rounded-xl py-2 px-4 text-center bg-wine-deep">
+            <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#C9A84C' }}>Idade gestacional</p>
+            <p className="text-3xl font-bold leading-tight" style={{ color: '#FDDCB5' }}>{igDeObs}</p>
+          </div>
+        </div>
+      )}
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
       {dum && (
