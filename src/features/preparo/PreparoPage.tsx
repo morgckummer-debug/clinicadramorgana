@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Stethoscope } from 'lucide-react'
 import { PageShell } from '@/components/common/PageShell'
+import { UltrasoundProbe } from '@/components/icons/UltrasoundProbe'
 import { SectionHeader } from '@/components/common/SectionHeader'
 import { OptionGrid } from '@/components/common/OptionGrid'
 import { OptionCard } from '@/components/common/OptionCard'
@@ -25,7 +25,7 @@ export function PreparoPage() {
         {EXAMS.map((exam) => (
           <OptionCard
             key={exam.id}
-            icon={Stethoscope}
+            icon={UltrasoundProbe}
             title={exam.nome}
             onClick={() => setSelected(exam)}
           />
