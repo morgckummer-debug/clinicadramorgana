@@ -677,7 +677,7 @@ export default function Detalhe() {
             DUM: {fmtDate(dum)}
           </p>
           {igCalculada && !isOvulacao && (
-            <div className="rounded-xl py-2 px-4 text-center" style={{ backgroundColor: '#5B2D8E' }}>
+            <div className="rounded-xl py-2 px-4 text-center bg-wine-deep">
               <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#C9A84C' }}>Idade gestacional</p>
               <p className="text-3xl font-bold leading-tight" style={{ color: '#FDDCB5' }}>{igCalculada}</p>
             </div>
