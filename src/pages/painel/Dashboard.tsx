@@ -7,7 +7,7 @@ import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
 import { useAuth } from '@/contexts/AuthContext'
 
-type StatusFilter = 'pendente' | 'em_atendimento' | 'agendado' | 'todos'
+type StatusFilter = 'pendente' | 'em_atendimento' | 'aguardando_resposta' | 'agendado' | 'todos'
 
 interface PreAgendamento {
   id: string
@@ -16,6 +16,7 @@ interface PreAgendamento {
   preferencia_turno: string | null
   status: string
   atendente_nome: string | null
+  inicio_atendimento_em: string | null
   criado_em: string
   pacientes: {
     nome: string
@@ -68,7 +69,7 @@ function playNotificationSound() {
 }
 
 const SELECT_FIELDS =
-  'id, paciente_id, exame, preferencia_turno, status, atendente_nome, criado_em, pacientes(nome, telefone, bloqueado)'
+  'id, paciente_id, exame, preferencia_turno, status, atendente_nome, inicio_atendimento_em, criado_em, pacientes(nome, telefone, bloqueado)'
 
 async function fetchPendingCount() {
   const { count } = await supabase
@@ -115,13 +116,15 @@ export default function Dashboard() {
     if (mode === 'initial') setLoading(true)
     if (mode === 'manual') setRefreshing(true)
 
+    const currentFilter = filterRef.current
+    const orderField = currentFilter === 'aguardando_resposta' ? 'inicio_atendimento_em' : 'criado_em'
+
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order('criado_em', { ascending: true })
+      .order(orderField, { ascending: true })
       .limit(200)
 
-    const currentFilter = filterRef.current
     if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
 
     const [listRes, count] = await Promise.all([query, fetchPendingCount()])
@@ -225,6 +228,7 @@ export default function Dashboard() {
   const filters: { key: StatusFilter; label: string }[] = [
     { key: 'pendente', label: 'Pendentes' },
     { key: 'em_atendimento', label: 'Atendido' },
+    { key: 'aguardando_resposta', label: 'Aguardando resposta' },
     { key: 'agendado', label: 'Agendados' },
     { key: 'todos', label: 'Todos' },
   ]
@@ -338,7 +342,7 @@ export default function Dashboard() {
                   </div>
                   <span className="text-muted-foreground group-hover:text-wine-deep transition-colors text-xs">›</span>
                 </div>
-                {item.status === 'em_atendimento' && item.atendente_nome && (
+                {(item.status === 'em_atendimento' || item.status === 'aguardando_resposta') && item.atendente_nome && (
                   <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                     <User className="w-3 h-3" />
                     {item.atendente_nome}

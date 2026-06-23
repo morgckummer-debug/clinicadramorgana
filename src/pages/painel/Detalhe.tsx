@@ -37,6 +37,8 @@ interface Detalhe {
   observacoes: string | null
   status: string
   atendente_nome: string | null
+  nota_secretaria: string | null
+  inicio_atendimento_em: string | null
   criado_em: string
   pacientes: {
     nome: string
@@ -70,6 +72,7 @@ const medicoLabel: Record<string, string> = {
 const statusOptions = [
   { value: 'pendente', label: 'Pendente' },
   { value: 'em_atendimento', label: 'Em atendimento' },
+  { value: 'aguardando_resposta', label: 'Aguardando resposta' },
   { value: 'agendado', label: 'Agendado' },
   { value: 'cancelado', label: 'Cancelado' },
 ]
@@ -240,6 +243,8 @@ export default function Detalhe() {
   const [item, setItem] = useState<Detalhe | null>(null)
   const [loading, setLoading] = useState(true)
   const [updatingStatus, setUpdatingStatus] = useState(false)
+  const [showHandoffModal, setShowHandoffModal] = useState(false)
+  const [handoffNote, setHandoffNote] = useState('')
   const [otherRecords, setOtherRecords] = useState<OtherRecord[]>([])
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [editingModal, setEditingModal] = useState(false)
@@ -367,20 +372,21 @@ export default function Detalhe() {
     return () => { document.title = 'Painel · MK' }
   }, [item?.pacientes?.nome])
 
-  const updateStatus = async (newStatus: string) => {
+  const updateStatus = async (newStatus: string, nota?: string) => {
     if (!id) return
     setUpdatingStatus(true)
     try {
       const update: Record<string, string | null> = { status: newStatus }
-      if (newStatus === 'em_atendimento') update.atendente_nome = userName
+      if (newStatus === 'em_atendimento') {
+        update.atendente_nome = userName
+        if (!item?.inicio_atendimento_em) update.inicio_atendimento_em = new Date().toISOString()
+      }
+      if (newStatus === 'aguardando_resposta') {
+        update.nota_secretaria = nota ?? null
+      }
       const { error } = await supabase.from('pre_agendamentos').update(update).eq('id', id)
       if (error) throw error
-      setItem((prev) => {
-        if (!prev) return prev
-        const next = { ...prev, status: newStatus }
-        if (newStatus === 'em_atendimento') next.atendente_nome = userName
-        return next
-      })
+      setItem((prev) => prev ? { ...prev, ...update } as Detalhe : prev)
       toast.success('Status atualizado!')
     } catch (error) {
       console.error('Erro ao atualizar status:', error)
@@ -388,6 +394,20 @@ export default function Detalhe() {
     } finally {
       setUpdatingStatus(false)
     }
+  }
+
+  const handleStatusClick = (newStatus: string) => {
+    if (newStatus === 'aguardando_resposta') {
+      setHandoffNote('')
+      setShowHandoffModal(true)
+    } else {
+      updateStatus(newStatus)
+    }
+  }
+
+  const confirmHandoff = async () => {
+    await updateStatus('aguardando_resposta', handoffNote || undefined)
+    setShowHandoffModal(false)
   }
 
   const openEditModal = () => {
@@ -452,16 +472,18 @@ export default function Detalhe() {
 
     if (item.status === 'pendente' && id) {
       try {
+        const update: Record<string, string | null> = {
+          status: 'em_atendimento',
+          atendente_nome: userName,
+          inicio_atendimento_em: new Date().toISOString(),
+        }
         const { error } = await supabase
           .from('pre_agendamentos')
-          .update({ status: 'em_atendimento', atendente_nome: userName })
+          .update(update)
           .eq('id', id)
           .eq('status', 'pendente')
         if (error) throw error
-        setItem((prev) => {
-          if (!prev) return prev
-          return { ...prev, status: 'em_atendimento', atendente_nome: userName }
-        })
+        setItem((prev) => prev ? { ...prev, ...update } as Detalhe : prev)
       } catch (error) {
         console.error('Erro ao atualizar status:', error)
         toast.error('Erro ao atualizar status do paciente')
@@ -810,6 +832,33 @@ export default function Detalhe() {
         </div>
       )}
 
+      {/* Card de handoff — exibe quando aguardando resposta */}
+      {item.status === 'aguardando_resposta' && item.atendente_nome && (
+        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3" style={{ backgroundColor: '#FFF7ED', border: '1.5px solid #FDBA74' }}>
+          <p className="text-[10px] tracking-[0.3em] uppercase font-medium mb-1.5" style={{ color: '#C2410C' }}>
+            Atendimento iniciado
+          </p>
+          <p className="text-sm font-light" style={{ color: '#7C2D12' }}>
+            Conversa iniciada por{' '}
+            <span className="font-semibold">{item.atendente_nome}</span>
+            {item.inicio_atendimento_em && (
+              <>
+                {' '}às{' '}
+                {new Date(item.inicio_atendimento_em).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                {' '}do dia{' '}
+                {new Date(item.inicio_atendimento_em).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+              </>
+            )}
+          </p>
+          {item.nota_secretaria && (
+            <div className="mt-2 pt-2" style={{ borderTop: '1px solid #FED7AA' }}>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-medium mb-1" style={{ color: '#C2410C' }}>Recado</p>
+              <p className="text-sm font-light italic" style={{ color: '#7C2D12' }}>"{item.nota_secretaria}"</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Status */}
       <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3">
         <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5 text-center">Status</p>
@@ -817,7 +866,7 @@ export default function Detalhe() {
           {statusOptions.map((opt) => (
             <button
               key={opt.value}
-              onClick={() => updateStatus(opt.value)}
+              onClick={() => handleStatusClick(opt.value)}
               disabled={updatingStatus || item.status === opt.value}
               className={[
                 'px-3 py-1.5 rounded-full text-[11px] tracking-[0.12em] uppercase font-medium border transition-all duration-300',
@@ -848,8 +897,7 @@ export default function Detalhe() {
           className="inline-flex items-center gap-1.5 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full whitespace-nowrap bg-[#25D366] text-white text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
         >
           <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-          <span className="hidden sm:inline">Abrir conversa no WhatsApp</span>
-          <span className="inline sm:hidden">WhatsApp</span>
+          <span>Entrar em contato com {nomeExibido}</span>
         </button>
 
         {item.status !== 'pendente' && (
@@ -865,6 +913,40 @@ export default function Detalhe() {
           </button>
         )}
       </div>
+
+      {/* Modal de handoff */}
+      {showHandoffModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6">
+            <h2 className="text-sm font-semibold text-wine-deep mb-1">Devolver para lista</h2>
+            <p className="text-xs text-muted-foreground font-light mb-3">
+              Deixe um recado para a próxima secretária (opcional):
+            </p>
+            <textarea
+              value={handoffNote}
+              onChange={(e) => setHandoffNote(e.target.value)}
+              placeholder="Ex: Paciente vai confirmar turno até amanhã…"
+              rows={3}
+              className="w-full border border-border rounded-xl px-3 py-2.5 text-sm font-light resize-none focus:outline-none focus:border-wine-deep/40 placeholder:text-muted-foreground/50"
+            />
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={() => setShowHandoffModal(false)}
+                className="flex-1 px-4 py-2 rounded-full text-[11px] tracking-[0.15em] uppercase border border-border text-muted-foreground hover:border-wine-deep/40 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={confirmHandoff}
+                disabled={updatingStatus}
+                className="flex-1 px-4 py-2 rounded-full text-[11px] tracking-[0.15em] uppercase bg-wine-deep text-wine-foreground font-medium disabled:opacity-50"
+              >
+                {updatingStatus ? '…' : 'Devolver'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de bloqueio */}
       {blockModal && (
