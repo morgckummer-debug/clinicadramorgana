@@ -51,7 +51,7 @@ export const sections: Section[] = [
         icon: Accessibility,
         titulo: 'Acessibilidade',
         descricao:
-          'A clínica possui acesso facilitado para pessoas com mobilidade reduzida.',
+          'Cadeirantes podem acessar a clínica (2º andar) pelo elevador do COE — Centro Odontológico, localizado no andar inferior do mesmo prédio. É necessário entrar pelo COE para utilizar o elevador. Atenção: o elevador não está disponível no horário de almoço.',
       },
       {
         id: 'antecedencia',
