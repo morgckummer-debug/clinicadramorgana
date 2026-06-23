@@ -20,6 +20,7 @@ const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
 const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
 const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
+const Preparo = lazy(() => import("./pages/Preparo.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/videos" element={<Videos />} />
             <Route path="/agendar" element={<Agendar />} />
             <Route path="/pre-agendamento" element={<PreAgendamento />} />
+            <Route path="/preparo" element={<Preparo />} />
 
             {/* Painel interno */}
             <Route path="/painel/login" element={<PainelLogin />} />
