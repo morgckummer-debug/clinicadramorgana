@@ -1,4 +1,5 @@
-import { MapPin, MessageCircle, ZoomIn } from 'lucide-react'
+import { useState } from 'react'
+import { MapPin, MessageCircle, ZoomIn, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { PageShell } from '@/components/common/PageShell'
 import { SectionHeader } from '@/components/common/SectionHeader'
@@ -9,7 +10,7 @@ import { comoChegarContent } from '@/content/comoChegar'
 import { localizacao, sections, type InfoCardData } from '@/data/comoChegar'
 import { whatsappComMensagem } from '@/lib/contato'
 
-function resolveAction(card: InfoCardData) {
+function resolveAction(card: InfoCardData, onImageClick?: (src: string) => void) {
   if (!card.action) return undefined
   const { kind, label, href } = card.action
 
@@ -25,8 +26,7 @@ function resolveAction(card: InfoCardData) {
     return {
       label,
       icon: ZoomIn,
-      href: href ?? '',
-      external: true,
+      onClick: () => onImageClick?.(href ?? ''),
     }
   }
   if (kind === 'maps') {
@@ -43,6 +43,8 @@ function resolveAction(card: InfoCardData) {
 }
 
 export function ComoChegarPage() {
+  const [imagemAberta, setImagemAberta] = useState<string | null>(null)
+
   const mapsAction = localizacao.mapsUrl
     ? {
         label: comoChegarContent.localizacao.cta,
@@ -86,7 +88,7 @@ export function ComoChegarPage() {
                   icon={card.icon}
                   title={card.titulo}
                   description={card.descricao}
-                  action={resolveAction(card)}
+                  action={resolveAction(card, setImagemAberta)}
                 />
               ))}
             </div>
@@ -103,6 +105,32 @@ export function ComoChegarPage() {
           aspect="video"
         />
       </div>
+
+      {/* Modal de imagem */}
+      {imagemAberta && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setImagemAberta(null)}
+        >
+          <div
+            className="relative max-w-3xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setImagemAberta(null)}
+              className="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors"
+              aria-label="Fechar"
+            >
+              <X className="w-6 h-6 text-wine-deep" />
+            </button>
+            <img
+              src={imagemAberta}
+              alt="Mapa expandido"
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      )}
     </PageShell>
   )
 }
