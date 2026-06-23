@@ -500,7 +500,7 @@ export default function Detalhe() {
       `Oi, ${nomePaciente}! Aqui é a ${secretaria} e serei responsável pelo seu agendamento, ok? Vi que você gostaria de marcar um ${exame}. Vou ver a disponibilidade pra você \u{1F970}`
     )
     const tel = item.pacientes.telefone.replace(/\D/g, '')
-    window.open(`https://wa.me/55${tel}?text=${msg}`, '_blank')
+    window.open(`https://wa.me/55${tel}?text=${msg}`, 'whatsapp')
   }
 
   if (loading) {

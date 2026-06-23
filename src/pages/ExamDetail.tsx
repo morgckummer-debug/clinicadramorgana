@@ -177,7 +177,7 @@ const ExamDetail = () => {
               <div className="mt-10 flex flex-wrap gap-4 items-center">
                 <a
                   href={whatsappLink}
-                  target="_blank"
+                  target="whatsapp"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
                 >
@@ -374,7 +374,7 @@ const ExamDetail = () => {
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href={whatsappLink}
-                  target="_blank"
+                  target="whatsapp"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-10 py-5 rounded-full text-[11px] tracking-[0.3em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
                 >
