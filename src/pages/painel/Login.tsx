@@ -53,7 +53,7 @@ export default function Login() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-4"
+      className="min-h-screen flex flex-col items-center justify-start pt-10 md:justify-center md:pt-0 px-4"
       style={{ background: 'linear-gradient(160deg, #faf8f5 0%, #f3eef9 50%, #faf8f5 100%)' }}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
