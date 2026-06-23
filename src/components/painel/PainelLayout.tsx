@@ -82,7 +82,7 @@ export function PainelLayout({ children }: { children: ReactNode }) {
       <header className="bg-white border-b border-border/50 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
         <Link to="/painel" className="flex items-center">
           <img
-            src="/logo-horiz.png"
+            src="/icone-ext.png"
             alt="Clínica Dra. Morgana Kummer"
             className="h-10 w-auto object-contain"
           />
