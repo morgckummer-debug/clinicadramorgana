@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { LogOut, KeyRound, X } from 'lucide-react'
+import { Ban, LogOut, KeyRound, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
 import { Input } from '@/components/ui/input'
@@ -92,6 +92,14 @@ export function PainelLayout({ children }: { children: ReactNode }) {
           {userName && (
             <span className="text-[11px] text-muted-foreground hidden sm:block">{userName}</span>
           )}
+          <Link
+            to="/painel/lista-negra"
+            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-red-500 transition-colors duration-300"
+            title="Lista negra"
+          >
+            <Ban className="w-3.5 h-3.5" />
+            <span className="hidden sm:block">Lista negra</span>
+          </Link>
           <button
             onClick={() => setShowModal(true)}
             className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Clock, Search, TriangleAlert, User } from 'lucide-react'
+import { Ban, Clock, Search, TriangleAlert, User } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
@@ -20,6 +20,7 @@ interface PreAgendamento {
   pacientes: {
     nome: string
     telefone: string
+    bloqueado: boolean
   } | null
 }
 
@@ -67,7 +68,7 @@ function playNotificationSound() {
 }
 
 const SELECT_FIELDS =
-  'id, paciente_id, exame, preferencia_turno, status, atendente_nome, criado_em, pacientes(nome, telefone)'
+  'id, paciente_id, exame, preferencia_turno, status, atendente_nome, criado_em, pacientes(nome, telefone, bloqueado)'
 
 async function fetchPendingCount() {
   const { count } = await supabase
@@ -308,6 +309,11 @@ export default function Dashboard() {
                 <div className="min-w-0">
                   <p className="text-base font-semibold text-wine-deep truncate flex items-center gap-1.5">
                     {item.pacientes?.nome ?? '—'}
+                    {item.pacientes?.bloqueado && (
+                      <span title="Paciente na lista negra" className="inline-flex">
+                        <Ban className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+                      </span>
+                    )}
                     {duplicatePacienteIds.has(item.paciente_id) && (
                       <span title="Paciente com múltiplos registros nesta lista" className="inline-flex">
                         <TriangleAlert className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" />
