@@ -12,6 +12,7 @@ export type Exam =
   | { id: string; nome: string; variants: ExamVariant[]; preparoId?: never }
 
 export const EXAMS: Exam[] = [
+  { id: 'abdome-superior', nome: 'Abdome Superior', preparoId: 'abdome-superior' },
   {
     id: 'abdome-total',
     nome: 'Abdome Total',
@@ -20,18 +21,17 @@ export const EXAMS: Exam[] = [
       { id: 'tarde', label: 'Tarde', icon: 'tarde', preparoId: 'abdome-total-tarde' },
     ],
   },
-  { id: 'abdome-superior', nome: 'Abdome Superior', preparoId: 'abdome-superior' },
-  { id: 'rins', nome: 'Rins e Vias Urinárias', preparoId: 'pelve-bexiga' },
+  { id: 'doppler-obstetrico', nome: 'Doppler Obstétrico', preparoId: 'obstetrico' },
+  { id: 'endometriose-profunda', nome: 'Endometriose Profunda', preparoId: 'pesquisa-endometriose' },
+  { id: 'mamas', nome: 'Mamas', preparoId: 'sem-preparo' },
+  { id: 'morfologico', nome: 'Morfológico', preparoId: 'obstetrico' },
+  { id: 'obstetrico', nome: 'Obstétrico', preparoId: 'obstetrico' },
   { id: 'pelvico-feminino', nome: 'Pélvico Feminino', preparoId: 'pelve-bexiga' },
   { id: 'pelvico-masculino', nome: 'Pélvico Masculino', preparoId: 'pelve-bexiga' },
-  { id: 'obstetrico', nome: 'Obstétrico', preparoId: 'obstetrico' },
-  { id: 'morfologico', nome: 'Morfológico', preparoId: 'obstetrico' },
-  { id: 'doppler-obstetrico', nome: 'Doppler Obstétrico', preparoId: 'obstetrico' },
-  { id: 'transvaginal', nome: 'Transvaginal', preparoId: 'sem-preparo' },
-  { id: 'mamas', nome: 'Mamas', preparoId: 'sem-preparo' },
-  { id: 'tireoide', nome: 'Tireoide', preparoId: 'sem-preparo' },
   { id: 'prostata', nome: 'Próstata', preparoId: 'pelve-bexiga' },
-  { id: 'endometriose-profunda', nome: 'Endometriose Profunda', preparoId: 'pesquisa-endometriose' },
+  { id: 'rins', nome: 'Rins e Vias Urinárias', preparoId: 'pelve-bexiga' },
+  { id: 'tireoide', nome: 'Tireoide', preparoId: 'sem-preparo' },
+  { id: 'transvaginal', nome: 'Transvaginal', preparoId: 'sem-preparo' },
 ]
 
 export const getExam = (id: string): Exam | undefined =>
