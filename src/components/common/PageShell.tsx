@@ -31,7 +31,7 @@ export function PageShell({
         </Link>
       </header>
 
-      <main className="flex-1 flex flex-col items-center px-6 pt-12 pb-20">
+      <main className="flex-1 flex flex-col items-center px-6 pt-5 pb-12">
         <div className="w-full max-w-4xl">{children}</div>
       </main>
     </div>
