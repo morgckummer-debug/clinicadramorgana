@@ -1,4 +1,4 @@
-import { MapPin, MessageCircle } from 'lucide-react'
+import { MapPin, MessageCircle, ZoomIn } from 'lucide-react'
 import { toast } from 'sonner'
 import { PageShell } from '@/components/common/PageShell'
 import { SectionHeader } from '@/components/common/SectionHeader'
@@ -18,6 +18,14 @@ function resolveAction(card: InfoCardData) {
       label,
       icon: MessageCircle,
       href: whatsappComMensagem(comoChegarContent.whatsappMensagem),
+      external: true,
+    }
+  }
+  if (kind === 'image') {
+    return {
+      label,
+      icon: ZoomIn,
+      href: href ?? '',
       external: true,
     }
   }
@@ -86,18 +94,12 @@ export function ComoChegarPage() {
         ))}
       </div>
 
-      <div className="mt-10 space-y-6">
+      <div className="mt-10">
         <FigureCard
           src={comoChegarContent.foto.src || undefined}
           alt={comoChegarContent.foto.alt}
           caption={comoChegarContent.foto.caption || undefined}
           description={comoChegarContent.foto.description || undefined}
-          aspect="video"
-        />
-        <FigureCard
-          src="/estacionamento.png"
-          alt="Mapa dos estacionamentos próximos à clínica"
-          caption="Estacionamentos próximos"
           aspect="video"
         />
       </div>
