@@ -12,7 +12,7 @@ type ActionProps = {
 type HighlightCardProps = {
   eyebrow?: string
   icon?: LucideIcon
-  title: string
+  title?: string
   lines?: string[]
   primaryAction?: ActionProps
 }
@@ -62,9 +62,11 @@ export function HighlightCard({
               {eyebrow}
             </span>
           )}
-          <h2 className="mt-2 font-comfortaa text-wine-deep text-[1.4rem] sm:text-[1.6rem] font-light leading-tight">
-            {title}
-          </h2>
+          {title && (
+            <h2 className="mt-2 font-comfortaa text-wine-deep text-[1.4rem] sm:text-[1.6rem] font-light leading-tight">
+              {title}
+            </h2>
+          )}
           {visibleLines.length > 0 && (
             <div className="mt-3 space-y-1">
               {visibleLines.map((line, i) => (
