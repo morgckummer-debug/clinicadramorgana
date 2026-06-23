@@ -518,6 +518,7 @@ export default function Detalhe() {
   })() : null
 
   const isOvulacao = item.exame === 'Rastreamento de Ovulação'
+  const is3D = item.exame === '3D Completo'
 
   // Calcular semanas gestacionais para filtrar janelas
   const semanasGestacionais = dum ? Math.floor((Date.now() - dum.getTime()) / 86400000 / 7) : null
@@ -528,6 +529,9 @@ export default function Detalhe() {
     ] : []),
     ...(semanasGestacionais === null || semanasGestacionais < 26 ? [
       { label: 'Morfológico 2º Trimestre',       de: addDays(dum, 147), ate: addDays(dum, 182) },
+    ] : []),
+    ...(is3D && (semanasGestacionais === null || semanasGestacionais < 28) ? [
+      { label: 'Ultrassom 3D Completo',           de: addDays(dum, 175), ate: addDays(dum, 195) },
     ] : []),
   ] : []
 
@@ -700,7 +704,7 @@ export default function Detalhe() {
           <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
             {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
           </p>
-          <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
+          <p className="text-sm font-bold text-center" style={{ color: '#5B2D8E' }}>
             DUM: {fmtDate(dum)}
           </p>
           {igCalculada && !isOvulacao && (
