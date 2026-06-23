@@ -372,8 +372,8 @@ export default function Detalhe() {
     return () => { document.title = 'Painel · MK' }
   }, [item?.pacientes?.nome])
 
-  const updateStatus = async (newStatus: string, nota?: string) => {
-    if (!id) return
+  const updateStatus = async (newStatus: string, nota?: string): Promise<boolean> => {
+    if (!id) return false
     setUpdatingStatus(true)
     try {
       const update: Record<string, string | null> = { status: newStatus }
@@ -388,9 +388,11 @@ export default function Detalhe() {
       if (error) throw error
       setItem((prev) => prev ? { ...prev, ...update } as Detalhe : prev)
       toast.success('Status atualizado!')
+      return true
     } catch (error) {
       console.error('Erro ao atualizar status:', error)
       toast.error('Erro ao atualizar status')
+      return false
     } finally {
       setUpdatingStatus(false)
     }
@@ -406,8 +408,8 @@ export default function Detalhe() {
   }
 
   const confirmHandoff = async () => {
-    await updateStatus('aguardando_resposta', handoffNote || undefined)
-    setShowHandoffModal(false)
+    const ok = await updateStatus('aguardando_resposta', handoffNote || undefined)
+    if (ok) setShowHandoffModal(false)
   }
 
   const openEditModal = () => {
@@ -1158,7 +1160,7 @@ export default function Detalhe() {
                     </span>
                     {rec.éMesmoExame && rec.éAlerta && (
                       <span className="text-[10px] font-medium pl-1 text-red-700">
-                        Same exam within 7 days
+                        Mesmo exame em menos de 7 dias
                       </span>
                     )}
                   </div>
