@@ -161,7 +161,6 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
           <a
             href="https://wa.me/5531993910212"
             target="whatsapp"
-            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-colors duration-300"
             style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >

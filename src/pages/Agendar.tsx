@@ -67,7 +67,6 @@ export default function Agendar() {
             <a
               href={WHATSAPP_URL}
               target="whatsapp"
-              rel="noopener noreferrer"
               className="group flex flex-col items-start p-7 rounded-3xl border border-border/50 bg-white hover:border-[#25D366]/40 transition-all duration-400 cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#25D366]/10 flex items-center justify-center mb-5">

@@ -44,7 +44,7 @@ export function MenuScreen({ onAgendar }: MenuScreenProps) {
       icon: <MessageCircle className="w-5 h-5" />,
       label: 'Outra opção',
       description: 'Fale diretamente com nossa equipe pelo WhatsApp.',
-      action: () => window.open(WHATSAPP_URL, 'whatsapp', 'noopener,noreferrer'),
+      action: () => window.open(WHATSAPP_URL, 'whatsapp'),
     },
   ]
 
