@@ -1,7 +1,7 @@
 import type { IconKey } from '@/data/preparos/icons'
 
 export const preparoContent = {
-  eyebrow: 'Preparo para exames',
+  eyebrow: '',
   title: 'Preparo para exames',
   subtitle: 'Selecione o exame que você irá realizar.',
   modal: {
