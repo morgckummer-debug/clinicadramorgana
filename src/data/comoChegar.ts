@@ -1,0 +1,83 @@
+import {
+  Car,
+  Accessibility,
+  Clock,
+  FileText,
+  MessageCircle,
+  type LucideIcon,
+} from 'lucide-react'
+import { CLINICA } from '@/lib/contato'
+
+export type CardActionKind = 'whatsapp' | 'maps' | 'link'
+
+export type InfoCardData = {
+  id: string
+  icon: LucideIcon
+  titulo: string
+  descricao: string
+  action?: {
+    kind: CardActionKind
+    label: string
+    href?: string
+  }
+}
+
+export type Section = {
+  id: string
+  titulo?: string
+  cards: InfoCardData[]
+}
+
+export const localizacao = {
+  nome: CLINICA.nome,
+  endereco: '',
+  cidade: '',
+  cep: '',
+  mapsUrl: '',
+}
+
+export const sections: Section[] = [
+  {
+    id: 'principais',
+    cards: [
+      {
+        id: 'estacionamento',
+        icon: Car,
+        titulo: 'Estacionamento',
+        descricao: 'Há opções de estacionamento próximas à clínica.',
+      },
+      {
+        id: 'acessibilidade',
+        icon: Accessibility,
+        titulo: 'Acessibilidade',
+        descricao:
+          'A clínica possui acesso facilitado para pessoas com mobilidade reduzida.',
+      },
+      {
+        id: 'antecedencia',
+        icon: Clock,
+        titulo: 'Chegue com antecedência',
+        descricao:
+          'Recomendamos chegar cerca de 15 minutos antes do horário agendado para realizar seu atendimento com tranquilidade.',
+      },
+      {
+        id: 'documentos',
+        icon: FileText,
+        titulo: 'Documentos',
+        descricao:
+          'No dia do exame, lembre-se de trazer documento de identificação, pedido médico (quando houver) e exames anteriores relacionados.',
+      },
+      {
+        id: 'ajuda',
+        icon: MessageCircle,
+        titulo: 'Precisa de ajuda?',
+        descricao:
+          'Caso ainda tenha alguma dúvida, nossa equipe terá prazer em ajudar.',
+        action: {
+          kind: 'whatsapp',
+          label: 'Falar com a secretaria',
+        },
+      },
+    ],
+  },
+]
