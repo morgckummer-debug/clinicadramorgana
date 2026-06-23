@@ -17,32 +17,6 @@ export type PreparoGroup = {
 
 export const PREPAROS: PreparoGroup[] = [
   {
-    id: 'pelve-bexiga',
-    nome: 'Pelve e Bexiga',
-    blocos: [
-      {
-        icon: 'agua',
-        title: 'Água',
-        items: ['Beber 3 copos de água 1 hora antes do exame.'],
-      },
-      {
-        icon: 'bexiga',
-        title: 'Bexiga',
-        items: ['Não urinar até a realização do exame, salvo orientação médica.'],
-      },
-      {
-        icon: 'jejum',
-        title: 'Jejum',
-        items: ['Não é necessário jejum.'],
-      },
-      {
-        icon: 'sonda',
-        title: 'Sonda vesical',
-        items: ['Caso utilize sonda vesical, mantê-la fechada por 1 hora antes do exame.'],
-      },
-    ],
-  },
-  {
     id: 'abdome-superior',
     nome: 'Abdome Superior',
     blocos: [
@@ -223,6 +197,32 @@ export const PREPAROS: PreparoGroup[] = [
     ],
     observacoes: [
       'OBS.: REALIZAR TODO O PREPARO EM CASA.',
+    ],
+  },
+  {
+    id: 'pelve-bexiga',
+    nome: 'Pelve e Bexiga',
+    blocos: [
+      {
+        icon: 'agua',
+        title: 'Água',
+        items: ['Beber 3 copos de água 1 hora antes do exame.'],
+      },
+      {
+        icon: 'bexiga',
+        title: 'Bexiga',
+        items: ['Não urinar até a realização do exame, salvo orientação médica.'],
+      },
+      {
+        icon: 'jejum',
+        title: 'Jejum',
+        items: ['Não é necessário jejum.'],
+      },
+      {
+        icon: 'sonda',
+        title: 'Sonda vesical',
+        items: ['Caso utilize sonda vesical, mantê-la fechada por 1 hora antes do exame.'],
+      },
     ],
   },
   {
