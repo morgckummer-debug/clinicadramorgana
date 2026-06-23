@@ -86,12 +86,18 @@ export function ComoChegarPage() {
         ))}
       </div>
 
-      <div className="mt-10">
+      <div className="mt-10 space-y-6">
         <FigureCard
           src={comoChegarContent.foto.src || undefined}
           alt={comoChegarContent.foto.alt}
           caption={comoChegarContent.foto.caption || undefined}
           description={comoChegarContent.foto.description || undefined}
+          aspect="video"
+        />
+        <FigureCard
+          src="/estacionamento.png"
+          alt="Mapa dos estacionamentos próximos à clínica"
+          caption="Estacionamentos próximos"
           aspect="video"
         />
       </div>
