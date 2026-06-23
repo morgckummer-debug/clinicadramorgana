@@ -13,7 +13,7 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-left'
   return (
-    <div className={`max-w-2xl ${alignClass} mb-10`}>
+    <div className={`max-w-2xl ${alignClass} mb-5`}>
       {eyebrow && (
         <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
           {eyebrow}
