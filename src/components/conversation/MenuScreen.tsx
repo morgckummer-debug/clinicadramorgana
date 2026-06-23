@@ -1,8 +1,6 @@
 import { ArrowRight, CalendarDays, MapPin, FileText, MessageCircle } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
-const MAPS_URL =
-  'https://www.google.com/maps?ll=-19.464006,-44.240331&z=18&t=m&hl=pt-BR&gl=US&mapclient=embed&q=R.+C%C3%A2ndido+Azeredo,+41a+-+Centro+Sete+Lagoas+-+MG+35700-019'
 const WHATSAPP_URL = 'https://wa.me/5531993910212'
 
 interface MenuOption {
@@ -32,13 +30,13 @@ export function MenuScreen({ onAgendar }: MenuScreenProps) {
       icon: <MapPin className="w-5 h-5" />,
       label: 'Como chegar na clínica',
       description: 'Veja nossa localização no mapa.',
-      action: () => window.open(MAPS_URL, '_blank', 'noopener,noreferrer'),
+      action: () => navigate('/como-chegar'),
     },
     {
       icon: <FileText className="w-5 h-5" />,
       label: 'Preparo de exames',
       description: 'Veja as orientações antes do seu exame.',
-      action: () => navigate('/exames'),
+      action: () => navigate('/preparo'),
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
