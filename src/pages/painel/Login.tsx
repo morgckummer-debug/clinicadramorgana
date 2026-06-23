@@ -142,14 +142,14 @@ export default function Login() {
           <button
             type="button"
             onClick={handleForgotPassword}
-            className="text-[10px] font-light tracking-widest underline underline-offset-4 transition-opacity hover:opacity-70"
-            style={{ color: 'rgba(91,45,142,0.45)' }}
+            className="text-xs font-medium tracking-widest underline underline-offset-4 transition-opacity hover:opacity-70"
+            style={{ color: 'rgba(91,45,142,0.75)' }}
           >
             Esqueceu a senha?
           </button>
         </div>
 
-        <p className="text-center text-[10px] font-light mt-4 tracking-widest" style={{ color: 'rgba(91,45,142,0.3)' }}>
+        <p className="text-center text-xs font-medium mt-4 tracking-widest" style={{ color: 'rgba(91,45,142,0.55)' }}>
           Acesso exclusivo · Equipe MK
         </p>
       </div>
