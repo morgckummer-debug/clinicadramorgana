@@ -94,10 +94,10 @@ export function PainelLayout({ children }: { children: ReactNode }) {
           )}
           <Link
             to="/painel/lista-negra"
-            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-red-500 transition-colors duration-300"
+            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-red-500 hover:text-red-600 transition-colors duration-300"
             title="Lista negra"
           >
-            <Ban className="w-3.5 h-3.5" />
+            <Ban className="w-4 h-4" strokeWidth={2.5} />
             <span className="hidden sm:block">Lista negra</span>
           </Link>
           <button
