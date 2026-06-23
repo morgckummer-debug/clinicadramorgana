@@ -31,7 +31,6 @@ export const EXAMS: Exam[] = [
   { id: 'mamas', nome: 'Mamas', preparoId: 'sem-preparo' },
   { id: 'tireoide', nome: 'Tireoide', preparoId: 'sem-preparo' },
   { id: 'prostata', nome: 'Próstata', preparoId: 'pelve-bexiga' },
-  { id: 'outro', nome: 'Outro exame', preparoId: 'sem-preparo' },
 ]
 
 export const getExam = (id: string): Exam | undefined =>
