@@ -1,9 +1,10 @@
 import { ReactNode, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Ban, LogOut, KeyRound, X } from 'lucide-react'
+import { Ban, LogOut, KeyRound, X, MessageCircle } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
 import { Input } from '@/components/ui/input'
+import { CLINICA } from '@/lib/contato'
 
 function AlterarSenhaModal({ onClose }: { onClose: () => void }) {
   const [nova, setNova] = useState('')
@@ -92,6 +93,16 @@ export function PainelLayout({ children }: { children: ReactNode }) {
           {userName && (
             <span className="text-[11px] text-muted-foreground hidden sm:block">{userName}</span>
           )}
+          <a
+            href={`https://wa.me/55${CLINICA.telefone.replace(/\D/g, '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-emerald-600 hover:text-emerald-700 transition-colors duration-300"
+            title="Falar com a secretaria"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            <span className="hidden sm:block">Secretaria</span>
+          </a>
           <Link
             to="/painel/lista-negra"
             className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-red-500 hover:text-red-600 transition-colors duration-300"
