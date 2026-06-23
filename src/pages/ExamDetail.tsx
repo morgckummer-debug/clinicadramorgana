@@ -178,7 +178,6 @@ const ExamDetail = () => {
                 <a
                   href={whatsappLink}
                   target="whatsapp"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
                 >
                   <MessageCircle className="w-4 h-4" /> Agendar este exame
@@ -375,7 +374,6 @@ const ExamDetail = () => {
                 <a
                   href={whatsappLink}
                   target="whatsapp"
-                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-10 py-5 rounded-full text-[11px] tracking-[0.3em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
                 >
                   <MessageCircle className="w-4 h-4" /> Falar no WhatsApp

@@ -25,7 +25,6 @@ export function SuccessScreen() {
         <a
           href="https://wa.me/5531993910212"
           target="whatsapp"
-          rel="noopener noreferrer"
           className="flex items-center justify-center w-full gap-2.5 bg-wine-deep text-wine-foreground px-7 py-3.5 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 hover:bg-wine shadow-soft hover:shadow-elegant"
         >
           Falar com a equipe agora
