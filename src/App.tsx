@@ -49,6 +49,7 @@ const App = () => (
             <Route path="/pre-agendamento" element={<PreAgendamento />} />
             <Route path="/preparo" element={<Preparo />} />
             <Route path="/como-chegar" element={<ComoChegar />} />
+            <Route path="/falar-secretaria" element={<FalarSecretaria />} />
 
             {/* Painel interno */}
             <Route path="/painel/login" element={<PainelLogin />} />
