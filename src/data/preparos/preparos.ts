@@ -183,6 +183,49 @@ export const PREPAROS: PreparoGroup[] = [
     ],
   },
   {
+    id: 'pesquisa-endometriose',
+    nome: 'Pesquisa de Endometriose',
+    blocos: [
+      {
+        icon: 'alimentacao',
+        title: 'Dia anterior ao exame',
+        items: [
+          'Dieta leve. Evite feijão, lentilha, grão de bico e outros alimentos que sabidamente podem determinar gases em você.',
+          'Tomar 5 (cinco) envelopes de macrogol 3350 (Munvilax®) diluídos em 600 ml de água às 8 horas.',
+          'Tomar 5 (cinco) envelopes de macrogol 3350 (Munvilax®) diluídos em 600 ml de água às 14 horas.',
+          'Hidrate-se bem durante o dia.',
+        ],
+      },
+      {
+        icon: 'observacao',
+        title: 'Caso não encontre a medicação recomendada',
+        items: [
+          'Entre em contato com a clínica para orientações.',
+        ],
+      },
+      {
+        icon: 'jejum',
+        title: 'Dia do exame',
+        items: [
+          'Jejum de, no mínimo, 4 horas (água não entra no jejum).',
+          'Hidrate-se bem antes do exame.',
+          '1 (um) frasco de Phosefoenema pela via retal 1 hora antes do exame (seguir as orientações da bula).',
+          'Esvaziar a bexiga 30 minutos antes do exame e, em seguida, tomar 2 (dois) copos de água (400 ml).',
+        ],
+      },
+      {
+        icon: 'cuidados',
+        title: 'Medicações alternativas',
+        items: [
+          'Caso você não encontre o Munvilax® para tomar na véspera do exame: Bisacodil - 5 mg (Dulcolax®). Tomar 2 (dois) comprimidos, às 08 horas e 2 (dois) comprimidos às 14 horas.',
+        ],
+      },
+    ],
+    observacoes: [
+      'OBS.: REALIZAR TODO O PREPARO EM CASA.',
+    ],
+  },
+  {
     id: 'sem-preparo',
     nome: 'Sem preparo especial',
     blocos: [],
