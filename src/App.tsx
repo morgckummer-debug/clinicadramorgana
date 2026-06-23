@@ -16,6 +16,7 @@ const Videos = lazy(() => import("./pages/Videos.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
 const Agendar = lazy(() => import("./pages/Agendar.tsx"));
+const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
 const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
 const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
@@ -45,7 +46,7 @@ const App = () => (
             <Route path="/v2" element={<IndexV2 />} />
             <Route path="/exames/:slug" element={<ExamDetail />} />
             <Route path="/videos" element={<Videos />} />
-            <Route path="/agendar" element={<Agendar />} />
+            <Route path="/agendar" element={<PatientPortal />} />
             <Route path="/pre-agendamento" element={<PreAgendamento />} />
             <Route path="/preparo" element={<Preparo />} />
             <Route path="/como-chegar" element={<ComoChegar />} />
