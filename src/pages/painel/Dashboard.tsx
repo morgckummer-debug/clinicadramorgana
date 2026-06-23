@@ -230,13 +230,13 @@ export default function Dashboard() {
 
   return (
     <PainelLayout>
-      <div className="mb-8 flex items-start justify-between gap-4 flex-wrap">
+      <div className="mb-8 flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="font-comfortaa text-wine-deep text-2xl font-light">
+          <h1 className="font-comfortaa text-wine-deep text-2xl font-light text-center sm:text-left">
             Pré-agendamentos
           </h1>
         </div>
-        <div className="flex flex-col items-end gap-1 rounded-2xl border px-4 py-3 shadow-soft" style={{ backgroundColor: '#FDDCB5', borderColor: '#e8c99a' }}>
+        <div className="flex flex-col items-center gap-1 rounded-2xl border px-4 py-3 shadow-soft sm:items-end" style={{ backgroundColor: '#FDDCB5', borderColor: '#e8c99a' }}>
           <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
           <span className="text-2xl font-bold leading-none" style={{ color: '#5B2D8E' }}>{pendingCount}</span>
         </div>
