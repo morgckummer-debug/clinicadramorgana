@@ -63,8 +63,14 @@ export default function Login() {
       </div>
 
       <div className="relative w-full max-w-sm animate-fade-up">
-        <div className="flex justify-center mb-10">
+        <div className="flex justify-center mb-8">
           <img src="/icone-ext.png" alt="Assistente de Agendamento" className="h-40 w-auto object-contain" />
+        </div>
+
+        <div className="text-center mb-10">
+          <div className="flex justify-center">
+            <img src="/painel-icon.png" alt="Painel" className="h-16 w-auto object-contain" />
+          </div>
         </div>
 
         <div className="rounded-2xl p-6 space-y-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 40px rgba(91,45,142,0.08)' }}>
