@@ -63,19 +63,8 @@ export default function Login() {
       </div>
 
       <div className="relative w-full max-w-sm animate-fade-up">
-        <div className="flex justify-center mb-5">
-          <img src="/logo-horiz.png" alt="Clínica Dra. Morgana Kummer" className="h-14 w-auto object-contain" />
-        </div>
-
-        <div className="text-center mb-10">
-          <h1 className="font-serif leading-tight" style={{ fontSize: '2rem', color: '#3B1A5C', letterSpacing: '0.04em' }}>
-            Assistente de<br />Agendamento
-          </h1>
-          <div className="flex items-center justify-center gap-3 mt-2">
-            <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to right, transparent, #C9A84C)' }} />
-            <span className="font-serif text-2xl font-light" style={{ color: '#C9A84C', letterSpacing: '0.3em' }}>MK</span>
-            <div className="h-px flex-1 opacity-40" style={{ background: 'linear-gradient(to left, transparent, #C9A84C)' }} />
-          </div>
+        <div className="flex justify-center mb-10">
+          <img src="/icone-ext.png" alt="Assistente de Agendamento" className="h-40 w-auto object-contain" />
         </div>
 
         <div className="rounded-2xl p-6 space-y-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 40px rgba(91,45,142,0.08)' }}>
