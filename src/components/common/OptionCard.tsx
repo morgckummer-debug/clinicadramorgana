@@ -4,7 +4,8 @@ import { IconBadge } from './IconBadge'
 type SvgIcon = (props: { className?: string; strokeWidth?: number }) => React.ReactElement
 
 type OptionCardProps = {
-  icon: LucideIcon | SvgIcon
+  icon?: LucideIcon | SvgIcon
+  imageSrc?: string
   title: string
   description?: string
   onClick?: () => void
@@ -14,6 +15,7 @@ type OptionCardProps = {
 
 export function OptionCard({
   icon,
+  imageSrc,
   title,
   description,
   onClick,
@@ -23,7 +25,7 @@ export function OptionCard({
   const content = (
     <>
       <div className="flex items-center gap-4 flex-1 min-w-0">
-        <IconBadge icon={icon} size="md" />
+        <IconBadge icon={icon} imageSrc={imageSrc} size="md" />
         <div className="min-w-0 flex-1 text-left">
           <p className="text-[15px] font-medium text-wine-deep truncate">
             {title}

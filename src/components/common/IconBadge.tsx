@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils'
 type SvgIcon = (props: { className?: string; strokeWidth?: number }) => React.ReactElement
 
 type IconBadgeProps = {
-  icon: LucideIcon | SvgIcon
+  icon?: LucideIcon | SvgIcon
+  imageSrc?: string
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }
@@ -15,7 +16,7 @@ const sizeMap = {
   lg: { box: 'w-16 h-16 rounded-2xl', icon: 'w-7 h-7' },
 }
 
-export function IconBadge({ icon: Icon, size = 'md', className }: IconBadgeProps) {
+export function IconBadge({ icon: Icon, imageSrc, size = 'md', className }: IconBadgeProps) {
   const s = sizeMap[size]
   return (
     <div
@@ -25,7 +26,11 @@ export function IconBadge({ icon: Icon, size = 'md', className }: IconBadgeProps
         className,
       )}
     >
-      <Icon className={s.icon} strokeWidth={1.5} />
+      {imageSrc ? (
+        <img src={imageSrc} alt="" className={cn(s.icon, 'object-contain')} />
+      ) : Icon ? (
+        <Icon className={s.icon} strokeWidth={1.5} />
+      ) : null}
     </div>
   )
 }
