@@ -83,7 +83,7 @@ export const PREPAROS: PreparoGroup[] = [
       {
         icon: 'medicamento',
         title: 'Medicamento',
-        items: ['Tomar Dimeticona ou Simeticona conforme orientação da clínica.'],
+        items: ['Tomar 01 comprimido (125mg) ou 40 gotas (75mg/ml) de Dimeticona ou Simeticona (antigases) de 6 em 6 horas, durante todo o dia anterior ao exame.'],
       },
       {
         icon: 'agua',
@@ -119,7 +119,7 @@ export const PREPAROS: PreparoGroup[] = [
       {
         icon: 'medicamento',
         title: 'Medicamento',
-        items: ['Tomar Dimeticona ou Simeticona conforme orientação.'],
+        items: ['Tomar 01 comprimido (125mg) ou 40 gotas (75mg/ml) de Dimeticona ou Simeticona (antigases) de 6 em 6 horas, durante todo o dia anterior ao exame.'],
       },
       {
         icon: 'alimentacao',
