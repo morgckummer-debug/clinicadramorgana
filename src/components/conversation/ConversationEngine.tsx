@@ -10,7 +10,7 @@ import { QuestionRenderer } from './QuestionRenderer'
 import { NavigationButtons } from './NavigationButtons'
 import { SuccessScreen } from './SuccessScreen'
 
-type Step = 'welcome' | 'question' | 'saving' | 'success' | 'error' | 'blocked' | 'paciente_bloqueado'
+type Step = 'welcome' | 'question' | 'saving' | 'success' | 'error' | 'blocked'
 
 interface ConversationEngineProps {
   flow: ConversationFlow
@@ -94,11 +94,6 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   if (session) await supabase.auth.signOut({ scope: 'local' }).catch(() => {})
 
   const cpf = (answers['q4'] as string).replace(/\D/g, '')
-
-  // Verifica se o paciente está na lista negra antes de prosseguir.
-  const { data: bloqueado } = await supabase.rpc('verificar_bloqueio_cpf', { p_cpf: cpf })
-  if (bloqueado) throw new Error('PACIENTE_BLOQUEADO')
-
   const telefone = (answers['q6'] as string).replace(/\D/g, '')
   const convenio = answers['q7']
 
@@ -420,10 +415,6 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         setStep('success')
       } catch (e) {
         const msg = e instanceof Error ? e.message : ''
-        if (msg === 'PACIENTE_BLOQUEADO') {
-          setStep('paciente_bloqueado')
-          return
-        }
         setSaveErrorMessage(msg)
         setStep('error')
       }
@@ -553,33 +544,6 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
               {['q2f', 'q2g', 'q10'].includes(blockedReturnId) ? 'Voltar e anexar documento' : 'Tentar novamente'}
             </button>
           </div>
-        </div>
-      </>
-    )
-  }
-
-  if (step === 'paciente_bloqueado') {
-    return (
-      <>
-        <ConversationHeader />
-        <div className="animate-fade-up text-center py-12 px-4">
-          <div className="mb-4 text-4xl">🚫</div>
-          <p className="text-wine-deep font-comfortaa text-xl mb-3 font-light">
-            Não foi possível realizar o pré-agendamento
-          </p>
-          <p className="text-muted-foreground font-light text-sm mb-8 leading-relaxed">
-            Infelizmente não conseguimos processar sua solicitação no momento.
-            Para mais informações, entre em contato diretamente com a clínica pelo WhatsApp.
-          </p>
-          <a
-            href="https://wa.me/5531993910212"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 shadow-soft"
-            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
-          >
-            Falar pelo WhatsApp
-          </a>
         </div>
       </>
     )

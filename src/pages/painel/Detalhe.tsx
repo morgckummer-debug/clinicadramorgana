@@ -676,7 +676,12 @@ export default function Detalhe() {
           <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
             DUM: {fmtDate(dum)}
           </p>
-          {igCalculada && !isOvulacao && <p className="text-base font-bold text-center" style={{ color: '#5B2D8E' }}>IG: {igCalculada}</p>}
+          {igCalculada && !isOvulacao && (
+            <div className="rounded-xl py-2 px-4 text-center" style={{ backgroundColor: '#5B2D8E' }}>
+              <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#C9A84C' }}>Idade gestacional</p>
+              <p className="text-3xl font-bold leading-tight" style={{ color: '#FDDCB5' }}>{igCalculada}</p>
+            </div>
+          )}
           {janelas.length > 0 && (
             <div className="space-y-2 pt-1" style={{ borderTop: '1px solid #5B2D8E' }}>
               <p className="text-[10px] tracking-[0.2em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>Janelas ideais para agendamento</p>
