@@ -122,7 +122,7 @@ export default function Dashboard() {
     let query = supabase
       .from('pre_agendamentos')
       .select(SELECT_FIELDS)
-      .order(orderField, { ascending: true })
+      .order(orderField, { ascending: true, nullsFirst: false })
       .limit(200)
 
     if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
@@ -143,11 +143,11 @@ export default function Dashboard() {
     const channel = supabase
       .channel('dashboard_realtime')
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'pre_agendamentos' }, (payload) => {
-        const novo = payload.new as { id: string; status: string; atendente_nome: string | null }
+        const novo = payload.new as { id: string; status: string; atendente_nome: string | null; inicio_atendimento_em: string | null }
         setItems((prev) => {
           const atualizado = prev.map((item) =>
             item.id === novo.id
-              ? { ...item, status: novo.status, atendente_nome: novo.atendente_nome }
+              ? { ...item, status: novo.status, atendente_nome: novo.atendente_nome, inicio_atendimento_em: novo.inicio_atendimento_em }
               : item
           )
           if (filter !== 'todos' && novo.status !== filter) {
