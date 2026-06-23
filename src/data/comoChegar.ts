@@ -30,10 +30,10 @@ export type Section = {
 
 export const localizacao = {
   nome: CLINICA.nome,
-  endereco: '',
-  cidade: '',
-  cep: '',
-  mapsUrl: '',
+  endereco: 'Rua Cândido Azeredo, 41 A',
+  cidade: 'Centro — Sete Lagoas / MG',
+  cep: 'CEP 35700-019',
+  mapsUrl: 'https://www.google.com/maps?ll=-19.464006,-44.240331&z=18&t=m&hl=pt-BR&gl=US&mapclient=embed&q=R.+C%C3%A2ndido+Azeredo,+41a+-+Centro+Sete+Lagoas+-+MG+35700-019',
 }
 
 export const sections: Section[] = [

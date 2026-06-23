@@ -13,8 +13,8 @@ export const comoChegarContent = {
   whatsappMensagem: 'Olá! Tenho uma dúvida sobre como chegar à clínica.',
   foto: {
     alt: 'Fachada da Clínica Dra. Morgana',
-    caption: '',
-    description: '',
-    src: '' as string,
+    caption: 'Clínica de Ultrassom Dra. Morgana Kummer',
+    description: 'Rua Cândido Azeredo, 41 A — Centro, Sete Lagoas / MG',
+    src: '/fachada.png' as string,
   },
 }
