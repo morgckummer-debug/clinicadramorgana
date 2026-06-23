@@ -59,7 +59,6 @@ export function ComoChegarPage() {
       <HighlightCard
         eyebrow={comoChegarContent.localizacao.eyebrow}
         icon={MapPin}
-        title={localizacao.nome}
         lines={[localizacao.endereco, localizacao.cidade, localizacao.cep]}
         primaryAction={mapsAction}
       />
