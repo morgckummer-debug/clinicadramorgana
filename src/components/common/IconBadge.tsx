@@ -1,8 +1,10 @@
 import type { LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+type SvgIcon = (props: { className?: string; strokeWidth?: number }) => React.ReactElement
+
 type IconBadgeProps = {
-  icon: LucideIcon
+  icon: LucideIcon | SvgIcon
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }

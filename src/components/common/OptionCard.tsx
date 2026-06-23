@@ -1,8 +1,10 @@
 import { ChevronRight, type LucideIcon } from 'lucide-react'
 import { IconBadge } from './IconBadge'
 
+type SvgIcon = (props: { className?: string; strokeWidth?: number }) => React.ReactElement
+
 type OptionCardProps = {
-  icon: LucideIcon
+  icon: LucideIcon | SvgIcon
   title: string
   description?: string
   onClick?: () => void
