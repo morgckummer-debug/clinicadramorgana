@@ -1,145 +1,157 @@
-# Módulo: Como chegar
+# Módulo: Falar com a secretaria
 
-Nova rota `/como-chegar`, isolada. Reutiliza a base do módulo Preparo (`PageShell`, `SectionHeader`, `IconBadge`, `OptionGrid`) e introduz três novos componentes 100% genéricos para alimentar todo o portal futuro.
+Nova rota `/falar-secretaria`, isolada. 100% composta com componentes já existentes — nenhum componente novo. Padrão visual idêntico a `/preparo` e `/como-chegar`.
 
 ## Rota
 
-- `/como-chegar` adicionada em `src/App.tsx` com `lazy()`. Nada mais é tocado.
+- `/falar-secretaria` em `src/App.tsx` com `lazy()`. Nada mais é tocado.
 
-## Princípios
+## Componentes reutilizados (já existem)
 
-1. Componentes novos sem qualquer referência ao domínio "Como chegar" — nomes, props e copy padrão são neutros.
-2. Zero texto hardcoded — toda copy vem de `src/content/comoChegar.ts` (toasts, labels, alts).
-3. Dados em `src/data/comoChegar.ts`, prontos para crescer (Transporte público, Hotéis, Restaurantes, Farmácias, Horário, Convênios, etc.) apenas acrescentando itens em arrays.
-4. Apenas Lucide, sem emojis.
+- `PageShell`, `SectionHeader`, `OptionGrid`, `InfoCard`, `IconBadge`.
+- `CalloutCard` — usado no rodapé. Ajuste mínimo: tornar `cta` opcional e não renderizar o botão quando ausente (mantém todos os usos atuais que continuam passando `cta`).
+- `lib/contato.ts` — `whatsappComMensagem(mensagem)` já centraliza o número via `CLINICA.whatsappNumero`. Usar diretamente.
 
-## Estrutura de arquivos
+Nenhum componente novo é criado.
+
+## Arquivos novos
 
 ```text
 src/
-  content/
-    comoChegar.ts          # eyebrow, título, subtítulo, labels de botões,
-                           # toast "endereço em breve", mensagem WhatsApp,
-                           # alt/legenda padrão da foto
-  data/
-    comoChegar.ts          # localização + arrays de seções (cada uma com
-                           # id, título opcional, lista de InfoCardData)
-  components/common/
-    InfoCard.tsx           # NOVO genérico: IconBadge + título + descrição +
-                           # CTA opcional. Aceita onClick OU href (external).
-                           # Sem nenhuma copy hardcoded.
-    HighlightCard.tsx      # NOVO genérico: card grande de destaque
-                           # (eyebrow + título + lista de linhas meta +
-                           # CTA principal). Props neutras: eyebrow, title,
-                           # lines[], primaryAction { label, icon?, onClick|href }.
-    FigureCard.tsx         # NOVO genérico (substitui ImagePlaceholder):
-                           # área 16:9 arredondada com:
-                           #   - src opcional (sem src => slot vazio elegante
-                           #     com ícone neutro, sem texto fixo)
-                           #   - alt obrigatório quando há src
-                           #   - caption opcional (legenda curta)
-                           #   - description opcional (texto sob a legenda)
-                           # Reutilizável em qualquer página do portal.
-  features/comoChegar/
-    ComoChegarPage.tsx     # composição: PageShell + SectionHeader +
-                           # HighlightCard + N seções de InfoCard via .map +
-                           # FigureCard ao final
-  pages/
-    ComoChegar.tsx         # apenas <ComoChegarPage />
+  content/falarSecretaria.ts       # toda a copy estática da página
+  data/falarSecretaria.ts          # assuntos + mensagens WhatsApp
+  lib/atendimento.ts               # horário de atendimento (estrutura, sem lógica ativa)
+  features/falarSecretaria/
+    FalarSecretariaPage.tsx        # composição + resolver de ações
+  pages/FalarSecretaria.tsx        # apenas <FalarSecretariaPage />
 ```
 
-## Componentes genéricos (sem domínio)
+## 1. Ações genéricas (não limitar ao WhatsApp)
 
-`InfoCard` props:
+Tipo `AssuntoAction` discriminado, preparado para crescer sem mudar arquitetura:
+
 ```ts
-{
-  icon: LucideIcon
-  title: string
-  description?: string
-  action?: { label: string; icon?: LucideIcon; onClick?: () => void; href?: string; external?: boolean }
-}
+export type AssuntoAction =
+  | { kind: 'whatsapp'; mensagem: string }
+  | { kind: 'navegar'; to: string }
+  | { kind: 'telefone'; numero: string }
+  | { kind: 'modal'; modalId: string }
+  | { kind: 'formulario'; formId: string }
+  | { kind: 'link'; href: string; external?: boolean }
 ```
 
-`HighlightCard` props:
-```ts
-{
-  eyebrow?: string
-  icon?: LucideIcon
-  title: string
-  lines?: string[]                // linhas meta (endereço, cidade, CEP, etc.)
-  primaryAction?: { label: string; icon?: LucideIcon; onClick?: () => void; href?: string; external?: boolean }
-}
-```
-
-`FigureCard` props:
-```ts
-{
-  src?: string
-  alt?: string
-  caption?: string
-  description?: string
-  aspect?: 'video' | 'square' | 'wide'   // default 'video'
-}
-```
-
-Nenhum deles importa nada de `content/comoChegar` ou `data/comoChegar`. Ficam disponíveis para Convênios, Informações da clínica, Falar com a secretaria, Outra dúvida, etc.
-
-## Escalabilidade dos dados
-
-`data/comoChegar.ts` exporta `sections: Section[]` em vez de uma lista plana. Cada seção tem `id`, `titulo?` (opcional, para futuros agrupamentos como "Por perto" / "Antes da visita") e `cards: InfoCardData[]`. Inicialmente uma única seção sem título contém os 5 cards atuais (Estacionamento, Acessibilidade, Antecedência, Documentos, Precisa de ajuda?). Adicionar Transporte público, Hotéis, Restaurantes, Farmácias, Horário, Convênios = apenas push no array (ou nova seção).
-
-Cada `InfoCardData`:
+`AssuntoSecretaria`:
 ```ts
 {
   id: string
-  icon: LucideIcon
+  icon: LucideIcon       // BadgeDollarSign, CalendarClock, ShieldCheck, CircleHelp
   titulo: string
   descricao: string
-  action?: { kind: 'whatsapp' | 'maps' | 'link'; label: string; href?: string }
+  acao: AssuntoAction
+  ctaLabel?: string      // opcional; default vem de content.ctaPadrao
 }
 ```
 
-A página resolve `action.kind` em handler concreto (whatsapp → `whatsappComMensagem`, maps → abre `localizacao.mapsUrl` ou dispara toast amigável, link → href direto). Assim os dados continuam declarativos e os componentes continuam neutros.
+Resolver único na página (`FalarSecretariaPage.tsx`):
 
-## Botão "Abrir no Google Maps" sem URL
+```ts
+function executarAcao(acao: AssuntoAction) {
+  switch (acao.kind) {
+    case 'whatsapp':   window.open(whatsappComMensagem(acao.mensagem), '_blank'); break
+    case 'navegar':    navigate(acao.to); break
+    case 'telefone':   window.location.href = `tel:${acao.numero}`; break
+    case 'link':       window.open(acao.href, acao.external ? '_blank' : '_self'); break
+    case 'modal':      /* hook futuro */ break
+    case 'formulario': /* hook futuro */ break
+  }
+}
+```
 
-Sempre visível, mesmo estilo. Handler:
-- Se `localizacao.mapsUrl` preenchido → abre em nova aba.
-- Se vazio → `toast` (sonner, já no projeto) com a mensagem de `content/comoChegar.ts`: `"A localização da clínica será disponibilizada em breve."`
+Hoje todos os 4 cards usam `kind: 'whatsapp'`. Trocar um para `navegar` ou `telefone` no futuro = editar só os dados.
 
-Mesma lógica para qualquer card de mapa futuro.
+## 2. Mensagens 100% na camada de dados
+
+Mensagens do WhatsApp ficam apenas dentro de `acao.mensagem` em `data/falarSecretaria.ts`. Nenhuma string de mensagem entra em componente React. O resolver acima lê de `acao.mensagem` — nunca de constantes em componente.
+
+```ts
+export const assuntos: AssuntoSecretaria[] = [
+  { id: 'valores',     icon: BadgeDollarSign, titulo: 'Valores dos exames',
+    descricao: '…',    acao: { kind: 'whatsapp', mensagem: 'Olá! Gostaria de informações sobre valores dos exames.' } },
+  { id: 'agendamento', icon: CalendarClock,   titulo: 'Agendamento',
+    descricao: '…',    acao: { kind: 'whatsapp', mensagem: 'Olá! Preciso de ajuda com meu agendamento.' } },
+  { id: 'convenios',   icon: ShieldCheck,     titulo: 'Convênios',
+    descricao: '…',    acao: { kind: 'whatsapp', mensagem: 'Olá! Gostaria de informações sobre convênios.' } },
+  { id: 'outra',       icon: CircleHelp,      titulo: 'Outra dúvida',
+    descricao: '…',    acao: { kind: 'whatsapp', mensagem: 'Olá! Tenho uma dúvida e gostaria de falar com a secretaria.' } },
+]
+```
+
+## 3. Preparação para horário de atendimento (sem lógica agora)
+
+Novo `src/lib/atendimento.ts` centraliza a configuração e a API, **sem implementar a verificação ativa**:
+
+```ts
+export type Janela = { inicio: string; fim: string }  // 'HH:MM'
+
+export const HORARIO_ATENDIMENTO = {
+  diasUteis: [1, 2, 3, 4, 5],
+  janelas: [
+    { inicio: '08:00', fim: '11:00' },
+    { inicio: '12:30', fim: '17:30' },
+  ] as Janela[],
+  timezone: 'America/Sao_Paulo',
+}
+
+export type StatusAtendimento = 'disponivel' | 'fora_horario' | 'desconhecido'
+
+// Stub — futuramente avalia a hora atual contra HORARIO_ATENDIMENTO.
+export function getStatusAtendimento(): StatusAtendimento {
+  return 'desconhecido'
+}
+```
+
+`content/falarSecretaria.ts` já contempla as três mensagens possíveis, prontas para uso futuro:
+
+```ts
+horario: {
+  titulo: 'Horário de atendimento',
+  descricaoPadrao: 'Nosso atendimento pelo WhatsApp funciona das 08:00 às 11:00 e das 12:30 às 17:30, em dias úteis. Caso sua mensagem seja enviada fora desse horário, responderemos assim que possível.',
+  mensagens: {
+    disponivel:   'Atendimento disponível agora.',
+    fora_horario: 'No momento estamos fora do horário de atendimento. Responderemos assim que possível.',
+    desconhecido: null,  // usa descricaoPadrao
+  },
+}
+```
+
+Na página, o `CalloutCard` recebe `description` derivado de um helper:
+
+```ts
+const status = getStatusAtendimento()
+const descricao = content.horario.mensagens[status] ?? content.horario.descricaoPadrao
+```
+
+Hoje retorna sempre `'desconhecido'` → exibe `descricaoPadrao` (texto do prompt). Quando a lógica real for ligada (só em `lib/atendimento.ts`), o layout não muda — apenas a mensagem.
 
 ## Composição da página
 
 1. `PageShell`.
-2. `SectionHeader` — eyebrow `COMO CHEGAR`, título `Como chegar à clínica`, subtítulo do prompt.
-3. `HighlightCard` — eyebrow `LOCALIZAÇÃO`, ícone `MapPin`, título = nome da clínica, `lines` = endereço/cidade/CEP (linhas vazias são filtradas), `primaryAction` = `Abrir no Google Maps` (ícone `MapPin`).
-4. `sections.map` → para cada seção, opcional `<h2>` discreto + `OptionGrid` (`sm:grid-cols-2`) de `InfoCard`.
-5. `FigureCard` largura total (`aspect="video"`, `rounded-3xl`, borda champagne), sem `src` por enquanto — `alt`, `caption` e `description` virão depois via dados.
+2. `SectionHeader` — eyebrow `FALE CONOSCO` / título / subtítulo.
+3. `OptionGrid` → `assuntos.map(a => <InfoCard icon={a.icon} title={a.titulo} description={a.descricao} action={{ label: a.ctaLabel ?? content.ctaPadrao, icon: MessageCircle, onClick: () => executarAcao(a.acao) }} />)`.
+4. `CalloutCard` (sem CTA, com ícone `Clock`) — `question = content.horario.titulo`, `description = descricao` (derivada do status).
 
-## Conteúdo (`src/content/comoChegar.ts`)
-
-```ts
-export const comoChegarContent = {
-  eyebrow: 'Como chegar',
-  title: 'Como chegar à clínica',
-  subtitle: 'Confira a localização, estacionamento e outras informações importantes antes da sua visita.',
-  localizacao: { eyebrow: 'Localização', cta: 'Abrir no Google Maps' },
-  mapsIndisponivelToast: 'A localização da clínica será disponibilizada em breve.',
-  ajudaCta: 'Falar com a secretaria',
-  whatsappMensagem: 'Olá! Tenho uma dúvida sobre como chegar à clínica.',
-  foto: { alt: 'Fachada da Clínica Dra. Morgana', caption: '', description: '' },
-}
-```
-
-Textos dos cards ficam em `data/comoChegar.ts` (título + descrição), mantendo o padrão do módulo Preparo.
+Nenhuma string fixa em componente. Toda copy via `content/`, todas as ações via `data/`, todo número de telefone via `lib/contato.ts`, todo horário via `lib/atendimento.ts`.
 
 ## Responsividade
 
-Mobile-first idêntico ao `/preparo`: container `max-w-4xl`, `OptionGrid` 1 coluna no mobile e 2 em `sm:`. `HighlightCard` empilha no mobile, alinhado em linha no desktop. `FigureCard` ocupa largura total do container.
+Idêntica a `/como-chegar`: `max-w-4xl`, grid 1 col mobile / 2 col `sm:`.
+
+## Ponto oficial de contato humano
+
+`/falar-secretaria` torna-se o destino canônico para "atendimento humano". Outros módulos futuros podem linkar para cá — nenhum link adicionado agora.
 
 ## Fora do escopo
 
-- Mapa incorporado, Street View, rota, GPS, tempo de deslocamento.
-- Conteúdo definitivo de endereço, CEP, `mapsUrl`, link WhatsApp e foto — entram depois sem alterar componentes.
-- Página-hub e qualquer alteração em `/`, `/agendar`, `/pre-agendamento`, `/preparo`.
+- Implementação real de `getStatusAtendimento` (apenas stub).
+- Chat, IA, fila, CRM, formulários, modais.
+- Alterar `/`, `/agendar`, `/pre-agendamento`, `/preparo`, `/como-chegar`.
