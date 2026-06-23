@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X, Pencil, Copy, Check } from 'lucide-react'
+import { ArrowLeft, Ban, MessageCircle, FileText, TriangleAlert, User, PhoneMissed, X, Pencil, Copy, Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
@@ -43,6 +43,10 @@ interface Detalhe {
     cpf: string
     telefone: string
     data_nascimento: string | null
+    bloqueado: boolean
+    motivo_bloqueio: string | null
+    bloqueado_em: string | null
+    bloqueado_por: string | null
   } | null
 }
 
@@ -240,6 +244,9 @@ export default function Detalhe() {
   })
   const [savingEdit, setSavingEdit] = useState(false)
   const [copiedCpf, setCopiedCpf] = useState(false)
+  const [blockModal, setBlockModal] = useState(false)
+  const [blockMotivo, setBlockMotivo] = useState('')
+  const [savingBlock, setSavingBlock] = useState(false)
 
   const copyCpf = () => {
     if (!item?.pacientes?.cpf) return
@@ -247,6 +254,77 @@ export default function Detalhe() {
     setCopiedCpf(true)
     toast.success('CPF copiado!')
     setTimeout(() => setCopiedCpf(false), 2000)
+  }
+
+  const bloquearPaciente = async () => {
+    if (!item?.paciente_id) return
+    setSavingBlock(true)
+    try {
+      const { error } = await supabase
+        .from('pacientes')
+        .update({
+          bloqueado: true,
+          motivo_bloqueio: blockMotivo.trim() || null,
+          bloqueado_em: new Date().toISOString(),
+          bloqueado_por: userName,
+        })
+        .eq('id', item.paciente_id)
+      if (error) throw error
+      setItem((prev) => {
+        if (!prev?.pacientes) return prev
+        return {
+          ...prev,
+          pacientes: {
+            ...prev.pacientes,
+            bloqueado: true,
+            motivo_bloqueio: blockMotivo.trim() || null,
+            bloqueado_em: new Date().toISOString(),
+            bloqueado_por: userName,
+          },
+        }
+      })
+      setBlockModal(false)
+      setBlockMotivo('')
+      toast.success('Paciente adicionada à lista negra.')
+    } catch (error) {
+      console.error('Erro ao bloquear paciente:', error)
+      toast.error('Erro ao bloquear paciente')
+    } finally {
+      setSavingBlock(false)
+    }
+  }
+
+  const desbloquearPaciente = async () => {
+    if (!item?.paciente_id) return
+    try {
+      const { error } = await supabase
+        .from('pacientes')
+        .update({
+          bloqueado: false,
+          motivo_bloqueio: null,
+          bloqueado_em: null,
+          bloqueado_por: null,
+        })
+        .eq('id', item.paciente_id)
+      if (error) throw error
+      setItem((prev) => {
+        if (!prev?.pacientes) return prev
+        return {
+          ...prev,
+          pacientes: {
+            ...prev.pacientes,
+            bloqueado: false,
+            motivo_bloqueio: null,
+            bloqueado_em: null,
+            bloqueado_por: null,
+          },
+        }
+      })
+      toast.success('Paciente removida da lista negra.')
+    } catch (error) {
+      console.error('Erro ao desbloquear paciente:', error)
+      toast.error('Erro ao desbloquear paciente')
+    }
   }
 
   useEffect(() => {
@@ -495,6 +573,23 @@ export default function Detalhe() {
               >
                 <Pencil className="w-4 h-4 text-wine-deep" />
               </button>
+              {item.pacientes?.bloqueado ? (
+                <button
+                  onClick={desbloquearPaciente}
+                  className="p-1.5 rounded-lg hover:bg-red-50 transition-colors"
+                  title="Remover da lista negra"
+                >
+                  <Ban className="w-4 h-4 text-red-500" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => setBlockModal(true)}
+                  className="p-1.5 rounded-lg hover:bg-red-50 transition-colors"
+                  title="Adicionar à lista negra"
+                >
+                  <Ban className="w-4 h-4 text-muted-foreground/40 hover:text-red-400" />
+                </button>
+              )}
             </div>
             {idade !== null && (
               <p className="text-sm text-muted-foreground font-light mt-0.5">{idade} anos</p>
@@ -514,6 +609,33 @@ export default function Detalhe() {
           </button>
         )}
       </div>
+
+      {/* Banner de lista negra */}
+      {item.pacientes?.bloqueado && (
+        <div className="rounded-2xl p-4 mb-3 flex items-start gap-3" style={{ backgroundColor: '#FEE2E2', border: '2px solid #EF4444' }}>
+          <Ban className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-red-800">Paciente na lista negra — agendamento bloqueado</p>
+            {item.pacientes.motivo_bloqueio && (
+              <p className="text-xs text-red-700 font-light mt-0.5">{item.pacientes.motivo_bloqueio}</p>
+            )}
+            {item.pacientes.bloqueado_por && (
+              <p className="text-xs text-red-600/70 font-light mt-0.5">
+                Bloqueada por <span className="font-medium">{item.pacientes.bloqueado_por}</span>
+                {item.pacientes.bloqueado_em && (
+                  <> em {new Date(item.pacientes.bloqueado_em).toLocaleDateString('pt-BR')}</>
+                )}
+              </p>
+            )}
+          </div>
+          <button
+            onClick={desbloquearPaciente}
+            className="text-xs text-red-700 underline underline-offset-4 hover:text-red-900 transition-colors whitespace-nowrap"
+          >
+            Desbloquear
+          </button>
+        </div>
+      )}
 
       {/* Grid principal 2 colunas — responsivo */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
@@ -707,6 +829,71 @@ export default function Detalhe() {
           </button>
         )}
       </div>
+
+      {/* Modal de bloqueio */}
+      {blockModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+          onClick={() => { setBlockModal(false); setBlockMotivo('') }}
+        >
+          <div
+            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border/40">
+              <div className="flex items-center gap-2">
+                <Ban className="w-4 h-4 text-red-500" />
+                <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">Adicionar à lista negra</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => { setBlockModal(false); setBlockMotivo('') }}
+                className="w-7 h-7 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4 text-foreground/60" />
+              </button>
+            </div>
+
+            <div className="p-4 space-y-3">
+              <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                Esta paciente não poderá mais realizar pré-agendamentos pelo site.
+                O motivo é visível apenas para as secretárias.
+              </p>
+              <div>
+                <label className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium block mb-1.5">
+                  Motivo (opcional)
+                </label>
+                <textarea
+                  value={blockMotivo}
+                  onChange={(e) => setBlockMotivo(e.target.value)}
+                  placeholder="Ex: Cancelou sem aviso 3 vezes seguidas, foi grosseira com a equipe…"
+                  rows={3}
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-300 resize-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 px-4 py-3 border-t border-border/40">
+              <button
+                type="button"
+                onClick={() => { setBlockModal(false); setBlockMotivo('') }}
+                className="flex-1 px-4 py-2 rounded-lg border border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep text-sm font-medium transition-all"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={bloquearPaciente}
+                disabled={savingBlock}
+                className="flex-1 px-4 py-2 rounded-lg text-sm font-medium text-white transition-all disabled:opacity-50"
+                style={{ backgroundColor: savingBlock ? '#ccc' : '#EF4444' }}
+              >
+                {savingBlock ? 'Salvando...' : 'Bloquear'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Modal de edição */}
       {editingModal && (

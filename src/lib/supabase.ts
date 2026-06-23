@@ -16,8 +16,12 @@ export type Database = {
           telefone: string
           data_nascimento: string | null
           criado_em: string
+          bloqueado: boolean
+          motivo_bloqueio: string | null
+          bloqueado_em: string | null
+          bloqueado_por: string | null
         }
-        Insert: Omit<Database['public']['Tables']['pacientes']['Row'], 'id' | 'criado_em'>
+        Insert: Omit<Database['public']['Tables']['pacientes']['Row'], 'id' | 'criado_em' | 'bloqueado'>
       }
       pre_agendamentos: {
         Row: {
