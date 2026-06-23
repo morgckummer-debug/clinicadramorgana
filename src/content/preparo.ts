@@ -25,7 +25,7 @@ export const preparoContent = {
   callout: {
     pergunta: 'Não encontrou seu exame?',
     descricao: 'Nossa equipe pode tirar suas dúvidas e orientar sobre o preparo.',
-    cta: 'Falar com a secretaria',
+    cta: 'Falar com a nossa equipe',
   },
   whatsappMensagem:
     'Olá! Gostaria de tirar uma dúvida sobre o preparo de um exame.',

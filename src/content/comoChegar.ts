@@ -9,7 +9,7 @@ export const comoChegarContent = {
   },
   mapsIndisponivelToast:
     'A localização da clínica será disponibilizada em breve.',
-  ajudaCta: 'Falar com a secretaria',
+  ajudaCta: 'Falar com a nossa equipe',
   whatsappMensagem: 'Olá! Tenho uma dúvida sobre como chegar à clínica.',
   foto: {
     alt: 'Fachada da Clínica Dra. Morgana',

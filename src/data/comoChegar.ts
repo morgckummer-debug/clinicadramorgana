@@ -75,7 +75,7 @@ export const sections: Section[] = [
           'Caso ainda tenha alguma dúvida, nossa equipe terá prazer em ajudar.',
         action: {
           kind: 'whatsapp',
-          label: 'Falar com a secretaria',
+          label: 'Falar com a nossa equipe',
         },
       },
     ],

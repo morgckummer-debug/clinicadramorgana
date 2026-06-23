@@ -19,7 +19,7 @@ type InfoCardProps = {
 export function InfoCard({ icon, title, description, action }: InfoCardProps) {
   const ActionIcon = action?.icon
   const actionClass =
-    'inline-flex items-center gap-2 mt-5 bg-wine-deep text-wine-foreground px-5 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-wine transition-colors duration-300 self-start'
+    'inline-flex items-center gap-2 mt-5 bg-wine-deep text-wine-foreground px-5 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-wine transition-colors duration-300 self-center'
 
   const actionNode = action ? (
     action.href ? (
