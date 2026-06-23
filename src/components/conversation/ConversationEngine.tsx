@@ -9,8 +9,9 @@ import { QuestionCard } from './QuestionCard'
 import { QuestionRenderer } from './QuestionRenderer'
 import { NavigationButtons } from './NavigationButtons'
 import { SuccessScreen } from './SuccessScreen'
+import { MenuScreen } from './MenuScreen'
 
-type Step = 'welcome' | 'question' | 'saving' | 'success' | 'error' | 'blocked'
+type Step = 'welcome' | 'menu' | 'question' | 'saving' | 'success' | 'error' | 'blocked'
 
 interface ConversationEngineProps {
   flow: ConversationFlow
@@ -459,7 +460,16 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
     return (
       <>
         <ConversationHeader />
-        <WelcomeScreen flow={flow} onStart={() => setStep('question')} />
+        <WelcomeScreen flow={flow} onStart={() => setStep('menu')} />
+      </>
+    )
+  }
+
+  if (step === 'menu') {
+    return (
+      <>
+        <ConversationHeader />
+        <MenuScreen onAgendar={() => setStep('question')} />
       </>
     )
   }
