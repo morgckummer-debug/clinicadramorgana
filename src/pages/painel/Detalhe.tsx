@@ -71,7 +71,7 @@ const medicoLabel: Record<string, string> = {
 
 const statusOptions = [
   { value: 'pendente', label: 'Pendente' },
-  { value: 'em_atendimento', label: 'Em atendimento' },
+  { value: 'em_atendimento', label: 'Atendido' },
   { value: 'aguardando_resposta', label: 'Aguardando resposta' },
   { value: 'agendado', label: 'Agendado' },
   { value: 'cancelado', label: 'Cancelado' },
