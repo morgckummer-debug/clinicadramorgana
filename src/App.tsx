@@ -22,6 +22,7 @@ const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
 const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
 const Preparo = lazy(() => import("./pages/Preparo.tsx"));
 const ComoChegar = lazy(() => import("./pages/ComoChegar.tsx"));
+const FalarSecretaria = lazy(() => import("./pages/FalarSecretaria.tsx"));
 
 const queryClient = new QueryClient();
 
