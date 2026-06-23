@@ -53,7 +53,7 @@ export function FigureCard({
             </p>
           )}
           {description && (
-            <p className="mt-1.5 text-[13.5px] leading-relaxed text-foreground/65 font-light">
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-foreground/65 font-light whitespace-pre-line">
               {description}
             </p>
           )}

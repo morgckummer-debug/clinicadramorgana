@@ -14,7 +14,7 @@ export const comoChegarContent = {
   foto: {
     alt: 'Fachada da Clínica Dra. Morgana',
     caption: 'Clínica de Ultrassom Dra. Morgana Kummer',
-    description: 'Rua Cândido Azeredo, 41 A — Centro, Sete Lagoas / MG',
+    description: 'Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG',
     src: '/fachada.png' as string,
   },
 }
