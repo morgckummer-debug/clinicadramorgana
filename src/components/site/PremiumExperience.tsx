@@ -7,7 +7,6 @@ const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
 export const PremiumExperience = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
-  const { t } = useLanguage();
 
   useEffect(() => {
     const el = ref.current;
@@ -26,46 +25,126 @@ export const PremiumExperience = () => {
   }, []);
 
   return (
-    <section
-      aria-labelledby="premium-experience-title"
-      className="relative overflow-hidden py-20 md:py-32"
-      style={{
-        background:
-          "linear-gradient(135deg, #FFFDF7 0%, #FBF3DC 40%, #F5E6B8 70%, #EDD690 100%)",
-      }}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full opacity-50 blur-3xl"
-        style={{ background: "radial-gradient(circle, #E8D38A 0%, transparent 70%)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-20 -right-20 h-96 w-96 rounded-full opacity-40 blur-3xl"
-        style={{ background: "radial-gradient(circle, #D4A843 0%, transparent 70%)" }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full opacity-20 blur-3xl animate-[pulse_8s_ease-in-out_infinite]"
-        style={{ background: "radial-gradient(circle, #6d3263 0%, transparent 60%)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #D4A843 30%, #D4A843 70%, transparent)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, #D4A843 30%, #D4A843 70%, transparent)" }}
-      />
+    <>
+      <style>{`
+        @keyframes slowpulse {
+          0%, 100% { opacity: 0.22; }
+          50% { opacity: 0.38; }
+        }
 
-      <div className="container relative">
+        .pe-grid {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          min-height: 690px;
+        }
+        .pe-image-slot {
+          height: 690px;
+        }
+        .pe-content {
+          padding: 72px 64px 72px 40px;
+        }
+        .pe-title {
+          font-size: 52px;
+        }
+        .pe-desc {
+          font-size: 15.5px;
+          max-width: 400px;
+        }
+
+        @media (max-width: 768px) {
+          .pe-grid {
+            grid-template-columns: 1fr;
+            min-height: unset;
+          }
+          .pe-image-col {
+            height: 360px;
+            overflow: hidden;
+          }
+          .pe-image-slot {
+            height: 360px !important;
+          }
+          .pe-fade-right {
+            display: none;
+          }
+          .pe-fade-bottom {
+            height: 100px;
+          }
+          .pe-content {
+            padding: 40px 24px 48px;
+          }
+          .pe-title {
+            font-size: 36px;
+            line-height: 1.2;
+          }
+          .pe-desc {
+            font-size: 15px;
+            max-width: 100%;
+          }
+          .pe-chips {
+            gap: 6px;
+          }
+        }
+      `}</style>
+
+      <section
+        ref={ref}
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          background: "#25152F",
+        }}
+      >
+        {/* Linha dourada topo */}
         <div
-          ref={ref}
-          className={`grid md:grid-cols-2 gap-12 md:gap-16 items-center transition-all duration-700 ease-out ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 1,
+            background: "linear-gradient(90deg, transparent, #D4A843 25%, #C4AED8 55%, transparent)",
+            opacity: 0.6,
+            zIndex: 2,
+          }}
+        />
+
+        {/* Orb glow fundo */}
+        <div
+          style={{
+            position: "absolute",
+            top: "-100px",
+            left: "30%",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, #5C3878 0%, transparent 60%)",
+            opacity: 0.5,
+            filter: "blur(70px)",
+            pointerEvents: "none",
+            animation: "slowpulse 8s ease-in-out infinite",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "-80px",
+            right: "10%",
+            width: "350px",
+            height: "350px",
+            borderRadius: "50%",
+            background: "radial-gradient(circle, #8B5C2A 0%, transparent 65%)",
+            opacity: 0.25,
+            filter: "blur(50px)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          className="pe-grid"
+          style={{
+            position: "relative",
+            zIndex: 1,
+          }}
         >
           {/* Texto */}
           <div className="flex flex-col gap-8">
@@ -129,8 +208,8 @@ export const PremiumExperience = () => {
             />
           </a>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
