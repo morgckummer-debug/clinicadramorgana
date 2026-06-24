@@ -217,6 +217,10 @@ export default function Dashboard() {
   }, [])
 
   const fetchMyAguardando = async (currentUserName: string) => {
+    const key = `aguardando_dismissed_at_${currentUserName}`
+    const lastDismissed = localStorage.getItem(key)
+    if (lastDismissed && Date.now() - Number(lastDismissed) < 10 * 60 * 1000) return
+
     const { data } = await supabase
       .from('pre_agendamentos')
       .select('id, pacientes(nome)')
@@ -244,6 +248,7 @@ export default function Dashboard() {
   const handleDismissAguardando = () => {
     setShowAguardandoPopup(false)
     if (!userName) return
+    localStorage.setItem(`aguardando_dismissed_at_${userName}`, String(Date.now()))
     aguardandoTimerRef.current = setTimeout(() => fetchMyAguardando(userName), 10 * 60 * 1000)
   }
 
