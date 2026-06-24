@@ -5,7 +5,7 @@ import { SectionHeader } from '@/components/common/SectionHeader'
 import { CalloutCard } from '@/components/common/CalloutCard'
 import { falarSecretariaContent as content } from '@/content/falarSecretaria'
 import { assuntos } from '@/data/falarSecretaria'
-import { whatsappComMensagem } from '@/lib/contato'
+import { CLINICA } from '@/lib/contato'
 import { getStatusAtendimento } from '@/lib/atendimento'
 
 export function FalarSecretariaPage() {
@@ -15,11 +15,10 @@ export function FalarSecretariaPage() {
 
   function abrirWhatsApp() {
     if (!assuntoAtual || assuntoAtual.acao.kind !== 'whatsapp') return
-    window.open(
-      whatsappComMensagem(assuntoAtual.acao.mensagem),
-      '_blank',
-      'noopener,noreferrer',
-    )
+    const msg = encodeURIComponent(assuntoAtual.acao.mensagem)
+    const tel = CLINICA.whatsappNumero
+    const appUrl = `whatsapp://send?phone=${tel}&text=${msg}`
+    window.open(appUrl, 'whatsapp')
   }
 
   const status = getStatusAtendimento()
