@@ -1,10 +1,10 @@
-export type Janela = { inicio: string; fim: string } // 'HH:MM'
+export type Janela = { inicio: string; fim: string } // 'HHhMM'
 
 export const HORARIO_ATENDIMENTO = {
   diasUteis: [1, 2, 3, 4, 5],
   janelas: [
-    { inicio: '08:00', fim: '11:00' },
-    { inicio: '12:30', fim: '17:30' },
+    { inicio: '08h00', fim: '11h00' },
+    { inicio: '12h30', fim: '17h30' },
   ] as Janela[],
   timezone: 'America/Sao_Paulo',
 }
