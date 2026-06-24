@@ -9,7 +9,6 @@ import logoWhite from "@/assets/logo-white.webp";
 import logoClinica from "@/assets/logo-clinica.webp";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.webp";
 import draSobre from "@/assets/dra-morgana-sobre.webp";
-import draCutout from "@/assets/dra-morgana-cutout.webp";
 import teamMorgana from "@/assets/team/morgana.webp";
 import teamBarbara from "@/assets/team/barbara.webp";
 import teamDarlei from "@/assets/team/darlei.webp";
@@ -19,21 +18,21 @@ import teamMariaAmelia from "@/assets/team/maria-amelia.webp";
 import teamAndre from "@/assets/team/andre.webp";
 
 /* Convênios — logos */
-import convHapvida from "@/assets/convenios/hapvida.png";
-import convAurora from "@/assets/convenios/aurora-2.png";
-import convGrupoZelo from "@/assets/convenios/grupo-zelo.png";
+import convHapvida from "@/assets/convenios/hapvida.webp";
+import convAurora from "@/assets/convenios/aurora-2.webp";
+import convGrupoZelo from "@/assets/convenios/grupo-zelo.webp";
 import convFusex from "@/assets/convenios/fusex-1.webp";
 import convStellantis from "@/assets/convenios/stellantis.webp";
-import convCemig from "@/assets/convenios/cemig.png";
+import convCemig from "@/assets/convenios/cemig.webp";
 import convBomPastor from "@/assets/convenios/bom-pastor.webp";
 import convSantaClara from "@/assets/convenios/santa-clara.webp";
 import convFundafem from "@/assets/convenios/fundafem.webp";
-import convNotreDame from "@/assets/convenios/notredame.png";
-import convCasembrapa from "@/assets/convenios/casembrapa.png";
-import convCopass from "@/assets/convenios/copass.png";
+import convNotreDame from "@/assets/convenios/notredame.webp";
+import convCasembrapa from "@/assets/convenios/casembrapa.webp";
+import convCopass from "@/assets/convenios/copass.webp";
 import convPax from "@/assets/convenios/pax.webp";
-import convAgebras from "@/assets/convenios/agebras.png";
-import convMedGold from "@/assets/convenios/medgold.png";
+import convAgebras from "@/assets/convenios/agebras.webp";
+import convMedGold from "@/assets/convenios/medgold.webp";
 import convEvangelize from "@/assets/convenios/evangelize.webp";
 
 /* ---------------- Constantes globais ---------------- */
@@ -125,6 +124,8 @@ export const Navbar = () => {
     { href: "#contato",      label: t.nav.contato },
   ];
 
+  const preAgendamentoLabel = "Pré-Agendamento";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -146,6 +147,8 @@ export const Navbar = () => {
           <img
             src={logoClinica}
             alt="Clínica de Ultrassom Dra. Morgana Kummer"
+            width={200}
+            height={48}
             className={`w-auto transition-all duration-500 ${scrolled ? "h-10" : "h-12"}`}
           />
         </Link>
@@ -208,16 +211,26 @@ const Hero = () => {
       </div>
 
       <div className="absolute inset-0 pointer-events-none">
+        {/* Imagem estática no mobile — sem custo de vídeo */}
+        <img
+          src="/Hero2.jpg"
+          alt=""
+          aria-hidden="true"
+          fetchPriority="high"
+          width={828}
+          height={466}
+          className="absolute inset-0 w-full h-full object-cover block md:hidden"
+        />
+        {/* Vídeo apenas no desktop */}
         <video
           key="hero-clinic-video-v5"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover hidden md:block"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
           aria-label={t.hero.videoAriaLabel}
-          onError={(e) => console.error("hero video error", e)}
         >
           <source src="/videos/hero-clinic.mp4?v=5" type="video/mp4" />
         </video>
@@ -248,20 +261,13 @@ const Hero = () => {
           </p>
 
           <div className="mt-12 flex flex-wrap gap-4 items-center">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
+            <Link
+              to="/agendar"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold border transition-all duration-500 shadow-soft hover:opacity-90"
+              style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', borderColor: '#5B2D8E' }}
             >
-              <MessageCircle className="w-4 h-4" /> {t.hero.ctaWhatsApp}
-            </a>
-            <a
-              href="#exames"
-              className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
-            >
-              {t.hero.ctaExames} <ArrowRight className="w-4 h-4" />
-            </a>
+              <ArrowRight className="w-4 h-4" /> Agendar meu exame
+            </Link>
           </div>
 
           <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
@@ -288,6 +294,8 @@ const Quote = () => {
             <img
               src={draHeroV2}
               alt="Dra. Morgana Kummer"
+              width={400}
+              height={500}
               loading="lazy"
               className="relative rounded-sm shadow-elegant w-full object-cover aspect-[4/5]"
             />
@@ -486,6 +494,8 @@ const Team = () => {
                   <img
                     src={member.photo}
                     alt={member.name}
+                    width={135}
+                    height={178}
                     loading="lazy"
                     className="w-full h-full object-cover object-top block"
                   />
@@ -533,6 +543,8 @@ const Convenios = () => {
               <img
                 src={c.logo}
                 alt={c.name}
+                width={120}
+                height={80}
                 loading="lazy"
                 className="max-h-full max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
               />
@@ -574,7 +586,7 @@ const Contact = () => {
                   {href ? (
                     <a
                       href={href}
-                      target="_blank"
+                      target={href === WHATSAPP_URL ? 'whatsapp' : '_blank'}
                       rel="noopener noreferrer"
                       className="text-foreground/80 font-light hover:text-wine transition-colors whitespace-pre-line"
                     >
@@ -638,8 +650,7 @@ export const Footer = () => {
 export const WhatsAppFab = () => (
   <a
     href={WHATSAPP_URL}
-    target="_blank"
-    rel="noopener noreferrer"
+    target="whatsapp"
     aria-label="WhatsApp"
     className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-deep animate-pulse-soft hover:scale-110 transition-transform duration-300"
   >
