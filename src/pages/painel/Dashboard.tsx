@@ -370,9 +370,7 @@ export default function Dashboard() {
             >
               <div className="flex items-center gap-4 min-w-0">
                 <div className="w-9 h-9 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-semibold text-wine-deep">
-                    {item.pacientes?.nome?.charAt(0).toUpperCase() ?? '?'}
-                  </span>
+                  <img src="/icone-sonda.png" alt="" className="w-5 h-5 object-contain opacity-70" />
                 </div>
                 <div className="min-w-0">
                   <p className="text-base font-semibold text-wine-deep truncate flex items-center gap-1.5">
