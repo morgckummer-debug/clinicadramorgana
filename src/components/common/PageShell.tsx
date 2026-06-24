@@ -10,6 +10,9 @@ type PageShellProps = {
   useHistory?: boolean
 }
 
+const backBtnClass = "inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300"
+const backBtnStyle = { backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }
+
 export function PageShell({
   children,
   backTo = '/',
@@ -17,13 +20,36 @@ export function PageShell({
   useHistory = false,
 }: PageShellProps) {
   const navigate = useNavigate()
+  const isExternal = backTo.startsWith('http')
 
   const handleBack = () => {
+    if (useHistory) navigate(-1)
+    else navigate(backTo)
+  }
+
+  function renderBackButton() {
     if (useHistory) {
-      navigate(-1)
-    } else {
-      navigate(backTo)
+      return (
+        <button onClick={handleBack} className={backBtnClass} style={backBtnStyle}>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          {backLabel}
+        </button>
+      )
     }
+    if (isExternal) {
+      return (
+        <a href={backTo} className={backBtnClass} style={backBtnStyle}>
+          <ArrowLeft className="w-3.5 h-3.5" />
+          {backLabel}
+        </a>
+      )
+    }
+    return (
+      <Link to={backTo} className={backBtnClass} style={backBtnStyle}>
+        <ArrowLeft className="w-3.5 h-3.5" />
+        {backLabel}
+      </Link>
+    )
   }
 
   return (
@@ -43,25 +69,7 @@ export function PageShell({
       </main>
 
       <div className="flex justify-center pb-10">
-        {useHistory ? (
-          <button
-            onClick={handleBack}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300 cursor-pointer"
-            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            {backLabel}
-          </button>
-        ) : (
-          <Link
-            to={backTo}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-bold transition-all duration-300"
-            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            {backLabel}
-          </Link>
-        )}
+        {renderBackButton()}
       </div>
     </div>
   )
