@@ -8,4 +8,4 @@ export const CLINICA = {
 export const WHATSAPP_URL = `https://wa.me/${CLINICA.whatsappNumero}`
 
 export const whatsappComMensagem = (mensagem: string) =>
-  `${WHATSAPP_URL}?text=${encodeURIComponent(mensagem)}`
+  `whatsapp://send?phone=${CLINICA.whatsappNumero}&text=${encodeURIComponent(mensagem)}`
