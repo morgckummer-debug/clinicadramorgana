@@ -277,12 +277,12 @@ export default function Dashboard() {
   const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE))
   const pagedItems = filteredItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
-  const filters: { key: StatusFilter; label: string }[] = [
-    { key: 'pendente', label: 'Pendentes' },
-    { key: 'em_atendimento', label: 'Atendido' },
-    { key: 'aguardando_resposta', label: 'Aguardando resposta' },
-    { key: 'agendado', label: 'Agendados' },
-    { key: 'todos', label: 'Todos' },
+  const filters: { key: StatusFilter; label: string; activeClass: string }[] = [
+    { key: 'pendente',            label: 'Pendentes',           activeClass: 'bg-amber-50 text-amber-700 border border-amber-200' },
+    { key: 'em_atendimento',      label: 'Atendido',            activeClass: 'bg-blue-50 text-blue-700 border border-blue-200' },
+    { key: 'aguardando_resposta', label: 'Aguardando resposta', activeClass: 'bg-orange-50 text-orange-700 border border-orange-200' },
+    { key: 'agendado',            label: 'Agendados',           activeClass: 'bg-emerald-50 text-emerald-700 border border-emerald-200' },
+    { key: 'todos',               label: 'Todos',               activeClass: 'bg-wine-deep text-wine-foreground' },
   ]
 
   return (
@@ -327,7 +327,7 @@ export default function Dashboard() {
             className={[
               'relative px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300',
               filter === f.key
-                ? 'bg-wine-deep text-wine-foreground'
+                ? f.activeClass
                 : 'bg-white border border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep',
             ].join(' ')}
           >
