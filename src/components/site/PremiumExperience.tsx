@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-
+import pregnantImg from "@/assets/pregnant-happy.webp";
 
 export const PremiumExperience = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,7 +26,7 @@ export const PremiumExperience = () => {
   return (
     <section
       aria-labelledby="premium-experience-title"
-      className="relative overflow-hidden py-20 md:py-28"
+      className="relative overflow-hidden py-20 md:py-32"
       style={{
         background:
           "linear-gradient(135deg, #FFFDF7 0%, #FBF3DC 40%, #F5E6B8 70%, #EDD690 100%)",
@@ -61,30 +61,56 @@ export const PremiumExperience = () => {
       <div className="container relative">
         <div
           ref={ref}
-          className={`flex flex-col items-center text-center gap-6 transition-all duration-700 ease-out ${
+          className={`grid md:grid-cols-2 gap-12 md:gap-16 items-center transition-all duration-700 ease-out ${
             visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-wine-deep/50" />
-            <span className="text-[10px] tracking-[0.45em] uppercase text-wine-deep/70">
-              {t.premium.label}
-            </span>
-            <span className="h-px w-10 bg-wine-deep/50" />
+          {/* Texto */}
+          <div className="flex flex-col gap-8">
+            <div className="flex items-center gap-3 md:justify-start justify-center">
+              <span className="h-px w-8 bg-wine-deep/40" />
+              <span className="text-[9px] tracking-[0.5em] uppercase text-wine-deep/60 font-light">
+                {t.premium.label}
+              </span>
+              <span className="h-px w-8 bg-wine-deep/40" />
+            </div>
+
+            <h2
+              id="premium-experience-title"
+              className="text-4xl md:text-5xl lg:text-6xl leading-tight text-wine-deep text-balance"
+              style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 400, letterSpacing: "-0.02em" }}
+            >
+              {t.premium.titleBefore}{" "}
+              <span className="italic font-light">{t.premium.titleName}</span>
+            </h2>
+
+            <div className="w-16 h-1 bg-gradient-to-r from-wine-deep via-champagne to-transparent rounded-full" />
+
+            <p className="text-wine-deep/75 text-lg md:text-xl leading-relaxed max-w-md font-light">
+              {t.premium.description}
+            </p>
+
+            <div className="pt-4">
+              <a
+                href={t.premium.button === "Conheça o atendimento exclusivo" ? "#contato" : "#contact"}
+                className="inline-block px-8 py-3 bg-wine-deep text-champagne rounded-full font-light tracking-wide hover:bg-wine-deep/90 transition-colors"
+                aria-label={t.premium.buttonAriaLabel}
+              >
+                {t.premium.button}
+              </a>
+            </div>
           </div>
 
-          <h2
-            id="premium-experience-title"
-            className="font-['Comfortaa'] text-2xl md:text-4xl leading-[1.25] text-wine-deep max-w-xl text-balance"
-          >
-            {t.premium.titleBefore}{" "}
-            <span className="italic font-['Cormorant_Garamond']">{t.premium.titleName}</span>
-          </h2>
-
-          <p className="text-wine-deep/70 text-sm md:text-base max-w-md leading-relaxed">
-            {t.premium.description}
-          </p>
-
+          {/* Imagem */}
+          <div className="relative hidden md:block">
+            <div className="absolute -inset-6 rounded-3xl opacity-30 blur-2xl bg-gradient-to-br from-wine-deep to-champagne" />
+            <img
+              src={pregnantImg}
+              alt="Gestante feliz no ultrassom"
+              className="relative rounded-3xl shadow-2xl w-full h-auto object-cover aspect-[3/4]"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </section>
