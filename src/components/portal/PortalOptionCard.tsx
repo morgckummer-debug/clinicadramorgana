@@ -16,7 +16,7 @@ export function PortalOptionCard({ option, onSelect }: PortalOptionCardProps) {
     >
       {/* Badge opcional */}
       {option.badge && (
-        <span className="absolute -top-2 right-5 bg-wine-deep text-wine-foreground text-[9px] tracking-[0.3em] uppercase px-3 py-1 rounded-full whitespace-nowrap">
+        <span className="absolute -top-2 right-5 text-[9px] tracking-[0.3em] uppercase px-3 py-1 rounded-full whitespace-nowrap" style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E' }}>
           {option.badge}
         </span>
       )}
