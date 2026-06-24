@@ -1,7 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import { InfoListModal, type InfoListModalContent } from './InfoListModal'
 import { businessHoursContent } from '@/content/businessHours'
-import { CLINICA } from '@/lib/contato'
+import { abrirWhatsAppComFallback } from '@/lib/contato'
 
 type BusinessHoursModalProps = {
   open: boolean
@@ -18,12 +18,7 @@ export function BusinessHoursModal({
 }: BusinessHoursModalProps) {
   const acaoPrimaria =
     onPrimaryAction ??
-    (() => {
-      const msg = encodeURIComponent(content.botaoPrimario.mensagemWhatsapp)
-      const tel = CLINICA.whatsappNumero
-      const appUrl = `whatsapp://send?phone=${tel}&text=${msg}`
-      window.open(appUrl, 'whatsapp')
-    })
+    (() => abrirWhatsAppComFallback(content.botaoPrimario.mensagemWhatsapp))
 
   const modalContent: InfoListModalContent = {
     titulo: content.titulo,
