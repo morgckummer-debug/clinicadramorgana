@@ -88,6 +88,9 @@ async function fetchAwaitingResponseCount() {
   return count ?? 0
 }
 
+// persiste durante a sessão do browser sem depender de localStorage
+let aguardandoDismissedUntil = 0
+
 export default function Dashboard() {
   const navigate = useNavigate()
   const { userName } = useAuth()
@@ -217,9 +220,7 @@ export default function Dashboard() {
   }, [])
 
   const fetchMyAguardando = async (currentUserName: string) => {
-    const key = `aguardando_dismissed_at_${currentUserName}`
-    const lastDismissed = localStorage.getItem(key)
-    if (lastDismissed && Date.now() - Number(lastDismissed) < 10 * 60 * 1000) return
+    if (Date.now() < aguardandoDismissedUntil) return
 
     const { data } = await supabase
       .from('pre_agendamentos')
@@ -247,8 +248,8 @@ export default function Dashboard() {
 
   const handleDismissAguardando = () => {
     setShowAguardandoPopup(false)
+    aguardandoDismissedUntil = Date.now() + 10 * 60 * 1000
     if (!userName) return
-    localStorage.setItem(`aguardando_dismissed_at_${userName}`, String(Date.now()))
     aguardandoTimerRef.current = setTimeout(() => fetchMyAguardando(userName), 10 * 60 * 1000)
   }
 
