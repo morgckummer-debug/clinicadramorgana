@@ -676,6 +676,23 @@ export default function Detalhe() {
         </div>
       )}
 
+      {/* Alerta de paciente anteriormente bloqueado */}
+      {!item.pacientes?.bloqueado && item.pacientes?.bloqueado_em && item.pacientes?.bloqueado_por && (
+        <div className="rounded-2xl p-4 mb-3 flex items-start gap-3" style={{ backgroundColor: '#FEF3C7', border: '2px solid #F59E0B' }}>
+          <TriangleAlert className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-amber-900">⚠️ Paciente já foi bloqueado anteriormente</p>
+            {item.pacientes.motivo_bloqueio && (
+              <p className="text-xs text-amber-800 font-light mt-0.5">Motivo: {item.pacientes.motivo_bloqueio}</p>
+            )}
+            <p className="text-xs text-amber-700/70 font-light mt-0.5">
+              Bloqueada por <span className="font-medium">{item.pacientes.bloqueado_por}</span> em{' '}
+              <span className="font-medium">{new Date(item.pacientes.bloqueado_em).toLocaleDateString('pt-BR')}</span>
+            </p>
+          </div>
+        </div>
+      )}
+
 
       {/* Grid principal 2 colunas — responsivo */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
