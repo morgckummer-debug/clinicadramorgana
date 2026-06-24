@@ -23,10 +23,11 @@ export const businessHoursContent = {
     {
       id: 'whatsapp',
       icon: MessageCircle,
-      titulo: 'Atendimento pelo WhatsApp',
+      titulo: 'Atendimento humano pelo WhatsApp',
       linhas: [
         'Segunda a sexta-feira — 08:00 às 11:00',
         '12:30 às 17:30',
+        '(Pré-agendamento disponível 24h)',
       ],
     },
   ] as InfoBloco[],

@@ -9,11 +9,11 @@ export const falarSecretariaContent = {
   horario: {
     titulo: 'Horário de atendimento',
     descricaoPadrao:
-      'Nosso atendimento pelo WhatsApp funciona das 08:00 às 11:00 e das 12:30 às 17:30, em dias úteis. Caso sua mensagem seja enviada fora desse horário, responderemos assim que possível.',
+      'Nosso atendimento humano pelo WhatsApp funciona das 08:00 às 11:00 e das 12:30 às 17:30, em dias úteis. Mensagens enviadas fora desse período serão respondidas assim que possível. Lembramos que o pré-agendamento está disponível 24h.',
     mensagens: {
       disponivel: 'Atendimento disponível agora.',
       fora_horario:
-        'No momento estamos fora do horário de atendimento. Responderemos assim que possível.',
+        'No momento estamos fora do horário de atendimento. Responderemos assim que possível. O pré-agendamento está disponível 24h.',
       desconhecido: null,
     } as Record<StatusAtendimento, string | null>,
   },
