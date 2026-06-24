@@ -378,19 +378,21 @@ export default function Dashboard() {
                   <img src="/icone-sonda.png" alt="" className="w-5 h-5 object-contain opacity-70" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-base font-semibold text-wine-deep truncate flex items-center gap-1.5">
-                    {item.pacientes?.nome ?? '—'}
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-base font-semibold text-wine-deep truncate">
+                      {item.pacientes?.nome ?? '—'}
+                    </span>
                     {item.pacientes?.bloqueado && (
-                      <span title="Paciente na lista negra" className="inline-flex">
-                        <Ban className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+                      <span title="Paciente na lista negra" className="inline-flex flex-shrink-0">
+                        <Ban className="w-3.5 h-3.5 text-red-500" />
                       </span>
                     )}
                     {duplicatePacienteIds.has(item.paciente_id) && (
-                      <span title="Paciente com múltiplos registros nesta lista" className="inline-flex">
-                        <TriangleAlert className="w-3.5 h-3.5 text-amber-500 flex-shrink-0" />
+                      <span title="Paciente com múltiplos registros nesta lista" className="inline-flex flex-shrink-0">
+                        <TriangleAlert className="w-3.5 h-3.5 text-amber-500" />
                       </span>
                     )}
-                  </p>
+                  </div>
                   <p className="text-xs text-muted-foreground font-light truncate">
                     {item.exame ?? 'Exame não informado'}
                     {item.preferencia_turno && item.preferencia_turno !== 'indiferente'
