@@ -79,6 +79,14 @@ async function fetchPendingCount() {
   return count ?? 0
 }
 
+async function fetchAwaitingResponseCount() {
+  const { count } = await supabase
+    .from('pre_agendamentos')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'aguardando_resposta')
+  return count ?? 0
+}
+
 export default function Dashboard() {
   const navigate = useNavigate()
   const { userName } = useAuth()
@@ -88,6 +96,7 @@ export default function Dashboard() {
   const [refreshing, setRefreshing] = useState(false)
   const [newPendingCount, setNewPendingCount] = useState(0)
   const [pendingCount, setPendingCount] = useState(0)
+  const [awaitingResponseCount, setAwaitingResponseCount] = useState(0)
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const PAGE_SIZE = 15
@@ -127,13 +136,14 @@ export default function Dashboard() {
 
     if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
 
-    const [listRes, count] = await Promise.all([query, fetchPendingCount()])
+    const [listRes, pendingCnt, awaitingCnt] = await Promise.all([query, fetchPendingCount(), fetchAwaitingResponseCount()])
     if (listRes.error) {
       console.error('Erro ao carregar pré-agendamentos:', listRes.error)
       if (mode !== 'silent') toast.error(`Erro ao carregar lista: ${listRes.error.message}`)
     }
     setItems((listRes.data as unknown as PreAgendamento[]) ?? [])
-    setPendingCount(count)
+    setPendingCount(pendingCnt)
+    setAwaitingResponseCount(awaitingCnt)
     setLoading(false)
     setRefreshing(false)
   }
@@ -155,7 +165,10 @@ export default function Dashboard() {
           }
           return atualizado
         })
-        fetchPendingCount().then(setPendingCount)
+        Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
+          setPendingCount(pc)
+          setAwaitingResponseCount(ac)
+        })
       })
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pre_agendamentos' }, async (payload) => {
         const { data } = await supabase
@@ -181,7 +194,10 @@ export default function Dashboard() {
         })
 
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
-        fetchPendingCount().then(setPendingCount)
+        Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
+          setPendingCount(pc)
+          setAwaitingResponseCount(ac)
+        })
       })
       .subscribe()
 
@@ -276,6 +292,11 @@ export default function Dashboard() {
             {f.key === 'pendente' && newPendingCount > 0 && (
               <span className="absolute -top-1.5 -right-1.5 min-w-[1rem] h-4 px-0.5 rounded-full bg-red-500 text-white text-[9px] flex items-center justify-center font-bold">
                 {newPendingCount}
+              </span>
+            )}
+            {f.key === 'aguardando_resposta' && awaitingResponseCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[1rem] h-4 px-0.5 rounded-full bg-amber-500 text-white text-[9px] flex items-center justify-center font-bold">
+                {awaitingResponseCount}
               </span>
             )}
           </button>
