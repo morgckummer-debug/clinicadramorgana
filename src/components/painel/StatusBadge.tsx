@@ -23,11 +23,18 @@ const config: Record<string, { label: string; className: string }> = {
 
 export function StatusBadge({ status }: { status: string }) {
   const s = config[status] ?? config['pendente']
+  const isAguardando = status === 'aguardando_resposta'
+
   return (
-    <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-medium border ${s.className}`}
-    >
-      {s.label}
+    <span className="relative inline-flex items-center">
+      {isAguardando && (
+        <span className="absolute -inset-0.5 rounded-full bg-orange-300 opacity-60 animate-ping" />
+      )}
+      <span
+        className={`relative inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] tracking-[0.15em] uppercase font-medium border ${s.className}`}
+      >
+        {s.label}
+      </span>
     </span>
   )
 }
