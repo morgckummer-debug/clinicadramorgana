@@ -337,9 +337,9 @@ export default function Dashboard() {
             ].join(' ')}
           >
             {f.label}
-            {f.key === 'pendente' && newPendingCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 min-w-[1rem] h-4 px-0.5 rounded-full bg-red-500 text-white text-[9px] flex items-center justify-center font-bold">
-                {newPendingCount}
+            {f.key === 'pendente' && pendingCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 min-w-[1rem] h-4 px-0.5 rounded-full bg-amber-500 text-white text-[9px] flex items-center justify-center font-bold">
+                {pendingCount}
               </span>
             )}
             {f.key === 'aguardando_resposta' && awaitingResponseCount > 0 && (
