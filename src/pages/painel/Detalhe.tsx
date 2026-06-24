@@ -70,11 +70,11 @@ const medicoLabel: Record<string, string> = {
 }
 
 const statusOptions = [
-  { value: 'pendente', label: 'Pendente' },
-  { value: 'em_atendimento', label: 'Atendido' },
-  { value: 'aguardando_resposta', label: 'Aguardando resposta' },
-  { value: 'agendado', label: 'Agendado' },
-  { value: 'cancelado', label: 'Cancelado' },
+  { value: 'pendente',            label: 'Pendente',             activeClass: 'bg-amber-50 text-amber-700 border-amber-200' },
+  { value: 'em_atendimento',      label: 'Atendido',             activeClass: 'bg-blue-50 text-blue-700 border-blue-200' },
+  { value: 'aguardando_resposta', label: 'Aguardando resposta',  activeClass: 'bg-orange-50 text-orange-700 border-orange-200' },
+  { value: 'agendado',            label: 'Agendado',             activeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  { value: 'cancelado',           label: 'Cancelado',            activeClass: 'bg-red-50 text-red-600 border-red-200' },
 ]
 
 function parseDUM(obs: string | null): Date | null {
@@ -893,7 +893,7 @@ export default function Detalhe() {
               className={[
                 'px-3 py-1.5 rounded-full text-[11px] tracking-[0.12em] uppercase font-medium border transition-all duration-300',
                 item.status === opt.value
-                  ? 'bg-wine-deep text-wine-foreground border-wine-deep'
+                  ? opt.activeClass
                   : 'bg-white border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep',
                 updatingStatus ? 'opacity-50 cursor-not-allowed' : '',
               ].join(' ')}
