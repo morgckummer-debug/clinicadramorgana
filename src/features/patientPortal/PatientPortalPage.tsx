@@ -30,7 +30,7 @@ export function PatientPortalPage() {
   }
 
   return (
-    <PageShell>
+    <PageShell backTo="https://www.dramorgana.com.br">
       <SectionHeader
         eyebrow={patientPortalContent.eyebrow}
         title={patientPortalContent.title}
