@@ -16,8 +16,8 @@ export const businessHoursContent = {
       icon: Hospital,
       titulo: 'Atendimento na clínica',
       linhas: [
-        'Segunda a sexta-feira — 07h00 às 18h00',
-        'Sábado — 07h30 às 12h00',
+        'Segunda a sexta-feira — 07:00h às 18:00h',
+        'Sábado — 07:30h às 12:00h',
       ],
     },
     {
@@ -25,8 +25,8 @@ export const businessHoursContent = {
       icon: MessageCircle,
       titulo: 'Atendimento humano pelo WhatsApp',
       linhas: [
-        'Segunda a sexta-feira — 08h00 às 11h00',
-        '12h30 às 17h30',
+        'Segunda a sexta-feira — 08:00h às 11:00h',
+        '12:30h às 17:30h',
         '(Pré-agendamento disponível 24h)',
       ],
     },
