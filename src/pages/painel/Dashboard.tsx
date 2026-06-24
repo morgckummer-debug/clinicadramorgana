@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
+import { AguardandoRespostaPopup } from '@/components/painel/AguardandoRespostaPopup'
 import { useAuth } from '@/contexts/AuthContext'
 
 type StatusFilter = 'pendente' | 'em_atendimento' | 'aguardando_resposta' | 'agendado' | 'todos'
@@ -100,6 +101,10 @@ export default function Dashboard() {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const PAGE_SIZE = 15
+
+  const [myAguardandoItems, setMyAguardandoItems] = useState<{ id: string; nome: string }[]>([])
+  const [showAguardandoPopup, setShowAguardandoPopup] = useState(false)
+  const aguardandoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Título da aba reflete o número real de pendentes
   useEffect(() => {
@@ -211,6 +216,37 @@ export default function Dashboard() {
     return () => clearInterval(interval)
   }, [])
 
+  const fetchMyAguardando = async (currentUserName: string) => {
+    const { data } = await supabase
+      .from('pre_agendamentos')
+      .select('id, pacientes(nome)')
+      .eq('status', 'aguardando_resposta')
+      .eq('atendente_nome', currentUserName)
+    if (data && data.length > 0) {
+      setMyAguardandoItems(
+        (data as unknown as { id: string; pacientes: { nome: string } | null }[]).map((d) => ({
+          id: d.id,
+          nome: d.pacientes?.nome ?? 'Paciente',
+        }))
+      )
+      setShowAguardandoPopup(true)
+    }
+  }
+
+  useEffect(() => {
+    if (!userName) return
+    fetchMyAguardando(userName)
+    return () => {
+      if (aguardandoTimerRef.current) clearTimeout(aguardandoTimerRef.current)
+    }
+  }, [userName])
+
+  const handleDismissAguardando = () => {
+    setShowAguardandoPopup(false)
+    if (!userName) return
+    aguardandoTimerRef.current = setTimeout(() => fetchMyAguardando(userName), 10 * 60 * 1000)
+  }
+
   const handleSelectPaciente = (item: PreAgendamento) => {
     navigate(`/painel/${item.id}`)
   }
@@ -250,6 +286,13 @@ export default function Dashboard() {
   ]
 
   return (
+    <>
+    {showAguardandoPopup && (
+      <AguardandoRespostaPopup
+        pacientes={myAguardandoItems}
+        onDismiss={handleDismissAguardando}
+      />
+    )}
     <PainelLayout>
       <div className="mb-8 flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
@@ -398,5 +441,6 @@ export default function Dashboard() {
         </div>
       )}
     </PainelLayout>
+    </>
   )
 }
