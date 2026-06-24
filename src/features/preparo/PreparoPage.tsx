@@ -13,7 +13,7 @@ export function PreparoPage() {
   const [selected, setSelected] = useState<Exam | null>(null)
 
   return (
-    <PageShell>
+    <PageShell useHistory>
       <SectionHeader
         eyebrow={preparoContent.eyebrow}
         title={preparoContent.title}

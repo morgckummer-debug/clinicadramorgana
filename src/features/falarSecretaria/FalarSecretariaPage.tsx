@@ -27,7 +27,7 @@ export function FalarSecretariaPage() {
     content.horario.mensagens[status] ?? content.horario.descricaoPadrao
 
   return (
-    <PageShell>
+    <PageShell useHistory>
       <SectionHeader
         eyebrow={content.eyebrow}
         title={content.title}

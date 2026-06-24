@@ -59,7 +59,7 @@ export function ComoChegarPage() {
       }
 
   return (
-    <PageShell>
+    <PageShell useHistory>
       <SectionHeader
         eyebrow={comoChegarContent.eyebrow}
         title={comoChegarContent.title}
