@@ -7,7 +7,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/painel/ProtectedRoute";
-import { useServiceWorker } from "@/hooks/useServiceWorker";
 import { exams } from "./data/exams";
 
 const IndexV2 = lazy(() => import("./pages/IndexV2.tsx"));
@@ -37,7 +36,21 @@ const HomeSkeleton = () => (
 );
 
 const AppContent = () => {
-  useServiceWorker()
+  useEffect(() => {
+    // Cleanup antigos SWs registrados na raiz em página pública (apenas uma vez)
+    if (!('serviceWorker' in navigator)) return
+
+    navigator.serviceWorker.getRegistrations()
+      .then((registrations) => {
+        registrations.forEach((reg) => {
+          if (reg.scope === window.location.origin + '/') {
+            console.log('🗑️  Desregistrando SW antigo da raiz')
+            reg.unregister()
+          }
+        })
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <Routes>
