@@ -273,7 +273,7 @@ const Hero = () => {
               to="/agendar"
               className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold border border-wine-deep hover:bg-wine-foreground transition-all duration-500"
             >
-              {t.hero.ctaSchedule || "Agendar"} <ArrowRight className="w-4 h-4" />
+              {(t.hero as any).ctaSchedule || "Agendar"} <ArrowRight className="w-4 h-4" />
             </Link>
             <a
               href="#exames"
