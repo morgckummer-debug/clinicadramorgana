@@ -18,8 +18,6 @@ const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
 const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
 const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
-const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
-const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -29,12 +27,12 @@ const legacyRoutes = exams
 
 const App = () => (
   <LanguageProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AuthProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
             <Suspense fallback={null}>
               <Routes>
                 <Route path="/" element={<IndexV2 />} />
@@ -46,18 +44,17 @@ const App = () => (
                 <Route path="/pre-agendamento" element={<PreAgendamento />} />
                 <Route path="/painel/login" element={<PainelLogin />} />
                 <Route path="/painel" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
-                <Route path="/painel/lista-negra" element={<ProtectedRoute><PainelListaNegra /></ProtectedRoute>} />
-                <Route path="/painel/:id" element={<ProtectedRoute><PainelDetalhe /></ProtectedRoute>} />
+                <Route path="/painel/:id" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
                 {legacyRoutes.map((path) => (
                   <Route key={path} path={path} element={<ExamDetail />} />
                 ))}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
-          </AuthProvider>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </AuthProvider>
   </LanguageProvider>
 );
 
