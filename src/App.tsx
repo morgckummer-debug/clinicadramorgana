@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import IndexV2 from "./pages/IndexV2.tsx";
 import { exams } from "./data/exams";
 
+const IndexV2 = lazy(() => import("./pages/IndexV2.tsx"));
 const Index = lazy(() => import("./pages/Index.tsx"));
 const ExamDetail = lazy(() => import("./pages/ExamDetail.tsx"));
 const Videos = lazy(() => import("./pages/Videos.tsx"));
@@ -25,12 +26,14 @@ const legacyRoutes = exams
   .map((e) => e.legacySlug)
   .filter((s): s is string => Boolean(s));
 
-const AppContent = () => {
-  useServiceWorker()
+const HomeSkeleton = () => (
+  <div className="w-full h-screen bg-gradient-to-b from-slate-100 to-slate-50 animate-pulse" />
+);
 
+const AppContent = () => {
   return (
     <Routes>
-      <Route path="/" element={<IndexV2 />} />
+      <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><IndexV2 /></Suspense>} />
       <Route path="/v1" element={<Index />} />
       <Route path="/v2" element={<IndexV2 />} />
       <Route path="/exames/:slug" element={<ExamDetail />} />

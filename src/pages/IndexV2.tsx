@@ -289,6 +289,7 @@ const Quote = () => {
               src={draHeroV2}
               alt="Dra. Morgana Kummer"
               loading="lazy"
+              decoding="async"
               className="relative rounded-sm shadow-elegant w-full object-cover aspect-[4/5]"
             />
           </div>
@@ -335,6 +336,7 @@ const About = () => {
             width={520}
             height={650}
             loading="lazy"
+            decoding="async"
             className="relative w-full object-contain [filter:drop-shadow(0_25px_30px_hsl(var(--wine-deep)/0.18))]"
           />
           <div className="absolute -bottom-8 -right-4 md:-right-10 bg-background border border-border/70 px-6 py-5 max-w-[210px] z-10">
@@ -405,6 +407,7 @@ const Exams = () => {
                     width={768}
                     height={768}
                     loading="lazy"
+                    decoding="async"
                     className={`w-full h-full object-cover ${cat === "Vascular" ? "object-bottom" : "object-center"} transition-transform duration-[1.4s] group-hover:scale-105`}
                   />
                 </div>
@@ -487,6 +490,7 @@ const Team = () => {
                     src={member.photo}
                     alt={member.name}
                     loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-top block"
                   />
                 ) : (
@@ -534,6 +538,7 @@ const Convenios = () => {
                 src={c.logo}
                 alt={c.name}
                 loading="lazy"
+                decoding="async"
                 className="max-h-full max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
               />
             </div>
@@ -625,7 +630,7 @@ export const Footer = () => {
   return (
     <footer className="bg-wine-deep py-10 border-t border-champagne/15">
       <div className="container flex flex-col md:flex-row items-center justify-between gap-6">
-        <img src={logoWhite} alt={t.footer.logoAlt} className="h-16 w-auto opacity-90" />
+        <img src={logoWhite} alt={t.footer.logoAlt} width={64} height={64} decoding="async" className="h-16 w-auto opacity-90" />
         <div className="text-center md:text-right text-wine-foreground/70 text-xs tracking-wide">
           © {new Date().getFullYear()} {t.footer.copy}<br />
           <span className="text-champagne/80 font-serif italic text-sm">{t.footer.tagline}</span>
