@@ -8,6 +8,7 @@ import { StatusBadge } from '@/components/painel/StatusBadge'
 import { AguardandoRespostaPopup } from '@/components/painel/AguardandoRespostaPopup'
 import { NewPreAgendamentoAlert } from '@/components/painel/NewPreAgendamentoAlert'
 import { useAuth } from '@/contexts/AuthContext'
+import { useServiceWorker } from '@/hooks/useServiceWorker'
 
 type StatusFilter = 'pendente' | 'em_atendimento' | 'aguardando_resposta' | 'agendado' | 'todos'
 
@@ -93,6 +94,7 @@ async function fetchAwaitingResponseCount() {
 let aguardandoDismissedUntil = 0
 
 export default function Dashboard() {
+  useServiceWorker('/painel')
   const navigate = useNavigate()
   const { userName } = useAuth()
   const [items, setItems] = useState<PreAgendamento[]>([])
