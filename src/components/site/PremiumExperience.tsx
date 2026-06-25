@@ -217,7 +217,7 @@ export const PremiumExperience = () => {
                   fontSize: "8.5px",
                   letterSpacing: "0.52em",
                   textTransform: "uppercase",
-                  color: "rgba(196,174,216,0.6)",
+                  color: "rgba(196,174,216,0.9)",
                   fontWeight: 300,
                 }}
               >
