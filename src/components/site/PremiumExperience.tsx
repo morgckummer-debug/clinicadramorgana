@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
 
 export const PremiumExperience = () => {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
