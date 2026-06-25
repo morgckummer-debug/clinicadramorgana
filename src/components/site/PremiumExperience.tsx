@@ -31,21 +31,28 @@ export const PremiumExperience = () => {
 
         .pe-grid {
           display: grid;
-          grid-template-columns: 1fr 2fr;
-          min-height: 690px;
+          grid-template-columns: 2fr 1.2fr;
+          min-height: auto;
+          gap: 40px;
         }
         .pe-image-slot {
-          height: 690px;
+          height: 420px;
         }
         .pe-content {
-          padding: 72px 64px 72px 40px;
+          padding: 20px 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .pe-title {
-          font-size: 52px;
+          font-size: 44px;
+          line-height: 1.1;
+          margin: 0;
         }
         .pe-desc {
-          font-size: 15.5px;
-          max-width: 400px;
+          font-size: 14px;
+          max-width: 100%;
+          line-height: 1.6;
         }
 
         @media (max-width: 768px) {
@@ -146,51 +153,7 @@ export const PremiumExperience = () => {
             zIndex: 1,
           }}
         >
-          {/* IMAGEM ESQUERDA */}
-          <div
-            className="pe-image-col"
-            style={{
-              position: "relative",
-            }}
-          >
-            <img
-              src="/pregnant-happy-transp.png"
-              alt="Gestante feliz"
-              className="pe-image-slot"
-              style={{
-                width: "100%",
-                display: "block",
-                objectFit: "contain",
-              }}
-            />
-            {/* Fade direita (desktop) */}
-            <div
-              className="pe-fade-right"
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                bottom: 0,
-                width: "120px",
-                background: "linear-gradient(to right, transparent, #25152F)",
-                pointerEvents: "none",
-              }}
-            />
-            {/* Fade baixo (mobile) */}
-            <div
-              className="pe-fade-bottom"
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                background: "linear-gradient(to top, rgba(37,21,47,0.7), transparent)",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
-
-          {/* CONTEÚDO DIREITA */}
+          {/* CONTEÚDO ESQUERDA */}
           <div
             className="pe-content"
             style={{
@@ -347,6 +310,50 @@ export const PremiumExperience = () => {
                 Vagas limitadas · Atendimento exclusivo
               </span>
             </div>
+          </div>
+
+          {/* IMAGEM DIREITA */}
+          <div
+            className="pe-image-col"
+            style={{
+              position: "relative",
+            }}
+          >
+            <img
+              src="/pregnant-happy-transp.png"
+              alt="Gestante feliz"
+              className="pe-image-slot"
+              style={{
+                width: "100%",
+                display: "block",
+                objectFit: "contain",
+              }}
+            />
+            {/* Fade direita (desktop) */}
+            <div
+              className="pe-fade-right"
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: "120px",
+                background: "linear-gradient(to right, transparent, #25152F)",
+                pointerEvents: "none",
+              }}
+            />
+            {/* Fade baixo (mobile) */}
+            <div
+              className="pe-fade-bottom"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: "linear-gradient(to top, rgba(37,21,47,0.7), transparent)",
+                pointerEvents: "none",
+              }}
+            />
           </div>
         </div>
       </section>
