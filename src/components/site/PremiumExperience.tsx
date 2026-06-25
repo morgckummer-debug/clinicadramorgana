@@ -284,7 +284,7 @@ export const PremiumExperience = () => {
                 gap: "8px",
               }}
             >
-              {["Especialista em Medicina Fetal", "Laudos Personalizados", "Referência Local"].map(
+              {["Especialista em Medicina Fetal", "Referência Local"].map(
                 (chip, idx) => (
                   <span
                     key={idx}
