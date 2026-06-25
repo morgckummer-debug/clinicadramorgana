@@ -151,13 +151,13 @@ export const PremiumExperience = () => {
             }}
           >
             <img
-              src={pregnantImg}
+              src="/pregnant-happy-transp.png"
               alt="Gestante feliz"
               className="pe-image-slot"
               style={{
                 width: "100%",
                 display: "block",
-                objectFit: "cover",
+                objectFit: "contain",
               }}
             />
             {/* Fade direita (desktop) */}
