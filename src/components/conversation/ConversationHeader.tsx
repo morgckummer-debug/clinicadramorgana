@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import logoClinica from '@/assets/logo-clinica.webp'
+import logoClinica from '@/assets/logo-clinica.png'
 
 export function ConversationHeader() {
   const navigate = useNavigate()

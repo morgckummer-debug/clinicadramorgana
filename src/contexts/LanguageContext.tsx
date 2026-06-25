@@ -18,7 +18,7 @@ const translations = {
       clinicLabel: "Clínica de Ultrassom",
       videoAriaLabel: "Vídeo da Clínica Dra. Morgana Kummer",
       description:
-        "Diagnóstico por imagem em ultrassonografia obstétrica, fetal e vascular — com precisão técnica e a sensibilidade que cada momento exige.",
+        "Diagnóstico por imagem em ultrassonografia geral, obstétrica e vascular — com precisão técnica e a sensibilidade que cada momento exige.",
       ctaWhatsApp: "Agendar pelo WhatsApp",
       ctaExames: "Conheça os exames",
       badge1: "Laudos no mesmo dia",

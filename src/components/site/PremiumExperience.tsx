@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
-
-const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
+import pregnantImg from "@/assets/pregnant-happy.webp";
 
 export const PremiumExperience = () => {
-  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -158,67 +154,209 @@ export const PremiumExperience = () => {
             zIndex: 1,
           }}
         >
-          {/* Texto */}
-          <div className="flex flex-col gap-8">
-            <div className="flex items-center gap-3 md:justify-start justify-center">
-              <span className="h-px w-8 bg-wine-deep/40" />
-              <span className="text-[9px] tracking-[0.5em] uppercase text-wine-deep/60 font-light">
-                {t.premium.label}
+          {/* CONTEÚDO ESQUERDA */}
+          <div
+            className="pe-content"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              gap: "24px",
+            }}
+          >
+            {/* Eyebrow label */}
+            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+              <div
+                style={{
+                  width: "32px",
+                  height: "1px",
+                  background: "#D4A843",
+                  opacity: 0.65,
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "8.5px",
+                  letterSpacing: "0.52em",
+                  textTransform: "uppercase",
+                  color: "rgba(196,174,216,0.9)",
+                  fontWeight: 300,
+                }}
+              >
+                Medicina Fetal · Ultrassom Especializado
               </span>
-              <span className="h-px w-8 bg-wine-deep/40" />
             </div>
 
+            {/* Título */}
             <h2
-              id="premium-experience-title"
-              className="text-4xl md:text-5xl lg:text-6xl leading-tight text-wine-deep text-balance"
-              style={{ fontFamily: "Cormorant Garamond, serif", fontWeight: 400, letterSpacing: "-0.02em" }}
+              className="pe-title"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                lineHeight: 1.15,
+                color: "#FAF7FC",
+                letterSpacing: "-0.015em",
+                fontWeight: 400,
+                margin: 0,
+              }}
             >
-              {t.premium.titleBefore}{" "}
-              <span className="italic font-light">{t.premium.titleName}</span>
+              Seu bebê<br />
+              merece o mais<br />
+              cuidadoso<br />
+              <em
+                style={{
+                  fontWeight: 300,
+                  fontStyle: "italic",
+                  color: "#C4AED8",
+                }}
+              >
+                olhar clínico
+              </em>
             </h2>
 
-            <div className="w-16 h-1 bg-gradient-to-r from-wine-deep via-champagne to-transparent rounded-full" />
+            {/* Divisor dourado */}
+            <div
+              style={{
+                width: "52px",
+                height: "2px",
+                borderRadius: "1px",
+                background: "linear-gradient(to right, #D4A843, rgba(196,174,216,0.3))",
+              }}
+            />
 
-            <p className="text-wine-deep/75 text-lg md:text-xl leading-relaxed max-w-md font-light">
-              {t.premium.description}
+            {/* Descrição */}
+            <p
+              className="pe-desc"
+              style={{
+                fontFamily: "'Jost', sans-serif",
+                lineHeight: 1.88,
+                color: "rgba(196,174,216,0.82)",
+                fontWeight: 300,
+                margin: 0,
+                textWrap: "pretty",
+              }}
+            >
+              Com especialização em medicina fetal e dedicação exclusiva à sua gestação, cada exame é conduzido com precisão técnica e sensibilidade humana — porque ver seu bebê com clareza transforma tudo.
             </p>
 
-            <div className="pt-4">
+            {/* Chips de credenciais */}
+            <div
+              className="pe-chips"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "8px",
+              }}
+            >
+              {["Especialista em Medicina Fetal", "Referência Local"].map(
+                (chip, idx) => (
+                  <span
+                    key={idx}
+                    style={{
+                      fontFamily: "'Jost', sans-serif",
+                      fontSize: "10.5px",
+                      letterSpacing: "0.06em",
+                      color: "rgba(196,174,216,0.85)",
+                      background: "rgba(196,174,216,0.1)",
+                      border: "1px solid rgba(196,174,216,0.2)",
+                      borderRadius: "9999px",
+                      padding: "7px 15px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {chip}
+                  </span>
+                )
+              )}
+            </div>
+
+            {/* CTA */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "4px" }}>
               <a
-                href={t.premium.button === "Conheça o atendimento exclusivo" ? "#contato" : "#contact"}
-                className="inline-block px-8 py-3 bg-wine-deep text-champagne rounded-full font-light tracking-wide hover:bg-wine-deep/90 transition-colors"
-                aria-label={t.premium.buttonAriaLabel}
+                href="/agendar"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  padding: "15px 32px",
+                  background: "#D4A843",
+                  color: "#25152F",
+                  borderRadius: "9999px",
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "13.5px",
+                  fontWeight: 500,
+                  letterSpacing: "0.07em",
+                  textDecoration: "none",
+                  width: "fit-content",
+                  border: "none",
+                  cursor: "pointer",
+                  transition: "background-color 0.2s ease",
+                  margin: "0 auto",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#C4A843")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#D4A843")}
               >
-                {t.premium.button}
+                Agende seu ultrassom
+                <span style={{ opacity: 0.7, fontWeight: 400 }}>→</span>
               </a>
+              <span
+                style={{
+                  fontFamily: "'Jost', sans-serif",
+                  fontSize: "10px",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "rgba(196,174,216,0.3)",
+                }}
+              >
+                Vagas limitadas · Atendimento exclusivo
+              </span>
             </div>
           </div>
 
-          <h2
-            id="premium-experience-title"
-            className="font-['Comfortaa'] text-2xl md:text-4xl leading-[1.25] text-wine-deep max-w-xl text-balance"
+          {/* IMAGEM DIREITA */}
+          <div
+            className="pe-image-col"
+            style={{
+              position: "relative",
+            }}
           >
-            {t.premium.titleBefore}{" "}
-            <span className="italic font-['Cormorant_Garamond']">{t.premium.titleName}</span>
-          </h2>
-
-          <p className="text-wine-deep/70 text-sm md:text-base max-w-md leading-relaxed">
-            {t.premium.description}
-          </p>
-
-          <a
-            href={DRA_MORGANA_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t.premium.buttonAriaLabel}
-            className="group mt-2 inline-flex items-center gap-2 rounded-full bg-wine-deep px-6 py-3 text-wine-foreground text-sm tracking-wide transition-all duration-300 hover:bg-wine hover:shadow-[0_14px_32px_-10px_hsl(var(--wine-deep)/0.55)] hover:-translate-y-0.5"
-          >
-            <span>{t.premium.button}</span>
-            <ArrowUpRight
-              size={15}
-              className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            <img
+              src="/pregnant-happy-transp.png"
+              alt="Gestante feliz"
+              className="pe-image-slot"
+              style={{
+                width: "100%",
+                display: "block",
+                objectFit: "contain",
+              }}
             />
-          </a>
+            {/* Fade direita (desktop) */}
+            <div
+              className="pe-fade-right"
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                bottom: 0,
+                width: "120px",
+                background: "linear-gradient(to right, transparent, #25152F)",
+                pointerEvents: "none",
+              }}
+            />
+            {/* Fade baixo (mobile) */}
+            <div
+              className="pe-fade-bottom"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: "linear-gradient(to top, rgba(37,21,47,0.7), transparent)",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
         </div>
       </section>
     </>
