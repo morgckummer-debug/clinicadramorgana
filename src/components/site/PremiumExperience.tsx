@@ -34,9 +34,10 @@ export const PremiumExperience = () => {
 
         .pe-grid {
           display: grid;
-          grid-template-columns: 2fr 1.2fr;
+          grid-template-columns: 1.3fr 1fr;
           min-height: auto;
-          gap: 40px;
+          gap: 20px;
+          align-items: center;
         }
         .pe-image-slot {
           height: 420px;
