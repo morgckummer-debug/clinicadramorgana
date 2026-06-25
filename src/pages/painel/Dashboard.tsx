@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { PainelLayout } from '@/components/painel/PainelLayout'
 import { StatusBadge } from '@/components/painel/StatusBadge'
 import { AguardandoRespostaPopup } from '@/components/painel/AguardandoRespostaPopup'
+import { NewPreAgendamentoAlert } from '@/components/painel/NewPreAgendamentoAlert'
 import { useAuth } from '@/contexts/AuthContext'
 
 type StatusFilter = 'pendente' | 'em_atendimento' | 'aguardando_resposta' | 'agendado' | 'todos'
@@ -109,6 +110,9 @@ export default function Dashboard() {
   const [showAguardandoPopup, setShowAguardandoPopup] = useState(false)
   const aguardandoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  const [newPreAgendamento, setNewPreAgendamento] = useState<{ id: string; nome: string; exame: string } | null>(null)
+  const [showNewAlert, setShowNewAlert] = useState(false)
+
   // Título da aba reflete o número real de pendentes
   useEffect(() => {
     document.title = pendingCount > 0 ? `(${pendingCount}) Painel · MK` : 'Painel · MK'
@@ -196,10 +200,17 @@ export default function Dashboard() {
           )
         }
 
-        playNotificationSound()
         toast.info(`Novo paciente: ${novo.pacientes?.nome ?? 'sem nome'}`, {
           description: novo.exame ?? 'Exame não informado',
         })
+
+        // Mostra o alerta piscante
+        setNewPreAgendamento({
+          id: novo.id,
+          nome: novo.pacientes?.nome ?? 'Paciente',
+          exame: novo.exame ?? '',
+        })
+        setShowNewAlert(true)
 
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
         Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
@@ -293,6 +304,14 @@ export default function Dashboard() {
 
   return (
     <>
+    {showNewAlert && newPreAgendamento && (
+      <NewPreAgendamentoAlert
+        pacienteNome={newPreAgendamento.nome}
+        exame={newPreAgendamento.exame}
+        preAgendamentoId={newPreAgendamento.id}
+        onDismiss={() => setShowNewAlert(false)}
+      />
+    )}
     {showAguardandoPopup && (
       <AguardandoRespostaPopup
         pacientes={myAguardandoItems}
