@@ -1,5 +1,17 @@
-**`src/pages/ExamDetail.tsx`** (seção CTA, linhas 348-385)
+## Problema
 
-Quando `exam.slug === "cerclagem"`, renderizar uma versão simplificada da seção contendo apenas o botão "Voltar à página inicial" centralizado (mantendo o fundo wine-deep e os blurs decorativos para consistência visual). Remover: eyebrow "Agende com tranquilidade", h2 "Pronta para agendar...", parágrafo descritivo, botão WhatsApp e linha "Resposta em até 1h".
+O preview está com erro porque o pacote `@supabase/supabase-js` foi removido das dependências do `package.json`, mas continua sendo importado em `src/lib/supabase.ts`. Como `AuthContext`, `Login`, `Dashboard`, `ConversationEngine` e o fluxo de pré-agendamento dependem desse arquivo, qualquer rota que carrega esses módulos (`/agendar`, `/pre-agendamento`, `/painel`, `/painel/login`) quebra ao tentar resolver o import — daí os 404/erros que você está vendo.
 
-Demais exames mantêm o CTA completo como está hoje.
+As rotas em si continuam declaradas corretamente em `src/App.tsx` (`/agendar`, `/pre-agendamento`, `/painel`, `/painel/login`, `/painel/:id`, `/videos`, `/exames/:slug`). O problema é puramente a dependência faltando.
+
+## Correção
+
+1. Reinstalar `@supabase/supabase-js` como dependência do projeto (`bun add @supabase/supabase-js`).
+2. Após instalado, rebuildar e validar que:
+   - `/` carrega normal,
+   - `/agendar` abre o Portal do Paciente,
+   - `/painel/login` abre a tela de login,
+   - `/pre-agendamento` abre o fluxo conversacional.
+3. Se ainda restar algum import quebrado após a instalação, fazer um `rg "from '@supabase"` para confirmar que todos os caminhos resolvem.
+
+Nenhuma rota será removida ou alterada — só a dependência será reposta.
