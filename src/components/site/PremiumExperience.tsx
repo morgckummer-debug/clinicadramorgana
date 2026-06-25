@@ -34,21 +34,28 @@ export const PremiumExperience = () => {
 
         .pe-grid {
           display: grid;
-          grid-template-columns: 1fr 2fr;
-          min-height: 690px;
+          grid-template-columns: 2fr 1.2fr;
+          min-height: auto;
+          gap: 40px;
         }
         .pe-image-slot {
-          height: 690px;
+          height: 420px;
         }
         .pe-content {
-          padding: 72px 64px 72px 40px;
+          padding: 20px 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
         .pe-title {
-          font-size: 52px;
+          font-size: 44px;
+          line-height: 1.1;
+          margin: 0;
         }
         .pe-desc {
-          font-size: 15.5px;
-          max-width: 400px;
+          font-size: 14px;
+          max-width: 100%;
+          line-height: 1.6;
         }
 
         @media (max-width: 768px) {
