@@ -213,6 +213,19 @@ export default function Dashboard() {
         })
         setShowNewAlert(true)
 
+        // Envia notificação push se SW está registrado
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+          navigator.serviceWorker.ready.then((registration) => {
+            registration.showNotification('🔔 Novo Paciente!', {
+              body: `${novo.pacientes?.nome ?? 'Paciente'} - ${novo.exame ?? 'Exame não informado'}`,
+              icon: '/painel-icon.png',
+              badge: '/painel-icon.png',
+              tag: 'new-pre-agendamento',
+              requireInteraction: true,
+            })
+          })
+        }
+
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
         Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
           setPendingCount(pc)

@@ -25,6 +25,37 @@ const legacyRoutes = exams
   .map((e) => e.legacySlug)
   .filter((s): s is string => Boolean(s));
 
+const AppContent = () => {
+  useServiceWorker()
+
+  return (
+    <Routes>
+      <Route path="/" element={<IndexV2 />} />
+      <Route path="/v1" element={<Index />} />
+      <Route path="/v2" element={<IndexV2 />} />
+      <Route path="/exames/:slug" element={<ExamDetail />} />
+      <Route path="/videos" element={<Videos />} />
+      <Route path="/agendar" element={<PatientPortal />} />
+      <Route path="/pre-agendamento" element={<PreAgendamento />} />
+      <Route path="/preparo" element={<Preparo />} />
+      <Route path="/como-chegar" element={<ComoChegar />} />
+      <Route path="/falar-secretaria" element={<FalarSecretaria />} />
+
+      {/* Painel interno */}
+      <Route path="/painel/login" element={<PainelLogin />} />
+      <Route path="/painel" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
+      <Route path="/painel/lista-negra" element={<ProtectedRoute><PainelListaNegra /></ProtectedRoute>} />
+      <Route path="/painel/:id" element={<ProtectedRoute><PainelDetalhe /></ProtectedRoute>} />
+
+      {legacyRoutes.map((path) => (
+        <Route key={path} path={path} element={<ExamDetail />} />
+      ))}
+
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  )
+}
+
 const App = () => (
   <LanguageProvider>
   <QueryClientProvider client={queryClient}>
