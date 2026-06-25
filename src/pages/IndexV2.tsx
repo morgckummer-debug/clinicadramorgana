@@ -261,13 +261,26 @@ const Hero = () => {
           </p>
 
           <div className="mt-12 flex flex-wrap gap-4 items-center">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
+            >
+              <MessageCircle className="w-4 h-4" /> {t.hero.ctaWhatsApp}
+            </a>
             <Link
               to="/agendar"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold border transition-all duration-500 shadow-soft hover:opacity-90"
-              style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', borderColor: '#5B2D8E' }}
+              className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold border border-wine-deep hover:bg-wine-foreground transition-all duration-500"
             >
-              <ArrowRight className="w-4 h-4" /> Agendar meu exame
+              {t.hero.ctaSchedule || "Agendar"} <ArrowRight className="w-4 h-4" />
             </Link>
+            <a
+              href="#exames"
+              className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
+            >
+              {t.hero.ctaExames} <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
 
           <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
