@@ -226,6 +226,25 @@ export default function Dashboard() {
           })
         }
 
+        // Pisca o badge do ícone na barra de tarefas
+        if ('setAppBadge' in navigator) {
+          navigator.setAppBadge(1)
+          let blinking = true
+          const badgeInterval = setInterval(() => {
+            if (blinking) {
+              navigator.clearAppBadge()
+            } else {
+              navigator.setAppBadge(1)
+            }
+            blinking = !blinking
+          }, 600)
+          // Para de piscar após 8 segundos
+          setTimeout(() => {
+            clearInterval(badgeInterval)
+            navigator.clearAppBadge()
+          }, 8000)
+        }
+
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
         Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
           setPendingCount(pc)
