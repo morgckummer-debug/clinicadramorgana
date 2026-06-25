@@ -31,7 +31,21 @@ const HomeSkeleton = () => (
 );
 
 const AppContent = () => {
-  useServiceWorker()
+  useEffect(() => {
+    // Cleanup antigos SWs registrados na raiz em página pública (apenas uma vez)
+    if (!('serviceWorker' in navigator)) return
+
+    navigator.serviceWorker.getRegistrations()
+      .then((registrations) => {
+        registrations.forEach((reg) => {
+          if (reg.scope === window.location.origin + '/') {
+            console.log('🗑️  Desregistrando SW antigo da raiz')
+            reg.unregister()
+          }
+        })
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <Routes>
