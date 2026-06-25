@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/painel/ProtectedRoute";
+import { useServiceWorker } from "@/hooks/useServiceWorker";
 import { exams } from "./data/exams";
 
 const IndexV2 = lazy(() => import("./pages/IndexV2.tsx"));
@@ -36,6 +37,8 @@ const HomeSkeleton = () => (
 );
 
 const AppContent = () => {
+  useServiceWorker()
+
   return (
     <Routes>
       <Route path="/" element={<Suspense fallback={<HomeSkeleton />}><IndexV2 /></Suspense>} />
