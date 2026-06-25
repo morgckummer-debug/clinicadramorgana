@@ -68,6 +68,7 @@ export const PremiumExperience = () => {
           }
           .pe-content {
             padding: 40px 24px 48px;
+            text-align: center;
           }
           .pe-title {
             font-size: 36px;
@@ -76,9 +77,11 @@ export const PremiumExperience = () => {
           .pe-desc {
             font-size: 15px;
             max-width: 100%;
+            margin: 0 auto;
           }
           .pe-chips {
             gap: 6px;
+            justify-content: center;
           }
         }
       `}</style>
@@ -306,7 +309,7 @@ export const PremiumExperience = () => {
             {/* CTA */}
             <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "4px" }}>
               <a
-                href="#contato"
+                href="/agendar"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -324,6 +327,7 @@ export const PremiumExperience = () => {
                   border: "none",
                   cursor: "pointer",
                   transition: "background-color 0.2s ease",
+                  margin: "0 auto",
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "#C4A843")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "#D4A843")}
