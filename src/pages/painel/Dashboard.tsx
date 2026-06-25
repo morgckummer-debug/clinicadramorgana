@@ -114,6 +114,7 @@ export default function Dashboard() {
 
   const [newPreAgendamento, setNewPreAgendamento] = useState<{ id: string; nome: string; exame: string } | null>(null)
   const [showNewAlert, setShowNewAlert] = useState(false)
+  const [newCount, setNewCount] = useState(0)
 
   // Título da aba reflete o número real de pendentes
   useEffect(() => {
@@ -232,10 +233,11 @@ export default function Dashboard() {
         }
 
         // Pisca o badge do ícone na barra de tarefas
+        setNewCount((c) => c + 1)
         console.log('🎯 Badge API disponível?', 'setAppBadge' in navigator)
         if ('setAppBadge' in navigator) {
           console.log('✨ Iniciando badge piscante...')
-          navigator.setAppBadge(1)
+          navigator.setAppBadge(newCount + 1)
           let blinking = true
           const badgeInterval = setInterval(() => {
             if (blinking) {
@@ -243,7 +245,7 @@ export default function Dashboard() {
               navigator.clearAppBadge()
             } else {
               console.log('💡 Badge on')
-              navigator.setAppBadge(1)
+              navigator.setAppBadge(newCount + 1)
             }
             blinking = !blinking
           }, 600)
@@ -251,7 +253,7 @@ export default function Dashboard() {
           setTimeout(() => {
             console.log('🛑 Badge parado')
             clearInterval(badgeInterval)
-            navigator.clearAppBadge()
+            navigator.setAppBadge(newCount + 1)
           }, 8000)
         } else {
           console.log('⚠️ Badge API não disponível neste navegador')
