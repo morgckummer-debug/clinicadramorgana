@@ -227,22 +227,29 @@ export default function Dashboard() {
         }
 
         // Pisca o badge do ícone na barra de tarefas
+        console.log('🎯 Badge API disponível?', 'setAppBadge' in navigator)
         if ('setAppBadge' in navigator) {
+          console.log('✨ Iniciando badge piscante...')
           navigator.setAppBadge(1)
           let blinking = true
           const badgeInterval = setInterval(() => {
             if (blinking) {
+              console.log('💤 Badge off')
               navigator.clearAppBadge()
             } else {
+              console.log('💡 Badge on')
               navigator.setAppBadge(1)
             }
             blinking = !blinking
           }, 600)
           // Para de piscar após 8 segundos
           setTimeout(() => {
+            console.log('🛑 Badge parado')
             clearInterval(badgeInterval)
             navigator.clearAppBadge()
           }, 8000)
+        } else {
+          console.log('⚠️ Badge API não disponível neste navegador')
         }
 
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
