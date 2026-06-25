@@ -12,6 +12,10 @@ const Index = lazy(() => import("./pages/Index.tsx"));
 const ExamDetail = lazy(() => import("./pages/ExamDetail.tsx"));
 const Videos = lazy(() => import("./pages/Videos.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
+const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
+const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
+const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -33,6 +37,11 @@ const App = () => (
               <Route path="/v2" element={<IndexV2 />} />
               <Route path="/exames/:slug" element={<ExamDetail />} />
               <Route path="/videos" element={<Videos />} />
+              <Route path="/agendar" element={<PatientPortal />} />
+              <Route path="/pre-agendamento" element={<PreAgendamento />} />
+              <Route path="/painel/login" element={<PainelLogin />} />
+              <Route path="/painel" element={<PainelDashboard />} />
+              <Route path="/painel/:id" element={<PainelDashboard />} />
               {legacyRoutes.map((path) => (
                 <Route key={path} path={path} element={<ExamDetail />} />
               ))}
