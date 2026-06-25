@@ -1,20 +1,17 @@
-## Erro de build
-```
-Could not load /dev-server/src/assets/logo-clinica.png
-(imported by src/components/conversation/ConversationHeader.tsx)
-```
-O arquivo virou `logo-clinica.webp` na otimização anterior, mas o import ficou apontando para `.png`.
+## Problema
 
-## Correção (1 linha)
-Em `src/components/conversation/ConversationHeader.tsx`:
-```diff
-- import logo from '@/assets/logo-clinica.png'
-+ import logo from '@/assets/logo-clinica.webp'
-```
+`/painel` e `/painel/login` quebram porque o `App.tsx` não envolve as rotas no `AuthProvider`. Como `Login`, `Dashboard` e `Detalhe` chamam `useAuth()`, o hook lança `"useAuth must be used within AuthProvider"` e a página fica em branco. Além disso, faltam rotas para `/painel/:id` (Detalhe) e `/painel/lista-negra`, e o `Dashboard` não está protegido por `ProtectedRoute`.
 
-## O que NÃO muda
-Nenhuma rota é tocada. O `App.tsx` permanece com:
-`/`, `/v1`, `/v2`, `/exames/:slug`, `/videos`, `/agendar`, `/pre-agendamento`, `/painel/login`, `/painel`, `/painel/:id` + rotas legadas.
+## Correções
 
-## Verificação
-Rodar `bun run build` e confirmar exit 0.
+1. **`src/App.tsx`**
+   - Importar `AuthProvider` (`@/contexts/AuthContext`) e `ProtectedRoute` (`@/components/painel/ProtectedRoute`).
+   - Lazy-load `PainelDetalhe` (`./pages/painel/Detalhe.tsx`) e `PainelListaNegra` (`./pages/painel/ListaNegra.tsx`).
+   - Envolver `<BrowserRouter>` (ou só o grupo de rotas `/painel*`) com `<AuthProvider>`.
+   - Atualizar rotas do painel:
+     - `/painel/login` → `<PainelLogin />`
+     - `/painel` → `<ProtectedRoute><PainelDashboard /></ProtectedRoute>`
+     - `/painel/lista-negra` → `<ProtectedRoute><PainelListaNegra /></ProtectedRoute>`
+     - `/painel/:id` → `<ProtectedRoute><PainelDetalhe /></ProtectedRoute>`
+
+Sem mudanças em demais rotas, conteúdo ou estilos.

@@ -5,6 +5,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/painel/ProtectedRoute";
 import { exams } from "./data/exams";
 
 const IndexV2 = lazy(() => import("./pages/IndexV2.tsx"));
@@ -16,6 +18,8 @@ const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
 const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
 const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
+const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
+const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -30,24 +34,27 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Suspense fallback={null}>
-            <Routes>
-              <Route path="/" element={<IndexV2 />} />
-              <Route path="/v1" element={<Index />} />
-              <Route path="/v2" element={<IndexV2 />} />
-              <Route path="/exames/:slug" element={<ExamDetail />} />
-              <Route path="/videos" element={<Videos />} />
-              <Route path="/agendar" element={<PatientPortal />} />
-              <Route path="/pre-agendamento" element={<PreAgendamento />} />
-              <Route path="/painel/login" element={<PainelLogin />} />
-              <Route path="/painel" element={<PainelDashboard />} />
-              <Route path="/painel/:id" element={<PainelDashboard />} />
-              {legacyRoutes.map((path) => (
-                <Route key={path} path={path} element={<ExamDetail />} />
-              ))}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+          <AuthProvider>
+            <Suspense fallback={null}>
+              <Routes>
+                <Route path="/" element={<IndexV2 />} />
+                <Route path="/v1" element={<Index />} />
+                <Route path="/v2" element={<IndexV2 />} />
+                <Route path="/exames/:slug" element={<ExamDetail />} />
+                <Route path="/videos" element={<Videos />} />
+                <Route path="/agendar" element={<PatientPortal />} />
+                <Route path="/pre-agendamento" element={<PreAgendamento />} />
+                <Route path="/painel/login" element={<PainelLogin />} />
+                <Route path="/painel" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
+                <Route path="/painel/lista-negra" element={<ProtectedRoute><PainelListaNegra /></ProtectedRoute>} />
+                <Route path="/painel/:id" element={<ProtectedRoute><PainelDetalhe /></ProtectedRoute>} />
+                {legacyRoutes.map((path) => (
+                  <Route key={path} path={path} element={<ExamDetail />} />
+                ))}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </AuthProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
