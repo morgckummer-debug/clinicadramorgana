@@ -41,19 +41,27 @@ self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
 
+  // Ignora requisições POST e outras métodos (não faz cache)
+  if (request.method !== 'GET') {
+    return
+  }
+
   // Para requisições da API, tenta network primeiro
   if (url.pathname.includes('/rest/') || url.pathname.includes('supabase')) {
     event.respondWith(
-      fetch(request)
+      fetch(request.clone())
         .then((response) => {
-          if (response.ok) {
-            const cache = caches.open(CACHE_NAME)
-            cache.then((c) => c.put(request, response.clone()))
+          if (response && response.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, response.clone())
+            })
           }
           return response
         })
         .catch(() => {
-          return caches.match(request)
+          return caches.match(request).catch(() => {
+            return new Response('Offline - sem cache disponível', { status: 503 })
+          })
         })
     )
     return
@@ -64,8 +72,8 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((response) => {
       if (response) return response
 
-      return fetch(request).then((response) => {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
+      return fetch(request.clone()).then((response) => {
+        if (!response || response.status !== 200) {
           return response
         }
 
@@ -75,6 +83,8 @@ self.addEventListener('fetch', (event) => {
         })
 
         return response
+      }).catch(() => {
+        return new Response('Offline', { status: 503 })
       })
     })
   )
