@@ -19,21 +19,21 @@ import teamMariaAmelia from "@/assets/team/maria-amelia.webp";
 import teamAndre from "@/assets/team/andre.webp";
 
 /* Convênios — logos */
-import convHapvida from "@/assets/convenios/hapvida.png";
-import convAurora from "@/assets/convenios/aurora-2.png";
-import convGrupoZelo from "@/assets/convenios/grupo-zelo.png";
+import convHapvida from "@/assets/convenios/hapvida.webp";
+import convAurora from "@/assets/convenios/aurora-2.webp";
+import convGrupoZelo from "@/assets/convenios/grupo-zelo.webp";
 import convFusex from "@/assets/convenios/fusex-1.webp";
 import convStellantis from "@/assets/convenios/stellantis.webp";
-import convCemig from "@/assets/convenios/cemig.png";
+import convCemig from "@/assets/convenios/cemig.webp";
 import convBomPastor from "@/assets/convenios/bom-pastor.webp";
 import convSantaClara from "@/assets/convenios/santa-clara.webp";
 import convFundafem from "@/assets/convenios/fundafem.webp";
-import convNotreDame from "@/assets/convenios/notredame.png";
-import convCasembrapa from "@/assets/convenios/casembrapa.png";
-import convCopass from "@/assets/convenios/copass.png";
+import convNotreDame from "@/assets/convenios/notredame.webp";
+import convCasembrapa from "@/assets/convenios/casembrapa.webp";
+import convCopass from "@/assets/convenios/copass.webp";
 import convPax from "@/assets/convenios/pax.webp";
-import convAgebras from "@/assets/convenios/agebras.png";
-import convMedGold from "@/assets/convenios/medgold.png";
+import convAgebras from "@/assets/convenios/agebras.webp";
+import convMedGold from "@/assets/convenios/medgold.webp";
 import convEvangelize from "@/assets/convenios/evangelize.webp";
 
 /* ---------------- Constantes globais ---------------- */
