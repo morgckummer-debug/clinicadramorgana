@@ -205,6 +205,7 @@ export default function Dashboard() {
         })
 
         // Mostra o alerta piscante
+        console.log('🔔 Mostrando alerta para:', novo.pacientes?.nome)
         setNewPreAgendamento({
           id: novo.id,
           nome: novo.pacientes?.nome ?? 'Paciente',
