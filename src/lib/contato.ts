@@ -16,11 +16,13 @@ export const abrirWhatsAppComFallback = (mensagem: string) => {
   const appUrl = `whatsapp://send?phone=${tel}&text=${msg}`
   const webUrl = `${WHATSAPP_URL}?text=${msg}`
 
-  // Tenta abrir no app primeiro
-  window.open(appUrl, 'whatsapp')
+  const time = Date.now()
+  window.location.href = appUrl
 
-  // Fallback para web após 1.5s (se app não estiver instalado)
+  // Fallback para web apenas se o app não abrir (após 500ms)
   setTimeout(() => {
-    window.open(webUrl, 'whatsapp')
-  }, 1500)
+    if (Date.now() - time < 1000) {
+      window.location.href = webUrl
+    }
+  }, 500)
 }
