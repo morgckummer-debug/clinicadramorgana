@@ -71,6 +71,7 @@ export const PremiumExperience = () => {
           }
           .pe-content {
             padding: 40px 24px 48px;
+            text-align: center;
           }
           .pe-title {
             font-size: 36px;
@@ -79,9 +80,11 @@ export const PremiumExperience = () => {
           .pe-desc {
             font-size: 15px;
             max-width: 100%;
+            margin: 0 auto;
           }
           .pe-chips {
             gap: 6px;
+            justify-content: center;
           }
         }
       `}</style>
