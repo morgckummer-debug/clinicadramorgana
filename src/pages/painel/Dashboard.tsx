@@ -162,9 +162,11 @@ export default function Dashboard() {
 
 
   useEffect(() => {
+    console.log('📡 Conectando ao Realtime do Supabase...')
     const channel = supabase
       .channel('dashboard_realtime')
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'pre_agendamentos' }, (payload) => {
+        console.log('🔄 UPDATE recebido do Realtime:', payload.new.id)
         const novo = payload.new as { id: string; status: string; atendente_nome: string | null; inicio_atendimento_em: string | null }
         setItems((prev) => {
           const atualizado = prev.map((item) =>
@@ -183,6 +185,7 @@ export default function Dashboard() {
         })
       })
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pre_agendamentos' }, async (payload) => {
+        console.log('🆕 INSERT recebido do Realtime:', payload.new.id)
         const { data } = await supabase
           .from('pre_agendamentos')
           .select(SELECT_FIELDS)
@@ -258,9 +261,14 @@ export default function Dashboard() {
           setAwaitingResponseCount(ac)
         })
       })
-      .subscribe()
+      .subscribe((status) => {
+        console.log('📡 Status do Realtime:', status)
+      })
 
-    return () => { supabase.removeChannel(channel) }
+    return () => {
+      console.log('🔌 Desconectando Realtime')
+      supabase.removeChannel(channel)
+    }
   }, [filter])
 
   useEffect(() => { fetchData('initial') }, [filter])
