@@ -31,9 +31,10 @@ export const PremiumExperience = () => {
 
         .pe-grid {
           display: grid;
-          grid-template-columns: 2fr 1.2fr;
+          grid-template-columns: 1.3fr 1fr;
           min-height: auto;
-          gap: 40px;
+          gap: 20px;
+          align-items: center;
         }
         .pe-image-slot {
           height: 420px;
@@ -200,8 +201,9 @@ export const PremiumExperience = () => {
                 margin: 0,
               }}
             >
-              Seu bebê merece<br />
-              o mais cuidadoso<br />
+              Seu bebê<br />
+              merece o mais<br />
+              cuidadoso<br />
               <em
                 style={{
                   fontWeight: 300,
@@ -209,7 +211,7 @@ export const PremiumExperience = () => {
                   color: "#C4AED8",
                 }}
               >
-                olhar clínico da cidade
+                olhar clínico
               </em>
             </h2>
 
