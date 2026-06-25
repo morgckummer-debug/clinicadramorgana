@@ -5,6 +5,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/painel/ProtectedRoute";
 import { exams } from "./data/exams";
 
 const IndexV2 = lazy(() => import("./pages/IndexV2.tsx"));
@@ -16,6 +18,8 @@ const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
 const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
 const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
+const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
+const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
 
 const queryClient = new QueryClient();
 
