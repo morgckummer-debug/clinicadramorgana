@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Upload, FileText, X, Loader2, MessageCircle } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { supabasePublic as supabase } from '@/lib/supabase'
 
 interface UploadAreaProps {
   value?: string[]

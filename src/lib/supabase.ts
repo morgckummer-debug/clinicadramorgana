@@ -3,12 +3,22 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? 'https://mwrcbrnfyhhtfahqdjmd.supabase.co'
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13cmNicm5meWhodGZhaHFkam1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NzE2OTQsImV4cCI6MjA5NzU0NzY5NH0.WdaFz2I_QkMVX-jp3p5OsgvrGynhKGc0ex-vbphB0fE'
 
+// Cliente principal — usado pelo painel (sessão isolada em 'painel-auth')
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: false,
     storageKey: 'painel-auth',
+  },
+})
+
+// Cliente para o formulário de pacientes — sessão separada para que
+// o signOut anônimo do formulário não afete a sessão da secretaria no painel
+export const supabasePublic = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false,
+    storageKey: 'public-auth',
   },
 })
 
