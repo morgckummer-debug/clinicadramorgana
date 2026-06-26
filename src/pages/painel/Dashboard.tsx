@@ -71,6 +71,17 @@ function playNotificationSound() {
   } catch (_) {}
 }
 
+function showDesktopNotification(nome: string, exame: string) {
+  if (!('Notification' in window) || Notification.permission !== 'granted') return
+  const n = new Notification('🔔 Novo Paciente!', {
+    body: `${nome}${exame ? ` · ${exame}` : ''}`,
+    icon: '/painel-icon.png',
+    tag: 'novo-paciente',
+    renotify: true,
+  })
+  n.onclick = () => { window.focus(); n.close() }
+}
+
 const SELECT_FIELDS =
   'id, paciente_id, exame, preferencia_turno, status, atendente_nome, inicio_atendimento_em, criado_em, pacientes(nome, telefone, bloqueado)'
 
@@ -115,6 +126,13 @@ export default function Dashboard() {
   const [newPreAgendamento, setNewPreAgendamento] = useState<{ id: string; nome: string; exame: string } | null>(null)
   const [showNewAlert, setShowNewAlert] = useState(false)
   const prevPendingRef = useRef<number | null>(null)
+
+  // Pede permissão de notificação ao montar (uma vez só)
+  useEffect(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission()
+    }
+  }, [])
 
   // Título da aba reflete o número real de pendentes
   useEffect(() => {
@@ -241,11 +259,10 @@ export default function Dashboard() {
         const novo = data as unknown as PreAgendamento | null
 
         if (novo) {
-          setNewPreAgendamento({
-            id: novo.id,
-            nome: novo.pacientes?.nome ?? 'Paciente',
-            exame: novo.exame ?? '',
-          })
+          const nome = novo.pacientes?.nome ?? 'Paciente'
+          const exame = novo.exame ?? ''
+          setNewPreAgendamento({ id: novo.id, nome, exame })
+          showDesktopNotification(nome, exame)
           if (filter === 'pendente' || filter === 'todos') {
             setItems((prev) =>
               [...prev, novo].sort((a, b) =>
@@ -253,10 +270,9 @@ export default function Dashboard() {
               )
             )
           }
-          toast.info(`Novo paciente: ${novo.pacientes?.nome ?? 'sem nome'}`, {
-            description: novo.exame ?? 'Exame não informado',
-          })
+          toast.info(`Novo paciente: ${nome}`, { description: exame || 'Exame não informado' })
         } else {
+          showDesktopNotification('Novo Paciente', raw.exame ?? '')
           toast.info('Novo pré-agendamento recebido!')
         }
 
