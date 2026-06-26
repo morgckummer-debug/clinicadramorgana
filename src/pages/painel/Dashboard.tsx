@@ -71,15 +71,24 @@ function playNotificationSound() {
   } catch (_) {}
 }
 
-function showDesktopNotification(nome: string, exame: string) {
-  if (!('Notification' in window) || Notification.permission !== 'granted') return
-  const n = new Notification('🔔 Novo Paciente!', {
-    body: `${nome}${exame ? ` · ${exame}` : ''}`,
-    icon: '/painel-icon.png',
-    tag: 'novo-paciente',
-    renotify: true,
-  })
-  n.onclick = () => { window.focus(); n.close() }
+async function showDesktopNotification(nome: string, exame: string) {
+  const body = `${nome}${exame ? ` · ${exame}` : ''}`
+  const opts: NotificationOptions = { body, icon: '/painel-icon.png', tag: 'novo-paciente', renotify: true }
+
+  // Tenta via Service Worker primeiro (mais confiável no Windows)
+  if ('serviceWorker' in navigator) {
+    try {
+      const reg = await navigator.serviceWorker.ready
+      await reg.showNotification('🔔 Novo Paciente!', opts)
+      return
+    } catch (_) {}
+  }
+
+  // Fallback: Notification API direta
+  if ('Notification' in window && Notification.permission === 'granted') {
+    const n = new Notification('🔔 Novo Paciente!', opts)
+    n.onclick = () => { window.focus(); n.close() }
+  }
 }
 
 const SELECT_FIELDS =
@@ -111,6 +120,9 @@ export default function Dashboard() {
   const [items, setItems] = useState<PreAgendamento[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<StatusFilter>('pendente')
+  const [notifPermission, setNotifPermission] = useState<NotificationPermission>(
+    'Notification' in window ? Notification.permission : 'denied'
+  )
   const [refreshing, setRefreshing] = useState(false)
   const [newPendingCount, setNewPendingCount] = useState(0)
   const [pendingCount, setPendingCount] = useState(0)
@@ -126,11 +138,13 @@ export default function Dashboard() {
   const [newPreAgendamento, setNewPreAgendamento] = useState<{ id: string; nome: string; exame: string } | null>(null)
   const [showNewAlert, setShowNewAlert] = useState(false)
   const prevPendingRef = useRef<number | null>(null)
+  const blinkIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // Pede permissão de notificação ao montar (uma vez só)
+  // Pede permissão de notificação ao montar (uma vez só, se ainda não foi decidido)
   useEffect(() => {
-    if ('Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission()
+    if (!('Notification' in window)) return
+    if (Notification.permission === 'default') {
+      Notification.requestPermission().then(setNotifPermission)
     }
   }, [])
 
@@ -147,26 +161,33 @@ export default function Dashboard() {
     const prev = prevPendingRef.current
     prevPendingRef.current = pendingCount
 
+    // Para qualquer piscada em andamento antes de atualizar
+    if (blinkIntervalRef.current) {
+      clearInterval(blinkIntervalRef.current)
+      blinkIntervalRef.current = null
+    }
+
     if (pendingCount === 0) {
       navigator.clearAppBadge().catch(() => {})
       return
     }
 
+    // Sempre mostra o número atualizado
     navigator.setAppBadge(pendingCount).catch(() => {})
 
-    // Só pisca quando o número aumenta (novo paciente)
+    // Pisca 5x só quando o número aumenta (novo paciente)
     if (prev !== null && pendingCount > prev) {
       let step = 0
-      const interval = setInterval(() => {
+      blinkIntervalRef.current = setInterval(() => {
         step++
         if (step % 2 === 0) navigator.setAppBadge(pendingCount).catch(() => {})
         else navigator.clearAppBadge().catch(() => {})
-        if (step >= 10) { // 5 piscadas (on + off = 2 steps cada)
-          clearInterval(interval)
-          navigator.setAppBadge(pendingCount).catch(() => {})
+        if (step >= 10) {
+          clearInterval(blinkIntervalRef.current!)
+          blinkIntervalRef.current = null
+          navigator.setAppBadge(pendingCount).catch(() => {}) // garante que fica fixo
         }
       }, 400)
-      return () => clearInterval(interval)
     }
   }, [pendingCount])
 
