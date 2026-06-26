@@ -114,12 +114,42 @@ export default function Dashboard() {
 
   const [newPreAgendamento, setNewPreAgendamento] = useState<{ id: string; nome: string; exame: string } | null>(null)
   const [showNewAlert, setShowNewAlert] = useState(false)
-  const [newCount, setNewCount] = useState(0)
+  const prevPendingRef = useRef<number | null>(null)
 
   // Título da aba reflete o número real de pendentes
   useEffect(() => {
     document.title = pendingCount > 0 ? `(${pendingCount}) Painel · MK` : 'Painel · MK'
     return () => { document.title = 'Painel · MK' }
+  }, [pendingCount])
+
+  // Badge no ícone da barra de tarefas (App Badge API — funciona só com PWA instalada)
+  useEffect(() => {
+    if (!('setAppBadge' in navigator)) return
+
+    const prev = prevPendingRef.current
+    prevPendingRef.current = pendingCount
+
+    if (pendingCount === 0) {
+      navigator.clearAppBadge().catch(() => {})
+      return
+    }
+
+    navigator.setAppBadge(pendingCount).catch(() => {})
+
+    // Só pisca quando o número aumenta (novo paciente)
+    if (prev !== null && pendingCount > prev) {
+      let step = 0
+      const interval = setInterval(() => {
+        step++
+        if (step % 2 === 0) navigator.setAppBadge(pendingCount).catch(() => {})
+        else navigator.clearAppBadge().catch(() => {})
+        if (step >= 10) { // 5 piscadas (on + off = 2 steps cada)
+          clearInterval(interval)
+          navigator.setAppBadge(pendingCount).catch(() => {})
+        }
+      }, 400)
+      return () => clearInterval(interval)
+    }
   }, [pendingCount])
 
   // paciente_ids que aparecem mais de uma vez na lista atual
@@ -230,51 +260,7 @@ export default function Dashboard() {
           toast.info('Novo pré-agendamento recebido!')
         }
 
-        console.log('🔔 Alerta disparado')
-
-        // Envia notificação push se SW está registrado
-        if ('serviceWorker' in navigator && 'PushManager' in window) {
-          navigator.serviceWorker.ready.then((registration) => {
-            registration.showNotification('🔔 Novo Paciente!', {
-              body: `${novo?.pacientes?.nome ?? 'Paciente'} - ${raw.exame ?? 'Exame não informado'}`,
-              icon: '/painel-icon.png',
-              badge: '/painel-icon.png',
-              tag: 'new-pre-agendamento',
-              requireInteraction: true,
-            })
-          })
-        }
-
-        // Pisca o badge do ícone na barra de tarefas
-        setNewCount((prevCount) => {
-          const nextCount = prevCount + 1
-          console.log('🎯 Badge API disponível?', 'setAppBadge' in navigator)
-          if ('setAppBadge' in navigator) {
-            console.log('✨ Iniciando badge piscante... contador:', nextCount)
-            navigator.setAppBadge(nextCount)
-            let blinking = true
-            const badgeInterval = setInterval(() => {
-              if (blinking) {
-                console.log('💤 Badge off')
-                navigator.clearAppBadge()
-              } else {
-                console.log('💡 Badge on')
-                navigator.setAppBadge(nextCount)
-              }
-              blinking = !blinking
-            }, 600)
-            // Para de piscar após 8 segundos
-            setTimeout(() => {
-              console.log('🛑 Badge parado, número final:', nextCount)
-              clearInterval(badgeInterval)
-              navigator.setAppBadge(nextCount)
-            }, 8000)
-          } else {
-            console.log('⚠️ Badge API não disponível neste navegador')
-          }
-          return nextCount
-        })
-
+        // Atualiza contadores — o useEffect do badge cuida do resto
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
         Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
           setPendingCount(pc)
