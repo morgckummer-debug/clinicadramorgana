@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react'
 import { ConversationFlow, examsByCategory } from '@/data/conversation/preAgendamento'
-import { supabase } from '@/lib/supabase'
+import { supabasePublic as supabase } from '@/lib/supabase'
 import { isValidDateBR, isValidCPF } from '@/lib/utils'
 import { ConversationHeader } from './ConversationHeader'
 import { ProgressBar } from './ProgressBar'
