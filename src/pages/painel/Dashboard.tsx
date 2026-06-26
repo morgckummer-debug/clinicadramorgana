@@ -189,41 +189,54 @@ export default function Dashboard() {
       })
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'pre_agendamentos' }, async (payload) => {
         console.log('🆕 INSERT recebido do Realtime:', payload.new.id)
+        const raw = payload.new as { id: string; exame: string | null; criado_em: string }
+
+        // Dispara o alerta imediatamente com os dados do payload
+        // (sem depender do SELECT — que pode falhar por RLS se a sessão não estiver pronta)
+        setNewPreAgendamento({
+          id: raw.id,
+          nome: 'Novo Paciente',
+          exame: raw.exame ?? '',
+        })
+        setShowNewAlert(true)
+        playNotificationSound()
+
+        // Tenta buscar dados completos (nome do paciente) em segundo plano
         const { data } = await supabase
           .from('pre_agendamentos')
           .select(SELECT_FIELDS)
-          .eq('id', payload.new.id)
+          .eq('id', raw.id)
           .single()
 
-        if (!data) return
-        const novo = data as unknown as PreAgendamento
+        const novo = data as unknown as PreAgendamento | null
 
-        if (filter === 'pendente' || filter === 'todos') {
-          setItems((prev) =>
-            [...prev, novo].sort((a, b) =>
-              new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime()
+        if (novo) {
+          setNewPreAgendamento({
+            id: novo.id,
+            nome: novo.pacientes?.nome ?? 'Paciente',
+            exame: novo.exame ?? '',
+          })
+          if (filter === 'pendente' || filter === 'todos') {
+            setItems((prev) =>
+              [...prev, novo].sort((a, b) =>
+                new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime()
+              )
             )
-          )
+          }
+          toast.info(`Novo paciente: ${novo.pacientes?.nome ?? 'sem nome'}`, {
+            description: novo.exame ?? 'Exame não informado',
+          })
+        } else {
+          toast.info('Novo pré-agendamento recebido!')
         }
 
-        toast.info(`Novo paciente: ${novo.pacientes?.nome ?? 'sem nome'}`, {
-          description: novo.exame ?? 'Exame não informado',
-        })
-
-        // Mostra o alerta piscante
-        console.log('🔔 Mostrando alerta para:', novo.pacientes?.nome)
-        setNewPreAgendamento({
-          id: novo.id,
-          nome: novo.pacientes?.nome ?? 'Paciente',
-          exame: novo.exame ?? '',
-        })
-        setShowNewAlert(true)
+        console.log('🔔 Alerta disparado')
 
         // Envia notificação push se SW está registrado
         if ('serviceWorker' in navigator && 'PushManager' in window) {
           navigator.serviceWorker.ready.then((registration) => {
             registration.showNotification('🔔 Novo Paciente!', {
-              body: `${novo.pacientes?.nome ?? 'Paciente'} - ${novo.exame ?? 'Exame não informado'}`,
+              body: `${novo?.pacientes?.nome ?? 'Paciente'} - ${raw.exame ?? 'Exame não informado'}`,
               icon: '/painel-icon.png',
               badge: '/painel-icon.png',
               tag: 'new-pre-agendamento',
