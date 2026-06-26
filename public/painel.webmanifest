@@ -4,8 +4,8 @@
   "description": "Painel de pré-agendamentos · Clínica Dra. Morgana Kummer",
   "start_url": "/painel",
   "display": "standalone",
-  "background_color": "#6d3263",
-  "theme_color": "#6d3263",
+  "background_color": "#5B2D8E",
+  "theme_color": "#5B2D8E",
   "lang": "pt-BR",
   "icons": [
     {
