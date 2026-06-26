@@ -586,15 +586,6 @@ export default function Detalhe() {
 
   return (
     <PainelLayout>
-      {/* Voltar */}
-      <button
-        onClick={() => navigate('/painel')}
-        className="flex items-center gap-1.5 text-[11px] tracking-[0.2em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300 mb-5"
-      >
-        <ArrowLeft className="w-3.5 h-3.5" />
-        Lista
-      </button>
-
       {/* Header compacto */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-4">
@@ -639,7 +630,7 @@ export default function Detalhe() {
           </div>
         </div>
 
-        {item.status !== 'pendente' && (
+        {item.status !== 'pendente' ? (
           <button
             onClick={() => updateStatus('pendente')}
             disabled={updatingStatus}
@@ -648,6 +639,15 @@ export default function Detalhe() {
           >
             <PhoneMissed className="w-4 h-4" />
             Devolver para a fila
+          </button>
+        ) : (
+          <button
+            onClick={() => navigate('/painel')}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap flex-shrink-0 hover:opacity-80"
+            style={{ backgroundColor: '#f3eef8', color: '#5B2D8E', border: '1.5px solid #5B2D8E' }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Lista
           </button>
         )}
       </div>
