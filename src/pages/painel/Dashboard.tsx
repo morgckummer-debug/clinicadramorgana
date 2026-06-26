@@ -233,31 +233,34 @@ export default function Dashboard() {
         }
 
         // Pisca o badge do ícone na barra de tarefas
-        setNewCount((c) => c + 1)
-        console.log('🎯 Badge API disponível?', 'setAppBadge' in navigator)
-        if ('setAppBadge' in navigator) {
-          console.log('✨ Iniciando badge piscante...')
-          navigator.setAppBadge(newCount + 1)
-          let blinking = true
-          const badgeInterval = setInterval(() => {
-            if (blinking) {
-              console.log('💤 Badge off')
-              navigator.clearAppBadge()
-            } else {
-              console.log('💡 Badge on')
-              navigator.setAppBadge(newCount + 1)
-            }
-            blinking = !blinking
-          }, 600)
-          // Para de piscar após 8 segundos
-          setTimeout(() => {
-            console.log('🛑 Badge parado')
-            clearInterval(badgeInterval)
-            navigator.setAppBadge(newCount + 1)
-          }, 8000)
-        } else {
-          console.log('⚠️ Badge API não disponível neste navegador')
-        }
+        setNewCount((prevCount) => {
+          const nextCount = prevCount + 1
+          console.log('🎯 Badge API disponível?', 'setAppBadge' in navigator)
+          if ('setAppBadge' in navigator) {
+            console.log('✨ Iniciando badge piscante... contador:', nextCount)
+            navigator.setAppBadge(nextCount)
+            let blinking = true
+            const badgeInterval = setInterval(() => {
+              if (blinking) {
+                console.log('💤 Badge off')
+                navigator.clearAppBadge()
+              } else {
+                console.log('💡 Badge on')
+                navigator.setAppBadge(nextCount)
+              }
+              blinking = !blinking
+            }, 600)
+            // Para de piscar após 8 segundos
+            setTimeout(() => {
+              console.log('🛑 Badge parado, número final:', nextCount)
+              clearInterval(badgeInterval)
+              navigator.setAppBadge(nextCount)
+            }, 8000)
+          } else {
+            console.log('⚠️ Badge API não disponível neste navegador')
+          }
+          return nextCount
+        })
 
         if (filter !== 'pendente') setNewPendingCount((c) => c + 1)
         Promise.all([fetchPendingCount(), fetchAwaitingResponseCount()]).then(([pc, ac]) => {
