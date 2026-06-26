@@ -149,7 +149,7 @@ export default function Login() {
           </button>
         </div>
 
-        <p className="text-center text-xs font-medium mt-4 tracking-widest" style={{ color: 'rgba(91,45,142,0.55)' }}>
+        <p className="text-center text-sm font-medium mt-4 tracking-widest" style={{ color: 'rgba(91,45,142,0.55)' }}>
           Acesso exclusivo · Equipe MK
         </p>
       </div>
