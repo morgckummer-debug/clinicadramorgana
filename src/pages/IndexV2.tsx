@@ -692,7 +692,7 @@ const IndexV2 = () => {
       <Navbar />
       <Hero />
       <About />
-      <DifferentiatedExperience />
+      {/* <DifferentiatedExperience /> */}
       <Exams />
       <Team />
       <Convenios />
