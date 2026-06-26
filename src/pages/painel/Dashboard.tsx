@@ -77,7 +77,6 @@ function showDesktopNotification(nome: string, exame: string) {
     body: `${nome}${exame ? ` · ${exame}` : ''}`,
     icon: '/painel-icon.png',
     requireInteraction: true,
-    renotify: true,
   })
   n.onclick = () => { window.focus(); n.close() }
 }
