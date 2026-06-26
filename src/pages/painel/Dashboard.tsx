@@ -76,7 +76,7 @@ function showDesktopNotification(nome: string, exame: string) {
   const n = new Notification('🔔 Novo Paciente!', {
     body: `${nome}${exame ? ` · ${exame}` : ''}`,
     icon: '/painel-icon.png',
-    tag: 'novo-paciente',
+    requireInteraction: true,
     renotify: true,
   })
   n.onclick = () => { window.focus(); n.close() }
@@ -126,6 +126,7 @@ export default function Dashboard() {
   const [newPreAgendamento, setNewPreAgendamento] = useState<{ id: string; nome: string; exame: string } | null>(null)
   const [showNewAlert, setShowNewAlert] = useState(false)
   const prevPendingRef = useRef<number | null>(null)
+  const badgeIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // Pede permissão de notificação ao montar (uma vez só)
   useEffect(() => {
@@ -148,7 +149,14 @@ export default function Dashboard() {
     prevPendingRef.current = pendingCount
 
     if (pendingCount === 0) {
+      if (badgeIntervalRef.current) { clearInterval(badgeIntervalRef.current); badgeIntervalRef.current = null }
       navigator.clearAppBadge().catch(() => {})
+      return
+    }
+
+    // Se já está piscando, apenas atualiza o número — não reinicia
+    if (badgeIntervalRef.current) {
+      navigator.setAppBadge(pendingCount).catch(() => {})
       return
     }
 
@@ -157,16 +165,15 @@ export default function Dashboard() {
     // Só pisca quando o número aumenta (novo paciente)
     if (prev !== null && pendingCount > prev) {
       let step = 0
-      const interval = setInterval(() => {
+      badgeIntervalRef.current = setInterval(() => {
         step++
         if (step % 2 === 0) navigator.setAppBadge(pendingCount).catch(() => {})
         else navigator.clearAppBadge().catch(() => {})
-        if (step >= 10) { // 5 piscadas (on + off = 2 steps cada)
-          clearInterval(interval)
+        if (step >= 10) {
+          if (badgeIntervalRef.current) { clearInterval(badgeIntervalRef.current); badgeIntervalRef.current = null }
           navigator.setAppBadge(pendingCount).catch(() => {})
         }
       }, 400)
-      return () => clearInterval(interval)
     }
   }, [pendingCount])
 
