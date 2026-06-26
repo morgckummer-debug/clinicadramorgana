@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Ban, LogOut, KeyRound, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
@@ -71,6 +71,12 @@ export function PainelLayout({ children }: { children: ReactNode }) {
   const { signOut, userName } = useAuth()
   const navigate = useNavigate()
   const [showModal, setShowModal] = useState(false)
+
+  useEffect(() => {
+    const link = document.querySelector<HTMLLinkElement>('link[rel="manifest"]')
+    if (link) link.href = '/painel.webmanifest'
+    return () => { if (link) link.href = '/site.webmanifest' }
+  }, [])
 
   const handleSignOut = async () => {
     await signOut()
