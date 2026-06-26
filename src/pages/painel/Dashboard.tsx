@@ -128,6 +128,16 @@ export default function Dashboard() {
   const prevPendingRef = useRef<number | null>(null)
   const badgeIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
+  // Aviso ao fechar/recarregar a aba acidentalmente
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault()
+      e.returnValue = ''
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [])
+
   // Pede permissão de notificação ao montar (uma vez só)
   useEffect(() => {
     if ('Notification' in window && Notification.permission === 'default') {
