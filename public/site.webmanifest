@@ -1,0 +1,22 @@
+{
+  "name": "Clínica Dra. Morgana Kummer",
+  "short_name": "Dra. Morgana",
+  "description": "Clínica de ultrassonografia em Sete Lagoas, MG",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6d3263",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/painel-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/painel-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
