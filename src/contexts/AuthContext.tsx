@@ -25,7 +25,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false)
     })
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        console.warn('⚠️ Sessão encerrada pelo Supabase — evento:', event)
+      }
       setSession(session)
       if (!session) {
         setUserName(null)
