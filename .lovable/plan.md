@@ -1,28 +1,27 @@
-## Contexto
+## Sitemap gerado automaticamente
 
-O usuário quer adicionar o Google Analytics 4 ao projeto antes de conectar o domínio customizado. O ID da propriedade é **G-7FQ0YH08X1**.
+### Contexto
+O projeto não possui nenhum mecanismo de sitemap (`public/sitemap.xml`, script gerador ou plugin Vite). Criar um sitemap completo melhora a indexação no Google e no Bing.
 
-A documentação do Lovable não oferece integração nativa com GA4 (não há campo no Project Settings para isso). A abordagem padrão é inserir o script `gtag.js` diretamente no `<head>` do `index.html`.
+### O que será feito
+1. Criar `scripts/generate-sitemap.ts`
+   - Base URL: `https://clinicadramorgana.lovable.app`
+   - Incluir todas as rotas públicas e indexáveis do `App.tsx` e slugs dinâmicos de `src/data/exams.ts`
+   - Excluir rotas internas (`/painel/*`, `/not-found`, `*`)
+   - Configurar `changefreq` e `priority` adequados para cada tipo de página
+2. Adicionar scripts `predev` e `prebuild` no `package.json` para executar o gerador automaticamente antes do dev e do build
+3. Executar o script para gerar `public/sitemap.xml` imediatamente
+4. Adicionar `Sitemap: https://clinicadramorgana.lovable.app/sitemap.xml` ao `public/robots.txt`
 
-## Plano
-
-1. **Inserir o snippet GA4 no `index.html`**
-   - Adicionar o script de carregamento assíncrono do `gtag.js` com o ID `G-7FQ0YH08X1`.
-   - Incluir o script inline de configuração (`gtag('config', 'G-7FQ0YH08X1')`) logo abaixo.
-   - Posicionar no `<head>`, após as meta tags principais e antes das fontes, para garantir que o rastreamento inicie o mais cedo possível.
-
-2. **Verificar consistência**
-   - Confirmar que não há conflitos com outros scripts de terceiros já presentes no `<head>`.
-
-## O que será alterado
-
-- `index.html`: adição do snippet GA4 oficial do Google.
-
-## Não será alterado
-
-- Nenhum outro arquivo do projeto.
-- Nenhuma configuração de backend ou roteamento.
-
-## Nota sobre o domínio
-
-Quando o domínio `dramorgana.com.br` for conectado posteriormente, o GA4 continuará funcionando normalmente desde que o mesmo ID de propriedade seja mantido. O histórico de dados do GA4 fica no Google, não no servidor. A propriedade atual (`clinicadramorgana.lovable.app`) e o domínio futuro podem compartilhar o mesmo ID GA4 sem perda de dados.
+### Rotas que entrarão no sitemap
+| Rota | Tipo | Prioridade |
+|---|---|---|
+| `/` | Estática | 1.0 |
+| `/videos` | Estática | 0.7 |
+| `/agendar` | Estática | 0.7 |
+| `/pre-agendamento` | Estática | 0.7 |
+| `/preparo` | Estática | 0.7 |
+| `/como-chegar` | Estática | 0.6 |
+| `/falar-secretaria` | Estática | 0.6 |
+| `/exames/:slug` | Dinâmica (todos os exames) | 0.8 |
+| Legacy slugs | Dinâmica (redirecionamentos SEO) | 0.5 |
