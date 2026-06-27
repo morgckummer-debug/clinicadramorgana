@@ -784,31 +784,55 @@ export const examTranslations: Record<string, Record<string, any>> = {
   "tireoide-doppler": {
     en: {
       title: "Thyroid with Doppler",
-      shortDesc: "Evaluation of thyroid gland with flow mapping."
+      shortDesc: "Evaluation of thyroid gland with flow mapping.",
+      longDesc: "Thyroid ultrasound with colour Doppler, for characterisation of nodules, goitre and thyroiditis, with TI-RADS classification when indicated.",
+      preparation: "No specific preparation is required for this exam.",
+      duration: "20 minutes",
+      whatToBring: ["Medical referral", "Previous laboratory results and ultrasounds"],
     },
     es: {
-      title: "Tireoide con Doppler",
-      shortDesc: "Evaluación de la glándula tireoide con mapeamiento de flujo."
+      title: "Tiroides con Doppler",
+      shortDesc: "Evaluación de la glándula tiroides con mapeamiento de flujo.",
+      longDesc: "Ultrasonido de tiroides con Doppler color, para caracterización de nódulos, bocio y tiroiditis, con clasificación TI-RADS cuando esté indicada.",
+      preparation: "No se requiere preparación específica para este examen.",
+      duration: "20 minutos",
+      whatToBring: ["Orden médica", "Exámenes de laboratorio y ultrasonidos anteriores"],
     }
   },
   "cervical-doppler": {
     en: {
       title: "Cervical with Doppler",
-      shortDesc: "Complete evaluation of cervical structures and lymph nodes."
+      shortDesc: "Complete evaluation of cervical structures and lymph nodes.",
+      longDesc: "Cervical ultrasound with Doppler, indicated for investigation of lymph nodes, cervical masses and post-treatment follow-up of conditions in the region.",
+      preparation: "No specific preparation is required for this exam.",
+      duration: "20 minutes",
+      whatToBring: ["Medical referral", "Previous exams"],
     },
     es: {
       title: "Cervical con Doppler",
-      shortDesc: "Evaluación completa de las estructuras cervicales y linfonodos."
+      shortDesc: "Evaluación completa de las estructuras cervicales y linfonodos.",
+      longDesc: "Ultrasonido cervical con Doppler, indicado para investigación de linfonodos, masas cervicales y seguimiento postratamiento de enfermedades de la región.",
+      preparation: "No se requiere preparación específica para este examen.",
+      duration: "20 minutos",
+      whatToBring: ["Orden médica", "Exámenes anteriores"],
     }
   },
   "glandulas-salivares": {
     en: {
       title: "Salivary Glands",
-      shortDesc: "Evaluation of parotid, submandibular, and sublingual glands."
+      shortDesc: "Evaluation of parotid, submandibular, and sublingual glands.",
+      longDesc: "Ultrasound of the salivary glands, indicated for investigation of glandular enlargement, calculi, inflammatory processes and nodules.",
+      preparation: "No specific preparation is required for this exam.",
+      duration: "20 minutes",
+      whatToBring: ["Medical referral"],
     },
     es: {
-      title: "Glándulas Salivares",
-      shortDesc: "Evaluación de parótidas, submandibulares y sublinguales."
+      title: "Glándulas Salivales",
+      shortDesc: "Evaluación de parótidas, submandibulares y sublinguales.",
+      longDesc: "Ultrasonido de las glándulas salivales, indicado en la investigación de aumento glandular, cálculos, procesos inflamatorios y nódulos.",
+      preparation: "No se requiere preparación específica para este examen.",
+      duration: "20 minutos",
+      whatToBring: ["Orden médica"],
     }
   },
   "abdominal-total-pediatrico": {
