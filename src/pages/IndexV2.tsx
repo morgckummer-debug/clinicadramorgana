@@ -95,18 +95,39 @@ const FlagBR = () => (
   </svg>
 );
 
+const FlagES = () => (
+  <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <rect width="30" height="20" fill="#C60B1E" />
+    <rect y="6.67" width="30" height="6.67" fill="#FFC400" />
+  </svg>
+);
+
 /* ---------------- Language toggle button ---------------- */
 const LangToggle = () => {
-  const { lang, toggle } = useLanguage();
+  const { lang, setLang } = useLanguage();
+
+  const languages: Array<{ code: 'pt' | 'en' | 'es'; flag: React.ReactNode; label: string }> = [
+    { code: 'pt', flag: <FlagBR />, label: 'Português' },
+    { code: 'en', flag: <FlagUK />, label: 'English' },
+    { code: 'es', flag: <FlagES />, label: 'Español' },
+  ];
+
   return (
-    <button
-      onClick={toggle}
-      aria-label={lang === "pt" ? "Switch to English" : "Mudar para Português"}
-      title={lang === "pt" ? "English" : "Português"}
-      className="flex items-center justify-center w-7 h-7 rounded-full overflow-hidden border border-champagne/40 hover:border-champagne transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne flex-shrink-0"
-    >
-      {lang === "pt" ? <FlagUK /> : <FlagBR />}
-    </button>
+    <div className="flex items-center gap-2">
+      {languages
+        .filter(l => l.code !== lang)
+        .map(l => (
+          <button
+            key={l.code}
+            onClick={() => setLang(l.code)}
+            aria-label={`Switch to ${l.label}`}
+            title={l.label}
+            className="flex items-center justify-center w-7 h-7 rounded-full overflow-hidden border border-champagne/40 hover:border-champagne transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne flex-shrink-0 opacity-60 hover:opacity-100"
+          >
+            {l.flag}
+          </button>
+        ))}
+    </div>
   );
 };
 

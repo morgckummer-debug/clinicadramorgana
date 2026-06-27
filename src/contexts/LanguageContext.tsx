@@ -915,18 +915,19 @@ export type Translations = typeof translations.pt;
 interface LanguageContextValue {
   lang: Lang;
   toggle: () => void;
+  setLang: (lang: Lang) => void;
   t: Translations;
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [lang, setLang] = useState<Lang>(() => {
+  const [lang, setLangState] = useState<Lang>(() => {
     return (localStorage.getItem("site-lang") as Lang) ?? "pt";
   });
 
   const toggle = () =>
-    setLang((l) => {
+    setLangState((l) => {
       const languages: Lang[] = ["pt", "en", "es"];
       const currentIndex = languages.indexOf(l);
       const next = languages[(currentIndex + 1) % languages.length];
@@ -934,8 +935,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       return next;
     });
 
+  const setLang = (newLang: Lang) => {
+    localStorage.setItem("site-lang", newLang);
+    setLangState(newLang);
+  };
+
   return (
-    <LanguageContext.Provider value={{ lang, toggle, t: translations[lang] as Translations }}>
+    <LanguageContext.Provider value={{ lang, toggle, setLang, t: translations[lang] as Translations }}>
       {children}
     </LanguageContext.Provider>
   );
