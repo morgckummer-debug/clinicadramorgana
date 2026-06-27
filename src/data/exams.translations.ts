@@ -155,6 +155,13 @@ export const examTranslations: Record<string, Record<string, any>> = {
         { kind: "paragraph", title: "When should it be performed?", body: "Should be performed when baby measures between 12 and 13 weeks 6 days, or between 4.5 and 8.4 cm from head to buttocks (CCN)." },
         { kind: "paragraph", title: "What if there's a problem with my baby?", body: "If there are signs of increased risk, a consultation with Fetal Medicine may be recommended. It is important to remember that other fetal conditions can lead to increased nuca: anemia, infections, metabolic disorders, or simply fetal adaptation." }
       ],
+      gallery: [
+        { caption: 'The famous "nape" measurement. A marker for syndromes and cardiac malformation.', alt: "Ultrasound showing nuchal translucency measurement" },
+        { caption: "The kidneys appear as two rounded, lighter images beside the spine.", alt: "Fetal kidneys seen on ultrasound" },
+        { caption: "The diaphragm is the muscle that controls breathing and can already be seen.", alt: "Fetal diaphragm seen on ultrasound" },
+        { caption: "Structures inside the baby's head that are the precursors to full brain formation.", alt: "Fetal brain structures on ultrasound" },
+        { caption: "Often we can already count the number of fingers on the hands.", alt: "Baby's hand with visible fingers on ultrasound" }
+      ],
       faq: [
         { q: "Is it the same as obstetric ultrasound with NT?", a: "Although both measure nuca and calculate syndrome risk, they are not the same. Obstetric is basic and simpler; morphological is much more complete." },
         { q: "Do I need preparation?", a: "No fasting or full bladder required." },
@@ -178,6 +185,13 @@ export const examTranslations: Record<string, Record<string, any>> = {
         { q: "¿Es seguro?", a: "¡Sí! El ultrasonido no utiliza rayos X." },
         { q: "¿Necesito solicitud médica?", a: "Sí, el ultrasonido morfológico generalmente es solicitado por el obstetra." },
         { q: "¿Cuánto tiempo tarda?", a: "No existe tiempo determinado. Vaya con tiempo y no programe citas inmediatamente después." }
+      ],
+      gallery: [
+        { caption: 'La famosa medida de la "nuca". Un marcador de síndromes y malformación cardíaca.', alt: "Ultrasonido mostrando la medida de la translucencia nucal" },
+        { caption: "Los riñones se ven como dos imágenes redondeadas y más claras, al lado de la columna.", alt: "Riñones fetales vistos en el ultrasonido" },
+        { caption: "El diafragma es el músculo que controla la respiración y ya puede verse.", alt: "Diafragma fetal visto en el ultrasonido" },
+        { caption: "Estructuras dentro de la cabecita del bebé que son los precursores de la formación completa del cerebro.", alt: "Estructuras cerebrales fetales en el ultrasonido" },
+        { caption: "Muchas veces ya podemos contar el número de dedos en las manos.", alt: "Manita del bebé con dedos visibles en el ultrasonido" }
       ]
     }
   },
@@ -201,6 +215,14 @@ export const examTranslations: Record<string, Record<string, any>> = {
         { q: "Does morphological replace fetal echocardiography?", a: "No, they are different exams. Morphological evaluates basic heart anatomy; echocardiography focuses on function and valves." },
         { q: "Do I need medical request?", a: "Yes, morphological is usually requested by obstetrician as one of the main exams." },
         { q: "Can all baby conditions be detected?", a: "Exam is more detailed but cannot detect 100% of genetic alterations. Some may require additional genetic tests." }
+      ],
+      gallery: [
+        { caption: "Spine. Important evaluation to rule out closure defects.", alt: "Fetal spine seen on morphological ultrasound" },
+        { caption: "Assessment of the main arteries of the fetal abdomen.", alt: "Fetal abdominal arteries on Doppler ultrasound" },
+        { caption: "Nose and lip region, to assess for cleft lip.", alt: "Cross-section of fetal nose and lips on ultrasound" },
+        { caption: "Assessment of both hands, to count all 10 little fingers.", alt: "Fetal hand showing five fingers on ultrasound" },
+        { caption: "Facial profile. We assess the presence and measurement of the nasal bone and some brain structures.", alt: "Fetal facial profile at 22 weeks on ultrasound" },
+        { caption: "Baby showing off 💜", alt: "Video of baby moving during the exam" }
       ]
     },
     es: {
@@ -222,6 +244,14 @@ export const examTranslations: Record<string, Record<string, any>> = {
         { q: "¿El morfológico reemplaza el ecocardiograma fetal?", a: "No, son exámenes diferentes. Morfológico evalúa la anatomía básica del corazón; ecocardiograma se enfoca en función y válvulas." },
         { q: "¿Necesito solicitud médica?", a: "Sí, el morfológico generalmente es solicitado por el obstetra como uno de los principales exámenes." },
         { q: "¿Pueden detectarse todas las condiciones?", a: "El examen es más detallado pero no puede detectar el 100% de alteraciones genéticas. Algunas pueden requerir pruebas genéticas adicionales." }
+      ],
+      gallery: [
+        { caption: "Columna vertebral. Evaluación importante para descartar defectos de cierre.", alt: "Columna vertebral fetal vista en el ultrasonido morfológico" },
+        { caption: "Evaluación de las principales arterias del abdomen fetal.", alt: "Arterias del abdomen fetal en el ultrasonido con Doppler" },
+        { caption: "Región de la boca y nariz, para evaluar si hay labio leporino.", alt: "Corte de la nariz y labios fetales en el ultrasonido" },
+        { caption: "Evaluación de las dos manos, para contar los 10 deditos.", alt: "Mano fetal mostrando los cinco dedos en el ultrasonido" },
+        { caption: "Perfil facial. Evaluamos la presencia y medida del hueso nasal y algunas estructuras cerebrales.", alt: "Perfil facial fetal a las 22 semanas en el ultrasonido" },
+        { caption: "Bebé luciendo 💜", alt: "Video del bebé moviéndose durante el examen" }
       ]
     }
   },
