@@ -331,7 +331,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const val = selectedValue ?? (nextAnswers['ob1_e'] as string)
       if (val === 'nao') {
         setBlockedReturnId('ob1_e')
-        setBlockedMessage('Para agendar um ultrassom obstétrico de 1º trimestre é necessário possuir um pedido médico ou um exame de beta-hCG positivo.')
+        setBlockedMessage(t.conversation.blockedMessages.firstTrimesterNoDoc)
         setHistory((h) => [...h, currentId])
         setStep('blocked')
         return
@@ -342,7 +342,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const val = selectedValue ?? (nextAnswers[currentId] as string)
       if (val === 'nao' && !EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) {
         setBlockedReturnId(currentId)
-        setBlockedMessage('Para agendar um ultrassom é necessário possuir um pedido médico ou um resultado de beta-hCG. Assim que tiver em mãos, entre em contato pelo WhatsApp para continuar.')
+        setBlockedMessage(t.conversation.blockedMessages.noDocOrBetaHCG)
         setHistory((h) => [...h, currentId])
         setStep('blocked')
         return
@@ -362,7 +362,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const isEmpty = !q10 || (Array.isArray(q10) && q10.length === 0)
       if (isEmpty) {
         setBlockedReturnId('q10')
-        setBlockedMessage('Para realizar o pré-agendamento é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
+        setBlockedMessage(t.conversation.blockedMessages.mustAttachReferral)
         setHistory((h) => [...h, currentId])
         setStep('blocked')
         return
@@ -373,7 +373,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const isEmpty = !q2f || (Array.isArray(q2f) && q2f.length === 0)
       if (isEmpty) {
         setBlockedReturnId('q2f')
-        setBlockedMessage('Para realizar o pré-agendamento é obrigatório anexar o pedido médico. Assim que tiver o pedido em mãos, volte e tente novamente.')
+        setBlockedMessage(t.conversation.blockedMessages.mustAttachReferral)
         setHistory((h) => [...h, currentId])
         setStep('blocked')
         return
@@ -384,7 +384,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       const isEmpty = !q2g || (Array.isArray(q2g) && q2g.length === 0)
       if (isEmpty) {
         setBlockedReturnId('q2g')
-        setBlockedMessage('Para finalizar o pré-agendamento é necessário anexar o resultado do beta-hCG. Assim que tiver em mãos, volte e complete o formulário.')
+        setBlockedMessage(t.conversation.blockedMessages.mustAttachBetaHCG)
         setHistory((h) => [...h, currentId])
         setStep('blocked')
         return
@@ -406,7 +406,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
           ? 'q2f'
           : 'q10'
         setBlockedReturnId(returnId)
-        setBlockedMessage('Para finalizar o pré-agendamento é obrigatório anexar o pedido médico. Volte e tente novamente.')
+        setBlockedMessage(t.conversation.blockedMessages.finalNoDoc)
         setHistory((h) => [...h, currentId])
         setStep('blocked')
         return
@@ -525,7 +525,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
             {t.conversation.errors.failedPreAgendamento}
           </p>
           <p className="text-muted-foreground font-light text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed">
-            {blockedMessage || 'Para agendar um ultrassom obstétrico, precisamos de pelo menos um destes documentos: pedido médico ou resultado do exame de beta-HCG (no caso de gestação inicial). Assim que tiver um desses documentos em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp.'}
+            {blockedMessage || t.conversation.blockedMessages.fallback}
           </p>
           <a
             href="https://wa.me/5531993910212"
