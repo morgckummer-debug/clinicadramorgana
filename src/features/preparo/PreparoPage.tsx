@@ -15,7 +15,7 @@ export function PreparoPage() {
   const [selected, setSelected] = useState<Exam | null>(null)
 
   return (
-    <PageShell useHistory>
+    <PageShell useHistory backTo="/agendar">
       <SectionHeader
         eyebrow={preparoContent.eyebrow}
         title={t.preparo.title}

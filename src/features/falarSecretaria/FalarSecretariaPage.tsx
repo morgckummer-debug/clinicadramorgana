@@ -24,7 +24,7 @@ export function FalarSecretariaPage() {
     t.falarSecretaria.horario.mensagens[status] ?? t.falarSecretaria.horario.descricaoPadrao
 
   return (
-    <PageShell useHistory>
+    <PageShell useHistory backTo="/agendar">
       <SectionHeader
         eyebrow={t.falarSecretaria.eyebrow}
         title={t.falarSecretaria.title}
