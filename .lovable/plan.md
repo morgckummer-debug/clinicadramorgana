@@ -1,17 +1,28 @@
-## Problema
+## Contexto
 
-`/painel` e `/painel/login` quebram porque o `App.tsx` não envolve as rotas no `AuthProvider`. Como `Login`, `Dashboard` e `Detalhe` chamam `useAuth()`, o hook lança `"useAuth must be used within AuthProvider"` e a página fica em branco. Além disso, faltam rotas para `/painel/:id` (Detalhe) e `/painel/lista-negra`, e o `Dashboard` não está protegido por `ProtectedRoute`.
+O usuário quer adicionar o Google Analytics 4 ao projeto antes de conectar o domínio customizado. O ID da propriedade é **G-7FQ0YH08X1**.
 
-## Correções
+A documentação do Lovable não oferece integração nativa com GA4 (não há campo no Project Settings para isso). A abordagem padrão é inserir o script `gtag.js` diretamente no `<head>` do `index.html`.
 
-1. **`src/App.tsx`**
-   - Importar `AuthProvider` (`@/contexts/AuthContext`) e `ProtectedRoute` (`@/components/painel/ProtectedRoute`).
-   - Lazy-load `PainelDetalhe` (`./pages/painel/Detalhe.tsx`) e `PainelListaNegra` (`./pages/painel/ListaNegra.tsx`).
-   - Envolver `<BrowserRouter>` (ou só o grupo de rotas `/painel*`) com `<AuthProvider>`.
-   - Atualizar rotas do painel:
-     - `/painel/login` → `<PainelLogin />`
-     - `/painel` → `<ProtectedRoute><PainelDashboard /></ProtectedRoute>`
-     - `/painel/lista-negra` → `<ProtectedRoute><PainelListaNegra /></ProtectedRoute>`
-     - `/painel/:id` → `<ProtectedRoute><PainelDetalhe /></ProtectedRoute>`
+## Plano
 
-Sem mudanças em demais rotas, conteúdo ou estilos.
+1. **Inserir o snippet GA4 no `index.html`**
+   - Adicionar o script de carregamento assíncrono do `gtag.js` com o ID `G-7FQ0YH08X1`.
+   - Incluir o script inline de configuração (`gtag('config', 'G-7FQ0YH08X1')`) logo abaixo.
+   - Posicionar no `<head>`, após as meta tags principais e antes das fontes, para garantir que o rastreamento inicie o mais cedo possível.
+
+2. **Verificar consistência**
+   - Confirmar que não há conflitos com outros scripts de terceiros já presentes no `<head>`.
+
+## O que será alterado
+
+- `index.html`: adição do snippet GA4 oficial do Google.
+
+## Não será alterado
+
+- Nenhum outro arquivo do projeto.
+- Nenhuma configuração de backend ou roteamento.
+
+## Nota sobre o domínio
+
+Quando o domínio `dramorgana.com.br` for conectado posteriormente, o GA4 continuará funcionando normalmente desde que o mesmo ID de propriedade seja mantido. O histórico de dados do GA4 fica no Google, não no servidor. A propriedade atual (`clinicadramorgana.lovable.app`) e o domínio futuro podem compartilhar o mesmo ID GA4 sem perda de dados.
