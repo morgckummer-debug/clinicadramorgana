@@ -3,6 +3,7 @@ import { Download, MessageCircle } from 'lucide-react'
 import { InfoModal, type ModalAction } from '@/components/common/InfoModal'
 import { ChoiceModal } from '@/components/common/ChoiceModal'
 import { InfoBlockList } from '@/components/common/InfoBlockList'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { preparoContent } from '@/content/preparo'
 import { commonContent } from '@/content/common'
 import { whatsappComMensagem } from '@/lib/contato'
@@ -17,6 +18,7 @@ type PreparoFlowProps = {
 }
 
 export function PreparoFlow({ exam, onClose }: PreparoFlowProps) {
+  const { t } = useLanguage()
   const [variantId, setVariantId] = useState<string | null>(null)
   const [generating, setGenerating] = useState(false)
   const posterRef = useRef<HTMLDivElement>(null)
@@ -62,8 +64,8 @@ export function PreparoFlow({ exam, onClose }: PreparoFlowProps) {
       <ChoiceModal
         open
         onOpenChange={(o) => !o && close()}
-        title={preparoContent.periodoModal.titulo}
-        description={preparoContent.periodoModal.descricao}
+        title={t.preparo.periodoTitle}
+        description={t.preparo.periodoDesc}
         options={exam.variants.map((v) => ({
           id: v.id,
           label: v.label,
@@ -80,7 +82,7 @@ export function PreparoFlow({ exam, onClose }: PreparoFlowProps) {
     ? [
         {
           label: commonContent.falarComSecretaria,
-          href: whatsappComMensagem(preparoContent.whatsappMensagem),
+          href: whatsappComMensagem(t.preparo.whatsappMsg),
           external: true,
           icon: MessageCircle,
         },

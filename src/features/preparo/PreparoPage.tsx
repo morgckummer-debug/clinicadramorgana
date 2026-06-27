@@ -4,20 +4,22 @@ import { SectionHeader } from '@/components/common/SectionHeader'
 import { OptionGrid } from '@/components/common/OptionGrid'
 import { OptionCard } from '@/components/common/OptionCard'
 import { CalloutCard } from '@/components/common/CalloutCard'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { preparoContent } from '@/content/preparo'
 import { whatsappComMensagem } from '@/lib/contato'
 import { EXAMS, type Exam } from '@/data/preparos/exams'
 import { PreparoFlow } from './PreparoFlow'
 
 export function PreparoPage() {
+  const { t } = useLanguage()
   const [selected, setSelected] = useState<Exam | null>(null)
 
   return (
     <PageShell useHistory>
       <SectionHeader
         eyebrow={preparoContent.eyebrow}
-        title={preparoContent.title}
-        subtitle={preparoContent.subtitle}
+        title={t.preparo.title}
+        subtitle={t.preparo.subtitle}
       />
 
       <OptionGrid>
@@ -32,10 +34,10 @@ export function PreparoPage() {
       </OptionGrid>
 
       <CalloutCard
-        question={preparoContent.callout.pergunta}
-        description={preparoContent.callout.descricao}
-        cta={preparoContent.callout.cta}
-        href={whatsappComMensagem(preparoContent.whatsappMensagem)}
+        question={t.preparo.calloutTitle}
+        description={t.preparo.calloutDesc}
+        cta={t.preparo.calloutCta}
+        href={whatsappComMensagem(t.preparo.whatsappMsg)}
         external
       />
 
