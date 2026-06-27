@@ -856,4 +856,3 @@ export function getTranslatedExamField<T = any>(
   if (!localized) return fallback;
   return (localized[field] ?? fallback) as T;
 }
-
