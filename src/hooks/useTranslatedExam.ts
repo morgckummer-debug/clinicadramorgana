@@ -2,9 +2,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Exam } from '@/data/exams';
 import { getTranslatedExamField } from '@/data/exams.translations';
 
-export function useTranslatedExam(exam: Exam): Exam {
-  const { lang } = useLanguage();
-
+export function translateExam(exam: Exam, lang: string): Exam {
   if (lang === 'pt') return exam;
 
   const f = <T>(field: string, fallback: T): T =>
@@ -34,4 +32,9 @@ export function useTranslatedExam(exam: Exam): Exam {
   translatedExam.faq = translatedFaq || exam.faq;
 
   return translatedExam;
+}
+
+export function useTranslatedExam(exam: Exam): Exam {
+  const { lang } = useLanguage();
+  return translateExam(exam, lang);
 }
