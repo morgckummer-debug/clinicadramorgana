@@ -2,11 +2,12 @@ import { ConversationLayout } from '@/components/conversation/ConversationLayout
 import { ConversationEngine } from '@/components/conversation/ConversationEngine'
 import { preAgendamentoFlow } from '@/data/conversation/preAgendamento'
 import { preAgendamentoFlowES } from '@/data/conversation/preAgendamento.es'
+import { preAgendamentoFlowEN } from '@/data/conversation/preAgendamento.en'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function PreAgendamento() {
   const { lang } = useLanguage()
-  const flow = lang === 'es' ? preAgendamentoFlowES : preAgendamentoFlow
+  const flow = lang === 'es' ? preAgendamentoFlowES : lang === 'en' ? preAgendamentoFlowEN : preAgendamentoFlow
 
   return (
     <ConversationLayout>
