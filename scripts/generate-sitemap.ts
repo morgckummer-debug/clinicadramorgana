@@ -1,6 +1,5 @@
-import { writeFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
-import { exams } from "../src/data/exams";
 
 const BASE_URL = "https://clinicadramorgana.lovable.app";
 
@@ -13,7 +12,7 @@ interface SitemapEntry {
 
 const today = new Date().toISOString().split("T")[0];
 
-const entries: SitemapEntry[] = [
+const staticEntries: SitemapEntry[] = [
   { path: "/", lastmod: today, changefreq: "weekly", priority: "1.0" },
   { path: "/videos", changefreq: "monthly", priority: "0.7" },
   { path: "/agendar", changefreq: "monthly", priority: "0.7" },
@@ -23,25 +22,35 @@ const entries: SitemapEntry[] = [
   { path: "/falar-secretaria", changefreq: "monthly", priority: "0.6" },
 ];
 
-// Dynamic exam pages
-for (const exam of exams) {
-  entries.push({
-    path: `/exames/${exam.slug}`,
+// Extract slugs from src/data/exams.ts without importing it (avoids asset loaders)
+const examsPath = resolve("src/data/exams.ts");
+const examsText = readFileSync(examsPath, "utf-8");
+
+const slugMatches = [...examsText.matchAll(/slug:\s*"([^"]+)"/g)];
+const legacyMatches = [...examsText.matchAll(/legacySlug:\s*"([^"]+)"/g)];
+
+const examSlugs = [...new Set(slugMatches.map((m) => m[1]))];
+const legacySlugs = [...new Set(legacyMatches.map((m) => m[1]))];
+
+const dynamicEntries: SitemapEntry[] = [];
+
+for (const slug of examSlugs) {
+  dynamicEntries.push({
+    path: `/exames/${slug}`,
     changefreq: "monthly",
     priority: "0.8",
   });
 }
 
-// Legacy routes for SEO preservation
-for (const exam of exams) {
-  if (exam.legacySlug) {
-    entries.push({
-      path: exam.legacySlug,
-      changefreq: "monthly",
-      priority: "0.5",
-    });
-  }
+for (const slug of legacySlugs) {
+  dynamicEntries.push({
+    path: slug,
+    changefreq: "monthly",
+    priority: "0.5",
+  });
 }
+
+const entries = [...staticEntries, ...dynamicEntries];
 
 function escapeXml(str: string): string {
   return str
