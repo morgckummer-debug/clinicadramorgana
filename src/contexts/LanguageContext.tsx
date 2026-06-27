@@ -477,6 +477,12 @@ const translations = {
       preparation: "Preparation",
       duration: "Duration",
       whatToBring: "What to bring",
+      homeImage: "Exam images",
+      faq: "Frequently asked questions",
+      backHome: "Back to home",
+      scheduleExam: "Ready to book your",
+      responseTime: "Response within 1 hour during business hours",
+      homeButton: "Back to home",
     },
     patientPortal: {
       eyebrow: "Patient portal",
