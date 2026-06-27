@@ -63,7 +63,7 @@ export function ComoChegarPage() {
       }
 
   return (
-    <PageShell useHistory>
+    <PageShell useHistory backTo="/agendar">
       <SectionHeader
         eyebrow={t.comoChegar.eyebrow}
         title={t.comoChegar.title}

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import { commonContent } from '@/content/common'
@@ -20,10 +20,12 @@ export function PageShell({
   useHistory = false,
 }: PageShellProps) {
   const navigate = useNavigate()
+  const location = useLocation()
   const isExternal = backTo.startsWith('http')
 
+  // location.key is "default" only on first load (no internal navigation history)
   const handleBack = () => {
-    if (useHistory) navigate(-1)
+    if (useHistory && location.key !== 'default') navigate(-1)
     else navigate(backTo)
   }
 
