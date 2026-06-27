@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { ConversationFlow, examsByCategory } from '@/data/conversation/preAgendamento'
 import { supabasePublic as supabase } from '@/lib/supabase'
 import { isValidDateBR, isValidCPF } from '@/lib/utils'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { ConversationHeader } from './ConversationHeader'
 import { ProgressBar } from './ProgressBar'
 import { WelcomeScreen } from './WelcomeScreen'
@@ -171,6 +172,7 @@ function q10JaRespondido(answers: Record<string, string | string[]>): boolean {
 }
 
 export function ConversationEngine({ flow }: ConversationEngineProps) {
+  const { t } = useLanguage()
   const [step, setStep] = useState<Step>('welcome')
   const [currentId, setCurrentId] = useState(flow.firstQuestion)
   const [history, setHistory] = useState<string[]>([])
@@ -483,13 +485,13 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
       <>
         <ConversationHeader />
         <div className="animate-fade-up text-center py-12 px-4">
-          <p className="text-wine-deep font-comfortaa text-xl mb-3">Algo deu errado</p>
+          <p className="text-wine-deep font-comfortaa text-xl mb-3">{t.common.error}</p>
           <p className="text-muted-foreground font-light text-sm mb-3 leading-relaxed">
-            Não conseguimos registrar suas informações agora. Tente novamente em alguns instantes ou entre em contato pelo WhatsApp.
+            {t.common.errorMessage}
           </p>
           {saveErrorMessage && (
             <p className="text-[11px] text-muted-foreground/70 font-light mb-8 italic">
-              Detalhe: {saveErrorMessage}
+              {t.common.detail} {saveErrorMessage}
             </p>
           )}
           <div className="flex flex-col items-center gap-4">
@@ -497,7 +499,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
               onClick={() => { setSaveErrorMessage(''); setStep('question') }}
               className="text-[11px] tracking-[0.2em] uppercase text-wine-deep underline underline-offset-4"
             >
-              Tentar novamente
+              {t.common.tryAgain}
             </button>
             <a
               href="https://wa.me/5531993910212"
@@ -505,7 +507,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold"
               style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
             >
-              Falar pelo WhatsApp
+              {t.common.chat}
             </a>
           </div>
         </div>
@@ -520,7 +522,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
         <div className="animate-fade-up text-center py-8 sm:py-12 px-3 sm:px-4">
           <div className="mb-4 sm:mb-6 text-3xl sm:text-4xl">⚠️</div>
           <p className="text-wine-deep font-comfortaa text-lg sm:text-xl mb-2 sm:mb-3 font-light">
-            Não conseguimos finalizar o pré-agendamento
+            {t.conversation.errors.failedPreAgendamento}
           </p>
           <p className="text-muted-foreground font-light text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed">
             {blockedMessage || 'Para agendar um ultrassom obstétrico, precisamos de pelo menos um destes documentos: pedido médico ou resultado do exame de beta-HCG (no caso de gestação inicial). Assim que tiver um desses documentos em mãos, entre em contato diretamente com nossa equipe pelo WhatsApp.'}
@@ -531,7 +533,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
             className="inline-flex items-center gap-2 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full text-[10px] sm:text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 shadow-soft whitespace-nowrap"
             style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >
-            Falar pelo WhatsApp
+            {t.common.chat}
           </a>
           <div className="mt-8">
             <button
@@ -539,7 +541,7 @@ export function ConversationEngine({ flow }: ConversationEngineProps) {
               onClick={() => { setStep('question'); setCurrentId(blockedReturnId) }}
               className="text-[10px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide underline underline-offset-4"
             >
-              {['q2f', 'q2g', 'q10'].includes(blockedReturnId) ? 'Voltar e anexar documento' : 'Tentar novamente'}
+              {['q2f', 'q2g', 'q10'].includes(blockedReturnId) ? t.conversation.errors.returnAndAttachDoc : t.common.tryAgain}
             </button>
           </div>
         </div>

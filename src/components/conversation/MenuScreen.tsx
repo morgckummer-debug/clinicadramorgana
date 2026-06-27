@@ -1,5 +1,6 @@
 import { ArrowRight, CalendarDays, MapPin, FileText, MessageCircle } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const MAPS_URL =
   'https://www.google.com/maps?ll=-19.464006,-44.240331&z=18&t=m&hl=pt-BR&gl=US&mapclient=embed&q=R.+C%C3%A2ndido+Azeredo,+41a+-+Centro+Sete+Lagoas+-+MG+35700-019'
@@ -19,30 +20,31 @@ interface MenuScreenProps {
 
 export function MenuScreen({ onAgendar }: MenuScreenProps) {
   const navigate = useNavigate()
+  const { t } = useLanguage()
 
   const options: MenuOption[] = [
     {
       icon: <CalendarDays className="w-5 h-5" />,
-      label: 'Agendar ultrassom',
+      label: t.conversation.menu.option1,
       description: 'Preencha o formulário rápido e nossa equipe entra em contato.',
       action: onAgendar,
       highlight: true,
     },
     {
       icon: <MapPin className="w-5 h-5" />,
-      label: 'Como chegar na clínica',
+      label: t.conversation.menu.option2,
       description: 'Veja nossa localização no mapa.',
       action: () => window.open(MAPS_URL, '_blank', 'noopener,noreferrer'),
     },
     {
       icon: <FileText className="w-5 h-5" />,
-      label: 'Preparo de exames',
+      label: t.conversation.menu.option3,
       description: 'Veja as orientações antes do seu exame.',
       action: () => navigate('/exames'),
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,
-      label: 'Outra opção',
+      label: t.conversation.menu.option4,
       description: 'Fale diretamente com nossa equipe pelo WhatsApp.',
       action: () => window.open(WHATSAPP_URL, 'whatsapp'),
     },
@@ -52,10 +54,10 @@ export function MenuScreen({ onAgendar }: MenuScreenProps) {
     <div className="animate-fade-up">
       <div className="mb-6 sm:mb-8">
         <h2 className="font-comfortaa text-wine-deep text-[clamp(1.2rem,4vw,1.8rem)] font-light leading-[1.2] mb-2">
-          Como posso te ajudar?
+          {t.conversation.menu.title}
         </h2>
         <p className="text-foreground/60 font-light text-xs sm:text-sm">
-          Selecione uma das opções abaixo.
+          {t.conversation.menu.subtitle}
         </p>
       </div>
 
