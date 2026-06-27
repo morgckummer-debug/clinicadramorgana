@@ -13,7 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useTranslatedExam } from "@/hooks/useTranslatedExam";
+import { useTranslatedExam, translateExam } from "@/hooks/useTranslatedExam";
 import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -79,7 +79,7 @@ function resolveIntro(exam: Exam): { tagline: string; intro: string; image?: str
 
 const ExamDetail = () => {
   const { pathname } = useLocation();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const baseExam = getExamByPath(pathname);
   const exam = useTranslatedExam(baseExam || ({} as Exam));
 
@@ -125,7 +125,7 @@ const ExamDetail = () => {
     .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
   const related = sameCategory.length
     ? Array.from({ length: Math.min(3, sameCategory.length) }, (_, i) =>
-        sameCategory[(rotationOffset + i) % sameCategory.length],
+        translateExam(sameCategory[(rotationOffset + i) % sameCategory.length], lang),
       )
     : [];
 
@@ -309,7 +309,7 @@ const ExamDetail = () => {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
               <div>
                 <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
-                  {t.examDetail.relatedLabel} · {exam.category}
+                  {t.examDetail.relatedLabel} · {t.exams?.categoryNames?.[exam.category] ?? exam.category}
                 </span>
                 <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light">
                   {t.examDetail.relatedTitle} <span className="italic">{t.examDetail.relatedText}</span>.
@@ -331,7 +331,7 @@ const ExamDetail = () => {
                   className="group bg-card rounded-2xl border border-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1 p-6 flex flex-col"
                 >
                   <div className="text-[10px] tracking-[0.3em] uppercase text-wine mb-3">
-                    {r.category}
+                    {t.exams?.categoryNames?.[r.category] ?? r.category}
                   </div>
                   <h3 className="text-lg text-wine-deep font-bold">{r.title}</h3>
                   <p className="mt-3 text-sm text-muted-foreground font-light leading-relaxed flex-1">
