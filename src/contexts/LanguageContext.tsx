@@ -213,6 +213,13 @@ const translations = {
       clinicImage: "Fachada da Clínica Dra. Morgana",
       clinicImageCaption: "Clínica de Ultrassom Dra. Morgana Kummer",
       clinicAddress: "Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG",
+      cards: {
+        estacionamento: { titulo: "Estacionamento", descricao: "Há opções de estacionamento próximas à clínica. Toque para ver o mapa.", actionLabel: "Ver mapa" },
+        acessibilidade: { titulo: "Acessibilidade", descricao: "Cadeirantes podem acessar a clínica (2º andar) pelo elevador do COE — Centro Odontológico, localizado no andar inferior do mesmo prédio. É necessário entrar pelo COE para utilizar o elevador. Atenção: o elevador não está disponível no horário de almoço." },
+        antecedencia: { titulo: "Chegue com antecedência", descricao: "Recomendamos chegar cerca de 15 minutos antes do horário agendado para realizar seu atendimento com tranquilidade." },
+        documentos: { titulo: "Documentos", descricao: "No dia do exame, lembre-se de trazer documento de identificação, pedido médico (quando houver) e exames anteriores relacionados." },
+        ajuda: { titulo: "Precisa de ajuda?", descricao: "Caso ainda tenha alguma dúvida, nossa equipe terá prazer em ajudar.", actionLabel: "Falar com a nossa equipe" },
+      },
     },
     falarSecretaria: {
       eyebrow: "Fale conosco",
@@ -531,6 +538,13 @@ const translations = {
       clinicImage: "Facade of Dr. Morgana Clinic",
       clinicImageCaption: "Dr. Morgana Kummer Ultrasound Clinic",
       clinicAddress: "Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG",
+      cards: {
+        estacionamento: { titulo: "Parking", descricao: "There are parking options near the clinic. Tap to view the map.", actionLabel: "View map" },
+        acessibilidade: { titulo: "Accessibility", descricao: "Wheelchair users can access the clinic (2nd floor) via the COE elevator — Centro Odontológico, located on the ground floor of the same building. You must enter through the COE to use the elevator. Note: the elevator is not available during the lunch break." },
+        antecedencia: { titulo: "Arrive early", descricao: "We recommend arriving about 15 minutes before your scheduled appointment to ensure a smooth experience." },
+        documentos: { titulo: "Documents", descricao: "On the day of your exam, remember to bring a photo ID, your medical referral (if applicable) and any related previous exams." },
+        ajuda: { titulo: "Need help?", descricao: "If you still have any questions, our team will be happy to assist you.", actionLabel: "Talk to our team" },
+      },
     },
     falarSecretaria: {
       eyebrow: "Get in touch",
@@ -815,6 +829,13 @@ const translations = {
       clinicImage: "Fachada de la Clínica Dra. Morgana",
       clinicImageCaption: "Clínica de Ultrasonido Dra. Morgana Kummer",
       clinicAddress: "Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG",
+      cards: {
+        estacionamento: { titulo: "Estacionamiento", descricao: "Hay opciones de estacionamiento cerca de la clínica. Toca para ver el mapa.", actionLabel: "Ver mapa" },
+        acessibilidade: { titulo: "Accesibilidad", descricao: "Las personas en silla de ruedas pueden acceder a la clínica (2.º piso) mediante el ascensor del COE — Centro Odontológico, ubicado en la planta baja del mismo edificio. Es necesario entrar por el COE para usar el ascensor. Atención: el ascensor no está disponible durante el horario de almuerzo." },
+        antecedencia: { titulo: "Llegue con anticipación", descricao: "Recomendamos llegar unos 15 minutos antes de la hora programada para realizar tu atención con tranquilidad." },
+        documentos: { titulo: "Documentos", descricao: "El día del examen, recuerda traer documento de identificación, orden médica (cuando corresponda) y exámenes anteriores relacionados." },
+        ajuda: { titulo: "¿Necesitas ayuda?", descricao: "Si aún tienes alguna duda, nuestro equipo tendrá gusto en ayudarte.", actionLabel: "Hablar con nuestro equipo" },
+      },
     },
     falarSecretaria: {
       eyebrow: "Ponte en contacto",
