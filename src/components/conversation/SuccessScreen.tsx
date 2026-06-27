@@ -1,6 +1,46 @@
 import { CheckCircle2 } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
+
+const successText = {
+  pt: {
+    eyebrow: 'Tudo certo',
+    title: <>
+      <span className="whitespace-nowrap">Pré-agendamento</span><br />realizado!
+    </>,
+    body: <>
+      Recebemos sua solicitação com sucesso.{' '}
+      <strong className="text-foreground/90 font-medium">O agendamento ainda não está confirmado</strong>{' '}
+      — nossa equipe entrará em contato para verificar disponibilidade e confirmar o horário.
+    </>,
+  },
+  en: {
+    eyebrow: 'All done',
+    title: <>
+      <span className="whitespace-nowrap">Pre-booking</span><br />submitted!
+    </>,
+    body: <>
+      We received your request successfully.{' '}
+      <strong className="text-foreground/90 font-medium">The booking is not yet confirmed</strong>{' '}
+      — our team will get in touch to check availability and confirm your appointment.
+    </>,
+  },
+  es: {
+    eyebrow: 'Todo listo',
+    title: <>
+      <span className="whitespace-nowrap">Pre-reserva</span><br />realizada!
+    </>,
+    body: <>
+      Recibimos tu solicitud con éxito.{' '}
+      <strong className="text-foreground/90 font-medium">La reserva aún no está confirmada</strong>{' '}
+      — nuestro equipo se pondrá en contacto para verificar disponibilidad y confirmar el horario.
+    </>,
+  },
+}
 
 export function SuccessScreen() {
+  const { lang } = useLanguage()
+  const text = successText[lang as keyof typeof successText] ?? successText.pt
+
   return (
     <div className="animate-fade-up text-center">
       <div className="flex justify-center mb-8">
@@ -10,26 +50,16 @@ export function SuccessScreen() {
       </div>
 
       <span className="inline-block text-[10px] tracking-[0.4em] uppercase text-wine font-medium mb-4">
-        Tudo certo
+        {text.eyebrow}
       </span>
 
       <h2 className="font-comfortaa text-wine-deep text-xl sm:text-2xl md:text-3xl font-light leading-[1.3] mb-4 mx-auto">
-        <span className="whitespace-nowrap">Pré-agendamento</span><br />realizado!
+        {text.title}
       </h2>
 
-      <p className="text-foreground/70 font-light text-sm leading-relaxed text-balance mb-10 max-w-sm mx-auto">
-        Recebemos sua solicitação com sucesso. <strong className="text-foreground/90 font-medium">O agendamento ainda não está confirmado</strong> — nossa equipe entrará em contato para verificar disponibilidade e confirmar o horário.
+      <p className="text-foreground/70 font-light text-base sm:text-lg leading-relaxed text-balance max-w-sm mx-auto">
+        {text.body}
       </p>
-
-      <div className="space-y-3">
-        <a
-          href="https://wa.me/5531993910212"
-          target="whatsapp"
-          className="flex items-center justify-center w-full gap-2.5 bg-wine-deep text-wine-foreground px-7 py-3.5 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold transition-all duration-500 hover:bg-wine shadow-soft hover:shadow-elegant"
-        >
-          Falar com a equipe agora
-        </a>
-      </div>
     </div>
   )
 }
