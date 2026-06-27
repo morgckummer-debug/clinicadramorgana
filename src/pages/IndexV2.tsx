@@ -124,8 +124,6 @@ export const Navbar = () => {
     { href: "#contato",      label: t.nav.contato },
   ];
 
-  const preAgendamentoLabel = "Pré-Agendamento";
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
@@ -268,7 +266,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-500 shadow-elegant"
               style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
             >
-              Faça aqui o seu pré-agendamento <ArrowRight className="w-4 h-4" />
+              {t.hero.preAgendamento} <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href="#exames"
