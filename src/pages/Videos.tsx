@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import { Navbar, Footer, WhatsAppFab } from "@/pages/IndexV2";
 
 const setMeta = (name: string, content: string) => {
@@ -65,6 +67,15 @@ const Videos = () => {
 
       <main className="pt-32 pb-20">
         <section className="container max-w-3xl">
+          <div className="flex justify-between items-start mb-12">
+            <Link
+              to="/"
+              className="flex items-center gap-2 text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 text-sm font-medium"
+            >
+              <ArrowLeft size={18} />
+              Voltar
+            </Link>
+          </div>
           <div className="text-center mb-12">
             <span className="text-[10px] tracking-[0.35em] uppercase text-wine-deep/60">
               Área exclusiva
