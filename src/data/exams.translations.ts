@@ -843,3 +843,17 @@ export const examTranslations: Record<string, Record<string, any>> = {
   }
 ,
 };
+
+export function getTranslatedExamField<T = any>(
+  slug: string,
+  field: string,
+  lang: string,
+  fallback: T
+): T {
+  const entry = examTranslations[slug];
+  if (!entry) return fallback;
+  const localized = entry[lang];
+  if (!localized) return fallback;
+  return (localized[field] ?? fallback) as T;
+}
+
