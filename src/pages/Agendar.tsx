@@ -1,9 +1,53 @@
 import { Link } from 'react-router-dom'
 import { MessageCircle, Bot, ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const WHATSAPP_URL = 'https://wa.me/5531993910212'
 
 export default function Agendar() {
+  const { lang } = useLanguage()
+
+  const translations = {
+    pt: {
+      backToSite: 'Voltar ao site',
+      title: 'Como você prefere ser atendido(a)?',
+      subtitle: 'Escolha a opção que for mais confortável para você.',
+      preBookingBadge: 'Recomendado',
+      preBookingTitle: 'Pré-Agendamento',
+      preBookingSubtitle: 'Assistente Virtual MK',
+      preBookingDesc: 'Responda algumas perguntas em cerca de 3 minutos. Nossa equipe receberá todas as informações necessárias e entrará em contato com as melhores opções de horário.',
+      preBookingButton: 'Começar',
+      whatsappDesc: 'Falar diretamente com nossa equipe pelo WhatsApp.',
+      whatsappButton: 'Abrir WhatsApp',
+    },
+    en: {
+      backToSite: 'Back to site',
+      title: 'How would you prefer to be assisted?',
+      subtitle: 'Choose the option that is most comfortable for you.',
+      preBookingBadge: 'Recommended',
+      preBookingTitle: 'Pre-Booking',
+      preBookingSubtitle: 'MK Virtual Assistant',
+      preBookingDesc: 'Answer a few quick questions in about 3 minutes. Our team will receive all necessary information and contact you with the best available times.',
+      preBookingButton: 'Start',
+      whatsappDesc: 'Talk directly with our team via WhatsApp.',
+      whatsappButton: 'Open WhatsApp',
+    },
+    es: {
+      backToSite: 'Volver al sitio',
+      title: '¿Cómo prefieres ser atendido(a)?',
+      subtitle: 'Elige la opción que sea más cómoda para ti.',
+      preBookingBadge: 'Recomendado',
+      preBookingTitle: 'Pre-Reserva',
+      preBookingSubtitle: 'Asistente Virtual MK',
+      preBookingDesc: 'Responde algunas preguntas rápidas en aproximadamente 3 minutos. Nuestro equipo recibirá toda la información necesaria y se pondrá en contacto con las mejores opciones de horarios.',
+      preBookingButton: 'Comenzar',
+      whatsappDesc: 'Habla directamente con nuestro equipo por WhatsApp.',
+      whatsappButton: 'Abrir WhatsApp',
+    },
+  }
+
+  const t = translations[lang] || translations.pt
+
   return (
     <div className="min-h-screen bg-[#faf8f5] flex flex-col">
       {/* Header mínimo */}
@@ -15,7 +59,7 @@ export default function Agendar() {
           to="/"
           className="text-[10px] tracking-[0.25em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
         >
-          Voltar ao site
+          {t.backToSite}
         </Link>
       </header>
 
@@ -24,10 +68,10 @@ export default function Agendar() {
         <div className="w-full max-w-2xl">
           <div className="mb-10 text-center">
             <h1 className="font-comfortaa text-wine-deep text-[clamp(1.6rem,5vw,2.4rem)] font-light leading-[1.2] mb-3">
-              Como você prefere ser atendido(a)?
+              {t.title}
             </h1>
             <p className="text-foreground/60 font-light text-base">
-              Escolha a opção que for mais confortável para você.
+              {t.subtitle}
             </p>
           </div>
 
@@ -39,7 +83,7 @@ export default function Agendar() {
             >
               {/* Selo de destaque */}
               <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#5B2D8E] text-white text-[9px] tracking-[0.3em] uppercase font-semibold px-4 py-1.5 rounded-full whitespace-nowrap">
-                Recomendado
+                {t.preBookingBadge}
               </span>
 
               <div className="w-12 h-12 rounded-2xl bg-[#5B2D8E]/10 flex items-center justify-center mb-5">
@@ -47,19 +91,19 @@ export default function Agendar() {
               </div>
 
               <p className="text-[11px] tracking-[0.25em] uppercase text-[#5B2D8E] font-medium mb-1">
-                Pré-Agendamento
+                {t.preBookingTitle}
               </p>
               <p className="text-sm font-medium text-wine-deep mb-2">
-                Assistente Virtual MK
+                {t.preBookingSubtitle}
               </p>
               <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6 flex-1">
-                Responda algumas perguntas em cerca de 3 minutos. Nossa equipe receberá todas as informações necessárias e entrará em contato com as melhores opções de horário.
+                {t.preBookingDesc}
               </p>
               <span
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300 w-full justify-center"
                 style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
               >
-                Começar <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
+                {t.preBookingButton} <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
               </span>
             </Link>
 
@@ -73,10 +117,10 @@ export default function Agendar() {
                 <MessageCircle className="w-6 h-6 text-[#25D366]" strokeWidth={1.5} />
               </div>
               <p className="text-foreground/70 font-light text-sm leading-relaxed mb-6 flex-1">
-                Falar diretamente com nossa equipe pelo WhatsApp.
+                {t.whatsappDesc}
               </p>
               <span className="inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-colors duration-300 w-full justify-center">
-                <MessageCircle className="w-3.5 h-3.5" /> Abrir WhatsApp
+                <MessageCircle className="w-3.5 h-3.5" /> {t.whatsappButton}
               </span>
             </a>
           </div>

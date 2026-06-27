@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
-export type Lang = "pt" | "en";
+export type Lang = "pt" | "en" | "es";
 
 const translations = {
   pt: {
@@ -299,6 +299,138 @@ const translations = {
       buttonAriaLabel: "Discover exclusive care with Dr. Morgana (opens in new tab)",
     },
   },
+  es: {
+    nav: {
+      exames: "Exámenes",
+      corpoClinico: "Equipo Médico",
+      convenios: "Planes de Salud",
+      videos: "Vídeos",
+      contato: "Contacto",
+      menuAriaLabel: "Menú",
+      langAriaLabel: "Cambiar a Portugués",
+    },
+    hero: {
+      location: "Sete Lagoas · Minas Gerais",
+      clinicLabel: "Clínica de Ultrasonido",
+      videoAriaLabel: "Vídeo de la Clínica Dra. Morgana Kummer",
+      description:
+        "Diagnóstico por imagen en ultrasonido general, obstétrico y vascular — con precisión técnica y la sensibilidad que cada momento único merece.",
+      ctaWhatsApp: "Reservar por WhatsApp",
+      ctaExames: "Ver exámenes",
+      preAgendamento: "Reserva tu cita aquí",
+      badge1: "Informes el mismo día",
+      badge2: "Atención humanizada",
+      badge3: "Equipos de última generación",
+    },
+    quote: {
+      label: "Filosofía",
+      textBefore:
+        "Convertir el cuidado y la tecnología en momentos inolvidables siempre ha sido mi ",
+      highlight: "mayor sueño",
+      textAfter: ".",
+    },
+    about: {
+      label: "Acerca de la Clínica",
+      titleBefore: "Tecnología que ",
+      titleItalic: "acoge",
+      titleAfter: ".",
+      statsNumber: "+50 mil",
+      statsLabel: "pacientes atendidos",
+      p1: "Referencia en ultrasonido en Sete Lagoas, ofrecemos diagnóstico por imagen con rigor técnico y atención profundamente humana — en un espacio pensado para que cada paciente se sienta verdaderamente cuidado.",
+      p2before: "Desde ",
+      p2year: "2017",
+      p2mid: ", hemos tenido la alegría de cuidar a ",
+      p2highlight: "más de 50 mil pacientes",
+      p2after:
+        " — hombres, mujeres y sus familias — recibiendo a cada uno con escucha atenta y el mismo cuidado que desearíamos para los nuestros.",
+    },
+    exams: {
+      label: "Exámenes Disponibles",
+      titleBefore: "Cada examen, un ",
+      titleItalic: "cuidado propio",
+      titleAfter: ".",
+      description:
+        "Procedimientos en equipos de última generación, con informe detallado entregado en el momento.",
+      categoryNames: {
+        "Obstétrico": "Obstétrico",
+        "Ginecológico": "Ginecológico",
+        "Medicina Interna": "Medicina Interna",
+        "Vascular": "Vascular",
+        "Tireóide e Cervical": "Tiroides y Cervical",
+        "Pediátrico": "Pediátrico",
+      } as Record<string, string>,
+      categoryDescriptions: {
+        "Obstétrico": "Seguimiento gestacional completo, del primer al último trimestre.",
+        "Ginecológico": "Salud de la mujer evaluada con sensibilidad y precisión.",
+        "Medicina Interna": "Ultrasonidos generales para diagnóstico amplio y preciso.",
+        "Vascular": "Duplex y Doppler para arterias y venas con lectura precisa del flujo.",
+        "Tireóide e Cervical": "Evaluación detallada de la tiroides, región cervical y glándulas salivales.",
+        "Pediátrico": "Evaluación completa para pacientes pediátricos.",
+      } as Record<string, string>,
+      examTitles: {} as Record<string, string>,
+    },
+    cta: {
+      label: "Reserva tu cita",
+      titleBefore: "El cuidado comienza con una ",
+      titleItalic: "conversación",
+      titleAfter: ".",
+      description:
+        "Reserva exclusiva por WhatsApp. Respuestas rápidas y horarios flexibles para ajustarse a tu momento.",
+      button: "Habla ahora",
+    },
+    team: {
+      label: "Nuestro Equipo",
+      titleBefore: "Médicos que hacen la ",
+      titleItalic: "diferencia",
+      titleAfter: ".",
+      description:
+        "Profesionales especializados, comprometidos con excelencia diagnóstica y atención humanizada.",
+      roles: {
+        "Ultrassom Geral, Obstétrico e Medicina Fetal": "Ultrasonido General, Obstétrico y Medicina Fetal",
+        "Ultrassom Geral e Obstétrico": "Ultrasonido General y Obstétrico",
+        "Medicina Fetal e Ecocardiografia": "Medicina Fetal y Ecocardiografía",
+        "Ultrassom Pediátrico": "Ultrasonido Pediátrico",
+        "Ultrassom Vascular": "Ultrasonido Vascular",
+      } as Record<string, string>,
+    },
+    convenios: {
+      label: "Planes de Salud",
+      titleBefore: "Aceptamos los ",
+      titleItalic: "principales planes",
+      titleAfter: ".",
+      note: "También atendemos en formato particular.",
+    },
+    contact: {
+      label: "Contacto",
+      titleBefore: "Hablemos sobre tu ",
+      titleItalic: "momento",
+      titleAfter: ".",
+      addressLabel: "Dirección",
+      addressValue: "Rua Cândido Azeredo, 41A — Centro, Sete Lagoas/MG",
+      whatsappLabel: "WhatsApp",
+      hoursLabel: "Horario de Funcionamiento",
+      hoursValue: "Lunes a Viernes · 7h — 18h\nSábado · 7h30 — 12h",
+      instagramLabel: "Instagram",
+      mapsAriaLabel: "Abrir dirección en Google Maps",
+      mapTitle: "Ubicación de la Clínica Dra. Morgana Kummer",
+      addressShort: "Rua Cândido Azeredo, 41A — Centro",
+      openLabel: "Abrir",
+    },
+    footer: {
+      tagline: "Para momentos importantes, cuidados únicos.",
+      logoAlt: "Logo Clínica Dra. Morgana Kummer",
+      copy: "Clínica Dra. Morgana Kummer · Sete Lagoas / MG",
+    },
+    premium: {
+      label: "Atención exclusiva",
+      titleBefore: "Una experiencia diferenciada con la",
+      titleName: "Dra. Morgana",
+      description:
+        "Ultrasonido general y medicina fetal realizados con precisión técnica, tiempo dedicado y la sensibilidad que cada imagen merece.",
+      button: "Descubre la atención exclusiva",
+      buttonAriaLabel: "Descubre la atención exclusiva de la Dra. Morgana (abre en nueva pestaña)",
+    },
+  },
 } as const;
 
 export type Translations = typeof translations.pt;
@@ -318,7 +450,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
   const toggle = () =>
     setLang((l) => {
-      const next = l === "pt" ? "en" : "pt";
+      const languages: Lang[] = ["pt", "en", "es"];
+      const currentIndex = languages.indexOf(l);
+      const next = languages[(currentIndex + 1) % languages.length];
       localStorage.setItem("site-lang", next);
       return next;
     });

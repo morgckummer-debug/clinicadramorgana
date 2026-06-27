@@ -95,17 +95,44 @@ const FlagBR = () => (
   </svg>
 );
 
+const FlagES = () => (
+  <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+    <rect width="30" height="20" fill="#C60B1E" />
+    <rect y="7" width="30" height="6" fill="#FFC400" />
+    <rect width="30" height="20" fill="none" stroke="#C60B1E" strokeWidth="0.5" />
+  </svg>
+);
+
 /* ---------------- Language toggle button ---------------- */
 const LangToggle = () => {
   const { lang, toggle } = useLanguage();
+
+  const getAriaLabel = () => {
+    switch (lang) {
+      case 'pt': return 'Switch to English';
+      case 'en': return 'Cambiar a Español';
+      case 'es': return 'Mudar para Português';
+      default: return 'Switch language';
+    }
+  };
+
+  const getTitle = () => {
+    switch (lang) {
+      case 'pt': return 'English';
+      case 'en': return 'Español';
+      case 'es': return 'Português';
+      default: return 'Language';
+    }
+  };
+
   return (
     <button
       onClick={toggle}
-      aria-label={lang === "pt" ? "Switch to English" : "Mudar para Português"}
-      title={lang === "pt" ? "English" : "Português"}
+      aria-label={getAriaLabel()}
+      title={getTitle()}
       className="flex items-center justify-center w-7 h-7 rounded-full overflow-hidden border border-champagne/40 hover:border-champagne transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne flex-shrink-0"
     >
-      {lang === "pt" ? <FlagUK /> : <FlagBR />}
+      {lang === "pt" ? <FlagUK /> : lang === "en" ? <FlagES /> : <FlagBR />}
     </button>
   );
 };
