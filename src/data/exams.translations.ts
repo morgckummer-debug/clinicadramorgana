@@ -727,12 +727,10 @@ export const examTranslations: Record<string, Record<string, any>> = {
   "partes-moles": {
     en: {
       title: "Soft Tissues",
-      shortDesc: "Investigation of nodules, cysts, and superficial lesions.",
       shortDesc: "Ultrasound evaluation of superficial tissues (skin, subcutaneous, muscles), useful for characterizing nodules, cysts, lipomas, and inflammatory processes."
     },
     es: {
       title: "Partes Moles",
-      shortDesc: "Investigación de nódulos, quistes y lesiones superficiales.",
       shortDesc: "Evaluación ultrassonográfica de tejidos superficiales (piel, subcutáneo, músculos), útil para caracterizar nódulos, quistes, lipomas y procesos inflamatorios."
     }
   },
@@ -845,3 +843,17 @@ export const examTranslations: Record<string, Record<string, any>> = {
   }
 ,
 };
+
+export function getTranslatedExamField<T = any>(
+  slug: string,
+  field: string,
+  lang: string,
+  fallback: T
+): T {
+  const entry = examTranslations[slug];
+  if (!entry) return fallback;
+  const localized = entry[lang];
+  if (!localized) return fallback;
+  return (localized[field] ?? fallback) as T;
+}
+
