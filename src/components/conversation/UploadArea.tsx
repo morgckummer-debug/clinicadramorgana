@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Upload, FileText, X, Loader2, MessageCircle } from 'lucide-react'
 import { supabasePublic as supabase } from '@/lib/supabase'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface UploadAreaProps {
   value?: string[]
@@ -8,7 +9,7 @@ interface UploadAreaProps {
   optional?: boolean
 }
 
-async function uploadFile(file: File): Promise<string> {
+async function uploadFile(file: File, errorRLS: string, errorGeneric: string): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession()
   let signedInForUpload = false
 
@@ -31,10 +32,9 @@ async function uploadFile(file: File): Promise<string> {
       .from('pedidos')
       .upload(path, file, { upsert: false })
     if (error) {
-      // Mensagem amigável em PT
       const msg = /row-level security|unauthor|jwt|permission/i.test(error.message)
-        ? 'Não foi possível enviar o arquivo agora. Você pode finalizar o pré-agendamento e nossa equipe entrará em contato pelo WhatsApp para receber o pedido.'
-        : `Não foi possível enviar o arquivo: ${error.message}`
+        ? errorRLS
+        : `${errorGeneric}: ${error.message}`
       throw new Error(msg)
     }
     const { data: { publicUrl } } = supabase.storage.from('pedidos').getPublicUrl(data.path)
@@ -65,7 +65,7 @@ function FileSlot({ name, onRemove }: { name: string; onRemove: () => void }) {
   )
 }
 
-function UploadSlot({ id, loading, onFile }: { id: string; loading: boolean; onFile: (f: File) => void }) {
+function UploadSlot({ id, loading, onFile, labelSelect, labelUploading }: { id: string; loading: boolean; onFile: (f: File) => void; labelSelect: string; labelUploading: string }) {
   return (
     <label
       htmlFor={loading ? undefined : id}
@@ -74,12 +74,12 @@ function UploadSlot({ id, loading, onFile }: { id: string; loading: boolean; onF
       {loading ? (
         <>
           <Loader2 className="w-4 h-4 text-wine-deep animate-spin flex-shrink-0" />
-          <span className="text-sm text-muted-foreground font-light">Enviando…</span>
+          <span className="text-sm text-muted-foreground font-light">{labelUploading}</span>
         </>
       ) : (
         <>
           <Upload className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-sm text-foreground/70 font-light">Toque para selecionar</span>
+          <span className="text-sm text-foreground/70 font-light">{labelSelect}</span>
         </>
       )}
       <input
@@ -98,13 +98,15 @@ function UploadSlot({ id, loading, onFile }: { id: string; loading: boolean; onF
 }
 
 export function UploadArea({ value = [], onChange, optional = false }: UploadAreaProps) {
+  const { t } = useLanguage()
+  const u = t.uploadArea
   const [names, setNames] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean[]>([])
   const [error, setError] = useState<string | null>(null)
 
   const handleFile = async (index: number, file: File) => {
     if (file.size > 10 * 1024 * 1024) {
-      setError('Arquivo muito grande. Máximo 10 MB.')
+      setError(u.fileTooLarge)
       return
     }
     setError(null)
@@ -112,12 +114,12 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
     setNames((n) => { const a = [...n]; a[index] = file.name; return a })
 
     try {
-      const url = await uploadFile(file)
+      const url = await uploadFile(file, u.uploadErrorRLS, u.uploadErrorGeneric)
       const next = [...value]
       next[index] = url
       onChange?.(next.filter(Boolean))
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : 'Erro inesperado ao enviar o arquivo.'
+      const msg = e instanceof Error ? e.message : u.unexpectedError
       setError(msg)
       setNames((n) => { const a = [...n]; delete a[index]; return a })
     } finally {
@@ -138,25 +140,31 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
       {value.map((url, i) => (
         <FileSlot
           key={url}
-          name={names[i] || `Arquivo ${i + 1}`}
+          name={names[i] || `${u.fileLabel} ${i + 1}`}
           onRemove={() => handleRemove(i)}
         />
       ))}
 
-      <UploadSlot id={`upload-${value.length}`} loading={loading[value.length] ?? false} onFile={(f) => handleFile(value.length, f)} />
+      <UploadSlot
+        id={`upload-${value.length}`}
+        loading={loading[value.length] ?? false}
+        onFile={(f) => handleFile(value.length, f)}
+        labelSelect={u.tapToSelect}
+        labelUploading={u.uploading}
+      />
 
       {error && (
         <p className="text-xs text-destructive text-center font-light">{error}</p>
       )}
 
       <p className="text-xs text-muted-foreground font-light text-center">
-        {optional ? 'Opcional. ' : ''}PDF, JPG ou PNG, máx. 10 MB.
+        {optional ? u.optional : ''}{u.hint}
       </p>
 
       {!optional && value.length === 0 && (
         <div className="pt-3 border-t border-border/30 space-y-3 text-center">
           <p className="text-xs text-muted-foreground font-light leading-relaxed">
-            Sem o pedido médico não é possível concluir o pré-agendamento.
+            {u.noReferral}
           </p>
           <a
             href="https://wa.me/5531993910212"
@@ -165,7 +173,7 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
             style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
           >
             <MessageCircle className="w-3.5 h-3.5" />
-            Não tenho pedido — WhatsApp
+            {u.noReferralButton}
           </a>
         </div>
       )}
