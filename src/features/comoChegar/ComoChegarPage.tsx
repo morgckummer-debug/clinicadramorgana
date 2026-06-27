@@ -13,7 +13,9 @@ import { whatsappComMensagem } from '@/lib/contato'
 
 function resolveAction(card: InfoCardData, t: any, onImageClick?: (src: string) => void) {
   if (!card.action) return undefined
-  const { kind, label, href } = card.action
+  const { kind, href } = card.action
+  const cardT = (t.comoChegar.cards as any)?.[card.id]
+  const label = cardT?.actionLabel ?? card.action.label
 
   if (kind === 'whatsapp') {
     return {
@@ -84,15 +86,18 @@ export function ComoChegarPage() {
               </h2>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {section.cards.map((card) => (
-                <InfoCard
-                  key={card.id}
-                  icon={card.icon}
-                  title={card.titulo}
-                  description={card.descricao}
-                  action={resolveAction(card, t, setImagemAberta)}
-                />
-              ))}
+              {section.cards.map((card) => {
+                const cardT = (t.comoChegar.cards as any)?.[card.id]
+                return (
+                  <InfoCard
+                    key={card.id}
+                    icon={card.icon}
+                    title={cardT?.titulo ?? card.titulo}
+                    description={cardT?.descricao ?? card.descricao}
+                    action={resolveAction(card, t, setImagemAberta)}
+                  />
+                )
+              })}
             </div>
           </section>
         ))}
