@@ -16,6 +16,9 @@ const Videos = lazy(() => import("./pages/Videos.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
 const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
+const Preparo = lazy(() => import("./pages/Preparo.tsx"));
+const ComoChegar = lazy(() => import("./pages/ComoChegar.tsx"));
+const FalarSecretaria = lazy(() => import("./pages/FalarSecretaria.tsx"));
 const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
 const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
@@ -43,6 +46,9 @@ const App = () => (
                 <Route path="/videos" element={<Videos />} />
                 <Route path="/agendar" element={<PatientPortal />} />
                 <Route path="/pre-agendamento" element={<PreAgendamento />} />
+                <Route path="/preparo" element={<Preparo />} />
+                <Route path="/como-chegar" element={<ComoChegar />} />
+                <Route path="/falar-secretaria" element={<FalarSecretaria />} />
                 <Route path="/painel/login" element={<PainelLogin />} />
                 <Route path="/painel" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
                 <Route path="/painel/:id" element={<ProtectedRoute><PainelDetalhe /></ProtectedRoute>} />
