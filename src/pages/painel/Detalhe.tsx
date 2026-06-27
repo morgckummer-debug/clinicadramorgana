@@ -630,26 +630,27 @@ export default function Detalhe() {
           </div>
         </div>
 
-        {item.status !== 'pendente' ? (
-          <button
-            onClick={() => updateStatus('pendente')}
-            disabled={updatingStatus}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap flex-shrink-0"
-            style={{ backgroundColor: '#ffe7bf', color: '#5B2D8E', border: '1.5px solid #5B2D8E' }}
-          >
-            <PhoneMissed className="w-4 h-4" />
-            Devolver para a fila
-          </button>
-        ) : (
+        <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={() => navigate('/painel')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap flex-shrink-0 hover:opacity-80"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap hover:opacity-80"
             style={{ backgroundColor: '#f3eef8', color: '#5B2D8E', border: '1.5px solid #5B2D8E' }}
           >
             <ArrowLeft className="w-4 h-4" />
             Lista
           </button>
-        )}
+          {item.status !== 'pendente' && (
+            <button
+              onClick={() => updateStatus('pendente')}
+              disabled={updatingStatus}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap"
+              style={{ backgroundColor: '#ffe7bf', color: '#5B2D8E', border: '1.5px solid #5B2D8E' }}
+            >
+              <PhoneMissed className="w-4 h-4" />
+              Devolver para a fila
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Banner de lista negra */}
