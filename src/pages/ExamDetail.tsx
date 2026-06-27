@@ -14,6 +14,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   canonicalPathFor,
   getExamByPath,
@@ -32,35 +33,35 @@ const SITE_ORIGIN = "https://dramorgana.com.br";
  *   (indications/preparation/duration/whatToBring) para que a página
  *   continue funcionando enquanto não for adaptada manualmente.
  */
-function resolveSections(exam: Exam): ExamSection[] {
+function resolveSections(exam: Exam, t: any): ExamSection[] {
   if (exam.sections && exam.sections.length > 0) return exam.sections;
 
   const out: ExamSection[] = [];
   if (exam.indications?.length) {
     out.push({
       kind: "list",
-      title: "Indicações",
+      title: t.examDetail.indications,
       items: exam.indications,
     });
   }
   if (exam.preparation) {
     out.push({
       kind: "highlight",
-      title: "Preparo",
+      title: t.examDetail.preparation,
       body: exam.preparation,
     });
   }
   if (exam.duration) {
     out.push({
       kind: "highlight",
-      title: "Duração",
+      title: t.examDetail.duration,
       body: exam.duration,
     });
   }
   if (exam.whatToBring?.length) {
     out.push({
       kind: "list",
-      title: "O que levar",
+      title: t.examDetail.whatToBring,
       items: exam.whatToBring,
     });
   }
@@ -77,6 +78,7 @@ function resolveIntro(exam: Exam): { tagline: string; intro: string; image?: str
 
 const ExamDetail = () => {
   const { pathname } = useLocation();
+  const { t } = useLanguage();
   const exam = getExamByPath(pathname);
 
   useEffect(() => {
@@ -110,7 +112,7 @@ const ExamDetail = () => {
   if (!exam) return <Navigate to="/404" replace />;
 
   const hero = resolveIntro(exam);
-  const sections = resolveSections(exam);
+  const sections = resolveSections(exam, t);
   const sameCategory = getExamsByCategory(exam.category).filter(
     (e) => e.slug !== exam.slug,
   );
@@ -146,11 +148,11 @@ const ExamDetail = () => {
         <div className="relative container max-w-6xl">
           <nav className="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-champagne/80 mb-10">
             <Link to="/" className="hover:text-champagne transition-colors">
-              Início
+              {t.examDetail.breadcrumbHome}
             </Link>
             <span>/</span>
             <Link to="/#exames" className="hover:text-champagne transition-colors">
-              Exames
+              {t.examDetail.breadcrumbExams}
             </Link>
             <span>/</span>
             <span className="text-wine-foreground/60">{exam.category}</span>
@@ -180,13 +182,13 @@ const ExamDetail = () => {
                   target="whatsapp"
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
                 >
-                  <MessageCircle className="w-4 h-4" /> Agendar este exame
+                  <MessageCircle className="w-4 h-4" /> {t.examDetail.scheduleThisExam}
                 </a>
                 <Link
                   to="/#exames"
                   className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
                 >
-                  <ArrowLeft className="w-4 h-4" /> Ver todos os exames
+                  <ArrowLeft className="w-4 h-4" /> {t.examDetail.viewAllExams}
                 </Link>
               </div>
             </div>
@@ -225,10 +227,10 @@ const ExamDetail = () => {
           <div className="container max-w-6xl">
             <div className="text-center mb-10">
               <span className="text-wine text-[11px] tracking-[0.4em] uppercase">
-                Imagens do exame
+                {t.examDetail.gallery}
               </span>
               <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light text-balance">
-                O que pode <span className="italic">ser visto</span>.
+                {t.examDetail.galleryTitle} <span className="italic">{t.examDetail.gallerySeen}</span>.
               </h2>
               <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
             </div>
@@ -275,10 +277,10 @@ const ExamDetail = () => {
           <div className="container max-w-3xl">
             <div className="text-center mb-8">
               <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
-                Perguntas frequentes
+                {t.examDetail.faqLabel}
               </span>
               <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light text-balance">
-                Tire suas <span className="italic">dúvidas</span>.
+                {t.examDetail.faqTitle} <span className="italic">{t.examDetail.faqDubts}</span>.
               </h2>
               <div className="mt-6 w-12 h-px bg-champagne mx-auto" />
             </div>
@@ -305,17 +307,17 @@ const ExamDetail = () => {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
               <div>
                 <span className="text-wine-deep text-[10px] tracking-[0.45em] uppercase font-medium">
-                  Categoria · {exam.category}
+                  {t.examDetail.relatedLabel} · {exam.category}
                 </span>
                 <h2 className="mt-4 text-wine-deep text-3xl md:text-4xl font-light">
-                  Outros exames <span className="italic">relacionados</span>.
+                  {t.examDetail.relatedTitle} <span className="italic">{t.examDetail.relatedText}</span>.
                 </h2>
               </div>
               <Link
                 to="/#exames"
                 className="text-[11px] tracking-[0.25em] uppercase text-wine-deep hover:text-wine inline-flex items-center gap-2 font-medium"
               >
-                Ver todos <ArrowRight className="w-3 h-3" />
+                {t.examDetail.viewAll} <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
 
@@ -334,7 +336,7 @@ const ExamDetail = () => {
                     {r.shortDesc}
                   </p>
                   <span className="mt-6 inline-flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase text-wine font-medium group-hover:gap-3 transition-all">
-                    Saiba mais <ArrowRight className="w-3 h-3" />
+                    {t.examDetail.learnMore} <ArrowRight className="w-3 h-3" />
                   </span>
                 </Link>
               ))}
