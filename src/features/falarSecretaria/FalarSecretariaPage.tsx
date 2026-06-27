@@ -3,12 +3,13 @@ import { Clock, MessageCircle } from 'lucide-react'
 import { PageShell } from '@/components/common/PageShell'
 import { SectionHeader } from '@/components/common/SectionHeader'
 import { CalloutCard } from '@/components/common/CalloutCard'
-import { falarSecretariaContent as content } from '@/content/falarSecretaria'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { assuntos } from '@/data/falarSecretaria'
 import { abrirWhatsAppComFallback } from '@/lib/contato'
 import { getStatusAtendimento } from '@/lib/atendimento'
 
 export function FalarSecretariaPage() {
+  const { t } = useLanguage()
   const [selecionado, setSelecionado] = useState<string | null>(null)
 
   const assuntoAtual = assuntos.find((a) => a.id === selecionado) ?? null
@@ -20,14 +21,14 @@ export function FalarSecretariaPage() {
 
   const status = getStatusAtendimento()
   const descricaoHorario =
-    content.horario.mensagens[status] ?? content.horario.descricaoPadrao
+    t.falarSecretaria.horario.mensagens[status] ?? t.falarSecretaria.horario.descricaoPadrao
 
   return (
     <PageShell useHistory>
       <SectionHeader
-        eyebrow={content.eyebrow}
-        title={content.title}
-        subtitle={content.subtitle}
+        eyebrow={t.falarSecretaria.eyebrow}
+        title={t.falarSecretaria.title}
+        subtitle={t.falarSecretaria.subtitle}
       />
 
       <div className="mt-8 flex flex-col gap-3">
@@ -100,14 +101,14 @@ export function FalarSecretariaPage() {
         >
           <MessageCircle className="w-3.5 h-3.5" strokeWidth={1.8} />
           {selecionado
-            ? `Conversar sobre ${assuntoAtual?.titulo.toLowerCase()}`
-            : 'Selecione um assunto acima'}
+            ? `${t.falarSecretaria.conversarSobre} ${assuntoAtual?.titulo.toLowerCase()}`
+            : t.falarSecretaria.selecionarAssunto}
         </button>
       </div>
 
       <CalloutCard
         icon={Clock}
-        question={content.horario.titulo}
+        question={t.falarSecretaria.horario.titulo}
         description={descricaoHorario}
       />
     </PageShell>

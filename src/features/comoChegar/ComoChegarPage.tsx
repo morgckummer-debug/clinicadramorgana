@@ -6,11 +6,12 @@ import { SectionHeader } from '@/components/common/SectionHeader'
 import { HighlightCard } from '@/components/common/HighlightCard'
 import { InfoCard } from '@/components/common/InfoCard'
 import { FigureCard } from '@/components/common/FigureCard'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { comoChegarContent } from '@/content/comoChegar'
 import { localizacao, sections, type InfoCardData } from '@/data/comoChegar'
 import { whatsappComMensagem } from '@/lib/contato'
 
-function resolveAction(card: InfoCardData, onImageClick?: (src: string) => void) {
+function resolveAction(card: InfoCardData, t: any, onImageClick?: (src: string) => void) {
   if (!card.action) return undefined
   const { kind, label, href } = card.action
 
@@ -18,7 +19,7 @@ function resolveAction(card: InfoCardData, onImageClick?: (src: string) => void)
     return {
       label,
       icon: MessageCircle,
-      href: whatsappComMensagem(comoChegarContent.whatsappMensagem),
+      href: whatsappComMensagem(t.comoChegar.whatsappMsg),
       external: true,
     }
   }
@@ -36,38 +37,39 @@ function resolveAction(card: InfoCardData, onImageClick?: (src: string) => void)
     return {
       label,
       icon: MapPin,
-      onClick: () => toast(comoChegarContent.mapsIndisponivelToast),
+      onClick: () => toast(t.comoChegar.mapsUnavailable),
     }
   }
   return href ? { label, href, external: true } : undefined
 }
 
 export function ComoChegarPage() {
+  const { t } = useLanguage()
   const [imagemAberta, setImagemAberta] = useState<string | null>(null)
 
   const mapsAction = localizacao.mapsUrl
     ? {
-        label: comoChegarContent.localizacao.cta,
+        label: t.comoChegar.openMaps,
         icon: MapPin,
         href: localizacao.mapsUrl,
         external: true,
       }
     : {
-        label: comoChegarContent.localizacao.cta,
+        label: t.comoChegar.openMaps,
         icon: MapPin,
-        onClick: () => toast(comoChegarContent.mapsIndisponivelToast),
+        onClick: () => toast(t.comoChegar.mapsUnavailable),
       }
 
   return (
     <PageShell useHistory>
       <SectionHeader
-        eyebrow={comoChegarContent.eyebrow}
-        title={comoChegarContent.title}
-        subtitle={comoChegarContent.subtitle}
+        eyebrow={t.comoChegar.eyebrow}
+        title={t.comoChegar.title}
+        subtitle={t.comoChegar.subtitle}
       />
 
       <HighlightCard
-        eyebrow={comoChegarContent.localizacao.eyebrow}
+        eyebrow={t.comoChegar.locationEyebrow}
         icon={MapPin}
         lines={[localizacao.endereco, localizacao.cidade, localizacao.cep]}
         primaryAction={mapsAction}
@@ -88,7 +90,7 @@ export function ComoChegarPage() {
                   icon={card.icon}
                   title={card.titulo}
                   description={card.descricao}
-                  action={resolveAction(card, setImagemAberta)}
+                  action={resolveAction(card, t, setImagemAberta)}
                 />
               ))}
             </div>
@@ -99,9 +101,9 @@ export function ComoChegarPage() {
       <div className="mt-10">
         <FigureCard
           src={comoChegarContent.foto.src || undefined}
-          alt={comoChegarContent.foto.alt}
-          caption={comoChegarContent.foto.caption || undefined}
-          description={comoChegarContent.foto.description || undefined}
+          alt={t.comoChegar.clinicImage}
+          caption={t.comoChegar.clinicImageCaption || undefined}
+          description={t.comoChegar.clinicAddress || undefined}
           aspect="video"
         />
       </div>
