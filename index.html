@@ -4,19 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- PWA / Tela inicial iPhone -->
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="apple-touch-icon" href="/painel-icon.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Agendamento" />
-    <meta name="theme-color" content="#6d3263" />
+    <!-- PWA / Tela inicial iPhone — manifest injetado antes de qualquer fetch do browser -->
     <script>
-      if (window.location.pathname.startsWith('/painel')) {
-        document.querySelector('link[rel="manifest"]').href = '/painel.webmanifest';
-        document.querySelector('meta[name="theme-color"]').content = '#5B2D8E';
-        document.querySelector('meta[name="apple-mobile-web-app-title"]').content = 'Painel MK';
-      }
+      (function () {
+        var isPainel = window.location.pathname.startsWith('/painel');
+        var h = document.head;
+        function injectLink(rel, href) {
+          var el = document.createElement('link');
+          el.rel = rel; el.href = href;
+          h.appendChild(el);
+        }
+        function injectMeta(name, content) {
+          var el = document.createElement('meta');
+          el.name = name; el.content = content;
+          h.appendChild(el);
+        }
+        injectLink('manifest', isPainel ? '/painel.webmanifest' : '/site.webmanifest');
+        injectLink('apple-touch-icon', '/painel-icon.png');
+        injectMeta('apple-mobile-web-app-capable', 'yes');
+        injectMeta('apple-mobile-web-app-status-bar-style', 'black-translucent');
+        injectMeta('apple-mobile-web-app-title', isPainel ? 'Painel MK' : 'Agendamento');
+        injectMeta('theme-color', isPainel ? '#5B2D8E' : '#6d3263');
+      })();
     </script>
 
     <!-- Fontes críticas: só o corpo do texto bloqueia; títulos carregam depois -->

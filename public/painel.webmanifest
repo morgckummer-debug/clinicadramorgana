@@ -3,6 +3,7 @@
   "short_name": "Agendamento",
   "description": "Painel de pré-agendamentos · Clínica Dra. Morgana Kummer",
   "start_url": "/painel",
+  "scope": "/painel",
   "display": "standalone",
   "background_color": "#5B2D8E",
   "theme_color": "#5B2D8E",
