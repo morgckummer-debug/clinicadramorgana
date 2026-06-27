@@ -98,42 +98,36 @@ const FlagBR = () => (
 const FlagES = () => (
   <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
     <rect width="30" height="20" fill="#C60B1E" />
-    <rect y="7" width="30" height="6" fill="#FFC400" />
-    <rect width="30" height="20" fill="none" stroke="#C60B1E" strokeWidth="0.5" />
+    <rect y="6.67" width="30" height="6.67" fill="#FFC400" />
   </svg>
 );
 
 /* ---------------- Language toggle button ---------------- */
 const LangToggle = () => {
-  const { lang, toggle } = useLanguage();
+  const { lang, setLang } = useLanguage();
 
-  const getAriaLabel = () => {
-    switch (lang) {
-      case 'pt': return 'Switch to English';
-      case 'en': return 'Cambiar a Español';
-      case 'es': return 'Mudar para Português';
-      default: return 'Switch language';
-    }
-  };
-
-  const getTitle = () => {
-    switch (lang) {
-      case 'pt': return 'English';
-      case 'en': return 'Español';
-      case 'es': return 'Português';
-      default: return 'Language';
-    }
-  };
+  const languages: Array<{ code: 'pt' | 'en' | 'es'; flag: React.ReactNode; label: string }> = [
+    { code: 'pt', flag: <FlagBR />, label: 'Português' },
+    { code: 'en', flag: <FlagUK />, label: 'English' },
+    { code: 'es', flag: <FlagES />, label: 'Español' },
+  ];
 
   return (
-    <button
-      onClick={toggle}
-      aria-label={getAriaLabel()}
-      title={getTitle()}
-      className="flex items-center justify-center w-7 h-7 rounded-full overflow-hidden border border-champagne/40 hover:border-champagne transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne flex-shrink-0"
-    >
-      {lang === "pt" ? <FlagUK /> : lang === "en" ? <FlagES /> : <FlagBR />}
-    </button>
+    <div className="flex items-center gap-2">
+      {languages
+        .filter(l => l.code !== lang)
+        .map(l => (
+          <button
+            key={l.code}
+            onClick={() => setLang(l.code)}
+            aria-label={`Switch to ${l.label}`}
+            title={l.label}
+            className="flex items-center justify-center w-7 h-7 rounded-full overflow-hidden border border-champagne/40 hover:border-champagne transition-colors duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne flex-shrink-0 opacity-60 hover:opacity-100"
+          >
+            {l.flag}
+          </button>
+        ))}
+    </div>
   );
 };
 
@@ -150,6 +144,8 @@ export const Navbar = () => {
     { href: "/videos",       label: t.nav.videos },
     { href: "#contato",      label: t.nav.contato },
   ];
+
+  const preAgendamentoLabel = "Pré-Agendamento";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -293,7 +289,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-500 shadow-elegant"
               style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
             >
-              {t.hero.preAgendamento} <ArrowRight className="w-4 h-4" />
+              Faça aqui o seu pré-agendamento <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href="#exames"

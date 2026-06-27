@@ -195,6 +195,102 @@ const translations = {
       calloutCta: "Falar com a nossa equipe",
       whatsappMsg: "Olá! Gostaria de tirar uma dúvida sobre o preparo de um exame.",
     },
+    comoChegar: {
+      eyebrow: "Como chegar",
+      title: "Como chegar à clínica",
+      subtitle: "Confira a localização, estacionamento e outras informações importantes antes da sua visita.",
+      locationEyebrow: "Localização",
+      openMaps: "Abrir no Google Maps",
+      mapsUnavailable: "A localização da clínica será disponibilizada em breve.",
+      helpCta: "Falar com a nossa equipe",
+      whatsappMsg: "Olá! Tenho uma dúvida sobre como chegar à clínica.",
+      clinicImage: "Fachada da Clínica Dra. Morgana",
+      clinicImageCaption: "Clínica de Ultrassom Dra. Morgana Kummer",
+      clinicAddress: "Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG",
+    },
+    falarSecretaria: {
+      eyebrow: "Fale conosco",
+      title: "Falar com a secretaria",
+      subtitle: "Nossa equipe terá prazer em ajudar você. Selecione o assunto abaixo para iniciar uma conversa pelo WhatsApp.",
+      conversarSobre: "Conversar sobre",
+      selecionarAssunto: "Selecione um assunto acima",
+      ctaPadrao: "Conversar pelo WhatsApp",
+      horario: {
+        titulo: "Horário de atendimento",
+        descricaoPadrao: "Nosso atendimento humano pelo WhatsApp funciona das 08:00 às 11:00 e das 12:30 às 17:30, em dias úteis. Mensagens enviadas fora desse período serão respondidas assim que possível. Lembramos que o pré-agendamento está disponível 24h.",
+        mensagens: {
+          disponivel: "Atendimento disponível agora.",
+          foraHorario: "No momento estamos fora do horário de atendimento. Responderemos assim que possível. O pré-agendamento está disponível 24h.",
+        },
+      },
+    },
+    videos: {
+      pageTitle: "Vídeos | Clínica Dra. Morgana Kummer",
+      eyebrow: "Vídeos",
+      title: "Acesse o vídeo do seu ultrassom",
+      subtitle: "Área exclusiva para visualizar os vídeos de seus exames.",
+      passwordPlaceholder: "Digite a senha recebida...",
+      passwordNote: "Para visualização online dos seus exames.",
+      accessButton: "Acesse aqui",
+      backButton: "Voltar",
+    },
+    examDetail: {
+      indications: "Indicações",
+      preparation: "Preparo",
+      duration: "Duração",
+      whatToBring: "O que levar",
+      homeImage: "Imagens do exame",
+      faq: "Perguntas frequentes",
+      learnMore: "Saiba mais",
+      backHome: "Voltar à página inicial",
+      scheduleExam: "Pronta para agendar seu",
+      responseTime: "Resposta em até 1h em horário comercial",
+      homeButton: "Voltar à página inicial",
+    },
+    common: {
+      close: "Fechar",
+      back: "Voltar",
+      next: "Próximo",
+      skip: "Pular",
+      tryAgain: "Tentar novamente",
+      chat: "Conversar pelo WhatsApp",
+      open: "Abrir",
+      error: "Algo deu errado",
+      errorMessage: "Não conseguimos registrar suas informações agora. Tente novamente em alguns instantes ou entre em contato pelo WhatsApp.",
+      detail: "Detalhe:",
+    },
+    conversation: {
+      menu: {
+        title: "Como posso te ajudar?",
+        subtitle: "Selecione uma das opções abaixo.",
+        option1: "Agendar ultrassom",
+        option2: "Como chegar na clínica",
+        option3: "Preparo de exames",
+        option4: "Outra opção",
+      },
+      navigation: {
+        back: "Voltar",
+        next: "Próximo",
+        skip: "Pular",
+      },
+      errors: {
+        failedPreAgendamento: "Não conseguimos finalizar o pré-agendamento",
+        tryAgain: "Tentar novamente",
+        chatSupport: "Falar pelo WhatsApp",
+        returnAndAttachDoc: "Voltar e anexar documento",
+      },
+    },
+    businessHours: {
+      titulo: "Horário de funcionamento",
+      subtitulo: "Confira nossos horários de atendimento.",
+      botaoPrimario: {
+        label: "Agendar",
+      },
+      botaoSecundario: {
+        label: "Voltar",
+      },
+      observacao: "Estamos de segunda a sexta das 7h às 18h, sábados de 7h30 às 12h.",
+    },
   },
   en: {
     nav: {
@@ -424,6 +520,102 @@ const translations = {
       calloutCta: "Talk to our team",
       whatsappMsg: "Hi! I'd like to ask a question about exam preparation.",
     },
+    comoChegar: {
+      eyebrow: "How to get there",
+      title: "How to get to the clinic",
+      subtitle: "Check out the location, parking and other important information before your visit.",
+      locationEyebrow: "Location",
+      openMaps: "Open in Google Maps",
+      mapsUnavailable: "The clinic's location will be available soon.",
+      helpCta: "Talk to our team",
+      whatsappMsg: "Hi! I have a question about how to get to the clinic.",
+      clinicImage: "Facade of Dr. Morgana Clinic",
+      clinicImageCaption: "Dr. Morgana Kummer Ultrasound Clinic",
+      clinicAddress: "Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG",
+    },
+    falarSecretaria: {
+      eyebrow: "Get in touch",
+      title: "Talk to the secretary",
+      subtitle: "Our team will be happy to help you. Select the subject below to start a conversation via WhatsApp.",
+      conversarSobre: "Chat about",
+      selecionarAssunto: "Select a topic above",
+      ctaPadrao: "Chat via WhatsApp",
+      horario: {
+        titulo: "Service hours",
+        descricaoPadrao: "Our human support via WhatsApp operates from 08:00 to 11:00 and 12:30 to 17:30, on business days. Messages sent outside this period will be answered as soon as possible. We remind you that pre-booking is available 24/7.",
+        mensagens: {
+          disponivel: "Support available now.",
+          foraHorario: "We are currently outside business hours. We will respond as soon as possible. Pre-booking is available 24/7.",
+        },
+      },
+    },
+    videos: {
+      pageTitle: "Videos | Dr. Morgana Kummer Clinic",
+      eyebrow: "Videos",
+      title: "Access your ultrasound video",
+      subtitle: "Exclusive area to view videos of your exams.",
+      passwordPlaceholder: "Enter the password you received...",
+      passwordNote: "For online viewing of your exams.",
+      accessButton: "Access here",
+      backButton: "Back",
+    },
+    examDetail: {
+      indications: "Indications",
+      preparation: "Preparation",
+      duration: "Duration",
+      whatToBring: "What to bring",
+      homeImage: "Exam images",
+      faq: "Frequently asked questions",
+      learnMore: "Learn more",
+      backHome: "Back to home",
+      scheduleExam: "Ready to book your",
+      responseTime: "Response within 1 hour during business hours",
+      homeButton: "Back to home",
+    },
+    common: {
+      close: "Close",
+      back: "Back",
+      next: "Next",
+      skip: "Skip",
+      tryAgain: "Try again",
+      chat: "Chat via WhatsApp",
+      open: "Open",
+      error: "Something went wrong",
+      errorMessage: "We couldn't register your information right now. Please try again in a few moments or contact us via WhatsApp.",
+      detail: "Details:",
+    },
+    conversation: {
+      menu: {
+        title: "How can I help you?",
+        subtitle: "Select one of the options below.",
+        option1: "Book an ultrasound",
+        option2: "How to get to the clinic",
+        option3: "Exam preparation",
+        option4: "Another option",
+      },
+      navigation: {
+        back: "Back",
+        next: "Next",
+        skip: "Skip",
+      },
+      errors: {
+        failedPreAgendamento: "We couldn't complete the pre-booking",
+        tryAgain: "Try again",
+        chatSupport: "Chat via WhatsApp",
+        returnAndAttachDoc: "Return and attach document",
+      },
+    },
+    businessHours: {
+      titulo: "Business hours",
+      subtitulo: "Check our service hours.",
+      botaoPrimario: {
+        label: "Book",
+      },
+      botaoSecundario: {
+        label: "Back",
+      },
+      observacao: "We are open Monday to Friday from 7am to 6pm, Saturdays from 7:30am to 12pm.",
+    },
   },
   es: {
     nav: {
@@ -619,6 +811,102 @@ const translations = {
       calloutCta: "Hablar con nuestro equipo",
       whatsappMsg: "¡Hola! Me gustaría hacer una pregunta sobre la preparación del examen.",
     },
+    comoChegar: {
+      eyebrow: "Cómo llegar",
+      title: "Cómo llegar a la clínica",
+      subtitle: "Consulta la ubicación, estacionamiento y otra información importante antes de tu visita.",
+      locationEyebrow: "Ubicación",
+      openMaps: "Abrir en Google Maps",
+      mapsUnavailable: "La ubicación de la clínica estará disponible pronto.",
+      helpCta: "Hablar con nuestro equipo",
+      whatsappMsg: "¡Hola! Tengo una pregunta sobre cómo llegar a la clínica.",
+      clinicImage: "Fachada de la Clínica Dra. Morgana",
+      clinicImageCaption: "Clínica de Ultrasonido Dra. Morgana Kummer",
+      clinicAddress: "Rua Cândido Azeredo, 41 A\nCentro, Sete Lagoas / MG",
+    },
+    falarSecretaria: {
+      eyebrow: "Ponte en contacto",
+      title: "Hablar con la secretaria",
+      subtitle: "Nuestro equipo tendrá gusto en ayudarte. Selecciona el tema abajo para iniciar una conversación por WhatsApp.",
+      conversarSobre: "Conversar sobre",
+      selecionarAssunto: "Selecciona un tema arriba",
+      ctaPadrao: "Conversar por WhatsApp",
+      horario: {
+        titulo: "Horario de atención",
+        descricaoPadrao: "Nuestro soporte humano por WhatsApp funciona de 08:00 a 11:00 y de 12:30 a 17:30, en días hábiles. Los mensajes enviados fuera de este horario serán respondidos lo antes posible. Te recordamos que la pre-reserva está disponible 24/7.",
+        mensagens: {
+          disponivel: "Atención disponible ahora.",
+          foraHorario: "Actualmente estamos fuera del horario de atención. Responderemos lo antes posible. La pre-reserva está disponible 24/7.",
+        },
+      },
+    },
+    videos: {
+      pageTitle: "Vídeos | Clínica Dra. Morgana Kummer",
+      eyebrow: "Vídeos",
+      title: "Accede al vídeo de tu ultrasonido",
+      subtitle: "Área exclusiva para ver vídeos de tus exámenes.",
+      passwordPlaceholder: "Ingresa la contraseña que recibiste...",
+      passwordNote: "Para visualización en línea de tus exámenes.",
+      accessButton: "Accede aquí",
+      backButton: "Atrás",
+    },
+    examDetail: {
+      indications: "Indicaciones",
+      preparation: "Preparación",
+      duration: "Duración",
+      whatToBring: "Qué traer",
+      homeImage: "Imágenes del examen",
+      faq: "Preguntas frecuentes",
+      learnMore: "Conoce más",
+      backHome: "Volver al inicio",
+      scheduleExam: "Listo para reservar tu",
+      responseTime: "Respuesta en hasta 1 hora en horario comercial",
+      homeButton: "Volver al inicio",
+    },
+    common: {
+      close: "Cerrar",
+      back: "Atrás",
+      next: "Siguiente",
+      skip: "Saltar",
+      tryAgain: "Intentar de nuevo",
+      chat: "Conversar por WhatsApp",
+      open: "Abrir",
+      error: "Algo salió mal",
+      errorMessage: "No pudimos registrar tu información en este momento. Intenta de nuevo en unos momentos o contáctanos por WhatsApp.",
+      detail: "Detalle:",
+    },
+    conversation: {
+      menu: {
+        title: "¿Cómo puedo ayudarte?",
+        subtitle: "Selecciona una de las opciones de abajo.",
+        option1: "Reservar un ultrasonido",
+        option2: "Cómo llegar a la clínica",
+        option3: "Preparación de exámenes",
+        option4: "Otra opción",
+      },
+      navigation: {
+        back: "Atrás",
+        next: "Siguiente",
+        skip: "Saltar",
+      },
+      errors: {
+        failedPreAgendamento: "No pudimos completar la pre-reserva",
+        tryAgain: "Intentar de nuevo",
+        chatSupport: "Conversar por WhatsApp",
+        returnAndAttachDoc: "Volver y adjuntar documento",
+      },
+    },
+    businessHours: {
+      titulo: "Horario de funcionamiento",
+      subtitulo: "Consulta nuestro horario de atención.",
+      botaoPrimario: {
+        label: "Reservar",
+      },
+      botaoSecundario: {
+        label: "Atrás",
+      },
+      observacao: "Estamos de lunes a viernes de 7am a 6pm, sábados de 7:30am a 12pm.",
+    },
   },
 } as const;
 
@@ -627,18 +915,19 @@ export type Translations = typeof translations.pt;
 interface LanguageContextValue {
   lang: Lang;
   toggle: () => void;
+  setLang: (lang: Lang) => void;
   t: Translations;
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [lang, setLang] = useState<Lang>(() => {
+  const [lang, setLangState] = useState<Lang>(() => {
     return (localStorage.getItem("site-lang") as Lang) ?? "pt";
   });
 
   const toggle = () =>
-    setLang((l) => {
+    setLangState((l) => {
       const languages: Lang[] = ["pt", "en", "es"];
       const currentIndex = languages.indexOf(l);
       const next = languages[(currentIndex + 1) % languages.length];
@@ -646,8 +935,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       return next;
     });
 
+  const setLang = (newLang: Lang) => {
+    localStorage.setItem("site-lang", newLang);
+    setLangState(newLang);
+  };
+
   return (
-    <LanguageContext.Provider value={{ lang, toggle, t: translations[lang] as Translations }}>
+    <LanguageContext.Provider value={{ lang, toggle, setLang, t: translations[lang] as Translations }}>
       {children}
     </LanguageContext.Provider>
   );

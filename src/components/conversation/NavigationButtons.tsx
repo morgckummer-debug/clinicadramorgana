@@ -1,4 +1,5 @@
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface NavigationButtonsProps {
   onBack?: () => void
@@ -17,6 +18,8 @@ export function NavigationButtons({
   showNext = false,
   optional = false,
 }: NavigationButtonsProps) {
+  const { t } = useLanguage()
+
   return (
     <div className="sticky bottom-0 mt-8 flex items-center justify-between gap-2 sm:gap-4 bg-background/95 backdrop-blur-sm pb-safe pt-3 pb-4 -mx-1 px-1">
       {showBack ? (
@@ -28,7 +31,7 @@ export function NavigationButtons({
           <span className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-border group-hover:border-wine-deep group-hover:bg-wine-deep/5 transition-all duration-300">
             <ArrowLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </span>
-          <span className="text-[11px] sm:text-xs tracking-[0.15em] uppercase font-medium">Voltar</span>
+          <span className="text-[11px] sm:text-xs tracking-[0.15em] uppercase font-medium">{t.conversation.navigation.back}</span>
         </button>
       ) : (
         <span />
@@ -54,7 +57,7 @@ export function NavigationButtons({
                 : undefined
             }
           >
-            <span>Próximo</span>
+            <span>{t.conversation.navigation.next}</span>
             <ArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
           </button>
           {optional && (
@@ -63,7 +66,7 @@ export function NavigationButtons({
               onClick={() => onNext()}
               className="text-[10px] sm:text-[11px] text-muted-foreground hover:text-wine-deep transition-colors duration-300 tracking-wide"
             >
-              Pular
+              {t.conversation.navigation.skip}
             </button>
           )}
         </div>

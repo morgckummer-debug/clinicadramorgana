@@ -13,6 +13,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslatedExam } from "@/hooks/useTranslatedExam";
 import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -79,11 +80,12 @@ function resolveIntro(exam: Exam): { tagline: string; intro: string; image?: str
 const ExamDetail = () => {
   const { pathname } = useLocation();
   const { t } = useLanguage();
-  const exam = getExamByPath(pathname);
+  const baseExam = getExamByPath(pathname);
+  const exam = useTranslatedExam(baseExam || ({} as Exam));
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    if (!exam) return;
+    if (!baseExam) return;
 
     document.title = `${exam.title} · Dra. Morgana Kummer`;
 
@@ -109,16 +111,16 @@ const ExamDetail = () => {
     canonical.href = canonicalHref;
   }, [exam]);
 
-  if (!exam) return <Navigate to="/404" replace />;
+  if (!baseExam) return <Navigate to="/404" replace />;
 
   const hero = resolveIntro(exam);
   const sections = resolveSections(exam, t);
-  const sameCategory = getExamsByCategory(exam.category).filter(
-    (e) => e.slug !== exam.slug,
+  const sameCategory = getExamsByCategory(baseExam.category).filter(
+    (e) => e.slug !== baseExam.slug,
   );
   // Rotação determinística para variar os "exames relacionados" entre páginas
   // da mesma categoria (ex.: vários obstétricos não mostram sempre os mesmos 3).
-  const rotationOffset = exam.slug
+  const rotationOffset = baseExam.slug
     .split("")
     .reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
   const related = sameCategory.length
@@ -352,7 +354,7 @@ const ExamDetail = () => {
         <div className="absolute -bottom-32 -left-24 w-[28rem] h-[28rem] rounded-full bg-wine/30 blur-[140px] pointer-events-none" />
 
         <div className="relative container max-w-3xl text-center">
-          {exam.slug === "cerclagem" ? (
+          {baseExam?.slug === "cerclagem" ? (
             <Link
               to="/"
               className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-10 py-5 rounded-full text-[11px] tracking-[0.3em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
