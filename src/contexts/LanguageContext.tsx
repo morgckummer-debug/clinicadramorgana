@@ -152,6 +152,12 @@ const translations = {
       preparation: "Preparo",
       duration: "Duração",
       whatToBring: "O que levar",
+      homeImage: "Imagens do exame",
+      faq: "Perguntas frequentes",
+      backHome: "Voltar à página inicial",
+      scheduleExam: "Pronta para agendar seu",
+      responseTime: "Resposta em até 1h em horário comercial",
+      homeButton: "Voltar à página inicial",
     },
     patientPortal: {
       eyebrow: "Portal do paciente",
