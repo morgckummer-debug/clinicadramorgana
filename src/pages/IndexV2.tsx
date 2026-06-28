@@ -198,7 +198,7 @@ export const Navbar = () => {
         </div>
       </div>
       {open && (
-        <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
+        <div className="md:hidden bg-background border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => {
               const isRoute = l.href.startsWith("/");
