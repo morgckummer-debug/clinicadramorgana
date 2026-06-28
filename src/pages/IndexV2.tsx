@@ -237,7 +237,6 @@ const Hero = () => {
           src="/Hero2.jpg"
           alt=""
           aria-hidden="true"
-          fetchPriority="high"
           decoding="async"
           width={828}
           height={466}
