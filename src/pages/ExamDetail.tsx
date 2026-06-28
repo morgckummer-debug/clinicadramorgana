@@ -179,12 +179,12 @@ const ExamDetail = () => {
               </p>
 
               <div className="mt-10 flex flex-wrap gap-4 items-center">
-                <a
-                  href="https://clinicadramorgana.lovable.app/pre-agendamento"
+                <Link
+                  to={`/pre-agendamento?exame=${baseExam.slug}`}
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-8 py-4 rounded-full text-[11px] tracking-[0.25em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500"
                 >
                   <MessageCircle className="w-4 h-4" /> {t.examDetail.scheduleThisExam}
-                </a>
+                </Link>
                 <Link
                   to="/#exames"
                   className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
@@ -373,12 +373,12 @@ const ExamDetail = () => {
                 {t.examDetail.scheduleSubtitle ?? "Atendimento humanizado, equipamento de ponta e laudo entregue no mesmo dia."}
               </p>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <a
-                  href="https://clinicadramorgana.lovable.app/pre-agendamento"
+                <Link
+                  to={`/pre-agendamento?exame=${baseExam.slug}`}
                   className="inline-flex items-center gap-2 bg-champagne text-wine-deep px-10 py-5 rounded-full text-[11px] tracking-[0.3em] uppercase font-semibold hover:bg-wine-foreground transition-all duration-500 shadow-elegant"
                 >
                   <MessageCircle className="w-4 h-4" /> {t.examDetail.scheduleThisExam}
-                </a>
+                </Link>
                 <Link
                   to="/"
                   className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"
