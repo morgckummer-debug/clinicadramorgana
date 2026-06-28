@@ -159,7 +159,7 @@ export const Navbar = () => {
       style={{ top: "var(--cta-bar-h, 0px)" }}
       className={`fixed inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/75 backdrop-blur-2xl border-b border-border/40"
+          ? "bg-background/95 md:bg-background/75 md:backdrop-blur-2xl border-b border-border/40"
           : "bg-transparent"
       }`}
     >
