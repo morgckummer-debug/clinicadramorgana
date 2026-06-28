@@ -282,15 +282,13 @@ const Hero = () => {
           </p>
 
           <div className="mt-12 flex flex-wrap gap-4 items-center">
-            <a
-              href="https://clinicadramorgana.lovable.app/agendar"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/agendar"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-500 shadow-elegant"
               style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
             >
               {t.hero.preAgendamento} <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
             <a
               href="#exames"
               className="inline-flex items-center gap-3 text-wine-foreground/90 px-2 py-4 text-[11px] tracking-[0.25em] uppercase font-medium hover:text-champagne hover:gap-4 transition-all duration-500"

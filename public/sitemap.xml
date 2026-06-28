@@ -1,364 +1,208 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Páginas principais -->
   <url>
-    <loc>https://clinicadramorgana.lovable.app/</loc>
+    <loc>https://dramorgana.com.br/</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/videos</loc>
+    <loc>https://dramorgana.com.br/videos</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/agendar</loc>
+    <loc>https://dramorgana.com.br/agendar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/pre-agendamento</loc>
+    <loc>https://dramorgana.com.br/pre-agendamento</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/preparo</loc>
+    <loc>https://dramorgana.com.br/preparo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/como-chegar</loc>
+    <loc>https://dramorgana.com.br/como-chegar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/falar-secretaria</loc>
+    <loc>https://dramorgana.com.br/falar-secretaria</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+
+  <!-- Exames: URLs canônicas (slugs legados = URLs indexadas pelo Google) -->
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/ultrassom-primeiro-trimestre-tv</loc>
+    <loc>https://dramorgana.com.br/primeiro-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/obstetrico-translucencia-nucal</loc>
+    <loc>https://dramorgana.com.br/obstetrico-com-translucencia-nucal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/obstetrico-doppler</loc>
+    <loc>https://dramorgana.com.br/obstetrico-com-doppler</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/morfologico-1-trimestre</loc>
+    <loc>https://dramorgana.com.br/inicio/morfo-primeirotrimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/morfologico-2-trimestre</loc>
+    <loc>https://dramorgana.com.br/inicio/morfo-segundotrimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/morfologico-3-trimestre</loc>
+    <loc>https://dramorgana.com.br/morfologico-do-3o-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/perfil-biofisico-fetal</loc>
+    <loc>https://dramorgana.com.br/pbf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/ecocardiograma-fetal</loc>
+    <loc>https://dramorgana.com.br/ecocardiograma</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/colo-uterino</loc>
+    <loc>https://dramorgana.com.br/colo-uterino</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/cerclagem</loc>
+    <loc>https://dramorgana.com.br/cerclagem</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/transvaginal</loc>
+    <loc>https://dramorgana.com.br/tv</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/transvaginal-3d</loc>
+    <loc>https://dramorgana.com.br/tv-3d</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/ginecologico-doppler</loc>
+    <loc>https://dramorgana.com.br/transvaginal-com-doppler</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/rastreamento-ovulacao</loc>
+    <loc>https://dramorgana.com.br/rastreamento-de-ovulacao</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- endometriose-profunda não tem slug legado: usa novo slug -->
+  <url>
+    <loc>https://dramorgana.com.br/exames/endometriose-profunda</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/endometriose-profunda</loc>
+    <loc>https://dramorgana.com.br/ultrassom-perineal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/perineo</loc>
+    <loc>https://dramorgana.com.br/abdome-total</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/abdome-total</loc>
+    <loc>https://dramorgana.com.br/abdome-superior</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/abdome-superior</loc>
+    <loc>https://dramorgana.com.br/hipoc-dir</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/hipocondrio-direito</loc>
+    <loc>https://dramorgana.com.br/rins</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/rins-vias-urinarias</loc>
+    <loc>https://dramorgana.com.br/prostata</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/pelvico-masculino</loc>
+    <loc>https://dramorgana.com.br/mamas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/mamas-axilas</loc>
+    <loc>https://dramorgana.com.br/pelvico-infantil</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/pelvico-infantil</loc>
+    <loc>https://dramorgana.com.br/partes-moles</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/partes-moles</loc>
+    <loc>https://dramorgana.com.br/duplex-scan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/duplex-scan-mmii</loc>
+    <loc>https://dramorgana.com.br/carotidas-vertebrais</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/carotidas-vertebrais</loc>
+    <loc>https://dramorgana.com.br/aorta-iliacas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/aorta-iliacas</loc>
+    <loc>https://dramorgana.com.br/tireoide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/tireoide-doppler</loc>
+    <loc>https://dramorgana.com.br/cervical</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/cervical-doppler</loc>
+    <loc>https://dramorgana.com.br/glandulas-salivares</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/glandulas-salivares</loc>
+    <loc>https://dramorgana.com.br/abdominal-pediatrico</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/abdominal-total-pediatrico</loc>
+    <loc>https://dramorgana.com.br/rins-pediatrico</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/rins-vias-urinarias-pediatrico</loc>
+    <loc>https://dramorgana.com.br/transfontanela</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/exames/transfontanela</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/primeiro-trimestre</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/obstetrico-com-translucencia-nucal</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/obstetrico-com-doppler</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/inicio/morfo-primeirotrimestre</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/inicio/morfo-segundotrimestre</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/morfologico-do-3o-trimestre</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/pbf</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/ecocardiograma</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/colo-uterino</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/cerclagem</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/tv</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/tv-3d</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/transvaginal-com-doppler</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/rastreamento-de-ovulacao</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/ultrassom-perineal</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/abdome-total</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/abdome-superior</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/hipoc-dir</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/rins</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/prostata</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/mamas</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/pelvico-infantil</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/partes-moles</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/duplex-scan</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/carotidas-vertebrais</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/aorta-iliacas</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/tireoide</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/cervical</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/glandulas-salivares</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/abdominal-pediatrico</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/rins-pediatrico</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://clinicadramorgana.lovable.app/transfontanela</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
 </urlset>

@@ -8,7 +8,7 @@ export function ConversationHeader() {
 
   return (
     <div className="flex items-center justify-between mb-7">
-      <a href="https://clinicadramorgana.lovable.app" target="_blank" rel="noopener noreferrer">
+      <a href="/" >
         <img src={logoClinica} alt="Clínica de Ultrassom Dra. Morgana Kummer" className="h-14 w-auto" />
       </a>
 
