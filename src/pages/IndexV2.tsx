@@ -159,7 +159,7 @@ export const Navbar = () => {
       style={{ top: "var(--cta-bar-h, 0px)" }}
       className={`fixed inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/75 backdrop-blur-2xl border-b border-border/40"
+          ? "bg-background/95 md:bg-background/75 md:backdrop-blur-2xl border-b border-border/40"
           : "bg-transparent"
       }`}
     >
@@ -198,7 +198,7 @@ export const Navbar = () => {
         </div>
       </div>
       {open && (
-        <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-fade-in">
+        <div className="md:hidden bg-background border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => {
               const isRoute = l.href.startsWith("/");
@@ -237,7 +237,6 @@ const Hero = () => {
           src="/Hero2.jpg"
           alt=""
           aria-hidden="true"
-          fetchPriority="high"
           decoding="async"
           width={828}
           height={466}
@@ -649,7 +648,7 @@ const Contact = () => {
             className="w-full h-[420px] md:h-[520px] border-0 pointer-events-none"
           />
           <div className="absolute inset-0 bg-wine-deep/0 group-hover:bg-wine-deep/10 transition-colors duration-500" />
-          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-card/95 backdrop-blur-sm border border-border rounded-full px-5 py-3">
+          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between bg-card border border-border rounded-full px-5 py-3">
             <div className="flex items-center gap-3">
               <MapPin className="w-4 h-4 text-wine" strokeWidth={1.6} />
               <span className="text-xs text-foreground/85 font-light">{t.contact.addressShort}</span>
