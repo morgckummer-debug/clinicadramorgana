@@ -26,7 +26,16 @@ export function translateExam(exam: Exam, lang: string): Exam {
   translatedExam.sections = translatedSections || exam.sections;
 
   const translatedGallery = f('gallery', null);
-  translatedExam.gallery = translatedGallery || exam.gallery;
+  if (translatedGallery && exam.gallery) {
+    translatedExam.gallery = exam.gallery.map((orig, i) => ({
+      ...orig,
+      ...(translatedGallery[i] ?? {}),
+      image: orig.image,
+      video: orig.video,
+    }));
+  } else {
+    translatedExam.gallery = translatedGallery || exam.gallery;
+  }
 
   const translatedFaq = f('faq', null);
   translatedExam.faq = translatedFaq || exam.faq;
