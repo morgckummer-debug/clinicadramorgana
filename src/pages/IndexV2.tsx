@@ -2,38 +2,38 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryThumbs, getExamsByCategory } from "@/data/exams";
-import { DifferentiatedExperience } from "@/components/site/DifferentiatedExperience";
+// DifferentiatedExperience desabilitado — removido do bundle inicial
 import { useLanguage } from "@/contexts/LanguageContext";
 import logoWine from "@/assets/logo-wine.webp";
 import logoWhite from "@/assets/logo-white.webp";
 import logoClinica from "@/assets/logo-clinica.webp";
 import draHeroV2 from "@/assets/dra-morgana-hero-v2.webp";
 import draSobre from "@/assets/dra-morgana-sobre.webp";
-import teamMorgana from "@/assets/team/morgana.webp";
-import teamBarbara from "@/assets/team/barbara.webp";
-import teamDarlei from "@/assets/team/darlei.webp";
-import teamPaulo from "@/assets/team/paulo.webp";
-import teamCarolina from "@/assets/team/carolina.webp";
-import teamMariaAmelia from "@/assets/team/maria-amelia.webp";
-import teamAndre from "@/assets/team/andre.webp";
+/* Team & Convênios — servidos via /public para não inflarem o bundle JS inicial */
+const teamMorgana = "/team/morgana.webp";
+const teamBarbara = "/team/barbara.webp";
+const teamDarlei = "/team/darlei.webp";
+const teamPaulo = "/team/paulo.webp";
+const teamCarolina = "/team/carolina.webp";
+const teamMariaAmelia = "/team/maria-amelia.webp";
+const teamAndre = "/team/andre.webp";
 
-/* Convênios — logos */
-import convHapvida from "@/assets/convenios/hapvida.webp";
-import convAurora from "@/assets/convenios/aurora-2.webp";
-import convGrupoZelo from "@/assets/convenios/grupo-zelo.webp";
-import convFusex from "@/assets/convenios/fusex-1.webp";
-import convStellantis from "@/assets/convenios/stellantis.webp";
-import convCemig from "@/assets/convenios/cemig.webp";
-import convBomPastor from "@/assets/convenios/bom-pastor.webp";
-import convSantaClara from "@/assets/convenios/santa-clara.webp";
-import convFundafem from "@/assets/convenios/fundafem.webp";
-import convNotreDame from "@/assets/convenios/notredame.webp";
-import convCasembrapa from "@/assets/convenios/casembrapa.webp";
-import convCopass from "@/assets/convenios/copass.webp";
-import convPax from "@/assets/convenios/pax.webp";
-import convAgebras from "@/assets/convenios/agebras.webp";
-import convMedGold from "@/assets/convenios/medgold.webp";
-import convEvangelize from "@/assets/convenios/evangelize.webp";
+const convHapvida = "/convenios/hapvida.webp";
+const convAurora = "/convenios/aurora-2.webp";
+const convGrupoZelo = "/convenios/grupo-zelo.webp";
+const convFusex = "/convenios/fusex-1.webp";
+const convStellantis = "/convenios/stellantis.webp";
+const convCemig = "/convenios/cemig.webp";
+const convBomPastor = "/convenios/bom-pastor.webp";
+const convSantaClara = "/convenios/santa-clara.webp";
+const convFundafem = "/convenios/fundafem.webp";
+const convNotreDame = "/convenios/notredame.webp";
+const convCasembrapa = "/convenios/casembrapa.webp";
+const convCopass = "/convenios/copass.webp";
+const convPax = "/convenios/pax.webp";
+const convAgebras = "/convenios/agebras.webp";
+const convMedGold = "/convenios/medgold.webp";
+const convEvangelize = "/convenios/evangelize.webp";
 
 /* ---------------- Constantes globais ---------------- */
 const WHATSAPP_URL = "https://wa.me/5531993910212";
