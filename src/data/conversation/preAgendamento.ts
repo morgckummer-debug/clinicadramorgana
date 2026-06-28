@@ -227,3 +227,10 @@ export const preAgendamentoFlow: ConversationFlow = {
     },
   },
 }
+
+export function findQ1ForExamTitle(title: string): string | null {
+  for (const [key, list] of Object.entries(EXAMES_POR_CATEGORIA)) {
+    if (list.includes(title)) return key
+  }
+  return null
+}

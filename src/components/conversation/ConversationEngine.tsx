@@ -15,6 +15,7 @@ type Step = 'welcome' | 'question' | 'saving' | 'success' | 'error' | 'blocked'
 
 interface ConversationEngineProps {
   flow: ConversationFlow
+  prefill?: { q1: string; q2: string }
 }
 
 function parseDateBR(ddmmaaaa: string): string {
@@ -171,12 +172,19 @@ function q10JaRespondido(answers: Record<string, string | string[]>): boolean {
   return Array.isArray(v) ? v.length > 0 : !!v
 }
 
-export function ConversationEngine({ flow }: ConversationEngineProps) {
+export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
   const { t } = useLanguage()
-  const [step, setStep] = useState<Step>('welcome')
-  const [currentId, setCurrentId] = useState(flow.firstQuestion)
-  const [history, setHistory] = useState<string[]>([])
-  const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
+  const [step, setStep] = useState<Step>(() => prefill ? 'question' : 'welcome')
+  const [currentId, setCurrentId] = useState(() => {
+    if (!prefill) return flow.firstQuestion
+    if (prefill.q2 === 'Obstétrico do 1º Trimestre') return 'ob1_a'
+    if (precisaDUM({ q1: prefill.q1, q2: prefill.q2 })) return 'q2b'
+    return 'q10'
+  })
+  const [history, setHistory] = useState<string[]>(() => prefill ? ['q1', 'q2'] : [])
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>(() =>
+    prefill ? { q1: prefill.q1, q2: prefill.q2 } : {}
+  )
   const [blockedReturnId, setBlockedReturnId] = useState<string>('q2g')
   const [blockedMessage, setBlockedMessage] = useState<string>('')
   const [saveErrorMessage, setSaveErrorMessage] = useState<string>('')
