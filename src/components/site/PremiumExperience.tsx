@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const DRA_MORGANA_URL = "https://dramorganakummer.lovable.app";
+const DRA_MORGANA_URL = "https://clinicadramorgana.com.br";
 
 export const PremiumExperience = () => {
   const { t } = useLanguage();

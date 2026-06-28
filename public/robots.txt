@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://clinicadramorgana.lovable.app/sitemap.xml
+Sitemap: https://clinicadramorgana.com.br/sitemap.xml
