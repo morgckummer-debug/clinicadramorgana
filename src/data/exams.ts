@@ -116,6 +116,8 @@ export interface Exam {
 
   /** Título SEO (Yoast) do WordPress — usado no <title> da página. */
   seoTitle?: string;
+  /** Meta descrição (Yoast) do WordPress. */
+  seoDescription?: string;
 
   /** Campos legados — usados como fallback enquanto a página não foi migrada. */
   longDesc?: string;
@@ -154,6 +156,7 @@ export const exams: Exam[] = [
     slug: "ultrassom-primeiro-trimestre-tv",
     legacySlug: "/primeiro-trimestre",
     seoTitle: "Ultrassom 1º Trimestre | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ultrassom de 1º trimestre com precisão. Detecção de batimentos cardíacos, idade gestacional e malformações. Especialista em medicina fetal em Sete Lagoas.",
     category: "Obstétrico",
     title: "Obstétrico do 1º Trimestre",
     thumb: thumbObstetrico,
@@ -243,6 +246,7 @@ export const exams: Exam[] = [
   {
     slug: "obstetrico-translucencia-nucal",
     legacySlug: "/obstetrico-com-translucencia-nucal",
+    seoDescription: "Ultrassom com translucência nucal para rastreamento de síndromes no 1º trimestre. Medição precisa e interpretação especializada. Agende em Sete Lagoas.",
     category: "Obstétrico",
     title: "Obstétrico com Translucência Nucal",
     thumb: thumbObstetrico,
@@ -299,6 +303,7 @@ export const exams: Exam[] = [
   {
     slug: "obstetrico-doppler",
     legacySlug: "/obstetrico-com-doppler",
+    seoDescription: "Ultrassom obstétrico com Doppler para avaliação de fluxo sanguíneo e funcionamento placentário. Importante em gestações de alto risco. Especialista em Sete Lagoas.",
     category: "Obstétrico",
     title: "Obstétrico com Doppler",
     thumb: thumbObstetrico,
@@ -361,6 +366,7 @@ export const exams: Exam[] = [
   {
     slug: "morfologico-1-trimestre",
     legacySlug: "/inicio/morfo-primeirotrimestre",
+    seoDescription: "Ultrassom morfológico do 1º trimestre com rastreamento de síndromes e pré eclâmpsia. Medição de translucência nucal e marcadores cardíacos. Sete Lagoas.",
     category: "Obstétrico",
     title: "Morfológico do 1º Trimestre",
     thumb: thumbObstetrico,
@@ -486,6 +492,7 @@ export const exams: Exam[] = [
   {
     slug: "morfologico-2-trimestre",
     legacySlug: "/inicio/morfo-segundotrimestre",
+    seoDescription: "Ultrassom morfológico do 2º trimestre com avaliação completa do bebê. Detecção de malformações e anatomia fetal. Especialista em medicina fetal em Sete Lagoas.",
     category: "Obstétrico",
     title: "Morfológico do 2º Trimestre",
     thumb: thumbObstetrico,
@@ -601,6 +608,7 @@ export const exams: Exam[] = [
   {
     slug: "morfologico-3-trimestre",
     legacySlug: "/morfologico-do-3o-trimestre",
+    seoDescription: "Ultrassom morfológico do 3º trimestre para avaliação do amadurecimento fetal. Bem-estar fetal, peso estimado e posicionamento. Especialistas em Sete Lagoas.",
     category: "Obstétrico",
     title: "Morfológico do 3º Trimestre",
     thumb: thumbObstetrico,
@@ -658,6 +666,7 @@ export const exams: Exam[] = [
   {
     slug: "perfil-biofisico-fetal",
     legacySlug: "/pbf",
+    seoDescription: "Perfil biofísico fetal para avaliação do bem-estar do bebê. Movimento fetal, movimentos respiratórios e líquido amniótico. Importante em 3º trimestre e nas gestações de risco. Agende em Sete Lagoas.",
     category: "Obstétrico",
     title: "Perfil Biofísico Fetal (PBF)",
     thumb: thumbObstetrico,
@@ -711,6 +720,7 @@ export const exams: Exam[] = [
     slug: "ecocardiograma-fetal",
     legacySlug: "/ecocardiograma",
     seoTitle: "Ecocardiograma Fetal | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ecocardiograma fetal com especialista em medicina fetal. Avaliação completa do coração do bebê. Detecção de cardiopatias congênitas. Agende com Dr. Darlei em Sete Lagoas.",
     category: "Obstétrico",
     title: "Ecocardiograma Fetal",
     thumb: thumbObstetrico,
@@ -792,6 +802,7 @@ export const exams: Exam[] = [
     slug: "colo-uterino",
     legacySlug: "/colo-uterino",
     seoTitle: "Ultrassom de Colo Uterino | Dra. Morgana Kummer | Sete Lagoas",
+    seoDescription: "Avaliação do colo uterino por ultrassom transvaginal. Medição de comprimento cervical e detecção de alterações. Importante em gestações de alto risco. Agende em Sete Lagoas.",
     category: "Obstétrico",
     title: "Medida do Colo Uterino (Cervicometria)",
     thumb: thumbObstetrico,
@@ -931,6 +942,7 @@ export const exams: Exam[] = [
     slug: "transvaginal",
     legacySlug: "/tv",
     seoTitle: "Ultrassom Transvaginal | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ultrassom transvaginal para avaliação ginecológica completa. Diagnóstico de miomas, cistos e endometriose. Exame de alta precisão. Agende em Sete Lagoas.",
     category: "Ginecológico",
     title: "Transvaginal (Endovaginal)",
     thumb: thumbGinecologico,
@@ -1002,6 +1014,7 @@ export const exams: Exam[] = [
     slug: "transvaginal-3d",
     legacySlug: "/tv-3d",
     seoTitle: "Ultrassom Transvaginal 3D | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ultrassom transvaginal 3D para visualização detalhada dos órgãos reprodutivos na identificação das malformações uterinas. Diagnóstico preciso de alterações ginecológicas. Especialista em Sete Lagoas.",
     category: "Ginecológico",
     title: "Transvaginal 3D",
     thumb: thumbGinecologico,
@@ -1064,6 +1077,7 @@ export const exams: Exam[] = [
     slug: "ginecologico-doppler",
     legacySlug: "/transvaginal-com-doppler",
     seoTitle: "Ultrassom Transvaginal com Doppler | Sete Lagoas",
+    seoDescription: "Ultrassom transvaginal com Doppler para avaliação de fluxo sanguíneo ovariano e uterino. Diagnóstico de cistos e tumores ovarianos. Especialista em Sete Lagoas.",
     category: "Ginecológico",
     title: "Transvaginal com Doppler",
     thumb: thumbGinecologico,
@@ -1124,6 +1138,7 @@ export const exams: Exam[] = [
   {
     slug: "rastreamento-ovulacao",
     legacySlug: "/rastreamento-de-ovulacao",
+    seoDescription: "Rastreamento de ovulação para mulheres tentando engravidar. Monitoramento de folículos e ciclo menstrual. Aumenta chances de concepção. Agende em Sete Lagoas.",
     category: "Ginecológico",
     title: "Rastreamento de Ovulação",
     thumb: thumbGinecologico,
@@ -1242,6 +1257,7 @@ export const exams: Exam[] = [
     slug: "perineo",
     legacySlug: "/ultrassom-perineal",
     seoTitle: "Ultrassom PERINEO 3D - Assoalho Pélvico | Sete Lagoas",
+    seoDescription: "Ultrassom tridimensional do períneo e assoalho pélvico. Diagnóstico de disfunções, incontinência e prolapso. Avaliação especializada em Sete Lagoas.",
     category: "Ginecológico",
     title: "Ultrassom Perineal",
     thumb: thumbGinecologico,
@@ -1288,6 +1304,7 @@ export const exams: Exam[] = [
     slug: "abdome-total",
     legacySlug: "/abdome-total",
     seoTitle: "Ultrassom de Abdome Total | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ultrassom completo do abdômen com avaliação de fígado, vesícula, pâncreas e rins. Exame rápido e preciso. Agende com especialista em Sete Lagoas.",
     category: "Medicina Interna",
     title: "Abdome Total",
     thumb: thumbGeral,
@@ -1344,6 +1361,7 @@ export const exams: Exam[] = [
     slug: "abdome-superior",
     legacySlug: "/abdome-superior",
     seoTitle: "Ultrassom de Abdome Superior | Dra. Morgana Kummer",
+    seoDescription: "Ultrassom de abdome superior para avaliar fígado, vesícula e pâncreas. Rápido, preciso e sem preparo. Agende com especialista em Sete Lagoas.",
     category: "Medicina Interna",
     title: "Abdome Superior",
     thumb: thumbGeral,
@@ -1395,6 +1413,7 @@ export const exams: Exam[] = [
     slug: "hipocondrio-direito",
     legacySlug: "/hipoc-dir",
     seoTitle: "Ultrassom Hipocôndrio Direito | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ultrassom de hipocôndrio direito para avaliar fígado, vesícula e vias biliares. Exame de imagem rápido e preciso. Agende com especialista em Sete Lagoas.",
     category: "Medicina Interna",
     title: "Hipocôndrio Direito",
     thumb: thumbGeral,
@@ -1446,6 +1465,7 @@ export const exams: Exam[] = [
     slug: "rins-vias-urinarias",
     legacySlug: "/rins",
     seoTitle: "Ultrassom de Rins e Vias Urinárias | Sete Lagoas",
+    seoDescription: "Ultrassom de rins e vias urinárias para diagnóstico de cálculos e alterações. Exame rápido e sem radiação. Agende com especialista em Sete Lagoas.",
     category: "Medicina Interna",
     title: "Rins e Vias Urinárias",
     thumb: thumbGeral,
@@ -1498,6 +1518,7 @@ export const exams: Exam[] = [
     slug: "pelvico-masculino",
     legacySlug: "/prostata",
     seoTitle: "Ultrassom de Próstata | Dra. Morgana Kummer Sete Lagoas",
+    seoDescription: "Ultrassom de próstata para diagnóstico de alterações e acompanhamento. Exame não invasivo e preciso. Agende com especialista em Sete Lagoas.",
     category: "Medicina Interna",
     title: "Pélvico Masculino (Próstata)",
     thumb: thumbGeral,

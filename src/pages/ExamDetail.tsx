@@ -90,7 +90,7 @@ const ExamDetail = () => {
     document.title = baseExam.seoTitle ?? `${exam.title} · Dra. Morgana Kummer`;
 
     const heroIntro = exam.hero?.intro ?? exam.longDesc ?? exam.shortDesc;
-    const description = `${exam.title} — ${heroIntro}`.slice(0, 160);
+    const description = baseExam.seoDescription ?? `${exam.title} — ${heroIntro}`.slice(0, 160);
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement("meta");
