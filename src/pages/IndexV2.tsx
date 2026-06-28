@@ -238,6 +238,7 @@ const Hero = () => {
           alt=""
           aria-hidden="true"
           fetchPriority="high"
+          decoding="async"
           width={828}
           height={466}
           className="absolute inset-0 w-full h-full object-cover block md:hidden"
