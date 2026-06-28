@@ -1,38 +1,44 @@
-# Plano — performance da home no mobile
-
 ## Objetivo
-Fazer a home abrir rápido no celular e o botão "Pré-Agendamento" responder imediatamente, sem esperar 6s pelo navbar.
+Reduzir o tempo até interatividade no celular eliminando peso desnecessário, antecipando o LCP e tirando scripts não-críticos do caminho.
 
-## Causa raiz
-O chunk JS da home está grande demais porque `IndexV2.tsx` importa estaticamente 16 logos de convênios, 7 fotos da equipe, vários logotipos e o componente `DifferentiatedExperience` — tudo entra no mesmo bundle que precisa ser baixado e executado antes de qualquer botão funcionar. Enquanto isso, `App.tsx` mostra `<Suspense fallback={null}>` (tela em branco) e o `<Link>` do botão só ativa após a hidratação do React.
+## Mudanças
 
-## O que vou fazer
+### 1. Limpar assets órfãos (-3,5 MB)
+- Remover `src/assets/pregnant-happy.png` (2 MB) e `src/assets/pregnant-happy-transp.png` (1,4 MB) — sem referências.
+- Remover `public/pregnant-happy.png` e `public/pregnant-happy-transp.png` se também órfãos.
+- Verificar e remover `src/assets/hero-clinic.jpg` (137 KB) se não usado.
 
-### 1. Tirar imagens "abaixo da dobra" do bundle JS
-- Mover os 16 logos de `src/assets/convenios/` e as 7 fotos de `src/assets/team/` para `public/convenios/` e `public/team/`.
-- Trocar os `import conv... from "@/assets/..."` por referências por URL (`"/convenios/hapvida.webp"`) dentro dos arrays `convenios` e `teamBase`.
-- Efeito: essas imagens deixam de ser pré-carregadas pelo JS e só baixam quando o usuário rola até elas. O chunk inicial cai bastante.
+### 2. Antecipar o LCP do mobile
+Adicionar no `<head>` do `index.html`, antes dos scripts:
+```html
+<link rel="preload" as="image" href="/Hero2.jpg"
+      media="(max-width: 767px)" fetchpriority="high" />
+```
+Assim a imagem do hero começa a baixar em paralelo ao bundle JS.
 
-### 2. Adicionar `loading="lazy"` e `decoding="async"` nas imagens fora da dobra
-- Aplicar nas fotos da equipe, logos de convênios, foto "Sobre" e qualquer `<img>` que não seja o Hero.
-- O Hero continua `fetchPriority="high"` (é o LCP).
+### 3. Adiar Google Analytics
+Reescrever o bloco GA4 no `index.html` para só carregar `gtag.js` depois de `window.load` (ou após 2s de timeout). O `dataLayer` continua sendo inicializado imediatamente, então nenhum evento se perde. Libera ~50 KB do caminho crítico no 4G.
 
-### 3. Code-split do `DifferentiatedExperience`
-- Trocar o import estático por `lazy(() => import(...))` com `<Suspense fallback={null}>` ao redor.
-- Ele aparece depois do Hero, então não precisa estar no chunk inicial.
+### 4. Code-splitting de seções da home
+Em `src/pages/IndexV2.tsx`, extrair as seções abaixo da dobra para componentes próprios em `src/components/site/home/` e importá-los via `React.lazy` com `<Suspense fallback={null}>`:
+- `ConveniosSection`
+- `EquipeSection`
+- `SobreSection`
+- `DepoimentosSection` (se existir)
 
-### 4. Substituir o `fallback={null}` global por um esqueleto mínimo
-- Em `App.tsx`, trocar `<Suspense fallback={null}>` por um esqueleto leve que já renderiza o navbar visual e um botão "Pré-Agendamento" como `<a href="/agendar">` puro.
-- Assim, mesmo antes do React hidratar, o clique no botão já funciona via navegação nativa do navegador (o React Router assume depois sem perder o destino).
+Resultado: o chunk inicial passa a conter só hero + navbar + menu de exames, que é o que o usuário vê primeiro.
 
-### 5. Preload do chunk da home
-- Adicionar `<link rel="modulepreload">` no `index.html` apontando para o entry do app, para o navegador começar a baixar o JS em paralelo com o HTML em vez de esperar o parse.
+### 5. Preconnect aos domínios externos
+Adicionar no `<head>`:
+```html
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+```
 
-## Não vou mexer
-- Layout, cores, conteúdo, fluxo de agendamento, backend, autenticação.
-- O vídeo do Hero no desktop fica como está.
-- O comportamento visual do navbar não muda.
+## Fora do escopo (sugestões para depois)
+- Converter `Hero2.jpg` para AVIF/WebP responsivo via `vite-imagetools` (ganho marginal, já está em 66 KB).
+- Service worker para cachear shell — só compensa com tráfego recorrente alto.
+- Mover o player de vídeos para um host próprio (depende da decisão sobre o WP).
 
-## Como vou validar
-- Build local e verificar tamanho do chunk principal antes/depois.
-- Abrir a preview no viewport mobile e confirmar que o botão Pré-Agendamento clica imediatamente, sem esperar o navbar terminar de aparecer.
+## Verificação após implementação
+Rodar Lighthouse mobile no preview publicado e comparar LCP / TBT antes vs depois. Meta: LCP &lt; 2,5s no 4G simulado.
