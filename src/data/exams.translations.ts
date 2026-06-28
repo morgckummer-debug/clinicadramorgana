@@ -694,11 +694,21 @@ export const examTranslations: Record<string, Record<string, any>> = {
   "pelvico-masculino": {
     en: {
       title: "Male Pelvis (Prostate)",
-      shortDesc: "Evaluation of bladder and prostate via abdominal approach."
+      shortDesc: "Evaluation of bladder and prostate via abdominal approach.",
+      longDesc: "Evaluates bladder and prostate via abdominal approach, with post-void residual measurement.",
+      indications: ["Urinary symptoms", "Prostate enlargement", "Routine male screening"],
+      preparation: "Full bladder required. Drink 4–6 glasses of water 1 hour before the exam and do not urinate until it is performed.",
+      duration: "20 minutes",
+      whatToBring: ["Medical referral", "Recent PSA result, if available"]
     },
     es: {
       title: "Pélvico Masculino (Próstata)",
-      shortDesc: "Evaluación de vejiga y próstata por vía abdominal."
+      shortDesc: "Evaluación de vejiga y próstata por vía abdominal.",
+      longDesc: "Evalúa vejiga y próstata por vía abdominal, con medición del residuo posmiccional.",
+      indications: ["Alteraciones urinarias", "Aumento prostático", "Rastreo de rutina masculina"],
+      preparation: "Vejiga llena. Tome 4–6 vasos de agua 1 hora antes del examen y no orine hasta realizarlo.",
+      duration: "20 minutos",
+      whatToBring: ["Pedido médico", "PSA reciente, si disponible"]
     }
   },
   "mamas-axilas": {
