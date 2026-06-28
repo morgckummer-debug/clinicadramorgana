@@ -174,7 +174,7 @@ function q10JaRespondido(answers: Record<string, string | string[]>): boolean {
 
 export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
   const { t } = useLanguage()
-  const [step, setStep] = useState<Step>(() => prefill ? 'question' : 'welcome')
+  const [step, setStep] = useState<Step>('welcome')
   const [currentId, setCurrentId] = useState(() => {
     if (!prefill) return flow.firstQuestion
     if (prefill.q2 === 'Obstétrico do 1º Trimestre') return 'ob1_a'
