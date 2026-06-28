@@ -2,206 +2,206 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Páginas principais -->
   <url>
-    <loc>https://clinicadramorgana.com.br/</loc>
+    <loc>https://dramorgana.com.br/</loc>
     <lastmod>2026-06-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/videos</loc>
+    <loc>https://dramorgana.com.br/videos</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/agendar</loc>
+    <loc>https://dramorgana.com.br/agendar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/pre-agendamento</loc>
+    <loc>https://dramorgana.com.br/pre-agendamento</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/preparo</loc>
+    <loc>https://dramorgana.com.br/preparo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/como-chegar</loc>
+    <loc>https://dramorgana.com.br/como-chegar</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/falar-secretaria</loc>
+    <loc>https://dramorgana.com.br/falar-secretaria</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <!-- Exames: URLs canônicas (slugs legados = URLs indexadas pelo Google) -->
   <url>
-    <loc>https://clinicadramorgana.com.br/primeiro-trimestre</loc>
+    <loc>https://dramorgana.com.br/primeiro-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/obstetrico-com-translucencia-nucal</loc>
+    <loc>https://dramorgana.com.br/obstetrico-com-translucencia-nucal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/obstetrico-com-doppler</loc>
+    <loc>https://dramorgana.com.br/obstetrico-com-doppler</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/inicio/morfo-primeirotrimestre</loc>
+    <loc>https://dramorgana.com.br/inicio/morfo-primeirotrimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/inicio/morfo-segundotrimestre</loc>
+    <loc>https://dramorgana.com.br/inicio/morfo-segundotrimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/morfologico-do-3o-trimestre</loc>
+    <loc>https://dramorgana.com.br/morfologico-do-3o-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/pbf</loc>
+    <loc>https://dramorgana.com.br/pbf</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/ecocardiograma</loc>
+    <loc>https://dramorgana.com.br/ecocardiograma</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/colo-uterino</loc>
+    <loc>https://dramorgana.com.br/colo-uterino</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/cerclagem</loc>
+    <loc>https://dramorgana.com.br/cerclagem</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/tv</loc>
+    <loc>https://dramorgana.com.br/tv</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/tv-3d</loc>
+    <loc>https://dramorgana.com.br/tv-3d</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/transvaginal-com-doppler</loc>
+    <loc>https://dramorgana.com.br/transvaginal-com-doppler</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/rastreamento-de-ovulacao</loc>
+    <loc>https://dramorgana.com.br/rastreamento-de-ovulacao</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- endometriose-profunda não tem slug legado: usa novo slug -->
   <url>
-    <loc>https://clinicadramorgana.com.br/exames/endometriose-profunda</loc>
+    <loc>https://dramorgana.com.br/exames/endometriose-profunda</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/ultrassom-perineal</loc>
+    <loc>https://dramorgana.com.br/ultrassom-perineal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/abdome-total</loc>
+    <loc>https://dramorgana.com.br/abdome-total</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/abdome-superior</loc>
+    <loc>https://dramorgana.com.br/abdome-superior</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/hipoc-dir</loc>
+    <loc>https://dramorgana.com.br/hipoc-dir</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/rins</loc>
+    <loc>https://dramorgana.com.br/rins</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/prostata</loc>
+    <loc>https://dramorgana.com.br/prostata</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/mamas</loc>
+    <loc>https://dramorgana.com.br/mamas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/pelvico-infantil</loc>
+    <loc>https://dramorgana.com.br/pelvico-infantil</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/partes-moles</loc>
+    <loc>https://dramorgana.com.br/partes-moles</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/duplex-scan</loc>
+    <loc>https://dramorgana.com.br/duplex-scan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/carotidas-vertebrais</loc>
+    <loc>https://dramorgana.com.br/carotidas-vertebrais</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/aorta-iliacas</loc>
+    <loc>https://dramorgana.com.br/aorta-iliacas</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/tireoide</loc>
+    <loc>https://dramorgana.com.br/tireoide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/cervical</loc>
+    <loc>https://dramorgana.com.br/cervical</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/glandulas-salivares</loc>
+    <loc>https://dramorgana.com.br/glandulas-salivares</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/abdominal-pediatrico</loc>
+    <loc>https://dramorgana.com.br/abdominal-pediatrico</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/rins-pediatrico</loc>
+    <loc>https://dramorgana.com.br/rins-pediatrico</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://clinicadramorgana.com.br/transfontanela</loc>
+    <loc>https://dramorgana.com.br/transfontanela</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

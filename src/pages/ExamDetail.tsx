@@ -25,7 +25,7 @@ import {
 } from "@/data/exams";
 
 const WHATSAPP_URL = "https://wa.me/5531993910212";
-const SITE_ORIGIN = "https://clinicadramorgana.com.br";
+const SITE_ORIGIN = "https://dramorgana.com.br";
 
 /**
  * Constrói as seções a renderizar.
