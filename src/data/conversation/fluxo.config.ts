@@ -27,6 +27,8 @@ export const EXAMES_POR_CATEGORIA: Record<string, string[]> = {
     'Morfológico do 3º Trimestre',
     'Perfil Biofísico Fetal (PBF)',
     'Ecocardiograma Fetal',
+    'Medida do Colo Uterino (Cervicometria)',
+    'Cerclagem do Colo Uterino',
   ],
   ginecologico: [
     'Transvaginal (Endovaginal)',
@@ -40,7 +42,7 @@ export const EXAMES_POR_CATEGORIA: Record<string, string[]> = {
     'Abdome Total',
     'Abdome Superior',
     'Hipocôndrio Direito',
-    'Partes Moles e Parede Abdominal',
+    'Partes Moles',
     'Rins e Vias Urinárias',
     'Pélvico Masculino (Próstata)',
   ],
