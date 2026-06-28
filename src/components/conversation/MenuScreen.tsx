@@ -40,7 +40,7 @@ export function MenuScreen({ onAgendar }: MenuScreenProps) {
       icon: <FileText className="w-5 h-5" />,
       label: t.conversation.menu.option3,
       description: 'Veja as orientações antes do seu exame.',
-      action: () => navigate('/exames'),
+      action: () => navigate('/#exames'),
     },
     {
       icon: <MessageCircle className="w-5 h-5" />,

@@ -111,7 +111,7 @@ const ExamDetail = () => {
     canonical.href = canonicalHref;
   }, [exam]);
 
-  if (!baseExam) return <Navigate to="/404" replace />;
+  if (!baseExam) return <Navigate to="/" replace />;
 
   const hero = resolveIntro(exam);
   const sections = resolveSections(exam, t);
