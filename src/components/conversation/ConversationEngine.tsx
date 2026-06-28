@@ -178,7 +178,8 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
   const [currentId, setCurrentId] = useState(() => {
     if (!prefill) return flow.firstQuestion
     if (prefill.q2 === 'Obstétrico do 1º Trimestre') return 'ob1_a'
-    if (precisaDUM({ q1: prefill.q1, q2: prefill.q2 })) return 'q2b'
+    // Para gestação (exceto 1º Trimestre): pede o pedido médico primeiro, DUM depois
+    if (precisaDUM({ q1: prefill.q1, q2: prefill.q2 })) return 'q2e'
     return 'q10'
   })
   const [history, setHistory] = useState<string[]>(() => prefill ? ['q1', 'q2'] : [])
@@ -266,13 +267,16 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
     }
     if (currentId === 'q2b_us') {
       const val = selectedValue ?? (currentAnswer as string)
-      return val === 'sim' ? 'q2b_us_data' : 'q2d'
+      if (val === 'nao') return answers['q2e'] ? 'q3' : 'q2d'
+      return 'q2b_us_data'
     }
     if (currentId === 'q2b_us_data') return 'q2b_us_sem'
-    if (currentId === 'q2b_us_sem') return 'q2d'
+    if (currentId === 'q2b_us_sem') return answers['q2e'] ? 'q3' : 'q2d'
     if (currentId === 'q2c') {
       const categoria = answers['q1'] as string
-      return categoria === 'gestacao' ? 'q2e' : 'q3'
+      // Se o pedido já foi coletado antes da DUM (fluxo de prefill), vai direto para dados pessoais
+      if (categoria === 'gestacao') return answers['q2e'] ? 'q3' : 'q2e'
+      return 'q3'
     }
     if (currentId === 'q2d') {
       const val = selectedValue ?? (currentAnswer as string)
@@ -283,6 +287,16 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
       const val = selectedValue ?? (currentAnswer as string)
       if (val === 'nao' && EXAMES_SEM_PEDIDO_OBRIGATORIO.has(answers['q2'] as string)) return 'q3'
       return val === 'sim' ? 'q2f' : 'q2h'
+    }
+    if (currentId === 'q2f') {
+      // Se veio do fluxo pedido-primeiro (prefill gestação) e DUM ainda não foi perguntada, pergunta agora
+      if ((answers['q1'] as string) === 'gestacao' && !answers['q2b']) return 'q2b'
+      return 'q3'
+    }
+    if (currentId === 'q2g') {
+      // Mesmo que q2f: se DUM ainda não foi coletada, vai para q2b
+      if ((answers['q1'] as string) === 'gestacao' && !answers['q2b']) return 'q2b'
+      return 'q3'
     }
     if (currentId === 'q2h') {
       return 'q2g'
