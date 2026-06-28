@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryThumbs, getExamsByCategory } from "@/data/exams";
-import { DifferentiatedExperience } from "@/components/site/DifferentiatedExperience";
+// DifferentiatedExperience desabilitado — removido do bundle inicial
 import { useLanguage } from "@/contexts/LanguageContext";
 import logoWine from "@/assets/logo-wine.webp";
 import logoWhite from "@/assets/logo-white.webp";
