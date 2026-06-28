@@ -147,7 +147,7 @@ export const examTranslations: Record<string, Record<string, any>> = {
 ,
   "morfologico-1-trimestre": {
     en: {
-      title: "Morphological Ultrasound 1st Trimester",
+      title: "1st Trimester Anomaly Scan",
       shortDesc: "Detailed evaluation of fetal anatomy between 12 and 13 weeks 6 days.",
       hero: { tagline: "The beginning of essential monitoring.", intro: "Morphological exams are more detailed exams because we study the morphology (shape and size) of organs." },
       sections: [
@@ -197,7 +197,7 @@ export const examTranslations: Record<string, Record<string, any>> = {
   },
   "morfologico-2-trimestre": {
     en: {
-      title: "Morphological Ultrasound 2nd Trimester",
+      title: "2nd Trimester Anomaly Scan",
       shortDesc: "Detailed assessment of fetal development between 21 and 24 weeks.",
       hero: { tagline: "Detailed assessment of fetal development.", intro: "Morphological exams are more detailed exams where we study morphology (shape and size) of organs." },
       sections: [
@@ -257,7 +257,7 @@ export const examTranslations: Record<string, Record<string, any>> = {
   },
   "morfologico-3-trimestre": {
     en: {
-      title: "Morphological Ultrasound 3rd Trimester",
+      title: "3rd Trimester Anomaly Scan",
       shortDesc: "Assessment of fetal development in the final weeks of pregnancy.",
       hero: { tagline: "Assessing baby's development in the final stretch.", intro: "Morphological exams are detailed assessments where we study organ morphology (shape and size)." },
       sections: [
