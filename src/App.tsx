@@ -30,6 +30,36 @@ const legacyRoutes = exams
   .map((e) => e.legacySlug)
   .filter((s): s is string => Boolean(s));
 
+/**
+ * Esqueleto leve renderizado enquanto o chunk da rota carrega.
+ * Mostra o navbar com o botão Pré-Agendamento como <a> nativo,
+ * de forma que o clique funcione mesmo antes do React hidratar.
+ */
+const RouteFallback = () => (
+  <div className="min-h-screen bg-background">
+    <header className="fixed inset-x-0 top-0 z-50 bg-transparent">
+      <div className="container flex items-center justify-between h-16">
+        <a href="/" className="flex items-center gap-3">
+          <img
+            src="/logo-horiz.png"
+            alt="Clínica de Ultrassom Dra. Morgana Kummer"
+            width={200}
+            height={48}
+            className="h-12 w-auto"
+          />
+        </a>
+        <a
+          href="/agendar"
+          className="hidden md:inline-flex items-center gap-2 px-6 py-3 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold"
+          style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
+        >
+          Pré-Agendamento
+        </a>
+      </div>
+    </header>
+  </div>
+);
+
 const App = () => (
   <LanguageProvider>
     <AuthProvider>
