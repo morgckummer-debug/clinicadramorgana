@@ -32,15 +32,30 @@
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-400-n-latin.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-400-n-latin-ext.woff2" />
 
+    <!-- LCP do mobile: hero estático começa a baixar antes do React parsear -->
+    <link rel="preload" as="image" href="/Hero2.jpg" media="(max-width: 767px)" fetchpriority="high" />
+
+    <!-- Conexões antecipadas para o GA (carregado após o load) -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
     <link rel="canonical" href="https://dramorgana.com.br/" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FQ0YH08X1"></script>
+    <!-- Google Analytics 4 — dataLayer inicia já; script carrega após o load -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-7FQ0YH08X1');
+      function __loadGA(){
+        if (window.__gaLoaded) return; window.__gaLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-7FQ0YH08X1';
+        document.head.appendChild(s);
+      }
+      if (document.readyState === 'complete') { setTimeout(__loadGA, 1500); }
+      else { window.addEventListener('load', function(){ setTimeout(__loadGA, 1500); }); }
     </script>
 
     <title>Ultrassom Obstétrico Sete Lagoas | Dra. Morgana Kummer</title>
