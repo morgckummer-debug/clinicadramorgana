@@ -22,6 +22,7 @@ const FalarSecretaria = lazy(() => import("./pages/FalarSecretaria.tsx"));
 const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
 const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
+const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ const App = () => (
                 <Route path="/falar-secretaria" element={<FalarSecretaria />} />
                 <Route path="/painel/login" element={<PainelLogin />} />
                 <Route path="/painel" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
+                <Route path="/painel/lista-negra" element={<ProtectedRoute><PainelListaNegra /></ProtectedRoute>} />
                 <Route path="/painel/:id" element={<ProtectedRoute><PainelDetalhe /></ProtectedRoute>} />
                 {legacyRoutes.map((path) => (
                   <Route key={path} path={path} element={<ExamDetail />} />
