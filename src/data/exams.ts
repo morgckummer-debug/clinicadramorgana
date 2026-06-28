@@ -114,6 +114,9 @@ export interface Exam {
   gallery?: ExamGalleryItem[];
   faq?: ExamFaq[];
 
+  /** Título SEO (Yoast) do WordPress — usado no <title> da página. */
+  seoTitle?: string;
+
   /** Campos legados — usados como fallback enquanto a página não foi migrada. */
   longDesc?: string;
   indications?: string[];
@@ -150,6 +153,7 @@ export const exams: Exam[] = [
   {
     slug: "ultrassom-primeiro-trimestre-tv",
     legacySlug: "/primeiro-trimestre",
+    seoTitle: "Ultrassom 1º Trimestre | Dra. Morgana Kummer Sete Lagoas",
     category: "Obstétrico",
     title: "Obstétrico do 1º Trimestre",
     thumb: thumbObstetrico,
@@ -706,6 +710,7 @@ export const exams: Exam[] = [
   {
     slug: "ecocardiograma-fetal",
     legacySlug: "/ecocardiograma",
+    seoTitle: "Ecocardiograma Fetal | Dra. Morgana Kummer Sete Lagoas",
     category: "Obstétrico",
     title: "Ecocardiograma Fetal",
     thumb: thumbObstetrico,
@@ -786,6 +791,7 @@ export const exams: Exam[] = [
   {
     slug: "colo-uterino",
     legacySlug: "/colo-uterino",
+    seoTitle: "Ultrassom de Colo Uterino | Dra. Morgana Kummer | Sete Lagoas",
     category: "Obstétrico",
     title: "Medida do Colo Uterino (Cervicometria)",
     thumb: thumbObstetrico,
@@ -924,6 +930,7 @@ export const exams: Exam[] = [
   {
     slug: "transvaginal",
     legacySlug: "/tv",
+    seoTitle: "Ultrassom Transvaginal | Dra. Morgana Kummer Sete Lagoas",
     category: "Ginecológico",
     title: "Transvaginal (Endovaginal)",
     thumb: thumbGinecologico,
@@ -994,6 +1001,7 @@ export const exams: Exam[] = [
   {
     slug: "transvaginal-3d",
     legacySlug: "/tv-3d",
+    seoTitle: "Ultrassom Transvaginal 3D | Dra. Morgana Kummer Sete Lagoas",
     category: "Ginecológico",
     title: "Transvaginal 3D",
     thumb: thumbGinecologico,
@@ -1055,6 +1063,7 @@ export const exams: Exam[] = [
   {
     slug: "ginecologico-doppler",
     legacySlug: "/transvaginal-com-doppler",
+    seoTitle: "Ultrassom Transvaginal com Doppler | Sete Lagoas",
     category: "Ginecológico",
     title: "Transvaginal com Doppler",
     thumb: thumbGinecologico,
@@ -1232,6 +1241,7 @@ export const exams: Exam[] = [
   {
     slug: "perineo",
     legacySlug: "/ultrassom-perineal",
+    seoTitle: "Ultrassom PERINEO 3D - Assoalho Pélvico | Sete Lagoas",
     category: "Ginecológico",
     title: "Ultrassom Perineal",
     thumb: thumbGinecologico,
@@ -1277,6 +1287,7 @@ export const exams: Exam[] = [
   {
     slug: "abdome-total",
     legacySlug: "/abdome-total",
+    seoTitle: "Ultrassom de Abdome Total | Dra. Morgana Kummer Sete Lagoas",
     category: "Medicina Interna",
     title: "Abdome Total",
     thumb: thumbGeral,
@@ -1332,6 +1343,7 @@ export const exams: Exam[] = [
   {
     slug: "abdome-superior",
     legacySlug: "/abdome-superior",
+    seoTitle: "Ultrassom de Abdome Superior | Dra. Morgana Kummer",
     category: "Medicina Interna",
     title: "Abdome Superior",
     thumb: thumbGeral,
@@ -1382,6 +1394,7 @@ export const exams: Exam[] = [
   {
     slug: "hipocondrio-direito",
     legacySlug: "/hipoc-dir",
+    seoTitle: "Ultrassom Hipocôndrio Direito | Dra. Morgana Kummer Sete Lagoas",
     category: "Medicina Interna",
     title: "Hipocôndrio Direito",
     thumb: thumbGeral,
@@ -1432,6 +1445,7 @@ export const exams: Exam[] = [
   {
     slug: "rins-vias-urinarias",
     legacySlug: "/rins",
+    seoTitle: "Ultrassom de Rins e Vias Urinárias | Sete Lagoas",
     category: "Medicina Interna",
     title: "Rins e Vias Urinárias",
     thumb: thumbGeral,
@@ -1483,6 +1497,7 @@ export const exams: Exam[] = [
   {
     slug: "pelvico-masculino",
     legacySlug: "/prostata",
+    seoTitle: "Ultrassom de Próstata | Dra. Morgana Kummer Sete Lagoas",
     category: "Medicina Interna",
     title: "Pélvico Masculino (Próstata)",
     thumb: thumbGeral,

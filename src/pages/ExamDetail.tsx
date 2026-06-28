@@ -87,7 +87,7 @@ const ExamDetail = () => {
     window.scrollTo(0, 0);
     if (!baseExam) return;
 
-    document.title = `${exam.title} · Dra. Morgana Kummer`;
+    document.title = baseExam.seoTitle ?? `${exam.title} · Dra. Morgana Kummer`;
 
     const heroIntro = exam.hero?.intro ?? exam.longDesc ?? exam.shortDesc;
     const description = `${exam.title} — ${heroIntro}`.slice(0, 160);
