@@ -277,14 +277,14 @@ const translations = {
         skip: "Pular",
       },
       errors: {
-        failedPreAgendamento: "Não conseguimos finalizar o pré-agendamento",
+        failedPreAgendamento: "Infelizmente não foi possível finalizar o seu pré-agendamento.",
         tryAgain: "Tentar novamente",
         chatSupport: "Falar pelo WhatsApp",
         returnAndAttachDoc: "Voltar e anexar documento",
       },
       blockedMessages: {
         firstTrimesterNoDoc: "Para agendar um ultrassom obstétrico de 1º trimestre é necessário possuir um pedido médico ou um exame de beta-hCG positivo.",
-        noDocOrBetaHCG: "Para agendar um ultrassom é necessário possuir um pedido médico ou um resultado de beta-hCG. Assim que tiver em mãos, entre em contato pelo WhatsApp para continuar.",
+        noDocOrBetaHCG: "Para agendar um ultrassom é necessário possuir um pedido médico ou um resultado de beta-hCG (no caso de obstétrico de 1º trimestre). Assim que você tiver um desses documentos em mãos, tente novamente ou entre em contato pelo WhatsApp.",
         mustAttachReferral: "Infelizmente, sem o pedido médico não conseguimos concluir o pré-agendamento. Assim que você tiver o pedido em mãos, é só voltar aqui e recomeçar — vai ser rapidinho!",
         mustAttachBetaHCG: "Para finalizar o pré-agendamento é necessário anexar o resultado do beta-hCG. Assim que tiver em mãos, volte e complete o formulário.",
         finalNoDoc: "Infelizmente, sem o pedido médico não conseguimos concluir o pré-agendamento. Assim que você tiver o pedido em mãos, é só voltar aqui e recomeçar — vai ser rapidinho!",

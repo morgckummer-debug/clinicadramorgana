@@ -546,7 +546,7 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
           <p className="text-wine-deep font-comfortaa text-lg sm:text-xl mb-2 sm:mb-3 font-light">
             {t.conversation.errors.failedPreAgendamento}
           </p>
-          <p className="text-muted-foreground font-light text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed">
+          <p className="text-muted-foreground font-light text-sm sm:text-base mb-6 sm:mb-8 leading-relaxed">
             {blockedMessage || t.conversation.blockedMessages.fallback}
           </p>
           <a
