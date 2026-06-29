@@ -565,7 +565,7 @@ export const examTranslations: Record<string, Record<string, any>> = {
       ]
     },
     es: {
-      title: "Mapeamento de Endometriosis Profunda",
+      title: "Pesquisa de Endometriosis Profunda",
       shortDesc: "Ultrasonido transvaginal con preparo intestinal — examen de elección para diagnóstico y estadiamiento.",
       hero: { tagline: "Diagnóstico y estadiamiento de la endometriosis profunda", intro: "El ultrasonido transvaginal con preparo intestinal — también llamado mapeamiento de endometriosis — es el examen de elección para diagnosticar y estadiar la endometriosis profunda. Proporciona un mapa detallado de la pelvis, identificando la ubicación exacta, el tamaño y la extensión de las lesiones." },
       sections: [

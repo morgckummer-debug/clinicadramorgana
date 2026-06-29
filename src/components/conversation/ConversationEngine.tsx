@@ -76,7 +76,7 @@ const EXAME_MEDICO_FIXO: Record<string, string> = {
   'Transvaginal 3D':                    'dra-morgana',
   'Morfológico do 3º Trimestre':        'dra-morgana',
   '3D Completo':                        'dra-morgana',
-  'Mapeamento de Endometriose Profunda':'dra-barbara',
+  'Pesquisa de Endometriose Profunda':'dra-barbara',
   'Ecocardiograma Fetal':               'dr-darlei',
 }
 
