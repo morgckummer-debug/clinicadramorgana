@@ -1761,6 +1761,12 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação da glândula tireoide com mapeamento de fluxo.",
     longDesc:
       "Ultrassonografia da tireoide com Doppler colorido, para caracterização de nódulos, bócio e tireoidites, com classificação TI-RADS quando indicada.",
+    hero: {
+      tagline: "Avaliação da glândula tireoide com mapeamento de fluxo.",
+      intro:
+        "Ultrassonografia da tireoide com Doppler colorido, para caracterização de nódulos, bócio e tireoidites, com classificação TI-RADS quando indicada.",
+      image: "/tireoideMK.png",
+    },
     preparation: SEM_PREPARO,
     duration: "20 minutos",
     whatToBring: ["Pedido médico", "Exames laboratoriais e ultrassons anteriores"],
