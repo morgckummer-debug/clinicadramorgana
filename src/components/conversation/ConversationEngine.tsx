@@ -608,6 +608,23 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
         showNext={showNext}
         optional={isOptional}
       />
+      {currentId === 'q10' && (
+        <div className="flex justify-center mt-2">
+          <button
+            type="button"
+            onClick={() => {
+              setBlockedReturnId('q10')
+              setBlockedMessage(t.conversation.blockedMessages.mustAttachReferral)
+              setHistory((h) => [...h, currentId])
+              setStep('blocked')
+            }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-colors duration-300"
+            style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
+          >
+            Não tenho pedido 😢
+          </button>
+        </div>
+      )}
     </>
   )
 }
