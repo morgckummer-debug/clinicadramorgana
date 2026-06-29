@@ -85,6 +85,9 @@ const ExamDetail = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [pathname]);
+
+  useEffect(() => {
     if (!baseExam) return;
 
     document.title = baseExam.seoTitle ?? `${exam.title} · Dra. Morgana Kummer`;
@@ -109,7 +112,7 @@ const ExamDetail = () => {
       document.head.appendChild(canonical);
     }
     canonical.href = canonicalHref;
-  }, [exam]);
+  }, [baseExam?.slug, lang]);
 
   if (!baseExam) return <Navigate to="/" replace />;
 
