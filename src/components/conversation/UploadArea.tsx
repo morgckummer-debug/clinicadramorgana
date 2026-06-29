@@ -171,14 +171,6 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
       <p className="text-xs text-muted-foreground font-light text-center">
         {optional ? u.optional : ''}{u.hint}
       </p>
-
-      {!optional && value.length === 0 && (
-        <div className="pt-3 border-t border-border/30 text-center">
-          <p className="text-xs text-muted-foreground font-light leading-relaxed">
-            {u.noReferral}
-          </p>
-        </div>
-      )}
     </div>
   )
 }
