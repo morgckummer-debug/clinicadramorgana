@@ -154,18 +154,8 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
       />
 
       {error && (
-        <p className="text-xs text-destructive text-center font-light">{error}</p>
-      )}
-
-      <p className="text-xs text-muted-foreground font-light text-center">
-        {optional ? u.optional : ''}{u.hint}
-      </p>
-
-      {!optional && value.length === 0 && (
-        <div className="pt-3 border-t border-border/30 space-y-3 text-center">
-          <p className="text-xs text-muted-foreground font-light leading-relaxed">
-            {u.noReferral}
-          </p>
+        <div className="space-y-2 text-center">
+          <p className="text-xs text-destructive font-light">{error}</p>
           <a
             href="https://wa.me/5531993910212"
             target="whatsapp"
@@ -175,6 +165,18 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
             <MessageCircle className="w-3.5 h-3.5" />
             {u.noReferralButton}
           </a>
+        </div>
+      )}
+
+      <p className="text-xs text-muted-foreground font-light text-center">
+        {optional ? u.optional : ''}{u.hint}
+      </p>
+
+      {!optional && value.length === 0 && (
+        <div className="pt-3 border-t border-border/30 text-center">
+          <p className="text-xs text-muted-foreground font-light leading-relaxed">
+            {u.noReferral}
+          </p>
         </div>
       )}
     </div>
