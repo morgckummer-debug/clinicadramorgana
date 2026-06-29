@@ -335,7 +335,7 @@ export const PERGUNTAS = {
 
   // ETAPA 10 — Upload do pedido médico (obrigatório)
   q10: {
-    title: 'Anexe o pedido médico.',
+    title: 'Quase lá! Agora precisamos do pedido médico.',
     subtitle: 'Foto ou PDF — pode ser pelo celular mesmo.',
   },
 
