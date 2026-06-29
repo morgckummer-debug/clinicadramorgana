@@ -292,7 +292,7 @@ const translations = {
       },
     },
     uploadArea: {
-      tapToSelect: "Toque para selecionar",
+      tapToSelect: "Toque aqui pra selecionar",
       uploading: "Enviando…",
       optional: "Opcional. ",
       hint: "PDF, JPG ou PNG, máx. 10 MB.",
@@ -300,8 +300,8 @@ const translations = {
       unexpectedError: "Erro inesperado ao enviar o arquivo.",
       uploadErrorRLS: "Não foi possível enviar o arquivo agora. Você pode finalizar o pré-agendamento e nossa equipe entrará em contato pelo WhatsApp para receber o pedido.",
       uploadErrorGeneric: "Não foi possível enviar o arquivo",
-      noReferral: "Sem o pedido médico não é possível concluir o pré-agendamento.",
-      noReferralButton: "Não tenho pedido — WhatsApp",
+      noReferral: "Infelizmente, sem o pedido médico não conseguimos concluir o pré-agendamento. Assim que você tiver o pedido em mãos, é só voltar aqui e recomeçar — vai ser rapidinho!",
+      noReferralButton: "Falar com a equipe",
       fileLabel: "Arquivo",
     },
     businessHours: {
