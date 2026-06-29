@@ -399,7 +399,7 @@ const translations = {
         "Transvaginal 3D":                          "3D Transvaginal",
         "Transvaginal com Doppler":                 "Transvaginal with Doppler",
         "Rastreamento de Ovulação":                 "Ovulation Tracking",
-        "Mapeamento de Endometriose Profunda":      "Deep Endometriosis Mapping",
+        "Pesquisa de Endometriose Profunda":        "Deep Endometriosis Mapping",
         "Ultrassom Perineal":                       "Perineal Ultrasound",
         "Abdome Total":                             "Full Abdomen",
         "Abdome Superior":                          "Upper Abdomen",

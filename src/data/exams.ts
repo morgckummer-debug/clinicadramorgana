@@ -1198,7 +1198,7 @@ export const exams: Exam[] = [
   {
     slug: "endometriose-profunda",
     category: "Ginecológico",
-    title: "Mapeamento de Endometriose Profunda",
+    title: "Pesquisa de Endometriose Profunda",
     thumb: thumbGinecologico,
     shortDesc: "Ultrassom transvaginal com preparo intestinal — exame de escolha para diagnóstico e estadiamento.",
     hero: {
