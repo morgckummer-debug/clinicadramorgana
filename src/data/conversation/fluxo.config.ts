@@ -35,7 +35,7 @@ export const EXAMES_POR_CATEGORIA: Record<string, string[]> = {
     'Transvaginal 3D',
     'Transvaginal com Doppler',
     'Rastreamento de Ovulação',
-    'Mapeamento de Endometriose Profunda',
+    'Pesquisa de Endometriose Profunda',
     'Ultrassom Perineal',
   ],
   abdome: [
