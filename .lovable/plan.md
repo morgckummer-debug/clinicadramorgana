@@ -1,36 +1,42 @@
-## Objetivo
-Inserir a imagem `tireoideMK.png` no lado direito do título (Hero) da página **Pesquisa de Endometriose Profunda**.
+# Reduzir o tempo até interatividade (TTI) das páginas de exame
 
-## Contexto atual
-- A página usa o componente `ExamDetail.tsx`, que já suporta renderizar uma imagem no Hero quando o campo `hero.image` está presente no exame.
-- O exame `endometriose-profunda` em `src/data/exams.ts` atualmente **não possui** `hero.image` definido — por isso a seção Hero ocupa toda a largura.
-- O arquivo `tireoideMK.png` existe no repositório local do usuário (GitHub Desktop) mas ainda não foi sincronizado com o projeto Lovable.
+## Causa raiz
 
-## Etapas de implementação
+`src/pages/ExamDetail.tsx` importa `Navbar`, `Footer` e `WhatsAppFab` diretamente de `src/pages/IndexV2.tsx`. O `IndexV2.tsx` é a homepage inteira e carrega no topo do módulo:
 
-### 1. Sincronização do arquivo
-- O usuário fará push do arquivo `tireoideMK.png` para a pasta `public/` via GitHub Desktop.
-- Aguardar o sync bidirecional Lovable ↔ GitHub e confirmar que o arquivo está disponível em `/dev-server/public/tireoideMK.png`.
+- `dra-morgana-hero-v2.webp` (hero da home)
+- `dra-morgana-sobre.webp` (seção “Sobre”)
+- além de componentes pesados como `Hero`, `About`, `Exams`, `Team`, `Convenios`, `Contact`
 
-### 2. Importação da imagem nos dados
-- Em `src/data/exams.ts`, adicionar um import para a imagem:  
-  `import endometrioseHero from "@/assets/exams/endometriose/hero.png";`  
-  (ou caminho equivalente, dependendo de onde o sync colocar o arquivo).
-- Como o arquivo virá via GitHub sync, ele provavelmente chegará em `public/tireoideMK.png`. Nesse caso, usaremos o caminho direto `"/tireoideMK.png"` no campo `hero.image` (sem necessidade de import ES6, pois `public/` é servido estaticamente).
+Como tudo está no mesmo arquivo, o Vite empacota essas imagens e seções dentro do chunk do `ExamDetail`. Resultado: o HTML aparece rápido (pré-renderizado), mas o JS demora para hidratar e os botões ficam “mortos” por vários segundos.
 
-### 3. Ligação no exame
-- No objeto do exame `endometriose-profunda` (linha ~1199 de `src/data/exams.ts`), adicionar:
-  ```ts
-  hero: {
-    tagline: "Diagnóstico e estadiamento da endometriose profunda",
-    intro: "...",
-    image: "/tireoideMK.png",
-  }
-  ```
-- Isso fará com que `ExamDetail.tsx` automaticamente renderize a imagem à direita do título, reduzindo a coluna de texto para `md:col-span-8` e criando a coluna de imagem `md:col-span-4`.
+## Plano
 
-## Resultado esperado
-- A página `/endometriose-profunda` exibirá a imagem `tireoideMK.png` ao lado direito do título, no Hero, com o mesmo estilo visual (borda arredondada, sombra, aspect-ratio quadrado) usado nas outras páginas de exame que possuem imagem no Hero.
+1. **Criar componentes próprios e enxutos** (não tocar nos arquivos placeholder existentes que estão fora de uso):
+   - `src/components/site/SiteNavbar.tsx` — copiar exatamente o `Navbar` que está hoje em `IndexV2.tsx` (linhas ~135 em diante), trazendo junto apenas os imports necessários (`logoClinica`, `logoWine`, ícones, `useLanguage`, etc.).
+   - `src/components/site/SiteFooter.tsx` — copiar exatamente o `Footer` atual (usa `logoWhite`).
+   - `src/components/site/SiteWhatsAppFab.tsx` — copiar o `WhatsAppFab` atual (usa a constante `WHATSAPP_URL`).
 
-## Nota
-- Caso o sync do GitHub Desktop demore ou falhe, alternativa: o usuário pode anexar a imagem diretamente aqui no chat para upload manual ao projeto.
+   Observação: os arquivos `Navbar.tsx`/`Footer.tsx`/`WhatsAppFab.tsx` que já existem em `src/components/site/` são versões antigas/diferentes; para não introduzir regressão visual, criamos novos com sufixo `Site*` e mantemos o visual atual idêntico.
+
+2. **Atualizar `IndexV2.tsx`**:
+   - Remover as definições internas de `Navbar`, `Footer`, `WhatsAppFab`.
+   - Importar e re-exportar a partir dos novos módulos, para preservar `import { Navbar, Footer, WhatsAppFab } from "./IndexV2"` que outras telas eventualmente usem:
+     ```ts
+     export { SiteNavbar as Navbar } from "@/components/site/SiteNavbar";
+     export { SiteFooter as Footer } from "@/components/site/SiteFooter";
+     export { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
+     ```
+
+3. **Atualizar `ExamDetail.tsx`**:
+   - Trocar `import { Footer, Navbar, WhatsAppFab } from "./IndexV2";` por imports diretos dos novos módulos em `@/components/site/Site*`. Assim o chunk do `ExamDetail` não puxa mais `IndexV2`, nem as imagens da home, nem `Hero/About/Exams/Team/Convenios/Contact`.
+
+4. **Verificação**:
+   - Rodar build e conferir no relatório do Rollup que o chunk de `ExamDetail` ficou significativamente menor e que `dra-morgana-hero-v2` e `dra-morgana-sobre` não aparecem mais nele.
+   - Abrir `/ultrassom-obstetrico` no preview e confirmar visual idêntico (Navbar, Footer, botão WhatsApp) e que o botão “Quero agendar este exame” responde imediatamente.
+
+## Fora do escopo
+
+- Nenhuma mudança de design, conteúdo, rotas ou lógica de negócio.
+- Não mexer em SEO, manifest, GA, etc.
+- Não alterar a homepage visualmente — apenas mover código de lugar.
