@@ -1718,6 +1718,8 @@ export const exams: Exam[] = [
       tagline: "Doppler colorido das artérias e veias dos membros inferiores",
       intro:
         "Exame não invasivo que combina ultrassonografia e Doppler colorido para avaliar, em tempo real, o fluxo sanguíneo nas artérias e veias das pernas. Fundamental no diagnóstico de varizes, insuficiência venosa, trombose venosa profunda e doença arterial periférica.",
+      image: "/vascular.jpg",
+      imageBg: true,
     },
     sections: [
       {
