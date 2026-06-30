@@ -957,6 +957,7 @@ export const exams: Exam[] = [
       intro:
         "Exame de imagem com transdutor delicado inserido no canal vaginal, obtendo imagens detalhadas do útero, ovários, endométrio e colo do útero.",
       image: tvHero,
+      imageBg: true,
     },
     sections: [
       {
