@@ -1672,6 +1672,12 @@ export const exams: Exam[] = [
     shortDesc: "Investigação de nódulos, cistos e lesões superficiais.",
     longDesc:
       "Avaliação ultrassonográfica de tecidos superficiais (pele, subcutâneo, músculos), útil para caracterizar nódulos, cistos, lipomas e processos inflamatórios.",
+    hero: {
+      tagline: "Investigação de nódulos, cistos e lesões superficiais.",
+      intro: "Avaliação ultrassonográfica de tecidos superficiais (pele, subcutâneo, músculos), útil para caracterizar nódulos, cistos, lipomas e processos inflamatórios.",
+      image: "/pmoles.jpg",
+      imageBg: true,
+    },
     preparation: SEM_PREPARO,
     duration: "20 minutos",
     whatToBring: ["Pedido médico", "Indicação da região a ser avaliada"],
