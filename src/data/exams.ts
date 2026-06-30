@@ -1576,6 +1576,8 @@ export const exams: Exam[] = [
       tagline: "Investigação detalhada da mama e cadeias axilares",
       intro:
         "Ultrassonografia das mamas e axilas realizada com transdutor de alta frequência, indicada como complemento à mamografia ou como exame de primeira linha em pacientes jovens, mamas densas, gestantes e lactantes. Permite caracterizar nódulos, cistos e linfonodos com precisão e conforto.",
+      image: "/mamasmk.jpg",
+      imageBg: true,
     },
     sections: [
       {
