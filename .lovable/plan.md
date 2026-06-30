@@ -1,44 +1,36 @@
 ## Objetivo
-Reduzir o tempo até interatividade no celular eliminando peso desnecessário, antecipando o LCP e tirando scripts não-críticos do caminho.
+Inserir a imagem `tireoideMK.png` no lado direito do título (Hero) da página **Pesquisa de Endometriose Profunda**.
 
-## Mudanças
+## Contexto atual
+- A página usa o componente `ExamDetail.tsx`, que já suporta renderizar uma imagem no Hero quando o campo `hero.image` está presente no exame.
+- O exame `endometriose-profunda` em `src/data/exams.ts` atualmente **não possui** `hero.image` definido — por isso a seção Hero ocupa toda a largura.
+- O arquivo `tireoideMK.png` existe no repositório local do usuário (GitHub Desktop) mas ainda não foi sincronizado com o projeto Lovable.
 
-### 1. Limpar assets órfãos (-3,5 MB)
-- Remover `src/assets/pregnant-happy.png` (2 MB) e `src/assets/pregnant-happy-transp.png` (1,4 MB) — sem referências.
-- Remover `public/pregnant-happy.png` e `public/pregnant-happy-transp.png` se também órfãos.
-- Verificar e remover `src/assets/hero-clinic.jpg` (137 KB) se não usado.
+## Etapas de implementação
 
-### 2. Antecipar o LCP do mobile
-Adicionar no `<head>` do `index.html`, antes dos scripts:
-```html
-<link rel="preload" as="image" href="/Hero2.jpg"
-      media="(max-width: 767px)" fetchpriority="high" />
-```
-Assim a imagem do hero começa a baixar em paralelo ao bundle JS.
+### 1. Sincronização do arquivo
+- O usuário fará push do arquivo `tireoideMK.png` para a pasta `public/` via GitHub Desktop.
+- Aguardar o sync bidirecional Lovable ↔ GitHub e confirmar que o arquivo está disponível em `/dev-server/public/tireoideMK.png`.
 
-### 3. Adiar Google Analytics
-Reescrever o bloco GA4 no `index.html` para só carregar `gtag.js` depois de `window.load` (ou após 2s de timeout). O `dataLayer` continua sendo inicializado imediatamente, então nenhum evento se perde. Libera ~50 KB do caminho crítico no 4G.
+### 2. Importação da imagem nos dados
+- Em `src/data/exams.ts`, adicionar um import para a imagem:  
+  `import endometrioseHero from "@/assets/exams/endometriose/hero.png";`  
+  (ou caminho equivalente, dependendo de onde o sync colocar o arquivo).
+- Como o arquivo virá via GitHub sync, ele provavelmente chegará em `public/tireoideMK.png`. Nesse caso, usaremos o caminho direto `"/tireoideMK.png"` no campo `hero.image` (sem necessidade de import ES6, pois `public/` é servido estaticamente).
 
-### 4. Code-splitting de seções da home
-Em `src/pages/IndexV2.tsx`, extrair as seções abaixo da dobra para componentes próprios em `src/components/site/home/` e importá-los via `React.lazy` com `<Suspense fallback={null}>`:
-- `ConveniosSection`
-- `EquipeSection`
-- `SobreSection`
-- `DepoimentosSection` (se existir)
+### 3. Ligação no exame
+- No objeto do exame `endometriose-profunda` (linha ~1199 de `src/data/exams.ts`), adicionar:
+  ```ts
+  hero: {
+    tagline: "Diagnóstico e estadiamento da endometriose profunda",
+    intro: "...",
+    image: "/tireoideMK.png",
+  }
+  ```
+- Isso fará com que `ExamDetail.tsx` automaticamente renderize a imagem à direita do título, reduzindo a coluna de texto para `md:col-span-8` e criando a coluna de imagem `md:col-span-4`.
 
-Resultado: o chunk inicial passa a conter só hero + navbar + menu de exames, que é o que o usuário vê primeiro.
+## Resultado esperado
+- A página `/endometriose-profunda` exibirá a imagem `tireoideMK.png` ao lado direito do título, no Hero, com o mesmo estilo visual (borda arredondada, sombra, aspect-ratio quadrado) usado nas outras páginas de exame que possuem imagem no Hero.
 
-### 5. Preconnect aos domínios externos
-Adicionar no `<head>`:
-```html
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-<link rel="dns-prefetch" href="https://www.google-analytics.com" />
-```
-
-## Fora do escopo (sugestões para depois)
-- Converter `Hero2.jpg` para AVIF/WebP responsivo via `vite-imagetools` (ganho marginal, já está em 66 KB).
-- Service worker para cachear shell — só compensa com tráfego recorrente alto.
-- Mover o player de vídeos para um host próprio (depende da decisão sobre o WP).
-
-## Verificação após implementação
-Rodar Lighthouse mobile no preview publicado e comparar LCP / TBT antes vs depois. Meta: LCP &lt; 2,5s no 4G simulado.
+## Nota
+- Caso o sync do GitHub Desktop demore ou falhe, alternativa: o usuário pode anexar a imagem diretamente aqui no chat para upload manual ao projeto.
