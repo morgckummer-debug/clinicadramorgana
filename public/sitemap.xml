@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Páginas principais -->
   <url>
     <loc>https://dramorgana.com.br/</loc>
-    <lastmod>2026-06-28</lastmod>
+    <lastmod>2026-06-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -37,172 +36,329 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- Exames: URLs canônicas (slugs legados = URLs indexadas pelo Google) -->
   <url>
-    <loc>https://dramorgana.com.br/primeiro-trimestre</loc>
+    <loc>https://dramorgana.com.br/exames/ultrassom-primeiro-trimestre-tv</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/obstetrico-com-translucencia-nucal</loc>
+    <loc>https://dramorgana.com.br/exames/obstetrico-translucencia-nucal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/obstetrico-com-doppler</loc>
+    <loc>https://dramorgana.com.br/exames/obstetrico-doppler</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/inicio/morfo-primeirotrimestre</loc>
+    <loc>https://dramorgana.com.br/exames/morfologico-1-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/inicio/morfo-segundotrimestre</loc>
+    <loc>https://dramorgana.com.br/exames/morfologico-2-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/morfologico-do-3o-trimestre</loc>
+    <loc>https://dramorgana.com.br/exames/morfologico-3-trimestre</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/pbf</loc>
+    <loc>https://dramorgana.com.br/exames/perfil-biofisico-fetal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/ecocardiograma</loc>
+    <loc>https://dramorgana.com.br/exames/ecocardiograma-fetal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/colo-uterino</loc>
+    <loc>https://dramorgana.com.br/exames/colo-uterino</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/cerclagem</loc>
+    <loc>https://dramorgana.com.br/exames/cerclagem</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/tv</loc>
+    <loc>https://dramorgana.com.br/exames/transvaginal</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/tv-3d</loc>
+    <loc>https://dramorgana.com.br/exames/transvaginal-3d</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/transvaginal-com-doppler</loc>
+    <loc>https://dramorgana.com.br/exames/ginecologico-doppler</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/rastreamento-de-ovulacao</loc>
+    <loc>https://dramorgana.com.br/exames/rastreamento-ovulacao</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- endometriose-profunda não tem slug legado: usa novo slug -->
   <url>
     <loc>https://dramorgana.com.br/exames/endometriose-profunda</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dramorgana.com.br/ultrassom-perineal</loc>
+    <loc>https://dramorgana.com.br/exames/perineo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/abdome-total</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/abdome-superior</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/hipocondrio-direito</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/rins-vias-urinarias</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/pelvico-masculino</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/mamas-axilas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/pelvico-infantil</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/partes-moles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/duplex-scan-mmii</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/carotidas-vertebrais</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/aorta-iliacas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/tireoide-doppler</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/cervical-doppler</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/glandulas-salivares</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/abdominal-total-pediatrico</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/rins-vias-urinarias-pediatrico</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/exames/transfontanela</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/primeiro-trimestre</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/obstetrico-com-translucencia-nucal</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/obstetrico-com-doppler</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/inicio/morfo-primeirotrimestre</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/inicio/morfo-segundotrimestre</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/morfologico-do-3o-trimestre</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/pbf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/ecocardiograma</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/colo-uterino</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/cerclagem</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/tv</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/tv-3d</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/transvaginal-com-doppler</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/rastreamento-de-ovulacao</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/ultrassom-perineal</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/abdome-total</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/abdome-superior</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/hipoc-dir</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/rins</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/prostata</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/mamas</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/pelvico-infantil</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/partes-moles</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/duplex-scan</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/carotidas-vertebrais</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/aorta-iliacas</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/tireoide</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/cervical</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/glandulas-salivares</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/abdominal-pediatrico</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/rins-pediatrico</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/transfontanela</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.5</priority>
   </url>
 </urlset>
