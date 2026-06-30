@@ -1893,6 +1893,12 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação dos rins e bexiga em bebês e crianças.",
     longDesc:
       "Ultrassonografia dos rins e vias urinárias em pacientes pediátricos, indicada para acompanhamento de infecções urinárias, hidronefrose e malformações.",
+    hero: {
+      tagline: "Avaliação dos rins e bexiga em bebês e crianças.",
+      intro: "Ultrassonografia dos rins e vias urinárias em pacientes pediátricos, indicada para acompanhamento de infecções urinárias, hidronefrose e malformações.",
+      image: "/infantil.jpg",
+      imageBg: true,
+    },
     preparation:
       "Bexiga cheia conforme orientação por idade — oferecer líquidos antes do exame.",
     duration: "20 minutos",
