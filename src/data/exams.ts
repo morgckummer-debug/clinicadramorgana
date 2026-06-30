@@ -1027,7 +1027,8 @@ export const exams: Exam[] = [
       tagline: "Tecnologia tridimensional",
       intro:
         "Tecnologia avançada que reconstrói imagens tridimensionais dos órgãos reprodutivos femininos, com detalhamento superior do útero para diagnósticos ginecológicos e obstétricos mais completos.",
-      image: tv3dHero,
+      image: "/transv.jpg",
+      imageBg: true,
     },
     sections: [
       {
@@ -1090,7 +1091,8 @@ export const exams: Exam[] = [
       tagline: "Ultrassom + estudo vascular",
       intro:
         "Associa o transvaginal simples — que avalia útero e ovários — ao Doppler, que estuda os vasos sanguíneos (artérias) das estruturas pélvicas.",
-      image: tvDopplerHero,
+      image: "/transv.jpg",
+      imageBg: true,
     },
     sections: [
       {
