@@ -1321,6 +1321,7 @@ export const exams: Exam[] = [
       intro:
         "Examina a maioria dos órgãos do abdome — fígado, rins, aorta, pâncreas, vesícula biliar, baço e bexiga. Não é o exame indicado para avaliar estômago e intestino, que são vistos apenas parcialmente.",
       image: "/abdome.jpg",
+      imageBg: true,
     },
     sections: [
       {
@@ -1379,6 +1380,7 @@ export const exams: Exam[] = [
       intro:
         "Examina a parte superior do abdome — fígado, vesícula biliar, pâncreas e baço. Não incluem-se neste exame rins, bexiga, intestino e aorta.",
       image: "/figado.png",
+      imageBg: true,
     },
     sections: [
       {
@@ -1432,6 +1434,7 @@ export const exams: Exam[] = [
       intro:
         "Examina apenas a parte direita e superior do abdome, compreendendo o fígado e a vesícula biliar.",
       image: "/figado.png",
+      imageBg: true,
     },
     sections: [
       {
