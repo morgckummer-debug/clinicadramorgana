@@ -1771,6 +1771,12 @@ export const exams: Exam[] = [
     shortDesc: "Doppler das artérias do pescoço para rastreio cerebrovascular.",
     longDesc:
       "Avaliação com Doppler das artérias carótidas e vertebrais, indicada na prevenção do AVC, controle de hipertensão e investigação de tonturas e sopros cervicais.",
+    hero: {
+      tagline: "Doppler das artérias do pescoço para rastreio cerebrovascular.",
+      intro: "Avaliação com Doppler das artérias carótidas e vertebrais, indicada na prevenção do AVC, controle de hipertensão e investigação de tonturas e sopros cervicais.",
+      image: "/carotidas.jpg",
+      imageBg: true,
+    },
     preparation: SEM_PREPARO,
     duration: "30 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
