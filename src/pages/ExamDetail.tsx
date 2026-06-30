@@ -205,7 +205,7 @@ const ExamDetail = () => {
                     src={hero.image}
                     alt={exam.title}
                     loading="eager"
-                    className="relative w-full rounded-[2rem] shadow-deep object-cover aspect-square"
+                    className="relative w-full rounded-[2rem] shadow-deep object-cover aspect-[4/3]"
                   />
                 </div>
               </div>
