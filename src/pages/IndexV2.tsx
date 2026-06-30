@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryThumbs, getExamsByCategory } from "@/data/exams";
 // DifferentiatedExperience desabilitado — removido do bundle inicial
@@ -136,13 +136,15 @@ export const Navbar = () => {
   const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   const navLinks = [
-    { href: "#exames",       label: t.nav.exames },
-    { href: "#corpo-clinico", label: t.nav.corpoClinico },
-    { href: "#convenios",    label: t.nav.convenios },
-    { href: "/videos",       label: t.nav.videos },
-    { href: "#contato",      label: t.nav.contato },
+    { href: isHome ? "#exames"        : "/#exames",        label: t.nav.exames },
+    { href: isHome ? "#corpo-clinico" : "/#corpo-clinico", label: t.nav.corpoClinico },
+    { href: isHome ? "#convenios"     : "/#convenios",     label: t.nav.convenios },
+    { href: "/videos",                                      label: t.nav.videos },
+    { href: isHome ? "#contato"       : "/#contato",       label: t.nav.contato },
   ];
 
   const preAgendamentoLabel = "Pré-Agendamento";
@@ -175,7 +177,7 @@ export const Navbar = () => {
         </Link>
         <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((l) => {
-            const isRoute = l.href.startsWith("/");
+            const isRoute = l.href.startsWith("/") && !l.href.includes("#");
             const className = "text-[12px] tracking-[0.18em] uppercase text-wine-deep/70 hover:text-wine-deep transition-colors duration-300 relative group font-medium";
             const inner = (
               <>
@@ -201,7 +203,7 @@ export const Navbar = () => {
         <div className="md:hidden bg-background border-t border-border animate-fade-in">
           <nav className="container py-6 flex flex-col gap-4">
             {navLinks.map((l) => {
-              const isRoute = l.href.startsWith("/");
+              const isRoute = l.href.startsWith("/") && !l.href.includes("#");
               const className = "text-wine-deep text-[12px] tracking-[0.2em] uppercase";
               return isRoute ? (
                 <Link key={l.href} to={l.href} onClick={() => setOpen(false)} className={className}>{l.label}</Link>
