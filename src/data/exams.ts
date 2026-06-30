@@ -1850,6 +1850,12 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação de parótidas, submandibulares e sublinguais.",
     longDesc:
       "Ultrassonografia das glândulas salivares, indicada na investigação de aumento glandular, cálculos, processos inflamatórios e nódulos.",
+    hero: {
+      tagline: "Avaliação de parótidas, submandibulares e sublinguais.",
+      intro: "Ultrassonografia das glândulas salivares, indicada na investigação de aumento glandular, cálculos, processos inflamatórios e nódulos.",
+      image: "/gsalivar.jpg",
+      imageBg: true,
+    },
     preparation: SEM_PREPARO,
     duration: "20 minutos",
     whatToBring: ["Pedido médico"],
