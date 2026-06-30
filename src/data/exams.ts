@@ -1907,6 +1907,12 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação do cérebro do bebê pela fontanela ainda aberta.",
     longDesc:
       "Ultrassonografia transfontanela, realizada enquanto a fontanela do bebê está aberta, indicada para avaliar estruturas cerebrais, hemorragias e malformações.",
+    hero: {
+      tagline: "Avaliação do cérebro do bebê pela fontanela ainda aberta.",
+      intro: "Ultrassonografia transfontanela, realizada enquanto a fontanela do bebê está aberta, indicada para avaliar estruturas cerebrais, hemorragias e malformações.",
+      image: "/transfont.jpg",
+      imageBg: true,
+    },
     preparation: SEM_PREPARO,
     duration: "20 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores, se houver"],
