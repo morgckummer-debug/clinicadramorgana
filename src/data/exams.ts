@@ -679,6 +679,7 @@ export const exams: Exam[] = [
       intro:
         "Ultrassom realizado para avaliar o bem-estar do bebê dentro do útero. Combina observações em tempo real com a medição da quantidade de líquido amniótico, ajudando a verificar se o bebê está recebendo oxigênio e nutrientes de forma adequada.",
       image: "/PBF.jpg",
+      imageBg: true,
     },
     sections: [
       {
@@ -1485,6 +1486,7 @@ export const exams: Exam[] = [
       intro:
         "Examina os rins direito e esquerdo, os ureteres e a bexiga. Normalmente solicitado diante de forte suspeita de pedra nos rins ou sangramento identificado no exame de urina.",
       image: "/rins.jpg",
+      imageBg: true,
     },
     sections: [
       {
