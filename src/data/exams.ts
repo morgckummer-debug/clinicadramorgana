@@ -1482,6 +1482,7 @@ export const exams: Exam[] = [
       tagline: "Investigação completa do trato urinário.",
       intro:
         "Examina os rins direito e esquerdo, os ureteres e a bexiga. Normalmente solicitado diante de forte suspeita de pedra nos rins ou sangramento identificado no exame de urina.",
+      image: "/rins.jpg",
     },
     sections: [
       {
