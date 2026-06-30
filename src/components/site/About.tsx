@@ -1,4 +1,4 @@
-import doctorImg from "@/assets/doctor-portrait.jpg";
+import doctorImg from "@/assets/doctor-portrait.webp";
 
 export const About = () => {
   return (
