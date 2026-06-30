@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { Navbar, Footer, WhatsAppFab } from "@/pages/IndexV2";
+import { SiteNavbar as Navbar } from "@/components/site/SiteNavbar";
+import { SiteFooter as Footer } from "@/components/site/SiteFooter";
+import { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
 
 const setMeta = (name: string, content: string) => {
   let tag = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
