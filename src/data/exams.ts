@@ -1373,6 +1373,7 @@ export const exams: Exam[] = [
       tagline: "Foco na parte superior do abdome.",
       intro:
         "Examina a parte superior do abdome — fígado, vesícula biliar, pâncreas e baço. Não incluem-se neste exame rins, bexiga, intestino e aorta.",
+      image: "/figado.png",
     },
     sections: [
       {
@@ -1425,6 +1426,7 @@ export const exams: Exam[] = [
       tagline: "Avaliação focada do fígado e vesícula.",
       intro:
         "Examina apenas a parte direita e superior do abdome, compreendendo o fígado e a vesícula biliar.",
+      image: "/figado.png",
     },
     sections: [
       {
