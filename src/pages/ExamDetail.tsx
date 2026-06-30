@@ -150,7 +150,6 @@ const ExamDetail = () => {
           <div className="absolute top-20 inset-x-0 h-px bg-gradient-champagne opacity-40" />
         </div>
 
-        {/* Imagem decorativa de fundo (modo imageBg) */}
         {hero.image && hero.imageBg && (
           <div
             className="absolute inset-y-0 right-0 w-1/2 pointer-events-none"
