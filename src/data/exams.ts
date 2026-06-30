@@ -1639,6 +1639,8 @@ export const exams: Exam[] = [
       tagline: "Avaliação pélvica pediátrica com acolhimento",
       intro:
         "O ultrassom pélvico infantil é realizado por via abdominal, de forma totalmente não invasiva, para avaliar útero e ovários em meninas e investigar sinais de puberdade precoce. Um exame acolhedor, indolor e conduzido com toda a sensibilidade que a paciente pediátrica merece.",
+      image: "/infantil.jpg",
+      imageBg: true,
     },
     sections: [
       {
@@ -1871,6 +1873,12 @@ export const exams: Exam[] = [
     shortDesc: "Ultrassom abdominal completo adaptado para crianças.",
     longDesc:
       "Avaliação ultrassonográfica completa do abdome em crianças, indicada para investigação de dor abdominal, alterações intestinais e doenças hepáticas e renais.",
+    hero: {
+      tagline: "Ultrassom abdominal completo adaptado para crianças.",
+      intro: "Avaliação ultrassonográfica completa do abdome em crianças, indicada para investigação de dor abdominal, alterações intestinais e doenças hepáticas e renais.",
+      image: "/infantil.jpg",
+      imageBg: true,
+    },
     preparation:
       "Jejum de 4 horas para crianças até 2 anos; 6 horas acima de 2 anos.",
     duration: "30 minutos",
