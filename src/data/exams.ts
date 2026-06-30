@@ -1151,7 +1151,8 @@ export const exams: Exam[] = [
       tagline: "Ajuda importante na infertilidade conjugal",
       intro:
         "Exame fundamental para monitorar o ciclo ovulatório, especialmente em mulheres que desejam engravidar ou estão em tratamento para infertilidade. Oferece informações precisas sobre o desenvolvimento dos folículos e o momento mais próximo da ovulação.",
-      image: ovulacaoHero,
+      image: "/ovulacao.jpg",
+      imageBg: true,
     },
     sections: [
       {
