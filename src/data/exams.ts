@@ -168,6 +168,7 @@ export const exams: Exam[] = [
       intro:
         "O ultrassom do primeiro trimestre é um dos exames mais importantes da gestação. Ele fornece informações essenciais sobre o desenvolvimento inicial do bebê e ajuda a garantir que tudo está indo bem nos primeiros meses da gravidez.",
       image: primeiroTriHero,
+      imageBg: true,
     },
     sections: [
       {
@@ -258,6 +259,7 @@ export const exams: Exam[] = [
       intro:
         "A Translucência Nucal (TN) é uma pequena camada de líquido que se acumula na região da nuca do bebê. Essa medida é importante porque ajuda a identificar possíveis alterações cromossômicas, como síndrome de Down, síndrome de Edwards e síndrome de Patau.",
       image: tnHero,
+      imageBg: true,
     },
     sections: [
       {
@@ -315,6 +317,7 @@ export const exams: Exam[] = [
       intro:
         "O ultrassom com Doppler é uma tecnologia que avalia o fluxo sanguíneo nas artérias da mãe e do bebê. Ele permite analisar a circulação sanguínea em tempo real, fornecendo informações valiosas sobre a troca de nutrientes e oxigênio entre a mãe e o bebê.",
       image: dopplerHero,
+      imageBg: true,
     },
     sections: [
       {
@@ -378,6 +381,7 @@ export const exams: Exam[] = [
       intro:
         "Exames morfológicos são exames mais detalhados, pois estudamos a morfologia (forma e tamanho) dos órgãos — avaliando se cada estrutura está com a forma adequada e com o tamanho dentro do esperado para a idade gestacional.",
       image: morfo1Hero,
+      imageBg: true,
     },
     sections: [
       {
@@ -504,6 +508,7 @@ export const exams: Exam[] = [
       intro:
         "Exames morfológicos são exames mais detalhados, pois estudamos a morfologia (forma e tamanho) dos órgãos — avaliando se cada estrutura está com a forma adequada e com o tamanho dentro do esperado para a idade gestacional.",
       image: morfo2Hero,
+      imageBg: true,
     },
     sections: [
       {
@@ -620,6 +625,7 @@ export const exams: Exam[] = [
       intro:
         "Exames morfológicos são exames mais detalhados, pois estudamos a morfologia (forma e tamanho) dos órgãos — avaliando se cada estrutura está com a forma adequada e com o tamanho dentro do esperado para a idade gestacional.",
       image: morfo3Hero,
+      imageBg: true,
     },
     sections: [
       {
@@ -858,6 +864,7 @@ export const exams: Exam[] = [
     gallery: [
       {
         image: coloNormal,
+      imageBg: true,
         alt: "Ultrassom de colo uterino normal",
         caption: "Colo normal — maior que 2,5 cm. Risco de prematuridade: 3%.",
       },
@@ -897,6 +904,7 @@ export const exams: Exam[] = [
       intro:
         "A cerclagem é um procedimento cirúrgico que coloca uma sutura ao redor do colo do útero, mantendo-o fechado durante a gestação. É indicada quando há risco aumentado de parto prematuro por incompetência ístmo-cervical (IIC), identificado na ultrassonografia ou CAFs prévias.",
       image: cerclagemHero,
+      imageBg: true,
     },
     sections: [
       {
