@@ -1270,6 +1270,8 @@ export const exams: Exam[] = [
       tagline: "Avaliação do assoalho pélvico feminino",
       intro:
         "Exame especializado que avalia, de forma precisa e dinâmica, as estruturas do assoalho pélvico. Imagens tridimensionais em tempo real permitem o estudo anatômico e funcional de músculos, esfíncteres e órgãos pélvicos — fundamental no diagnóstico e acompanhamento de disfunções uroginecológicas.",
+      image: "/usperineo.jpg",
+      imageBg: true,
     },
     sections: [
       {
