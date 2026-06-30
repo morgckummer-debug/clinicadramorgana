@@ -28,7 +28,9 @@
       })();
     </script>
 
-    <!-- Fontes críticas: só o corpo do texto bloqueia; títulos carregam depois -->
+    <!-- Fontes críticas: preload garante download antes do CSS ser processado -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/comfortaa-400-n-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/comfortaa-700-n-latin.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-400-n-latin.woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jost-400-n-latin-ext.woff2" />
 
