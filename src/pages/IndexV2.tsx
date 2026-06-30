@@ -71,8 +71,12 @@ const convenios = [
 ];
 
 /* ---------------- Flag SVGs ---------------- */
-/* Navbar extraído para componente próprio (reduz chunk das páginas de exame) */
-export { SiteNavbar as Navbar } from "@/components/site/SiteNavbar";
+/* Navbar/Footer/WhatsAppFab extraídos para componentes próprios (reduz chunk das páginas de exame) */
+import { SiteNavbar as Navbar } from "@/components/site/SiteNavbar";
+import { SiteFooter as Footer } from "@/components/site/SiteFooter";
+import { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
+export { Navbar, Footer, WhatsAppFab };
+
 
 
 /* ---------------- Hero ---------------- */
@@ -522,9 +526,8 @@ const Contact = () => {
   );
 };
 
-/* Footer e WhatsAppFab extraídos para componentes próprios */
-export { SiteFooter as Footer } from "@/components/site/SiteFooter";
-export { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
+/* Footer e WhatsAppFab agora importados/exportados no topo do arquivo */
+
 
 
 /* ---------------- Page ---------------- */
