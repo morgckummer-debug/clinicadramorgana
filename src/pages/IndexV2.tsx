@@ -522,32 +522,10 @@ const Contact = () => {
   );
 };
 
-/* ---------------- Footer ---------------- */
-export const Footer = () => {
-  const { t } = useLanguage();
-  return (
-    <footer className="bg-wine-deep py-10 border-t border-champagne/15">
-      <div className="container flex flex-col md:flex-row items-center justify-between gap-6">
-        <img src={logoWhite} alt={t.footer.logoAlt} width={64} height={64} decoding="async" className="h-16 w-auto opacity-90" />
-        <div className="text-center md:text-right text-wine-foreground/70 text-xs tracking-wide">
-          © {new Date().getFullYear()} {t.footer.copy}<br />
-          <span className="text-champagne/80 font-serif italic text-sm">{t.footer.tagline}</span>
-        </div>
-      </div>
-    </footer>
-  );
-};
+/* Footer e WhatsAppFab extraídos para componentes próprios */
+export { SiteFooter as Footer } from "@/components/site/SiteFooter";
+export { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
 
-export const WhatsAppFab = () => (
-  <a
-    href={WHATSAPP_URL}
-    target="whatsapp"
-    aria-label="WhatsApp"
-    className="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-deep animate-pulse-soft hover:scale-110 transition-transform duration-300"
-  >
-    <MessageCircle className="w-6 h-6" strokeWidth={2} />
-  </a>
-);
 
 /* ---------------- Page ---------------- */
 const IndexV2 = () => {
