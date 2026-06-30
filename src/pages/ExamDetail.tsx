@@ -150,6 +150,22 @@ const ExamDetail = () => {
           <div className="absolute top-20 inset-x-0 h-px bg-gradient-champagne opacity-40" />
         </div>
 
+        {/* Imagem decorativa de fundo (modo imageBg) */}
+        {hero.image && hero.imageBg && (
+          <div
+            className="absolute inset-y-0 right-0 w-1/2 pointer-events-none"
+            style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 55%)' }}
+          >
+            <img
+              src={hero.image}
+              alt=""
+              aria-hidden
+              loading="eager"
+              className="h-full w-full object-cover object-center opacity-20"
+            />
+          </div>
+        )}
+
         <div className="relative container max-w-6xl">
           <nav className="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-champagne/80 mb-10">
             <Link to="/" className="hover:text-champagne transition-colors">
@@ -164,7 +180,7 @@ const ExamDetail = () => {
           </nav>
 
           <div className="grid md:grid-cols-12 gap-8 items-center">
-            <div className={hero.image ? "md:col-span-8" : "md:col-span-12 max-w-3xl"}>
+            <div className={hero.image && !hero.imageBg ? "md:col-span-8" : "md:col-span-12 max-w-3xl"}>
               <span className="text-[11px] tracking-[0.45em] uppercase text-champagne font-medium">
                 {exam.category}
               </span>
@@ -197,7 +213,7 @@ const ExamDetail = () => {
               </div>
             </div>
 
-            {hero.image && (
+            {hero.image && !hero.imageBg && (
               <div className="md:col-span-4">
                 <div className="relative max-w-xs mx-auto">
                   <div className="absolute -inset-2 rounded-[2rem] bg-champagne/10 blur-xl" />
