@@ -1790,6 +1790,12 @@ export const exams: Exam[] = [
     shortDesc: "Investigação de aneurismas e doença arterial abdominal.",
     longDesc:
       "Ultrassonografia com Doppler da aorta abdominal e artérias ilíacas, indicada no rastreamento de aneurismas e na avaliação de doença arterial obstrutiva.",
+    hero: {
+      tagline: "Investigação de aneurismas e doença arterial abdominal.",
+      intro: "Ultrassonografia com Doppler da aorta abdominal e artérias ilíacas, indicada no rastreamento de aneurismas e na avaliação de doença arterial obstrutiva.",
+      image: "/aorta.jpg",
+      imageBg: true,
+    },
     preparation: JEJUM_6H,
     duration: "30 minutos",
     whatToBring: ["Pedido médico"],
