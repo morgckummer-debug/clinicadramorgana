@@ -69,7 +69,7 @@ function resolveSections(exam: Exam, t: any): ExamSection[] {
   return out;
 }
 
-function resolveIntro(exam: Exam): { tagline: string; intro: string; image?: string } {
+function resolveIntro(exam: Exam): { tagline: string; intro: string; image?: string; imageBg?: boolean } {
   if (exam.hero) return exam.hero;
   return {
     tagline: exam.shortDesc,
