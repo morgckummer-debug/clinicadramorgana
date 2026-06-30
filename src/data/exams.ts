@@ -1538,6 +1538,12 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação de bexiga e próstata por via abdominal.",
     longDesc:
       "Avalia bexiga e próstata por via abdominal, com medição do resíduo pós-miccional.",
+    hero: {
+      tagline: "Avaliação de bexiga e próstata por via abdominal.",
+      intro: "Avalia bexiga e próstata por via abdominal, com medição do resíduo pós-miccional.",
+      image: "/prostata.jpg",
+      imageBg: true,
+    },
     indications: [
       "Alterações urinárias",
       "Aumento prostático",
