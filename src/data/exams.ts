@@ -1831,6 +1831,12 @@ export const exams: Exam[] = [
     shortDesc: "Avaliação completa das estruturas cervicais e linfonodos.",
     longDesc:
       "Ultrassonografia cervical com Doppler, indicada para investigação de linfonodos, massas cervicais e acompanhamento pós-tratamento de doenças da região.",
+    hero: {
+      tagline: "Avaliação completa das estruturas cervicais e linfonodos.",
+      intro: "Ultrassonografia cervical com Doppler, indicada para investigação de linfonodos, massas cervicais e acompanhamento pós-tratamento de doenças da região.",
+      image: "/cervical.jpg",
+      imageBg: true,
+    },
     preparation: SEM_PREPARO,
     duration: "20 minutos",
     whatToBring: ["Pedido médico", "Exames anteriores"],
