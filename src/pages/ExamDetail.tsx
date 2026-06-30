@@ -14,7 +14,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useTranslatedExam, translateExam } from "@/hooks/useTranslatedExam";
-import { Footer, Navbar, WhatsAppFab } from "./IndexV2";
+import { SiteNavbar as Navbar } from "@/components/site/SiteNavbar";
+import { SiteFooter as Footer } from "@/components/site/SiteFooter";
+import { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   canonicalPathFor,
