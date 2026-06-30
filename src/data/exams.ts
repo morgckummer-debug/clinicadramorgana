@@ -1816,6 +1816,7 @@ export const exams: Exam[] = [
       intro:
         "Ultrassonografia da tireoide com Doppler colorido, para caracterização de nódulos, bócio e tireoidites, com classificação TI-RADS quando indicada.",
       image: "/tireoideMK.png",
+      imageBg: true,
     },
     preparation: SEM_PREPARO,
     duration: "20 minutos",
