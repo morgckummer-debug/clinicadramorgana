@@ -864,7 +864,6 @@ export const exams: Exam[] = [
     gallery: [
       {
         image: coloNormal,
-      imageBg: true,
         alt: "Ultrassom de colo uterino normal",
         caption: "Colo normal — maior que 2,5 cm. Risco de prematuridade: 3%.",
       },
@@ -1222,7 +1221,6 @@ export const exams: Exam[] = [
       tagline: "Diagnóstico e estadiamento da endometriose profunda",
       intro:
         "O ultrassom transvaginal com preparo intestinal — também chamado de mapeamento de endometriose — é o exame de escolha para diagnosticar e estadiar a endometriose profunda. Fornece um mapa detalhado da pelve, identificando a localização exata, o tamanho e a extensão das lesões.",
-      image: "/endometriosep.jpg",
       image: "/endometriosep.jpg",
       imageBg: true,
     },
