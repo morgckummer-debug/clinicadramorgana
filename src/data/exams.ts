@@ -1318,6 +1318,7 @@ export const exams: Exam[] = [
       tagline: "Avaliação completa dos órgãos abdominais.",
       intro:
         "Examina a maioria dos órgãos do abdome — fígado, rins, aorta, pâncreas, vesícula biliar, baço e bexiga. Não é o exame indicado para avaliar estômago e intestino, que são vistos apenas parcialmente.",
+      image: "/abdome.jpg",
     },
     sections: [
       {
