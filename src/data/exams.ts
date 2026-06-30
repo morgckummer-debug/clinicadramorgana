@@ -677,6 +677,7 @@ export const exams: Exam[] = [
       tagline: "Avaliação do bem-estar fetal.",
       intro:
         "Ultrassom realizado para avaliar o bem-estar do bebê dentro do útero. Combina observações em tempo real com a medição da quantidade de líquido amniótico, ajudando a verificar se o bebê está recebendo oxigênio e nutrientes de forma adequada.",
+      image: "/PBF.jpg",
     },
     sections: [
       {
