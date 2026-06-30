@@ -222,7 +222,7 @@ const Hero = () => {
   return (
     <section
       id="top"
-      className="relative min-h-screen w-full overflow-hidden bg-wine-deep text-wine-foreground pt-12"
+      className="relative min-h-screen w-full overflow-hidden bg-wine-deep text-wine-foreground pt-6"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-wine-deep via-wine-deep to-[hsl(311,42%,18%)]" />
@@ -260,7 +260,7 @@ const Hero = () => {
       </div>
 
       <div className="relative container min-h-[calc(100vh-6rem)] flex items-center">
-        <div className="max-w-2xl py-10 md:py-10 animate-fade-up">
+        <div className="max-w-2xl py-5 md:py-5 animate-fade-up">
           <div className="inline-flex items-center gap-3 mb-10">
             <span className="w-8 h-px bg-champagne" />
             <span className="text-[10px] tracking-[0.45em] uppercase text-champagne font-medium">{t.hero.location}</span>
