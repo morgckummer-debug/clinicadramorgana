@@ -94,6 +94,7 @@ export interface ExamHero {
   tagline: string;
   intro: string;
   image?: string;
+  imageBg?: boolean;
 }
 
 export interface Exam {
@@ -734,6 +735,7 @@ export const exams: Exam[] = [
       intro:
         "O ecocardiograma fetal é um ultrassom especializado que avalia detalhadamente o coração do bebê ainda no útero. Estuda, além da anatomia, o funcionamento e o fluxo sanguíneo do coração fetal.",
       image: "/ecocard.jpg",
+      imageBg: true,
     },
     sections: [
       {
