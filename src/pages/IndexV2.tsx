@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, Award, HeartHandshake, Sparkles, ArrowRight } from "lucide-react";
+import { Menu, X, MessageCircle, MapPin, Phone, Clock, Instagram, ArrowRight } from "lucide-react";
 import { canonicalPathFor, categories, categoryThumbs, getExamsByCategory } from "@/data/exams";
 // DifferentiatedExperience desabilitado — removido do bundle inicial
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -158,12 +158,6 @@ const Hero = () => {
             >
               {t.hero.ctaExames} <ArrowRight className="w-4 h-4" />
             </a>
-          </div>
-
-          <div className="mt-16 pt-8 border-t border-champagne/15 flex flex-wrap gap-x-10 gap-y-3 text-[11px] text-wine-foreground/65 tracking-wide font-light">
-            <span className="flex items-center gap-2"><Award className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> {t.hero.badge1}</span>
-            <span className="flex items-center gap-2"><HeartHandshake className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> {t.hero.badge2}</span>
-            <span className="flex items-center gap-2"><Sparkles className="w-3.5 h-3.5 text-champagne" strokeWidth={1.5} /> {t.hero.badge3}</span>
           </div>
         </div>
       </div>
