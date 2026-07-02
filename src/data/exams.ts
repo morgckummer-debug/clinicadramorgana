@@ -19,7 +19,7 @@ import tnHero from "@/assets/exams/translucencia-nucal/hero.jpg";
 import dopplerHero from "@/assets/exams/doppler/hero.jpg";
 
 // ---------- Morfológico 1º Trimestre ----------
-import morfo1Hero from "@/assets/exams/morfo-1-trimestre/hero.jpg";
+import morfo1Hero from "@/assets/exams/morfo-1-trimestre/ducto-venoso.jpg";
 import morfo1Nuca from "@/assets/exams/morfo-1-trimestre/nuca.jpg";
 import morfo1Rins from "@/assets/exams/morfo-1-trimestre/rins.jpg";
 import morfo1Diafragma from "@/assets/exams/morfo-1-trimestre/diafragma.jpg";
