@@ -85,7 +85,7 @@ const Hero = () => {
   return (
     <section
       id="top"
-      className="relative min-h-screen w-full overflow-hidden bg-wine-deep text-wine-foreground pt-6"
+      className="relative min-h-screen w-full overflow-hidden bg-wine-deep text-wine-foreground pt-6 pb-6"
     >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-wine-deep via-wine-deep to-[hsl(311,42%,18%)]" />
