@@ -383,7 +383,7 @@ const Team = () => {
                     alt={member.name}
                     width={135}
                     height={178}
-                    loading="lazy"
+                    loading="eager"
                     decoding="async"
                     className="w-full h-full object-cover object-top block"
                   />
