@@ -186,15 +186,30 @@ export default function Dashboard() {
     }
   }, [pendingCount])
 
-  // paciente_ids que aparecem mais de uma vez na lista atual
+  // paciente_ids com o mesmo exame agendado mais de uma vez na mesma semana
   const duplicatePacienteIds = useMemo(() => {
-    const counts: Record<string, number> = {}
-    for (const item of items) counts[item.paciente_id] = (counts[item.paciente_id] ?? 0) + 1
-    return new Set(
-      Object.entries(counts)
-        .filter(([, c]) => c > 1)
-        .map(([id]) => id)
-    )
+    const porPaciente: Record<string, PreAgendamento[]> = {}
+    for (const item of items) {
+      if (!item.exame) continue
+      ;(porPaciente[item.paciente_id] ??= []).push(item)
+    }
+
+    const ids = new Set<string>()
+    for (const registros of Object.values(porPaciente)) {
+      for (let i = 0; i < registros.length; i++) {
+        for (let j = i + 1; j < registros.length; j++) {
+          const a = registros[i]
+          const b = registros[j]
+          if (a.exame !== b.exame) continue
+          const diffDias = Math.abs(new Date(a.criado_em).getTime() - new Date(b.criado_em).getTime()) / 86400000
+          if (diffDias < 7) {
+            ids.add(a.paciente_id)
+            break
+          }
+        }
+      }
+    }
+    return ids
   }, [items])
 
   const filterRef = useRef(filter)
@@ -494,7 +509,7 @@ export default function Dashboard() {
                       </span>
                     )}
                     {duplicatePacienteIds.has(item.paciente_id) && (
-                      <span title="Paciente com múltiplos registros nesta lista" className="inline-flex flex-shrink-0">
+                      <span title="Mesmo exame agendado há menos de 7 dias" className="inline-flex flex-shrink-0">
                         <TriangleAlert className="w-3.5 h-3.5 text-amber-500" />
                       </span>
                     )}
