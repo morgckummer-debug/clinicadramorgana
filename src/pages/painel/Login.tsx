@@ -53,21 +53,30 @@ export default function Login() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-start pt-10 md:justify-center md:pt-0 px-4"
-      style={{ background: 'linear-gradient(160deg, #faf8f5 0%, #f3eef9 50%, #faf8f5 100%)' }}
+      className="min-h-screen flex flex-col items-center justify-start pt-10 md:justify-center md:pt-0 px-4 relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, hsl(295 47% 96%) 0%, hsl(295 40% 98%) 45%, hsl(295 45% 97%) 100%)' }}
     >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #C9A84C, transparent)' }} />
-        <div className="absolute bottom-1/3 right-1/4 w-56 h-56 rounded-full opacity-15" style={{ background: 'radial-gradient(circle, #7C3FB5, transparent)' }} />
-        <div className="absolute top-2/3 left-1/3 w-40 h-40 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #C9A84C, transparent)' }} />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div
+          className="painel-blob"
+          style={{ top: -120, left: -100, width: 420, height: 420, background: 'radial-gradient(circle, hsl(295 47% 83% / 0.55), transparent 70%)', filter: 'blur(50px)' }}
+        />
+        <div
+          className="painel-blob"
+          style={{ top: 220, right: -140, width: 480, height: 480, background: 'radial-gradient(circle, hsl(289 33% 56% / 0.30), transparent 70%)', filter: 'blur(60px)', animationDirection: 'reverse' }}
+        />
+        <div
+          className="painel-blob"
+          style={{ bottom: -160, left: '20%', width: 520, height: 520, background: 'radial-gradient(circle, hsl(295 47% 90% / 0.6), transparent 70%)', filter: 'blur(70px)' }}
+        />
       </div>
 
-      <div className="relative w-full max-w-sm animate-fade-up">
+      <div className="relative z-10 w-full max-w-sm animate-fade-up">
         <div className="flex justify-center mb-10">
           <img src="/icone-ext.png" alt="Assistente de Agendamento" className="h-40 w-auto object-contain" />
         </div>
 
-        <div className="rounded-2xl p-6 space-y-4" style={{ background: 'rgba(255,255,255,0.75)', backdropFilter: 'blur(16px)', border: '1px solid rgba(201,168,76,0.25)', boxShadow: '0 8px 40px rgba(91,45,142,0.08)' }}>
+        <div className="glass-card p-6 space-y-4">
           <div className="space-y-1.5">
             <label className="text-[10px] tracking-[0.3em] uppercase font-medium" style={{ color: 'rgba(91,45,142,0.6)' }}>
               Seu nome
@@ -76,8 +85,8 @@ export default function Login() {
               value={nome}
               onChange={(e) => setNome(e.target.value)}
               required
-              className="w-full h-12 px-3 rounded-lg text-base font-light focus:outline-none"
-              style={{ background: 'rgba(91,45,142,0.04)', border: '1px solid rgba(201,168,76,0.35)', color: '#3B1A5C' }}
+              className="w-full h-12 px-3 rounded-[14px] text-base font-light backdrop-blur-md focus:outline-none"
+              style={{ background: 'hsl(0 0% 100% / 0.55)', border: '1px solid hsl(0 0% 100% / 0.7)', color: '#3B1A5C' }}
             >
               <option value="">Selecione seu nome</option>
               {SECRETARIAS.map((s) => (
@@ -104,8 +113,8 @@ export default function Login() {
                 placeholder="••••••••"
                 required
                 autoComplete="current-password"
-                className="pr-10 font-light border-0 focus-visible:ring-0 text-base h-12"
-                style={{ background: 'rgba(91,45,142,0.04)', border: '1px solid rgba(201,168,76,0.35)', color: '#3B1A5C' }}
+                className="pr-10 font-light border-0 focus-visible:ring-0 text-base h-12 rounded-[14px] backdrop-blur-md"
+                style={{ background: 'hsl(0 0% 100% / 0.55)', border: '1px solid hsl(0 0% 100% / 0.7)', color: '#3B1A5C' }}
               />
               <button
                 type="button"
