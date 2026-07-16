@@ -70,11 +70,11 @@ const medicoLabel: Record<string, string> = {
 }
 
 const statusOptions = [
-  { value: 'pendente',            label: 'Pendente',             activeClass: 'bg-amber-50 text-amber-700 border-amber-200' },
-  { value: 'em_atendimento',      label: 'Atendido',             activeClass: 'bg-blue-50 text-blue-700 border-blue-200' },
-  { value: 'aguardando_resposta', label: 'Aguardando resposta',  activeClass: 'bg-orange-50 text-orange-700 border-orange-200' },
-  { value: 'agendado',            label: 'Agendado',             activeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-  { value: 'cancelado',           label: 'Cancelado',            activeClass: 'bg-red-50 text-red-600 border-red-200' },
+  { value: 'pendente',            label: 'Pendente',             glass: { bg: 'rgba(245,158,11,0.14)', color: '#92400e', border: 'rgba(245,158,11,0.35)' } },
+  { value: 'em_atendimento',      label: 'Atendido',             glass: { bg: 'rgba(59,130,246,0.14)', color: '#1d4ed8', border: 'rgba(59,130,246,0.35)' } },
+  { value: 'aguardando_resposta', label: 'Aguardando resposta',  glass: { bg: 'rgba(249,115,22,0.14)', color: '#c2410c', border: 'rgba(249,115,22,0.35)' } },
+  { value: 'agendado',            label: 'Agendado',             glass: { bg: 'rgba(16,185,129,0.14)', color: '#047857', border: 'rgba(16,185,129,0.35)' } },
+  { value: 'cancelado',           label: 'Cancelado',            glass: { bg: 'rgba(239,68,68,0.14)', color: '#b91c1c', border: 'rgba(239,68,68,0.35)' } },
 ]
 
 function parseDUM(obs: string | null): Date | null {
@@ -589,8 +589,11 @@ export default function Detalhe() {
       {/* Header compacto */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-champagne/30 flex items-center justify-center flex-shrink-0">
-            <span className="text-xl font-bold text-wine-deep">
+          <div
+            className="w-16 h-16 rounded-[22px] flex items-center justify-center flex-shrink-0 font-comfortaa"
+            style={{ color: '#5B2D8E', background: 'linear-gradient(135deg, hsl(295 47% 92%), hsl(295 47% 78%))', boxShadow: '0 6px 20px hsl(311 37% 30% / 0.10)' }}
+          >
+            <span className="text-2xl font-bold">
               {item.pacientes?.nome?.charAt(0).toUpperCase() ?? '?'}
             </span>
           </div>
@@ -633,8 +636,8 @@ export default function Detalhe() {
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={() => navigate('/painel')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 whitespace-nowrap hover:opacity-80"
-            style={{ backgroundColor: '#f3eef8', color: '#5B2D8E', border: '1.5px solid #5B2D8E' }}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-[14px] text-sm font-semibold backdrop-blur-md transition-all duration-300 whitespace-nowrap hover:opacity-80"
+            style={{ background: 'hsl(0 0% 100% / 0.55)', color: '#5B2D8E', border: '1px solid hsl(295 30% 85%)', boxShadow: '0 4px 14px hsl(311 37% 30% / 0.06)' }}
           >
             <ArrowLeft className="w-4 h-4" />
             Lista
@@ -702,7 +705,7 @@ export default function Detalhe() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
 
         {/* Coluna esquerda — paciente */}
-        <div className="bg-white border border-border/50 rounded-2xl p-4 space-y-3">
+        <div className="glass-card p-4 space-y-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Paciente</p>
           <Chip label="Nome" value={item.pacientes?.nome ?? '—'} />
           <Chip
@@ -719,7 +722,7 @@ export default function Detalhe() {
         </div>
 
         {/* Coluna direita — exame */}
-        <div className="bg-white border border-border/50 rounded-2xl p-4 space-y-3">
+        <div className="glass-card p-4 space-y-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium">Exame</p>
           <Chip label="Exame" value={exameFormatado} />
           <Chip label="Turno" value={turnoLabel[item.preferencia_turno ?? ''] ?? '—'} />
@@ -730,17 +733,20 @@ export default function Detalhe() {
 
       {/* Informações obstétricas — caso US anterior (sem DUM) */}
       {!dum && igDeObs && !isOvulacao && (
-        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#fff1da', border: '2px solid #5B2D8E' }}>
-          <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
+        <div
+          className="mx-auto max-w-2xl rounded-[24px] p-5 mb-3 space-y-3 text-center"
+          style={{ background: 'linear-gradient(135deg, hsl(311 37% 26% / 0.94), hsl(289 33% 42% / 0.9))', boxShadow: '0 14px 36px hsl(311 37% 20% / 0.25)', color: 'hsl(295 47% 96%)' }}
+        >
+          <p className="text-[10px] tracking-[0.3em] uppercase font-medium opacity-75">
             Informações Obstétricas
           </p>
           {usAnterior && (
-            <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>
+            <p className="text-sm font-light">
               US anterior: {usAnterior.data} ({usAnterior.sem})
             </p>
           )}
-          <div className="rounded-xl py-2 px-4 text-center bg-wine-deep">
-            <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#C9A84C' }}>Idade gestacional</p>
+          <div className="inline-block rounded-2xl py-2.5 px-7" style={{ background: 'hsl(0 0% 100% / 0.08)', backdropFilter: 'blur(6px)' }}>
+            <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#FDDCB5' }}>Idade gestacional</p>
             <p className="text-3xl font-bold leading-tight" style={{ color: '#FDDCB5' }}>{igDeObs}</p>
           </div>
         </div>
@@ -748,26 +754,29 @@ export default function Detalhe() {
 
       {/* Informações obstétricas (DUM + IG + janelas) */}
       {dum && (
-        <div className="mx-auto max-w-2xl rounded-2xl p-4 mb-3 space-y-3" style={{ backgroundColor: '#fff1da', border: '2px solid #5B2D8E' }}>
-          <p className="text-[10px] tracking-[0.3em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>
+        <div
+          className="mx-auto max-w-2xl rounded-[24px] p-5 mb-3 space-y-3 text-center"
+          style={{ background: 'linear-gradient(135deg, hsl(311 37% 26% / 0.94), hsl(289 33% 42% / 0.9))', boxShadow: '0 14px 36px hsl(311 37% 20% / 0.25)', color: 'hsl(295 47% 96%)' }}
+        >
+          <p className="text-[10px] tracking-[0.3em] uppercase font-medium opacity-75">
             {isOvulacao ? 'Informações do Ciclo' : 'Informações Obstétricas'}
           </p>
-          <p className="text-sm font-bold text-center" style={{ color: '#5B2D8E' }}>
+          <p className="text-sm font-semibold">
             DUM: {fmtDate(dum)}
           </p>
           {igCalculada && !isOvulacao && (
-            <div className="rounded-xl py-2 px-4 text-center bg-wine-deep">
-              <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#C9A84C' }}>Idade gestacional</p>
+            <div className="inline-block rounded-2xl py-2.5 px-7" style={{ background: 'hsl(0 0% 100% / 0.08)', backdropFilter: 'blur(6px)' }}>
+              <p className="text-[10px] tracking-[0.25em] uppercase font-medium mb-0.5" style={{ color: '#FDDCB5' }}>Idade gestacional</p>
               <p className="text-3xl font-bold leading-tight" style={{ color: '#FDDCB5' }}>{igCalculada}</p>
             </div>
           )}
           {janelas.length > 0 && (
-            <div className="space-y-2 pt-1" style={{ borderTop: '1px solid #5B2D8E' }}>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>Janelas ideais para agendamento</p>
+            <div className="space-y-2 pt-2" style={{ borderTop: '1px solid hsl(0 0% 100% / 0.2)' }}>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-medium opacity-75">Janelas ideais para agendamento</p>
               {janelas.map((j) => (
                 <div key={j.label} className="flex flex-col items-center gap-1">
-                  <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>{j.label}</p>
-                  <p className="text-xs font-medium whitespace-nowrap" style={{ color: '#5B2D8E' }}>
+                  <p className="text-xs font-light opacity-90">{j.label}</p>
+                  <p className="text-xs font-medium whitespace-nowrap">
                     {fmtDate(j.de)} – {fmtDate(j.ate)}
                   </p>
                 </div>
@@ -775,19 +784,19 @@ export default function Detalhe() {
             </div>
           )}
           {diasCiclo && (
-            <div className="space-y-2 pt-1" style={{ borderTop: '1px solid #5B2D8E' }}>
-              <p className="text-[10px] tracking-[0.2em] uppercase font-medium text-center" style={{ color: '#5B2D8E' }}>Dias ideais para agendar (ciclo atual/próximo)</p>
+            <div className="space-y-2 pt-2" style={{ borderTop: '1px solid hsl(0 0% 100% / 0.2)' }}>
+              <p className="text-[10px] tracking-[0.2em] uppercase font-medium opacity-75">Dias ideais para agendar (ciclo atual/próximo)</p>
               <div className="flex flex-col items-center gap-1">
-                <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>10º dia do ciclo</p>
-                <p className="text-xs font-medium" style={{ color: '#5B2D8E' }}>{fmtDate(diasCiclo.d10)}</p>
+                <p className="text-xs font-light opacity-90">10º dia do ciclo</p>
+                <p className="text-xs font-medium">{fmtDate(diasCiclo.d10)}</p>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>12º dia do ciclo</p>
-                <p className="text-xs font-medium" style={{ color: '#5B2D8E' }}>{fmtDate(diasCiclo.d12)}</p>
+                <p className="text-xs font-light opacity-90">12º dia do ciclo</p>
+                <p className="text-xs font-medium">{fmtDate(diasCiclo.d12)}</p>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <p className="text-xs font-light" style={{ color: '#5B2D8E' }}>14º dia do ciclo</p>
-                <p className="text-xs font-medium" style={{ color: '#5B2D8E' }}>{fmtDate(diasCiclo.d14)}</p>
+                <p className="text-xs font-light opacity-90">14º dia do ciclo</p>
+                <p className="text-xs font-medium">{fmtDate(diasCiclo.d14)}</p>
               </div>
             </div>
           )}
@@ -796,7 +805,7 @@ export default function Detalhe() {
 
       {/* Observações da paciente (se houver) */}
       {obsUsuario && (
-        <div className="bg-white border border-border/50 rounded-2xl p-4 mb-3">
+        <div className="glass-card p-4 mb-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5">Observações</p>
           <p className="text-sm text-foreground/80 font-light leading-relaxed">{obsUsuario}</p>
         </div>
@@ -804,7 +813,7 @@ export default function Detalhe() {
 
       {/* Pedido médico (se houver) */}
       {item.pedido_url && (
-        <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3">
+        <div className="glass-card mx-auto max-w-2xl p-4 mb-3">
           <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-1.5 text-center">Pedido médico</p>
           <div className="flex flex-col gap-2 items-center">
             {item.pedido_url.split(',').filter(Boolean).map((url, i) => (
@@ -886,25 +895,29 @@ export default function Detalhe() {
       )}
 
       {/* Status */}
-      <div className="mx-auto max-w-2xl bg-white border border-border/50 rounded-2xl p-4 mb-3">
+      <div className="glass-card mx-auto max-w-2xl p-4 mb-3">
         <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-medium mb-2.5 text-center">Status</p>
         <div className="flex flex-wrap gap-2 justify-center">
-          {statusOptions.map((opt) => (
-            <button
-              key={opt.value}
-              onClick={() => handleStatusClick(opt.value)}
-              disabled={updatingStatus || item.status === opt.value}
-              className={[
-                'px-3 py-1.5 rounded-full text-[11px] tracking-[0.12em] uppercase font-medium border transition-all duration-300',
-                item.status === opt.value
-                  ? opt.activeClass
-                  : 'bg-white border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep',
-                updatingStatus ? 'opacity-50 cursor-not-allowed' : '',
-              ].join(' ')}
-            >
-              {opt.label}
-            </button>
-          ))}
+          {statusOptions.map((opt) => {
+            const active = item.status === opt.value
+            const style = active
+              ? { background: opt.glass.bg, color: opt.glass.color, borderColor: opt.glass.border }
+              : { background: 'hsl(0 0% 100% / 0.5)', color: 'hsl(311 15% 45%)', borderColor: 'hsl(295 30% 85%)' }
+            return (
+              <button
+                key={opt.value}
+                onClick={() => handleStatusClick(opt.value)}
+                disabled={updatingStatus || active}
+                style={style}
+                className={[
+                  'px-3 py-1.5 rounded-full text-[11px] tracking-[0.12em] uppercase font-medium border backdrop-blur-md transition-all duration-300',
+                  updatingStatus ? 'opacity-50 cursor-not-allowed' : '',
+                ].join(' ')}
+              >
+                {opt.label}
+              </button>
+            )
+          })}
         </div>
         {item.status === 'em_atendimento' && item.atendente_nome && (
           <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-border/30 justify-center">
@@ -920,7 +933,8 @@ export default function Detalhe() {
       <div className="flex flex-col items-center gap-2.5">
         <button
           onClick={openWhatsApp}
-          className="inline-flex items-center gap-1.5 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full whitespace-nowrap bg-[#25D366] text-white text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold hover:bg-[#1ebe5d] transition-all duration-300 shadow-soft"
+          className="inline-flex items-center gap-1.5 sm:gap-2.5 px-4 sm:px-7 py-2.5 sm:py-3.5 rounded-full whitespace-nowrap backdrop-blur-md text-[10px] sm:text-[11px] tracking-[0.2em] uppercase font-semibold transition-all duration-300"
+          style={{ background: 'rgba(37,211,102,0.14)', border: '1px solid rgba(37,211,102,0.4)', color: '#128C43', boxShadow: '0 6px 18px rgba(37,211,102,0.15)' }}
         >
           <MessageCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           <span>Entrar em contato com {nomeExibido}</span>
