@@ -84,8 +84,26 @@ export function PainelLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf9f8] flex flex-col">
-      <header className="bg-white border-b border-border/50 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+    <div
+      className="min-h-screen flex flex-col relative overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, hsl(295 47% 96%) 0%, hsl(295 40% 98%) 45%, hsl(295 45% 97%) 100%)' }}
+    >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div
+          className="painel-blob"
+          style={{ top: -120, left: -100, width: 420, height: 420, background: 'radial-gradient(circle, hsl(295 47% 83% / 0.55), transparent 70%)', filter: 'blur(50px)' }}
+        />
+        <div
+          className="painel-blob"
+          style={{ top: 220, right: -140, width: 480, height: 480, background: 'radial-gradient(circle, hsl(289 33% 56% / 0.30), transparent 70%)', filter: 'blur(60px)', animationDirection: 'reverse' }}
+        />
+        <div
+          className="painel-blob"
+          style={{ bottom: -160, left: '20%', width: 520, height: 520, background: 'radial-gradient(circle, hsl(295 47% 90% / 0.6), transparent 70%)', filter: 'blur(70px)' }}
+        />
+      </div>
+
+      <header className="glass-header relative z-10 px-6 py-4 flex items-center justify-between sticky top-0">
         <Link to="/painel" className="flex items-center">
           <img
             src="/icone-ext.png"
@@ -94,36 +112,35 @@ export function PainelLayout({ children }: { children: ReactNode }) {
           />
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {userName && (
-            <span className="text-[11px] text-muted-foreground hidden sm:block">{userName}</span>
+            <span className="text-[11px] text-muted-foreground hidden sm:block mr-1">{userName}</span>
           )}
           <Link
             to="/painel/lista-negra"
-            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-red-500 hover:text-red-600 transition-colors duration-300"
+            className="glass-icon-btn flex items-center justify-center text-red-500 hover:text-red-600 transition-colors duration-300"
             title="Lista negra"
           >
             <Ban className="w-4 h-4" strokeWidth={2.5} />
-            <span className="hidden sm:block">Lista negra</span>
           </Link>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
+            className="glass-icon-btn flex items-center justify-center text-wine-deep/80 hover:text-wine-deep transition-colors duration-300"
+            title="Alterar senha"
           >
             <KeyRound className="w-3.5 h-3.5" />
-            <span className="hidden sm:block">Alterar senha</span>
           </button>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted-foreground hover:text-wine-deep transition-colors duration-300"
+            className="glass-icon-btn flex items-center justify-center text-wine-deep/80 hover:text-wine-deep transition-colors duration-300"
+            title="Sair"
           >
             <LogOut className="w-3.5 h-3.5" />
-            Sair
           </button>
         </div>
       </header>
 
-      <main className="flex-1 container max-w-4xl py-8 px-4">
+      <main className="flex-1 container max-w-4xl py-8 px-4 relative z-10">
         {children}
       </main>
 

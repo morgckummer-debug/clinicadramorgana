@@ -380,13 +380,25 @@ export default function Dashboard() {
   const totalPages = Math.max(1, Math.ceil(filteredItems.length / PAGE_SIZE))
   const pagedItems = filteredItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
 
-  const filters: { key: StatusFilter; label: string; activeClass: string }[] = [
-    { key: 'pendente',            label: 'Pendentes',           activeClass: 'bg-amber-50 text-amber-700 border border-amber-200' },
-    { key: 'em_atendimento',      label: 'Atendido',            activeClass: 'bg-blue-50 text-blue-700 border border-blue-200' },
-    { key: 'aguardando_resposta', label: 'Aguardando resposta', activeClass: 'bg-orange-50 text-orange-700 border border-orange-200' },
-    { key: 'agendado',            label: 'Agendados',           activeClass: 'bg-emerald-50 text-emerald-700 border border-emerald-200' },
-    { key: 'todos',               label: 'Todos',               activeClass: 'bg-wine-deep text-wine-foreground' },
+  const filters: { key: StatusFilter; label: string; glass?: { bg: string; color: string; border: string } }[] = [
+    { key: 'pendente',            label: 'Pendentes',           glass: { bg: 'rgba(245,158,11,0.14)', color: '#92400e', border: 'rgba(245,158,11,0.35)' } },
+    { key: 'em_atendimento',      label: 'Atendido',            glass: { bg: 'rgba(59,130,246,0.14)', color: '#1d4ed8', border: 'rgba(59,130,246,0.35)' } },
+    { key: 'aguardando_resposta', label: 'Aguardando resposta', glass: { bg: 'rgba(249,115,22,0.14)', color: '#c2410c', border: 'rgba(249,115,22,0.35)' } },
+    { key: 'agendado',            label: 'Agendados',           glass: { bg: 'rgba(16,185,129,0.14)', color: '#047857', border: 'rgba(16,185,129,0.35)' } },
+    { key: 'todos',               label: 'Todos' },
   ]
+
+  const filterButtonStyle = (key: StatusFilter, glass?: { bg: string; color: string; border: string }) => {
+    const active = filter === key
+    if (key === 'todos') {
+      return active
+        ? { background: 'hsl(311 37% 31%)', color: '#fff', borderColor: 'hsl(311 37% 31%)' }
+        : { background: 'hsl(0 0% 100% / 0.5)', color: 'hsl(311 15% 45%)', borderColor: 'hsl(295 30% 85%)' }
+    }
+    return active && glass
+      ? { background: glass.bg, color: glass.color, borderColor: glass.border }
+      : { background: 'hsl(0 0% 100% / 0.5)', color: 'hsl(311 15% 45%)', borderColor: 'hsl(295 30% 85%)' }
+  }
 
   return (
     <>
@@ -411,7 +423,10 @@ export default function Dashboard() {
             Pré-agendamentos
           </h1>
         </div>
-        <div className="flex flex-col items-center gap-1 rounded-2xl border px-4 py-3 shadow-soft sm:items-end" style={{ backgroundColor: '#FDDCB5', borderColor: '#e8c99a' }}>
+        <div
+          className="flex flex-col items-center gap-1 rounded-[20px] border px-5 py-3 backdrop-blur-xl sm:items-end"
+          style={{ background: 'linear-gradient(135deg, hsl(295 47% 90% / 0.75), hsl(295 47% 78% / 0.55))', borderColor: 'hsl(0 0% 100% / 0.6)', boxShadow: '0 8px 24px hsl(311 37% 30% / 0.10)' }}
+        >
           <span className="text-[10px] tracking-[0.18em] uppercase font-medium" style={{ color: '#5B2D8E' }}>Pendentes para agendar</span>
           <span className="text-2xl font-bold leading-none" style={{ color: '#5B2D8E' }}>{pendingCount}</span>
         </div>
@@ -425,7 +440,8 @@ export default function Dashboard() {
           value={search}
           onChange={(e) => { setSearch(e.target.value); setPage(1) }}
           placeholder="Buscar por nome ou exame…"
-          className="w-full pl-9 pr-4 py-2 text-sm rounded-full border border-border bg-white text-wine-deep placeholder:text-muted-foreground/60 focus:outline-none focus:border-wine-deep/40 transition-colors"
+          className="w-full pl-9 pr-4 py-2.5 text-sm rounded-[18px] border backdrop-blur-xl text-wine-deep placeholder:text-muted-foreground/60 focus:outline-none transition-colors"
+          style={{ background: 'hsl(0 0% 100% / 0.55)', borderColor: 'hsl(0 0% 100% / 0.7)', boxShadow: '0 6px 20px hsl(311 37% 30% / 0.06)' }}
         />
       </div>
 
@@ -435,12 +451,8 @@ export default function Dashboard() {
           <button
             key={f.key}
             onClick={() => handleFilterChange(f.key)}
-            className={[
-              'relative px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium transition-all duration-300',
-              filter === f.key
-                ? f.activeClass
-                : 'bg-white border border-border text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep',
-            ].join(' ')}
+            style={filterButtonStyle(f.key, f.glass)}
+            className="relative px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border backdrop-blur-md transition-all duration-300"
           >
             {f.label}
             {f.key === 'pendente' && pendingCount > 0 && (
@@ -477,11 +489,14 @@ export default function Dashboard() {
               key={item.id}
               type="button"
               onClick={() => handleSelectPaciente(item)}
-              className="w-full flex items-center justify-between bg-white border border-border/50 rounded-2xl px-5 py-4 hover:border-champagne/60 hover:shadow-soft transition-all duration-300 group text-left"
+              className="glass-row w-full flex items-center justify-between px-5 py-4 group text-left"
             >
-              <div className="flex items-center gap-4 min-w-0">
-                <div className="w-9 h-9 rounded-full bg-champagne/20 flex items-center justify-center flex-shrink-0">
-                  <img src="/icone-sonda.png" alt="" className="w-5 h-5 object-contain opacity-70" />
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div
+                  className="w-[42px] h-[42px] rounded-2xl flex items-center justify-center flex-shrink-0 font-comfortaa font-semibold text-base"
+                  style={{ color: '#5B2D8E', background: 'linear-gradient(135deg, hsl(295 47% 90%), hsl(295 47% 78%))', boxShadow: 'inset 0 1px 2px hsl(0 0% 100% / 0.8)' }}
+                >
+                  {(item.pacientes?.nome ?? '?').trim().charAt(0).toUpperCase()}
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5 min-w-0">
@@ -535,14 +550,16 @@ export default function Dashboard() {
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border border-border bg-white text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+                  className="px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border backdrop-blur-md text-muted-foreground hover:text-wine-deep disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+                  style={{ background: 'hsl(0 0% 100% / 0.5)', borderColor: 'hsl(295 30% 85%)' }}
                 >
                   ‹ Anterior
                 </button>
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page === totalPages}
-                  className="px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border border-border bg-white text-muted-foreground hover:border-wine-deep/40 hover:text-wine-deep disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+                  className="px-4 py-1.5 rounded-full text-[11px] tracking-[0.15em] uppercase font-medium border backdrop-blur-md text-muted-foreground hover:text-wine-deep disabled:opacity-30 disabled:pointer-events-none transition-all duration-300"
+                  style={{ background: 'hsl(0 0% 100% / 0.5)', borderColor: 'hsl(295 30% 85%)' }}
                 >
                   Próxima ›
                 </button>
