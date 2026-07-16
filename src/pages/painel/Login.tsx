@@ -54,29 +54,34 @@ export default function Login() {
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-start pt-10 md:justify-center md:pt-0 px-4 relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, hsl(295 47% 96%) 0%, hsl(295 40% 98%) 45%, hsl(295 45% 97%) 100%)' }}
+      style={{ background: 'linear-gradient(160deg, hsl(311 45% 9%) 0%, hsl(289 38% 15%) 50%, hsl(311 42% 8%) 100%)' }}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <div
           className="painel-blob"
-          style={{ top: -120, left: -100, width: 420, height: 420, background: 'radial-gradient(circle, hsl(295 47% 83% / 0.55), transparent 70%)', filter: 'blur(50px)' }}
+          style={{ top: -120, left: -100, width: 420, height: 420, background: 'radial-gradient(circle, hsl(45 65% 60% / 0.18), transparent 70%)', filter: 'blur(60px)' }}
         />
         <div
           className="painel-blob"
-          style={{ top: 220, right: -140, width: 480, height: 480, background: 'radial-gradient(circle, hsl(289 33% 56% / 0.30), transparent 70%)', filter: 'blur(60px)', animationDirection: 'reverse' }}
+          style={{ top: 220, right: -140, width: 480, height: 480, background: 'radial-gradient(circle, hsl(289 55% 60% / 0.28), transparent 70%)', filter: 'blur(70px)', animationDirection: 'reverse' }}
         />
         <div
           className="painel-blob"
-          style={{ bottom: -160, left: '20%', width: 520, height: 520, background: 'radial-gradient(circle, hsl(295 47% 90% / 0.6), transparent 70%)', filter: 'blur(70px)' }}
+          style={{ bottom: -160, left: '20%', width: 520, height: 520, background: 'radial-gradient(circle, hsl(311 45% 45% / 0.25), transparent 70%)', filter: 'blur(80px)' }}
         />
       </div>
 
       <div className="relative z-10 w-full max-w-sm animate-fade-up">
         <div className="flex justify-center mb-10">
-          <img src="/icone-ext.png" alt="Assistente de Agendamento" className="h-40 w-auto object-contain" />
+          <div
+            className="rounded-[28px] px-8 py-4 backdrop-blur-md"
+            style={{ background: 'hsl(295 47% 94% / 0.85)', boxShadow: '0 12px 34px hsl(311 60% 4% / 0.35)' }}
+          >
+            <img src="/icone-ext.png" alt="Assistente de Agendamento" className="h-32 w-auto object-contain" />
+          </div>
         </div>
 
-        <div className="glass-card p-6 space-y-4">
+        <div className="glass-card p-6 space-y-4" style={{ boxShadow: '0 24px 60px hsl(311 60% 4% / 0.45)' }}>
           <div className="space-y-1.5">
             <label className="text-[10px] tracking-[0.3em] uppercase font-medium" style={{ color: 'rgba(91,45,142,0.6)' }}>
               Seu nome
@@ -151,14 +156,14 @@ export default function Login() {
           <button
             type="button"
             onClick={handleForgotPassword}
-            className="text-xs font-medium tracking-widest underline underline-offset-4 transition-opacity hover:opacity-70"
-            style={{ color: 'rgba(91,45,142,0.75)' }}
+            className="text-xs font-medium tracking-widest underline underline-offset-4 transition-opacity hover:opacity-80"
+            style={{ color: 'hsl(295 47% 88%)' }}
           >
             Esqueceu a senha?
           </button>
         </div>
 
-        <p className="text-center text-sm font-medium mt-4 tracking-widest" style={{ color: 'rgba(91,45,142,0.55)' }}>
+        <p className="text-center text-sm font-medium mt-4 tracking-widest" style={{ color: 'hsl(295 30% 75%)' }}>
           Acesso exclusivo · Equipe MK
         </p>
       </div>
