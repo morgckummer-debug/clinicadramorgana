@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logoWhite from "@/assets/logo-white.webp";
 
@@ -10,6 +11,10 @@ export const SiteFooter = () => {
         <div className="text-center md:text-right text-wine-foreground/70 text-xs tracking-wide">
           © {new Date().getFullYear()} {t.footer.copy}<br />
           <span className="text-champagne/80 font-serif italic text-sm">{t.footer.tagline}</span>
+          <br />
+          <Link to="/politica-de-privacidade" className="text-champagne/70 hover:text-champagne underline underline-offset-2 text-[11px]">
+            Política de Privacidade
+          </Link>
         </div>
       </div>
     </footer>

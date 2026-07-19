@@ -9,6 +9,7 @@ export type QuestionType =
   | 'textarea'
   | 'upload'
   | 'calendar'
+  | 'consent'
 
 export interface QuestionOption {
   label: string
@@ -25,6 +26,7 @@ export interface Question {
   placeholder?: string
   mask?: QuestionMask
   options?: QuestionOption[]
+  consentLabel?: string
   next: string | null
   branch?: boolean
 }
@@ -223,6 +225,13 @@ export const preAgendamentoFlow: ConversationFlow = {
       id: 'q11',
       type: 'textarea',
       ...PERGUNTAS.q11,
+      next: 'consentimento_lgpd',
+    },
+
+    consentimento_lgpd: {
+      id: 'consentimento_lgpd',
+      type: 'consent',
+      ...PERGUNTAS.consentimento_lgpd,
       next: null,
     },
   },

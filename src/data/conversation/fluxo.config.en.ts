@@ -342,4 +342,13 @@ export const PERGUNTAS_EN = {
     subtitle: 'Optional. Mobility issues, urgency, questions — any information that helps.',
     placeholder: 'e.g. I have mobility issues, I prefer morning appointments…',
   },
+
+  // STEP 12 — LGPD consent (mandatory, separate from the clinic's liability waiver)
+  consentimento_lgpd: {
+    title: 'Authorization for processing personal data',
+    subtitle:
+      'This consent covers specifically the use of your personal and health data in this pre-booking. It is separate from the liability waiver you may sign in person at the clinic.',
+    consentLabel:
+      'I have read and authorize the processing of my personal and health data (name, CPF/ID, phone, date of birth, medical referral, and other information provided in this step) by Clínica Dra. Morgana, exclusively to schedule, perform, and follow up on my exam, in accordance with the Privacy Policy.',
+  },
 }
