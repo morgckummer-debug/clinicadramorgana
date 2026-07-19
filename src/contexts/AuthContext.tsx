@@ -41,7 +41,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (email: string, password: string, nome: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) return error.message
+    if (error) {
+      // TODO: remover este log de depuração
+      console.log('[DEBUG] Supabase signIn error:', {
+        message: error.message,
+        status: error.status,
+        code: error.code,
+        error,
+      })
+      return error.message
+    }
     setUserName(nome)
     localStorage.setItem('secretaria_nome', nome)
     return null
