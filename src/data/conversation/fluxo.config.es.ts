@@ -343,4 +343,13 @@ export const PERGUNTAS_ES = {
     subtitle: 'Opcional. Dificultad de locomoción, urgencia, dudas — cualquier información que ayude.',
     placeholder: 'Ej: tengo dificultad de locomoción, prefiero horario matutino…',
   },
+
+  // ETAPA 12 — Consentimiento LGPD (obligatorio, distinto del término de responsabilidad de la clínica)
+  consentimento_lgpd: {
+    title: 'Autorización para el tratamiento de datos personales',
+    subtitle:
+      'Este consentimiento se refiere específicamente al uso de tus datos personales y de salud en esta pre-reserva. Es distinto del término de responsabilidad que podrás firmar presencialmente en la clínica.',
+    consentLabel:
+      'He leído y autorizo el tratamiento de mis datos personales y de salud (nombre, CPF, teléfono, fecha de nacimiento, orden médica y demás información brindada en esta etapa) por la Clínica Dra. Morgana, exclusivamente para agendar, realizar y dar seguimiento a mi examen, conforme la Política de Privacidad.',
+  },
 }

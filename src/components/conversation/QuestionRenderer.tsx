@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom'
 import { Question, examsByCategory } from '@/data/conversation/preAgendamento'
 import { isValidDateBR, isValidCPF, isValidDUM } from '@/lib/utils'
+import { Checkbox } from '@/components/ui/checkbox'
 import { OptionButton } from './OptionButton'
 import { TextAnswer } from './TextAnswer'
 import { UploadArea } from './UploadArea'
@@ -158,6 +160,34 @@ export function QuestionRenderer({
         onChange={(urls) => onChange(urls)}
         optional={optional}
       />
+    )
+  }
+
+  if (type === 'consent') {
+    const checked = value === 'aceito'
+    return (
+      <div className="flex items-start gap-3 p-4 rounded-2xl border border-border/50 bg-white">
+        <Checkbox
+          checked={checked}
+          onCheckedChange={(v) => onChange(v ? 'aceito' : '')}
+          className="mt-0.5"
+        />
+        <span
+          className="text-sm text-foreground/80 font-light leading-relaxed cursor-pointer"
+          onClick={() => onChange(checked ? '' : 'aceito')}
+        >
+          {question.consentLabel}{' '}
+          <Link
+            to="/politica-de-privacidade"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2 text-wine-deep hover:text-wine-deep/80"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Ver Política de Privacidade
+          </Link>
+        </span>
+      </div>
     )
   }
 

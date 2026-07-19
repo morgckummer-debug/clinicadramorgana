@@ -186,6 +186,13 @@ export const preAgendamentoFlowES: ConversationFlow = {
       id: 'q11',
       type: 'textarea',
       ...PERGUNTAS_ES.q11,
+      next: 'consentimento_lgpd',
+    },
+
+    consentimento_lgpd: {
+      id: 'consentimento_lgpd',
+      type: 'consent',
+      ...PERGUNTAS_ES.consentimento_lgpd,
       next: null,
     },
   },

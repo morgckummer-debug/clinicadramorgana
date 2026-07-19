@@ -162,6 +162,13 @@ async function savePreAgendamento(answers: Record<string, string | string[]>) {
   }
 
   console.log('✅ Pré-agendamento criado, id:', data)
+
+  // Registra o consentimento LGPD vinculado a este pré-agendamento.
+  // Falha aqui não deve impedir o agendamento — só registra um aviso.
+  const { error: consentError } = await supabase.rpc('registrar_consentimento_lgpd', { p_id: data })
+  if (consentError) {
+    console.warn('⚠️ Não foi possível registrar o consentimento LGPD:', consentError)
+  }
 }
 
 
@@ -211,6 +218,7 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
       const v = currentAnswer
       return Array.isArray(v) ? v.length > 0 : (typeof v === 'string' && v.length > 0)
     }
+    if (type === 'consent') return currentAnswer === 'aceito'
     if (type === 'multi') return Array.isArray(currentAnswer) && currentAnswer.length > 0
     if (type === 'input') {
       const strValue = typeof currentAnswer === 'string' ? currentAnswer : ''
@@ -477,7 +485,8 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
     currentQuestion?.type === 'input' ||
     currentQuestion?.type === 'textarea' ||
     currentQuestion?.type === 'upload' ||
-    currentQuestion?.type === 'multi'
+    currentQuestion?.type === 'multi' ||
+    currentQuestion?.type === 'consent'
 
   if (step === 'welcome') {
     return (

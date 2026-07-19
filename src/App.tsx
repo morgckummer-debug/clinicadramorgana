@@ -16,6 +16,7 @@ const Videos = lazy(() => import("./pages/Videos.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const PatientPortal = lazy(() => import("./pages/PatientPortal.tsx"));
 const PreAgendamento = lazy(() => import("./pages/PreAgendamento.tsx"));
+const PoliticaPrivacidade = lazy(() => import("./pages/PoliticaPrivacidade.tsx"));
 const Preparo = lazy(() => import("./pages/Preparo.tsx"));
 const ComoChegar = lazy(() => import("./pages/ComoChegar.tsx"));
 const FalarSecretaria = lazy(() => import("./pages/FalarSecretaria.tsx"));
@@ -71,6 +72,7 @@ const App = () => (
                 <Route path="/videos" element={<Videos />} />
                 <Route path="/agendar" element={<PatientPortal />} />
                 <Route path="/pre-agendamento" element={<PreAgendamento />} />
+                <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
                 <Route path="/preparo" element={<Preparo />} />
                 <Route path="/como-chegar" element={<ComoChegar />} />
                 <Route path="/falar-secretaria" element={<FalarSecretaria />} />
