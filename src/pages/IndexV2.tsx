@@ -12,7 +12,6 @@ import draSobre from "@/assets/dra-morgana-sobre.webp";
 /* Team & Convênios — servidos via /public para não inflarem o bundle JS inicial */
 const teamMorgana = "/team/morgana.webp";
 const teamBarbara = "/team/barbara.webp";
-const teamDarlei = "/team/darlei.webp";
 const teamPaulo = "/team/paulo.webp";
 const teamCarolina = "/team/carolina.webp";
 const teamMariaAmelia = "/team/maria-amelia.webp";
@@ -44,7 +43,6 @@ const INSTAGRAM_HANDLE = "@dramorganak";
 const teamBase = [
   { name: "Dra. Morgana Kummer",   roleKey: "Ultrassom Geral, Obstétrico e Medicina Fetal", crm: "CRMMG: 45.304 · RQE: 39.156",     initials: "MK", photo: teamMorgana },
   { name: "Dra. Bárbara Rodrigues", roleKey: "Ultrassom Geral e Obstétrico",                  crm: "CRMMG: 66.451 · RQE: 51.530",     initials: "BR", photo: teamBarbara },
-  { name: "Dr. Darlei Carneiro",    roleKey: "Medicina Fetal e Ecocardiografia",               crm: "CRMMG: 64.367 · RQE: 56.387/56.388", initials: "DC", photo: teamDarlei },
   { name: "Dr. Paulo Gontijo Jr.",  roleKey: "Ultrassom Geral e Obstétrico",                  crm: "CRMMG: 76.670",                   initials: "PG", photo: teamPaulo },
   { name: "Dra. Carolina Martins",  roleKey: "Ultrassom Geral e Obstétrico",                  crm: "CRMMG: 75.163 · RQE: 51.242",     initials: "CM", photo: teamCarolina },
   { name: "Dra. Maria Amélia",      roleKey: "Ultrassom Pediátrico",                          crm: "CRMMG: 39.659 · RQE: 16.567",     initials: "MA", photo: teamMariaAmelia },

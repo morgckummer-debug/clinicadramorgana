@@ -108,6 +108,8 @@ export interface Exam {
   title: string;
   thumb: string;
   shortDesc: string;
+  /** Quando true, o exame não aparece nas listagens por categoria (página própria continua acessível). */
+  hiddenFromListing?: boolean;
 
   /** Conteúdo novo, migrado do site oficial. */
   hero?: ExamHero;
@@ -729,8 +731,9 @@ export const exams: Exam[] = [
     slug: "ecocardiograma-fetal",
     legacySlug: "/ecocardiograma",
     seoTitle: "Ecocardiograma Fetal | Dra. Morgana Kummer Sete Lagoas",
-    seoDescription: "Ecocardiograma fetal com especialista em medicina fetal. Avaliação completa do coração do bebê. Detecção de cardiopatias congênitas. Agende com Dr. Darlei em Sete Lagoas.",
+    seoDescription: "Ecocardiograma fetal com especialista em medicina fetal. Avaliação completa do coração do bebê. Detecção de cardiopatias congênitas. Agende em Sete Lagoas.",
     category: "Obstétrico",
+    hiddenFromListing: true,
     title: "Ecocardiograma Fetal",
     thumb: thumbObstetrico,
     shortDesc:
@@ -1959,7 +1962,7 @@ export const getExamByPath = (pathname: string): Exam | undefined => {
 };
 
 export const getExamsByCategory = (category: ExamCategory) =>
-  exams.filter((e) => e.category === category);
+  exams.filter((e) => e.category === category && !e.hiddenFromListing);
 
 /**
  * Caminho canônico do exame. Sempre usa o legacySlug quando existir,
