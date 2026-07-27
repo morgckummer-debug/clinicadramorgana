@@ -20,6 +20,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/preparo", changefreq: "monthly", priority: "0.7" },
   { path: "/como-chegar", changefreq: "monthly", priority: "0.6" },
   { path: "/falar-secretaria", changefreq: "monthly", priority: "0.6" },
+  { path: "/calculadora-idade-gestacional", changefreq: "monthly", priority: "0.7" },
 ];
 
 // Extract slugs from src/data/exams.ts without importing it (avoids asset loaders)

@@ -24,6 +24,7 @@ const PainelLogin = lazy(() => import("./pages/painel/Login.tsx"));
 const PainelDashboard = lazy(() => import("./pages/painel/Dashboard.tsx"));
 const PainelDetalhe = lazy(() => import("./pages/painel/Detalhe.tsx"));
 const PainelListaNegra = lazy(() => import("./pages/painel/ListaNegra.tsx"));
+const CalculadoraIdadeGestacional = lazy(() => import("./pages/CalculadoraIdadeGestacional.tsx"));
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
                 <Route path="/preparo" element={<Preparo />} />
                 <Route path="/como-chegar" element={<ComoChegar />} />
                 <Route path="/falar-secretaria" element={<FalarSecretaria />} />
+                <Route path="/calculadora-idade-gestacional" element={<CalculadoraIdadeGestacional />} />
                 <Route path="/painel/login" element={<PainelLogin />} />
                 <Route path="/painel" element={<ProtectedRoute><PainelDashboard /></ProtectedRoute>} />
                 <Route path="/painel/lista-negra" element={<ProtectedRoute><PainelListaNegra /></ProtectedRoute>} />
