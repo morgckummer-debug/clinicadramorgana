@@ -2,7 +2,6 @@
 // Sem dependências externas — usa Date nativo em UTC para evitar DST.
 
 const MS_PER_DAY = 86_400_000
-const DAYS_PER_MONTH = 30.4375 // 365.25 / 12
 const GESTATION_DAYS = 280
 
 export type Trimestre = 1 | 2 | 3
@@ -43,6 +42,34 @@ export function addDays(d: Date, days: number): Date {
   return u
 }
 
+function addMonths(d: Date, months: number): Date {
+  const u = toUTCDate(d)
+  const totalMonth = u.getUTCFullYear() * 12 + u.getUTCMonth() + months
+  const year = Math.floor(totalMonth / 12)
+  const month = totalMonth % 12
+  // Se o dia de origem não existir no mês de destino (ex.: 31 de janeiro + 1 mês),
+  // usa o último dia do mês de destino em vez de estourar para o mês seguinte.
+  const ultimoDiaDoMes = new Date(Date.UTC(year, month + 1, 0)).getUTCDate()
+  return new Date(Date.UTC(year, month, Math.min(u.getUTCDate(), ultimoDiaDoMes)))
+}
+
+/**
+ * Conta meses e dias entre duas datas usando meses de calendário reais
+ * (não uma média), para que a contagem avance de forma contínua e sem
+ * saltos — ex.: "2 meses e 30 dias" é sempre seguido por "3 meses e 0 dias".
+ */
+function mesesEDiasEntre(inicio: Date, fim: Date): { meses: number; dias: number } {
+  let meses = 0
+  let cursor = toUTCDate(inicio)
+  while (true) {
+    const proximo = addMonths(cursor, 1)
+    if (proximo.getTime() > fim.getTime()) break
+    cursor = proximo
+    meses++
+  }
+  return { meses, dias: diffInDays(cursor, fim) }
+}
+
 export function parseISODate(iso: string): Date | null {
   if (!iso) return null
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
@@ -62,11 +89,7 @@ export function calcFromDUM(dum: Date, hoje: Date = new Date()): CalcResult {
   const semanas = Math.floor(dias / 7)
   const diasNaSemana = dias % 7
 
-  const mesesCompletos = Math.floor(dias / DAYS_PER_MONTH)
-  const diasNoMes = Math.max(
-    0,
-    dias - Math.round(mesesCompletos * DAYS_PER_MONTH),
-  )
+  const { meses: mesesCompletos, dias: diasNoMes } = mesesEDiasEntre(dum, addDays(dum, dias))
 
   const mesGestacional = Math.min(9, Math.max(1, mesesCompletos + 1))
 
