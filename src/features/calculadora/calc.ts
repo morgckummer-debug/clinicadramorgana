@@ -44,23 +44,29 @@ export function addDays(d: Date, days: number): Date {
 }
 
 /**
- * Converte um total de dias em meses completos + dias restantes, usando
- * a duração média do mês (30.4375 dias). Depende só do total de dias —
- * não da data de calendário — para que a mesma idade gestacional em dias
- * sempre corresponda ao mesmo "X meses e Y dias", não importa a data da
- * última menstruação.
- *
- * O limite de cada mês é sempre `Math.round(n * DAYS_PER_MONTH)`, usado
- * tanto para decidir quantos meses já se completaram quanto para calcular
- * o resto — isso garante que a contagem avança um dia de cada vez, sem
- * saltos (ex.: "2 meses e 30 dias" é sempre seguido por "3 meses").
+ * Meses inteiros já completados (arredondando cada mês para baixo), usados
+ * para saber em qual mês da gestação a pessoa está (ex.: aos 182 dias, 5
+ * meses completos -> "está no 6º mês"). Depende só do total de dias, não
+ * da data de calendário.
  */
-function mesesEDias(dias: number): { meses: number; dias: number } {
+function mesesCompletosFloor(dias: number): number {
   let meses = 0
   while (Math.round((meses + 1) * DAYS_PER_MONTH) <= dias) {
     meses++
   }
-  return { meses, dias: dias - Math.round(meses * DAYS_PER_MONTH) }
+  return meses
+}
+
+/**
+ * Converte um total de dias em "meses e dias" arredondando para o mês mais
+ * próximo (ex.: 182 dias = 26 semanas arredonda para "6 meses", não "5
+ * meses e 30 dias"). Depende só do total de dias, não da data de
+ * calendário, para que a mesma idade gestacional sempre corresponda ao
+ * mesmo resultado, não importa a data da última menstruação.
+ */
+function mesesEDiasArredondado(dias: number): { meses: number; dias: number } {
+  const meses = Math.round(dias / DAYS_PER_MONTH)
+  return { meses, dias: Math.max(0, dias - Math.round(meses * DAYS_PER_MONTH)) }
 }
 
 export function parseISODate(iso: string): Date | null {
@@ -82,9 +88,14 @@ export function calcFromDUM(dum: Date, hoje: Date = new Date()): CalcResult {
   const semanas = Math.floor(dias / 7)
   const diasNaSemana = dias % 7
 
-  const { meses: mesesCompletos, dias: diasNoMes } = mesesEDias(dias)
+  const arredondado = mesesEDiasArredondado(dias)
+  const mesesCompletos = Math.min(9, arredondado.meses)
+  const diasNoMes =
+    mesesCompletos === arredondado.meses
+      ? arredondado.dias
+      : dias - Math.round(mesesCompletos * DAYS_PER_MONTH)
 
-  const mesGestacional = Math.min(9, Math.max(1, mesesCompletos + 1))
+  const mesGestacional = Math.min(9, Math.max(1, mesesCompletosFloor(dias) + 1))
 
   const trimestre: Trimestre =
     semanas < 14 ? 1 : semanas < 28 ? 2 : 3
