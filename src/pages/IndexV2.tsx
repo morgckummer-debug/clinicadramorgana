@@ -75,6 +75,7 @@ const convenios = [
 import { SiteNavbar as Navbar } from "@/components/site/SiteNavbar";
 import { SiteFooter as Footer } from "@/components/site/SiteFooter";
 import { SiteWhatsAppFab as WhatsAppFab } from "@/components/site/SiteWhatsAppFab";
+import { CalculadoraCTA } from "@/components/site/CalculadoraCTA";
 export { Navbar, Footer, WhatsAppFab };
 
 
@@ -542,6 +543,7 @@ const IndexV2 = () => {
       <About />
       {/* <DifferentiatedExperience /> */}
       <Exams />
+      <CalculadoraCTA />
       <Team />
       <Convenios />
       <Contact />

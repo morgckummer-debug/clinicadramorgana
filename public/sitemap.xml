@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dramorgana.com.br/</loc>
-    <lastmod>2026-07-15</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -35,6 +35,11 @@
     <loc>https://dramorgana.com.br/falar-secretaria</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dramorgana.com.br/calculadora-idade-gestacional</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dramorgana.com.br/exames/ultrassom-primeiro-trimestre-tv</loc>
