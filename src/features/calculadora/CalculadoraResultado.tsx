@@ -96,7 +96,7 @@ export function CalculadoraResultado({ result }: Props) {
           <p className="text-[11px] tracking-[0.32em] uppercase text-wine/70">
             Você está com
           </p>
-          <p className="mt-4 font-comfortaa text-wine-deep text-[clamp(2.2rem,7vw,3.8rem)] font-light leading-[1.05]">
+          <p className="mt-4 font-comfortaa text-wine-deep text-[clamp(1.25rem,6.9vw,3.8rem)] font-light leading-[1.05] whitespace-nowrap">
             {formatMesesDias(mesesCompletos, diasNoMes)}
             <span className="text-wine">!</span>
           </p>
