@@ -2,8 +2,17 @@
 // Sem dependências externas — usa Date nativo em UTC para evitar DST.
 
 const MS_PER_DAY = 86_400_000
-const DAYS_PER_MONTH = 30.4375 // 365.25 / 12
 const GESTATION_DAYS = 280
+
+/**
+ * Marcos (em dias) de cada mês completo, conforme a tabela de referência
+ * impressa da clínica ("Você completa: N meses / Quando estiver com: ...").
+ * MONTH_BREAKPOINTS[n] = quantos dias são necessários para completar o
+ * mês n (n = 1..9). Não é uma média fixa por mês (os intervalos entre
+ * marcos variam), então os valores ficam hardcoded para bater exatamente
+ * com a tabela usada nos atendimentos.
+ */
+const MONTH_BREAKPOINTS = [0, 30, 59, 91, 121, 151, 182, 212, 243, 273]
 
 export type Trimestre = 1 | 2 | 3
 
@@ -44,29 +53,19 @@ export function addDays(d: Date, days: number): Date {
 }
 
 /**
- * Meses inteiros já completados (arredondando cada mês para baixo), usados
- * para saber em qual mês da gestação a pessoa está (ex.: aos 182 dias, 5
- * meses completos -> "está no 6º mês"). Depende só do total de dias, não
- * da data de calendário.
- */
-function mesesCompletosFloor(dias: number): number {
-  let meses = 0
-  while (Math.round((meses + 1) * DAYS_PER_MONTH) <= dias) {
-    meses++
-  }
-  return meses
-}
-
-/**
- * Converte um total de dias em "meses e dias" arredondando para o mês mais
- * próximo (ex.: 182 dias = 26 semanas arredonda para "6 meses", não "5
- * meses e 30 dias"). Depende só do total de dias, não da data de
+ * Converte um total de dias em "meses e dias" usando os marcos da tabela
+ * da clínica (MONTH_BREAKPOINTS): o mês só avança quando o marco daquele
+ * mês é alcançado ou ultrapassado (ex.: 120 dias -> "3 meses e 29 dias";
+ * 121 dias -> "4 meses"). Depende só do total de dias, não da data de
  * calendário, para que a mesma idade gestacional sempre corresponda ao
  * mesmo resultado, não importa a data da última menstruação.
  */
-function mesesEDiasArredondado(dias: number): { meses: number; dias: number } {
-  const meses = Math.round(dias / DAYS_PER_MONTH)
-  return { meses, dias: Math.max(0, dias - Math.round(meses * DAYS_PER_MONTH)) }
+function mesesEDias(dias: number): { meses: number; dias: number } {
+  let meses = 0
+  while (meses < 9 && MONTH_BREAKPOINTS[meses + 1] <= dias) {
+    meses++
+  }
+  return { meses, dias: dias - MONTH_BREAKPOINTS[meses] }
 }
 
 export function parseISODate(iso: string): Date | null {
@@ -88,14 +87,13 @@ export function calcFromDUM(dum: Date, hoje: Date = new Date()): CalcResult {
   const semanas = Math.floor(dias / 7)
   const diasNaSemana = dias % 7
 
-  const arredondado = mesesEDiasArredondado(dias)
-  const mesesCompletos = Math.min(9, arredondado.meses)
-  const diasNoMes =
-    mesesCompletos === arredondado.meses
-      ? arredondado.dias
-      : dias - Math.round(mesesCompletos * DAYS_PER_MONTH)
+  const { meses: mesesCompletos, dias: diasNoMes } = mesesEDias(dias)
 
-  const mesGestacional = Math.min(9, Math.max(1, mesesCompletosFloor(dias) + 1))
+  // Enquanto o dia atual coincide com o marco de um mês completo, ainda é
+  // esse mês (ex.: 182 dias = "está no 6º mês"); no dia seguinte ao marco
+  // já é o mês seguinte (183 dias = "está no 7º mês").
+  const mesGestacional =
+    diasNoMes === 0 ? Math.max(1, mesesCompletos) : Math.min(9, mesesCompletos + 1)
 
   const trimestre: Trimestre =
     semanas < 14 ? 1 : semanas < 28 ? 2 : 3
