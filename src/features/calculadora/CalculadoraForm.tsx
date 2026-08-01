@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Calendar, CalendarClock, Stethoscope } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -67,23 +68,26 @@ export function CalculadoraForm({ onResult }: Props) {
           onResult(null)
         }}
       >
-        <TabsList className="grid w-full grid-cols-3 h-12 rounded-2xl bg-champagne/20 p-1">
+        <TabsList className="grid w-full grid-cols-3 h-14 md:h-12 rounded-2xl bg-champagne/20 p-1">
           <TabsTrigger
             value="dum"
-            className="rounded-xl text-[10px] md:text-[11px] tracking-[0.14em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
+            className="flex-col md:flex-row gap-0.5 md:gap-1.5 rounded-xl text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
           >
+            <Calendar className="w-3.5 h-3.5" strokeWidth={1.5} />
             DUM
           </TabsTrigger>
           <TabsTrigger
             value="dpp"
-            className="rounded-xl text-[10px] md:text-[11px] tracking-[0.14em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
+            className="flex-col md:flex-row gap-0.5 md:gap-1.5 rounded-xl text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
           >
+            <CalendarClock className="w-3.5 h-3.5" strokeWidth={1.5} />
             DPP
           </TabsTrigger>
           <TabsTrigger
             value="us"
-            className="rounded-xl text-[10px] md:text-[11px] tracking-[0.14em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
+            className="flex-col md:flex-row gap-0.5 md:gap-1.5 rounded-xl text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
           >
+            <Stethoscope className="w-3.5 h-3.5" strokeWidth={1.5} />
             Ultrassom
           </TabsTrigger>
         </TabsList>
@@ -165,7 +169,7 @@ export function CalculadoraForm({ onResult }: Props) {
 
       <Button
         type="submit"
-        className="mt-8 w-full h-12 rounded-full bg-wine-deep hover:bg-wine text-white text-[12px] tracking-[0.24em] uppercase font-medium transition-colors"
+        className="mt-8 w-full h-12 rounded-full bg-wine-deep hover:bg-wine text-white text-[12px] tracking-[0.24em] uppercase font-medium transition-all duration-300 hover:shadow-[0_12px_30px_-10px_rgba(91,45,142,0.5)]"
       >
         Calcular
       </Button>
