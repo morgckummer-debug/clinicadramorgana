@@ -187,7 +187,7 @@ export function formatDatePTBR(d: Date): string {
 }
 
 export function pluralize(n: number, singular: string, plural: string): string {
-  return `${n} ${n === 1 ? singular : plural}`
+  return `${n} ${n === 1 || n === 0 ? singular : plural}`
 }
 
 export function formatSemanasDias(semanas: number, dias: number): string {
