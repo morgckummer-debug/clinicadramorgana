@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Calendar, CalendarClock, Stethoscope } from 'lucide-react'
+import { Calendar, CalendarClock, Stethoscope, Weight } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,12 +14,17 @@ import {
   validateUS,
   type CalcResult,
 } from './calc'
+import { calcPeso, pesoErrorMessage, validatePeso, type PesoResult } from './calcPeso'
+
+export type CalculatorResult =
+  | { kind: 'idade'; data: CalcResult }
+  | { kind: 'peso'; data: PesoResult }
 
 type Props = {
-  onResult: (r: CalcResult | null) => void
+  onResult: (r: CalculatorResult | null) => void
 }
 
-type Mode = 'dum' | 'dpp' | 'us'
+type Mode = 'dum' | 'dpp' | 'us' | 'peso'
 
 export function CalculadoraForm({ onResult }: Props) {
   const [mode, setMode] = useState<Mode>('dum')
@@ -28,6 +33,9 @@ export function CalculadoraForm({ onResult }: Props) {
   const [usData, setUsData] = useState('')
   const [usSemanas, setUsSemanas] = useState('')
   const [usDias, setUsDias] = useState('')
+  const [pesoSemanas, setPesoSemanas] = useState('')
+  const [pesoDias, setPesoDias] = useState('')
+  const [pesoGramas, setPesoGramas] = useState('')
   const [error, setError] = useState<string | null>(null)
 
   const today = new Date().toISOString().slice(0, 10)
@@ -38,17 +46,24 @@ export function CalculadoraForm({ onResult }: Props) {
     if (mode === 'dum') {
       const err = validateDUM(dum)
       if (err) { setError(errorMessage(err)); onResult(null); return }
-      onResult(calcFromDUM(parseISODate(dum)!))
+      onResult({ kind: 'idade', data: calcFromDUM(parseISODate(dum)!) })
     } else if (mode === 'dpp') {
       const err = validateDPP(dpp)
       if (err) { setError(errorMessage(err)); onResult(null); return }
-      onResult(calcFromDPP(parseISODate(dpp)!))
-    } else {
+      onResult({ kind: 'idade', data: calcFromDPP(parseISODate(dpp)!) })
+    } else if (mode === 'us') {
       const s = parseInt(usSemanas, 10)
       const d = parseInt(usDias || '0', 10)
       const err = validateUS(usData, s, d)
       if (err) { setError(errorMessage(err)); onResult(null); return }
-      onResult(calcFromUS(parseISODate(usData)!, s, d))
+      onResult({ kind: 'idade', data: calcFromUS(parseISODate(usData)!, s, d) })
+    } else {
+      const err = validatePeso(pesoSemanas, pesoDias, pesoGramas)
+      if (err) { setError(pesoErrorMessage(err)); onResult(null); return }
+      const s = parseInt(pesoSemanas, 10)
+      const d = parseInt(pesoDias || '0', 10)
+      const p = parseFloat(pesoGramas)
+      onResult({ kind: 'peso', data: calcPeso(s, d, p) })
     }
   }
 
@@ -68,7 +83,7 @@ export function CalculadoraForm({ onResult }: Props) {
           onResult(null)
         }}
       >
-        <TabsList className="grid w-full grid-cols-3 h-14 md:h-12 rounded-2xl bg-champagne/20 p-1">
+        <TabsList className="grid w-full grid-cols-4 h-14 md:h-12 rounded-2xl bg-champagne/20 p-1">
           <TabsTrigger
             value="dum"
             className="flex-col md:flex-row gap-0.5 md:gap-1.5 rounded-xl text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
@@ -89,6 +104,13 @@ export function CalculadoraForm({ onResult }: Props) {
           >
             <Stethoscope className="w-3.5 h-3.5" strokeWidth={1.5} />
             Ultrassom
+          </TabsTrigger>
+          <TabsTrigger
+            value="peso"
+            className="flex-col md:flex-row gap-0.5 md:gap-1.5 rounded-xl text-[9px] md:text-[11px] tracking-[0.1em] md:tracking-[0.18em] uppercase font-medium data-[state=active]:bg-white data-[state=active]:text-wine-deep data-[state=active]:shadow-sm"
+          >
+            <Weight className="w-3.5 h-3.5" strokeWidth={1.5} />
+            Peso
           </TabsTrigger>
         </TabsList>
 
@@ -158,6 +180,62 @@ export function CalculadoraForm({ onResult }: Props) {
                   dias
                 </span>
               </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="peso" className="mt-6 space-y-4">
+          <div>
+            <label className={labelClass}>Idade gestacional</label>
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              <div className="relative">
+                <Input
+                  type="number"
+                  min={14}
+                  max={42}
+                  inputMode="numeric"
+                  placeholder="0"
+                  value={pesoSemanas}
+                  onChange={(e) => setPesoSemanas(e.target.value)}
+                  className={inputClass + ' pr-20'}
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[10px] tracking-[0.2em] uppercase text-wine/50">
+                  semanas
+                </span>
+              </div>
+              <div className="relative">
+                <Input
+                  type="number"
+                  min={0}
+                  max={6}
+                  inputMode="numeric"
+                  placeholder="0"
+                  value={pesoDias}
+                  onChange={(e) => setPesoDias(e.target.value)}
+                  className={inputClass + ' pr-14'}
+                />
+                <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[10px] tracking-[0.2em] uppercase text-wine/50">
+                  dias
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className={labelClass}>Peso estimado do bebê</label>
+            <div className="relative">
+              <Input
+                type="number"
+                min={50}
+                max={6000}
+                inputMode="numeric"
+                placeholder="0"
+                value={pesoGramas}
+                onChange={(e) => setPesoGramas(e.target.value)}
+                className={inputClass + ' pr-16'}
+              />
+              <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[10px] tracking-[0.2em] uppercase text-wine/50">
+                gramas
+              </span>
             </div>
           </div>
         </TabsContent>
