@@ -191,12 +191,12 @@ export function CalculadoraForm({ onResult }: Props) {
               <div className="relative">
                 <Input
                   type="number"
-                  min={20}
-                  max={40}
+                  min={17}
+                  max={41}
                   inputMode="numeric"
                   placeholder="0"
                   value={pesoSemanas}
-                  onChange={(e) => setPesoSemanas(e.target.value)}
+                  onChange={(e) => setPesoSemanas(e.target.value.slice(0, 2))}
                   className={inputClass + ' pr-20'}
                 />
                 <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[10px] tracking-[0.2em] uppercase text-wine/50">
@@ -206,12 +206,12 @@ export function CalculadoraForm({ onResult }: Props) {
               <div className="relative">
                 <Input
                   type="number"
-                  min={0}
+                  min={1}
                   max={6}
                   inputMode="numeric"
                   placeholder="0"
                   value={pesoDias}
-                  onChange={(e) => setPesoDias(e.target.value)}
+                  onChange={(e) => setPesoDias(e.target.value.slice(0, 1))}
                   className={inputClass + ' pr-14'}
                 />
                 <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-[10px] tracking-[0.2em] uppercase text-wine/50">
