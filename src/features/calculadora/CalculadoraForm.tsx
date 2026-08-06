@@ -191,8 +191,8 @@ export function CalculadoraForm({ onResult }: Props) {
               <div className="relative">
                 <Input
                   type="number"
-                  min={14}
-                  max={42}
+                  min={20}
+                  max={40}
                   inputMode="numeric"
                   placeholder="0"
                   value={pesoSemanas}
