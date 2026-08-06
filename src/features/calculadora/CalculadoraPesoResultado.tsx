@@ -27,15 +27,19 @@ const BADGE_CLASS: Record<Classificacao, string> = {
 
 function Gauge({ percentil }: { percentil: number }) {
   const pct = Math.max(0, Math.min(100, percentil))
+  // O rótulo fica preso a uma margem segura para não ser cortado pela
+  // borda arredondada do card quando o percentil é muito baixo ou alto;
+  // o ponto na régua continua exatamente na posição real.
+  const labelPct = Math.min(88, Math.max(12, pct))
 
   return (
     <div className="mt-2 mb-2">
-      <div className="relative px-2 pt-8 pb-6">
+      <div className="relative px-2 pt-14 pb-6">
         <div className="relative h-1.5 rounded-full overflow-visible flex">
-          <div className="h-full rounded-l-full bg-red-300/70" style={{ width: '3%' }} />
-          <div className="h-full bg-amber-300/60" style={{ width: '7%' }} />
-          <div className="h-full bg-champagne/70" style={{ width: '80%' }} />
-          <div className="h-full rounded-r-full bg-amber-300/60" style={{ width: '10%' }} />
+          <div className="h-full rounded-l-full bg-red-400/70" style={{ width: '3%' }} />
+          <div className="h-full bg-yellow-400/70" style={{ width: '7%' }} />
+          <div className="h-full bg-green-400/60" style={{ width: '80%' }} />
+          <div className="h-full rounded-r-full bg-red-400/70" style={{ width: '10%' }} />
 
           {[3, 10, 90].map((m) => (
             <div
@@ -43,8 +47,12 @@ function Gauge({ percentil }: { percentil: number }) {
               className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
               style={{ left: `${m}%` }}
             >
-              <div className="w-1.5 h-3 rounded-full bg-champagne" />
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.15em] uppercase text-foreground/50 whitespace-nowrap">
+              <div className="w-1.5 h-3 rounded-full bg-white/80" />
+              <div
+                className={`absolute top-4 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.15em] uppercase text-foreground/50 whitespace-nowrap ${
+                  m === 3 ? 'hidden sm:block' : ''
+                }`}
+              >
                 P{m}
               </div>
             </div>
@@ -58,11 +66,15 @@ function Gauge({ percentil }: { percentil: number }) {
               <span className="absolute inset-0 rounded-full bg-wine/30 animate-ping" />
               <span className="relative block w-5 h-5 rounded-full bg-wine-deep border-4 border-white shadow-[0_4px_12px_rgba(91,45,142,0.4)]" />
             </div>
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-              <span className="inline-block px-2.5 py-1 rounded-full bg-wine-deep text-white text-[10px] font-medium tracking-wider">
-                Percentil {percentil}
-              </span>
-            </div>
+          </div>
+
+          <div
+            className="absolute -top-14 -translate-x-1/2 z-20 whitespace-nowrap transition-all duration-700"
+            style={{ left: `${labelPct}%` }}
+          >
+            <span className="inline-block px-4 py-2 rounded-full bg-wine-deep text-white text-base md:text-lg font-bold tracking-wide shadow-[0_6px_16px_-4px_rgba(91,45,142,0.5)]">
+              Percentil {percentil}
+            </span>
           </div>
         </div>
 
