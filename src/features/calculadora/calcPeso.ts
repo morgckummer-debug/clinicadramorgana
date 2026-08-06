@@ -7,7 +7,7 @@
 // equivalente a um coeficiente de variação de ~14% — não é a tabela
 // ponto-a-ponto original do artigo, apenas uma aproximação da curva.
 
-export type Classificacao = 'PIG' | 'AIG' | 'GIG'
+export type Classificacao = 'CIUR' | 'PIG' | 'AIG' | 'GIG'
 
 export type PesoResult = {
   gaSemanas: number
@@ -59,6 +59,7 @@ function normalCdf(z: number): number {
 }
 
 export function classificar(percentil: number): Classificacao {
+  if (percentil <= 3) return 'CIUR'
   if (percentil < 10) return 'PIG'
   if (percentil > 90) return 'GIG'
   return 'AIG'

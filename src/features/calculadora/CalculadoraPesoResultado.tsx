@@ -1,22 +1,25 @@
 import { Link } from 'react-router-dom'
-import { Baby, Scale } from 'lucide-react'
+import { Baby, Scale, TriangleAlert } from 'lucide-react'
 import { formatGramas, type Classificacao, type PesoResult } from './calcPeso'
 
 type Props = { result: PesoResult }
 
 const HEADLINE: Record<Classificacao, string> = {
+  CIUR: 'Sinal de restrição de crescimento',
   AIG: 'Bebê com peso normal!',
   PIG: 'Bebê pequeno para a idade gestacional',
   GIG: 'Bebê grande para a idade gestacional',
 }
 
 const BADGE_LABEL: Record<Classificacao, string> = {
+  CIUR: 'Restrição de crescimento intrauterino (CIUR)',
   AIG: 'Adequado para a idade gestacional (AIG)',
   PIG: 'Pequeno para a idade gestacional (PIG)',
   GIG: 'Grande para a idade gestacional (GIG)',
 }
 
 const BADGE_CLASS: Record<Classificacao, string> = {
+  CIUR: 'bg-red-100 text-red-800',
   AIG: 'bg-rose/40 text-wine-deep',
   PIG: 'bg-amber-100 text-amber-800',
   GIG: 'bg-amber-100 text-amber-800',
@@ -29,11 +32,12 @@ function Gauge({ percentil }: { percentil: number }) {
     <div className="mt-2 mb-2">
       <div className="relative px-2 pt-8 pb-6">
         <div className="relative h-1.5 rounded-full overflow-visible flex">
-          <div className="h-full rounded-l-full bg-amber-300/60" style={{ width: '10%' }} />
+          <div className="h-full rounded-l-full bg-red-300/70" style={{ width: '3%' }} />
+          <div className="h-full bg-amber-300/60" style={{ width: '7%' }} />
           <div className="h-full bg-champagne/70" style={{ width: '80%' }} />
           <div className="h-full rounded-r-full bg-amber-300/60" style={{ width: '10%' }} />
 
-          {[10, 90].map((m) => (
+          {[3, 10, 90].map((m) => (
             <div
               key={m}
               className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
@@ -95,6 +99,17 @@ export function CalculadoraPesoResultado({ result }: Props) {
           <p className={`relative mt-4 inline-block px-4 py-1.5 rounded-full text-sm font-medium ${BADGE_CLASS[classificacao]}`}>
             {BADGE_LABEL[classificacao]}
           </p>
+
+          {classificacao === 'CIUR' && (
+            <div className="relative mt-6 mx-auto max-w-md flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-left">
+              <TriangleAlert className="w-5 h-5 text-red-600 shrink-0 mt-0.5" strokeWidth={1.5} />
+              <p className="text-sm text-red-800 font-light leading-relaxed">
+                Este resultado pode indicar restrição de crescimento intrauterino (CIUR).
+                Procure seu obstetra o quanto antes para uma avaliação e um acompanhamento
+                mais próximo da gestação.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="mt-10">
