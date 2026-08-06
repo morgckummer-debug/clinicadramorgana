@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { Baby } from 'lucide-react'
 import { PageShell } from '@/components/common/PageShell'
 import { SectionHeader } from '@/components/common/SectionHeader'
-import { CalculadoraForm } from '@/features/calculadora/CalculadoraForm'
+import { CalculadoraForm, type CalculatorResult } from '@/features/calculadora/CalculadoraForm'
 import { CalculadoraResultado } from '@/features/calculadora/CalculadoraResultado'
-import type { CalcResult } from '@/features/calculadora/calc'
+import { CalculadoraPesoResultado } from '@/features/calculadora/CalculadoraPesoResultado'
 
-const TITLE = 'Calculadora de Idade Gestacional | Dra. Morgana Kummer'
+const TITLE = 'Calculadora de Idade Gestacional e Peso Fetal | Dra. Morgana Kummer'
 const DESCRIPTION =
-  'Calcule sua idade gestacional em semanas, meses e dias. Descubra em qual mês da gravidez você está, o trimestre gestacional e a data provável do parto.'
+  'Calcule sua idade gestacional em semanas, meses e dias, e o percentil de peso do bebê (AIG, PIG ou GIG) pela curva de Hadlock. Descubra também a data provável do parto.'
 const CANONICAL = 'https://dramorgana.com.br/calculadora-idade-gestacional'
 
 function setMeta(name: string, content: string, attr: 'name' | 'property' = 'name') {
@@ -32,7 +32,7 @@ function setCanonical(href: string) {
 }
 
 export default function CalculadoraIdadeGestacional() {
-  const [result, setResult] = useState<CalcResult | null>(null)
+  const [result, setResult] = useState<CalculatorResult | null>(null)
 
   useEffect(() => {
     const prevTitle = document.title
@@ -69,17 +69,22 @@ export default function CalculadoraIdadeGestacional() {
 
         <SectionHeader
           eyebrow="Para gestantes"
-          title="Calculadora de Idade Gestacional"
-          subtitle="Descubra sua idade gestacional, o mês aproximado da gravidez e a data provável do parto."
+          title="Calculadora de Idade Gestacional e Peso Fetal"
+          subtitle="Descubra sua idade gestacional, o mês aproximado da gravidez, a data provável do parto e o percentil de peso do bebê."
         />
 
         <div className="mx-auto w-full max-w-xl mt-8 rounded-3xl bg-white/80 border border-champagne/30 p-6 md:p-10 shadow-[0_10px_40px_-30px_rgba(91,45,142,0.3)]">
           <CalculadoraForm onResult={setResult} />
         </div>
 
-        {result && (
+        {result?.kind === 'idade' && (
           <div className="mx-auto w-full max-w-2xl">
-            <CalculadoraResultado result={result} />
+            <CalculadoraResultado result={result.data} />
+          </div>
+        )}
+        {result?.kind === 'peso' && (
+          <div className="mx-auto w-full max-w-2xl">
+            <CalculadoraPesoResultado result={result.data} />
           </div>
         )}
       </div>

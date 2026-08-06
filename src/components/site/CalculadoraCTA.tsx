@@ -48,11 +48,11 @@ export function CalculadoraCTA() {
               <span className="inline-block text-wine text-[10px] tracking-[0.42em] uppercase">
                 Para gestantes
               </span>
-              <h2 className="mt-3 font-comfortaa text-wine-deep text-[1.75rem] md:text-[2.4rem] font-light leading-[1.1]">
-                Quantos meses<br className="hidden md:block" /> eu estou?
+              <h2 className="mt-3 font-comfortaa text-wine-deep text-[1.45rem] md:text-[1.9rem] font-light leading-[1.25]">
+                Quer saber de quantos meses você está e o percentil do peso do seu bebê?
               </h2>
               <p className="mt-4 text-wine-deep/70 font-light md:text-lg leading-relaxed">
-                Descubra em segundos as semanas, meses e o dia previsto para conhecer o seu bebê.
+                Descubra em segundos as semanas, meses, a data prevista do parto e se o peso do bebê está adequado para a idade gestacional.
               </p>
 
               <span
