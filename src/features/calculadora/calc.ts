@@ -36,7 +36,23 @@ export type CalcError =
   | { kind: 'tooOld' }
   | { kind: 'tooFar' }
 
+/**
+ * Normaliza uma data que já está em meia-noite UTC (vinda de parseISODate
+ * ou addDays), removendo qualquer resquício de horário. Usa getters UTC
+ * para ser idempotente — aplicar de novo no mesmo valor não desloca o dia,
+ * diferente de usar getters locais, que "roubam" um dia em fusos negativos
+ * (ex.: Brasil, UTC-3) toda vez que a função é reaplicada.
+ */
 function toUTCDate(d: Date): Date {
+  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()))
+}
+
+/**
+ * Converte a data/hora "agora" (relógio local, ex.: `new Date()`) no dia de
+ * calendário local, representado como meia-noite UTC. Só deve ser chamada
+ * uma vez, na entrada de cada função pública, para o parâmetro `hoje`.
+ */
+function todayAsUTCDate(d: Date): Date {
   return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
 }
 
@@ -83,7 +99,7 @@ export function parseISODate(iso: string): Date | null {
 }
 
 export function calcFromDUM(dum: Date, hoje: Date = new Date()): CalcResult {
-  const dias = Math.max(0, diffInDays(dum, hoje))
+  const dias = Math.max(0, diffInDays(dum, todayAsUTCDate(hoje)))
   const semanas = Math.floor(dias / 7)
   const diasNaSemana = dias % 7
 
@@ -141,7 +157,7 @@ export function validateUS(
   if (!iso) return { kind: 'required' }
   const d = parseISODate(iso)
   if (!d) return { kind: 'invalid' }
-  const diasAteHoje = diffInDays(d, hoje)
+  const diasAteHoje = diffInDays(d, todayAsUTCDate(hoje))
   if (diasAteHoje < 0) return { kind: 'future' }
   if (!Number.isFinite(semanas) || !Number.isFinite(dias)) return { kind: 'invalid' }
   if (semanas < 0 || semanas > 42) return { kind: 'invalid' }
@@ -159,7 +175,7 @@ export function validateDUM(iso: string, hoje: Date = new Date()): CalcError | n
   if (!iso) return { kind: 'required' }
   const d = parseISODate(iso)
   if (!d) return { kind: 'invalid' }
-  const dias = diffInDays(d, hoje)
+  const dias = diffInDays(d, todayAsUTCDate(hoje))
   if (dias < 0) return { kind: 'future' }
   if (dias > 315) return { kind: 'tooOld' } // > 45 semanas
   return null
@@ -169,7 +185,7 @@ export function validateDPP(iso: string, hoje: Date = new Date()): CalcError | n
   if (!iso) return { kind: 'required' }
   const d = parseISODate(iso)
   if (!d) return { kind: 'invalid' }
-  const diasAteParto = diffInDays(hoje, d)
+  const diasAteParto = diffInDays(todayAsUTCDate(hoje), d)
   if (diasAteParto < 0) return { kind: 'past' }
   // DPP muito distante = DUM ainda no futuro ou gestação < 0
   if (diasAteParto > GESTATION_DAYS) return { kind: 'tooFar' }
