@@ -206,7 +206,7 @@ export function CalculadoraForm({ onResult }: Props) {
               <div className="relative">
                 <Input
                   type="number"
-                  min={1}
+                  min={0}
                   max={6}
                   inputMode="numeric"
                   placeholder="0"
