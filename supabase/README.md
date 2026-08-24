@@ -13,7 +13,7 @@
 2. **SQL Editor → New query** → cole todo o `bootstrap.sql` → **Run**.
 3. **Authentication → Users → Add user** para cada secretária, marcando
    *Auto Confirm User* (senão o login falha com "Email not confirmed"):
-   - `adriana@dramorgana.com.br`
+   - `adrianaguimaraes1232@gmail.com`
    - `morgckummer@gmail.com`
 
    Os e-mails precisam bater exatamente com `src/lib/secretarias.ts`.
