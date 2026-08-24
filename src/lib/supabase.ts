@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? 'https://mwrcbrnfyhhtfahqdjmd.supabase.co'
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im13cmNicm5meWhodGZhaHFkam1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NzE2OTQsImV4cCI6MjA5NzU0NzY5NH0.WdaFz2I_QkMVX-jp3p5OsgvrGynhKGc0ex-vbphB0fE'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? 'https://hbrjufcagpibatxhzgtc.supabase.co'
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhicmp1ZmNhZ3BpYmF0eGh6Z3RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc1OTQwNDcsImV4cCI6MjEwMzE3MDA0N30.YSx4IQC-4kJrxSL8TiREtvA1U9d9tAS9EjABl-Zz9eM'
 
 // Cliente principal — usado pelo painel
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
