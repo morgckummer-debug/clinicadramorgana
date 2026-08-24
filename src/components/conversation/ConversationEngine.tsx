@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { ConversationFlow, examsByCategory } from '@/data/conversation/preAgendamento'
 import { supabasePublic as supabase } from '@/lib/supabase'
+import { EXAMES_SEM_PEDIDO_OBRIGATORIO, podeFinalizar } from '@/lib/pedidoMedico'
 import { isValidDateBR, isValidCPF } from '@/lib/utils'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { ConversationHeader } from './ConversationHeader'
@@ -63,12 +64,6 @@ function calcIdadeGestacional(ddmmaaaa: string): string | null {
 
 const EXAMES_COM_DUM = new Set(['Rastreamento de Ovulação'])
 
-// Exames que NÃO exigem pedido médico (podem ser feitos sem prescrição)
-// Obstétrico do 1º Trimestre também não exige, mas tem fluxo próprio (ob1_*)
-const EXAMES_SEM_PEDIDO_OBRIGATORIO = new Set([
-  'Obstétrico - Sexo Fetal',
-  '3D Completo',
-])
 
 // Exames com médico fixo — pula a seleção de médico e usa o valor abaixo
 const EXAME_MEDICO_FIXO: Record<string, string> = {
@@ -422,16 +417,8 @@ export function ConversationEngine({ flow, prefill }: ConversationEngineProps) {
     }
     const next = getNextId(selectedValue)
     if (next === null) {
-      // Guarda final: ao menos um arquivo (pedido ou beta-hCG) deve ter sido anexado
-      const toArr = (v: string | string[] | undefined) =>
-        Array.isArray(v) ? v : v ? [v] : []
-      const hasFile = [
-        ...toArr(nextAnswers['q10']),
-        ...toArr(nextAnswers['q2f']),
-        ...toArr(nextAnswers['ob1_d']),
-        ...toArr(nextAnswers['ob1_g']),
-      ].some(Boolean)
-      if (!hasFile && !EXAMES_SEM_PEDIDO_OBRIGATORIO.has(nextAnswers['q2'] as string)) {
+      // Guarda final: exames que exigem prescrição precisam de ao menos um anexo
+      if (!podeFinalizar(nextAnswers['q2'] as string, nextAnswers)) {
         const returnId = nextAnswers['q2d'] !== undefined || nextAnswers['q2e'] !== undefined
           ? 'q2f'
           : 'q10'
