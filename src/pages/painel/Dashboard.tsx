@@ -215,16 +215,23 @@ export default function Dashboard() {
 
     if (currentFilter !== 'todos') query = query.eq('status', currentFilter)
 
-    const [listRes, pendingCnt, awaitingCnt] = await Promise.all([query, fetchPendingCount(), fetchAwaitingResponseCount()])
-    if (listRes.error) {
-      console.error('Erro ao carregar pré-agendamentos:', listRes.error)
-      if (mode !== 'silent') toast.error(`Erro ao carregar lista: ${listRes.error.message}`)
+    try {
+      const [listRes, pendingCnt, awaitingCnt] = await Promise.all([query, fetchPendingCount(), fetchAwaitingResponseCount()])
+      if (listRes.error) {
+        console.error('Erro ao carregar pré-agendamentos:', listRes.error)
+        if (mode !== 'silent') toast.error(`Erro ao carregar lista: ${listRes.error.message}`)
+      }
+      setItems((listRes.data as unknown as PreAgendamento[]) ?? [])
+      setPendingCount(pendingCnt)
+      setAwaitingResponseCount(awaitingCnt)
+    } catch (err) {
+      // Sem este catch, uma falha de rede deixava o painel travado no spinner.
+      console.error('Falha ao carregar o painel:', err)
+      if (mode !== 'silent') toast.error('Sem conexão com o servidor. Verifique sua internet e atualize a lista.')
+    } finally {
+      setLoading(false)
+      setRefreshing(false)
     }
-    setItems((listRes.data as unknown as PreAgendamento[]) ?? [])
-    setPendingCount(pendingCnt)
-    setAwaitingResponseCount(awaitingCnt)
-    setLoading(false)
-    setRefreshing(false)
   }
 
 
