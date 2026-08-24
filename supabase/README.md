@@ -15,7 +15,6 @@
    *Auto Confirm User* (senão o login falha com "Email not confirmed"):
    - `adriana@dramorgana.com.br`
    - `morgckummer@gmail.com`
-   - `yasmin@dramorgana.com.br`
 
    Os e-mails precisam bater exatamente com `src/lib/secretarias.ts`.
 4. **Settings → API**: copie a *Project URL* e a chave *anon public*.
