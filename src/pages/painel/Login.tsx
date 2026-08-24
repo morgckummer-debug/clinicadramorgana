@@ -22,10 +22,21 @@ export default function Login() {
       return
     }
     const email = nomeParaEmail(nome)
-    await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/painel/login`,
-    })
-    setResetMsg(`E-mail de redefinição enviado para ${email}.`)
+    setError('')
+    setResetMsg('')
+    try {
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/painel/login`,
+      })
+      if (resetError) {
+        setError(`Não foi possível enviar o e-mail de redefinição: ${resetError.message}`)
+        return
+      }
+    } catch (err) {
+      setError('Sem conexão com o servidor. Verifique sua internet e tente novamente.')
+      return
+    }
+    setResetMsg(`E-mail de redefinição enviado para ${email}. Verifique também a caixa de spam.`)
   }
 
   if (!loading && session) return <Navigate to="/painel" replace />
@@ -36,13 +47,26 @@ export default function Login() {
       setError('Nome não encontrado.')
       return
     }
+    if (!password) {
+      setError('Digite sua senha.')
+      return
+    }
     setSubmitting(true)
-    const err = await signIn(nomeParaEmail(nome), password, nome)
-    if (err) {
-      setError('Nome ou senha incorretos.')
-      setSubmitting(false)
-    } else {
+    const falha = await signIn(nomeParaEmail(nome), password, nome)
+    setSubmitting(false)
+    if (!falha) {
       navigate('/painel')
+      return
+    }
+    // Sem essa distinção, uma queda de conexão aparecia como "senha incorreta".
+    if (falha.offline) {
+      setError('Não foi possível conectar ao servidor. Verifique sua internet e tente novamente — sua senha pode estar correta.')
+    } else if (falha.emailNaoConfirmado) {
+      setError('Seu acesso ainda não foi confirmado por e-mail. Procure a administração do painel.')
+    } else if (falha.muitasTentativas) {
+      setError('Muitas tentativas seguidas. Aguarde alguns minutos e tente de novo.')
+    } else {
+      setError('Nome ou senha incorretos.')
     }
   }
 
