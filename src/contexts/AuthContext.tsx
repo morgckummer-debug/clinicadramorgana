@@ -11,6 +11,8 @@ export type SignInFailure = {
   emailNaoConfirmado: boolean
   /** true quando o Supabase bloqueou por excesso de tentativas. */
   muitasTentativas: boolean
+  /** Código devolvido pelo Supabase, quando houver. */
+  codigo?: string
 }
 
 interface AuthContextValue {
@@ -51,6 +53,7 @@ function classificarErro(error: AuthError | Error): SignInFailure {
     offline,
     emailNaoConfirmado: texto.includes('email not confirmed') || texto.includes('not confirmed'),
     muitasTentativas: status === 429 || texto.includes('rate limit') || texto.includes('too many'),
+    codigo: 'code' in error ? (error.code as string | undefined) : undefined,
   }
 }
 

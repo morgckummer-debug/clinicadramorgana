@@ -15,6 +15,7 @@ export default function Login() {
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [resetMsg, setResetMsg] = useState('')
+  const [detalhe, setDetalhe] = useState('')
 
   const handleForgotPassword = async () => {
     if (!SECRETARIAS.includes(nome)) {
@@ -43,6 +44,7 @@ export default function Login() {
 
   const doLogin = async () => {
     setError('')
+    setDetalhe('')
     if (!SECRETARIAS.includes(nome)) {
       setError('Nome não encontrado.')
       return
@@ -58,6 +60,9 @@ export default function Login() {
       navigate('/painel')
       return
     }
+    // A resposta crua fica visível na tela: sem ela, quem dá suporte remoto
+    // depende de a secretária saber abrir o console do navegador.
+    setDetalhe(`${falha.message}${falha.codigo ? ` (${falha.codigo})` : ''}`)
     // Sem essa distinção, uma queda de conexão aparecia como "senha incorreta".
     if (falha.offline) {
       setError('Não foi possível conectar ao servidor. Verifique sua internet e tente novamente — sua senha pode estar correta.')
@@ -144,6 +149,11 @@ export default function Login() {
 
           {error && (
             <p className="text-sm text-red-500 font-light text-center">{error}</p>
+          )}
+          {detalhe && (
+            <p className="text-[11px] font-light text-center italic" style={{ color: 'rgba(91,45,142,0.5)' }}>
+              Detalhe técnico: {detalhe}
+            </p>
           )}
           {resetMsg && (
             <p className="text-sm font-light text-center" style={{ color: '#5B2D8E' }}>{resetMsg}</p>
