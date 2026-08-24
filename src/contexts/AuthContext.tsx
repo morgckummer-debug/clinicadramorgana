@@ -115,10 +115,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (email: string, password: string, nome: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-      if (error) return classificarErro(error)
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+      if (error) {
+        // Registra só a resposta do provedor (nunca a senha) — sem isto, um
+        // login recusado é indistinguível de outro para quem dá suporte.
+        console.warn('[login] recusado pelo Supabase:', {
+          email,
+          mensagem: error.message,
+          status: error.status,
+          codigo: error.code,
+        })
+        return classificarErro(error)
+      }
+      // Publica a sessão aqui em vez de esperar o onAuthStateChange: sem isto o
+      // navigate('/painel') pode chegar antes, e o ProtectedRoute devolve a
+      // secretária para o login mesmo com a senha correta.
+      if (data?.session) setSession(data.session)
+      console.info('[login] autenticado:', email)
     } catch (err) {
       // signInWithPassword pode lançar quando o fetch falha antes de virar AuthError.
+      console.warn('[login] falhou antes de obter resposta do Supabase:', err)
       return classificarErro(err instanceof Error ? err : new Error(String(err)))
     }
     setUserName(nome)
