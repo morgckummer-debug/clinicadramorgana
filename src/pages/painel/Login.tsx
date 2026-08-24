@@ -2,7 +2,7 @@ import { useState, FormEvent } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
-import { supabase } from '@/lib/supabase'
+import { supabase, supabaseHost } from '@/lib/supabase'
 import { Input } from '@/components/ui/input'
 import { SECRETARIAS, nomeParaEmail } from '@/lib/secretarias'
 
@@ -65,7 +65,9 @@ export default function Login() {
     setDetalhe(`${falha.message}${falha.codigo ? ` (${falha.codigo})` : ''}`)
     // Sem essa distinção, uma queda de conexão aparecia como "senha incorreta".
     if (falha.offline) {
-      setError('Não foi possível conectar ao servidor. Verifique sua internet e tente novamente — sua senha pode estar correta.')
+      // Mostrar o host evita horas de investigação quando o app está apontado
+      // para o projeto errado: a tela diz com quem ele tentou falar.
+      setError(`Não foi possível conectar ao servidor (${supabaseHost}). Verifique sua internet — sua senha pode estar correta.`)
     } else if (falha.emailNaoConfirmado) {
       setError('Seu acesso ainda não foi confirmado por e-mail. Procure a administração do painel.')
     } else if (falha.muitasTentativas) {
