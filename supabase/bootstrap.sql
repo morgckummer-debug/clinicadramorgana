@@ -223,6 +223,6 @@ end $$;
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- FIM. Depois disto, crie os logins das secretárias em Authentication → Users:
---   adriana@dramorgana.com.br · morgckummer@gmail.com
+--   adrianaguimaraes1232@gmail.com · morgckummer@gmail.com
 -- (marque "Auto Confirm User" para não depender de e-mail de confirmação)
 -- ════════════════════════════════════════════════════════════════════════════

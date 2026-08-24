@@ -1,5 +1,5 @@
 const SECRETARIAS_MAP: { nome: string; email: string }[] = [
-  { nome: 'Adriana', email: 'adriana@dramorgana.com.br' },
+  { nome: 'Adriana', email: 'adrianaguimaraes1232@gmail.com' },
   { nome: 'Morgana', email: 'morgckummer@gmail.com' },
 ]
 
