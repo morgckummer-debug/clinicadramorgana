@@ -43,10 +43,24 @@ export function criarCliente(url: string, chave: string): Cliente {
   return { url: limpa, chave: chave.trim(), privilegiada: ehServiceRole(chave) }
 }
 
-/** Lê o papel de dentro do JWT, sem validar assinatura — só para avisar o usuário. */
+/**
+ * true se a chave enxerga o banco inteiro (passa por cima do RLS).
+ *
+ * O Supabase tem dois formatos de chave em circulação e um projeto pode
+ * oferecer os dois: o JWT antigo (`eyJ...`), que traz o papel dentro do
+ * próprio token, e o novo, que declara o papel no prefixo — `sb_secret_`
+ * contra `sb_publishable_`. Aceitar só um dos formatos faria o backup
+ * recusar uma chave perfeitamente válida.
+ *
+ * Não valida assinatura: serve para avisar quem colou a chave pública no
+ * lugar da secreta, não para autorizar nada.
+ */
 export function ehServiceRole(chave: string): boolean {
+  const limpa = chave.trim()
+  if (limpa.startsWith('sb_secret_')) return true
+  if (limpa.startsWith('sb_publishable_')) return false
   try {
-    const corpo = JSON.parse(Buffer.from(chave.split('.')[1], 'base64url').toString('utf8'))
+    const corpo = JSON.parse(Buffer.from(limpa.split('.')[1], 'base64url').toString('utf8'))
     return corpo?.role === 'service_role'
   } catch {
     return false
