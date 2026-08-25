@@ -42,6 +42,33 @@ export class SenhaIncorretaError extends Error {
   }
 }
 
+/**
+ * Tamanho mínimo da senha do backup.
+ *
+ * O repositório é público, e artifact de repositório público é baixável por
+ * qualquer pessoa. A cifra é a única barreira entre um estranho e os dados das
+ * pacientes — e cifra boa com senha curta não protege nada, porque quem baixou
+ * o arquivo pode tentar quantas senhas quiser, sem pressa e sem ninguém ver.
+ *
+ * Vinte caracteres é o piso: seis palavras aleatórias passam folgado.
+ */
+export const TAMANHO_MINIMO_SENHA = 20
+
+/** Devolve o que há de errado com a senha, ou `null` se ela serve. */
+export function conferirForcaDaSenha(senha: string): string | null {
+  const limpa = senha.trim()
+  if (limpa.length < TAMANHO_MINIMO_SENHA) {
+    return `a senha tem ${limpa.length} caractere(s) e precisa de pelo menos ${TAMANHO_MINIMO_SENHA}`
+  }
+  if (new Set(limpa).size < 8) {
+    return 'a senha repete pouquíssimos caracteres diferentes'
+  }
+  if (/^[0-9\s]+$/.test(limpa)) {
+    return 'a senha só tem números'
+  }
+  return null
+}
+
 function derivarChave(senha: string, salt: Buffer): Buffer {
   if (!senha) throw new Error('Senha do backup vazia.')
   return scryptSync(senha.normalize('NFKC'), salt, TAM_CHAVE, SCRYPT)

@@ -23,7 +23,7 @@ import {
   type ArquivoBackup,
   type LinhaBackup,
 } from '../src/lib/backup/formato'
-import { empacotar } from './backup/cripto'
+import { TAMANHO_MINIMO_SENHA, conferirForcaDaSenha, empacotar } from './backup/cripto'
 import {
   URL_PADRAO,
   baixarArquivo,
@@ -56,6 +56,21 @@ async function main() {
         'Escolha uma senha longa e guarde-a fora do GitHub. Sem ela o backup não abre. ' +
           '(Para gerar um backup sem criptografia — só faça isso no seu computador — passe --sem-criptografia.)',
       )
+
+  // O artifact deste repositório é público: senha fraca aqui não é um descuido
+  // pequeno, é a diferença entre um arquivo inútil e o prontuário das pacientes
+  // na mão de quem baixar. Melhor o backup falhar alto do que sair frágil.
+  if (!semSenha) {
+    const problema = conferirForcaDaSenha(senha)
+    if (problema) {
+      console.error(
+        `\n✖ A senha do backup não serve: ${problema}.\n` +
+          `  Use pelo menos ${TAMANHO_MINIMO_SENHA} caracteres — seis palavras aleatórias passam folgado —\n` +
+          '  e troque o valor do segredo BACKUP_PASSPHRASE no GitHub.\n',
+      )
+      process.exit(1)
+    }
+  }
 
   const cliente = criarCliente(url, chave)
   if (!cliente.privilegiada) {

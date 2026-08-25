@@ -36,8 +36,15 @@ Supabase Dashboard → **SQL Editor** → **New query** → cole o conteúdo de
 
 ### 2. Escolher a senha do backup
 
-Invente uma senha longa — umas quatro ou cinco palavras aleatórias já bastam —
-e **guarde num gerenciador de senhas**, não só na cabeça.
+Peça ao seu gerenciador de senhas para gerar **seis palavras aleatórias** (ou
+30 caracteres aleatórios) e **guarde lá dentro**, não só na cabeça. O mínimo
+aceito é 20 caracteres — abaixo disso o backup se recusa a rodar, de propósito.
+
+> ⚠️ **Esta senha é a única coisa que protege os dados das pacientes.** Como o
+> repositório é público, o arquivo do backup pode ser baixado por qualquer
+> pessoa — e quem baixou pode tentar adivinhar a senha à vontade, no computador
+> dela, sem pressa e sem ninguém ver. Senha curta ou "adivinhável" (nome da
+> clínica, ano, data de nascimento) não protege nada. Palavras aleatórias, sim.
 
 > ⚠️ **Sem essa senha o backup não abre.** Ninguém consegue recuperar por você:
 > é isso que impede que outra pessoa leia os dados das pacientes.
@@ -148,9 +155,14 @@ duplica nada.
 - **O artifact do backup vive 90 dias** e some sozinho. Como o backup é diário,
   sempre existem uns 90 arquivos disponíveis. Se quiser guardar um marco (fim
   de ano, por exemplo), baixe e salve num HD seu.
-- **Este repositório é público.** Por isso o backup automático só sai
-  criptografado, e por isso nenhum backup pode ser commitado aqui — o
-  `.gitignore` já barra `backup-saida/`, `*.cdmk` e `backup-clinica-*.json`.
+- **Este repositório é público**, e isso foi uma decisão consciente: o backup
+  automático só sai criptografado, então o que fica público é um bloco de bytes
+  ilegível. Em compensação, tudo depende da senha ser forte (veja o passo 2). E
+  nenhum backup pode ser commitado aqui — o `.gitignore` já barra
+  `backup-saida/`, `*.cdmk` e `backup-clinica-*.json`.
+- Se um dia o repositório virar **privado**, lembre que o plano gratuito passa a
+  ter teto de 500 MB de artifact. Aí vale reduzir a retenção do backup (por
+  exemplo, diário guardado 14 dias + uma cópia mensal guardada 90).
 - **LGPD.** Todo backup é um pacote de dados pessoais e de saúde. Guarde poucas
   cópias, em lugar controlado, e apague as que não servem mais.
 

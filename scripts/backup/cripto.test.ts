@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import {
   ASSINATURA,
+  TAMANHO_MINIMO_SENHA,
+  conferirForcaDaSenha,
   criptografar,
   descriptografar,
   desempacotar,
@@ -51,5 +53,26 @@ describe('cripto do backup', () => {
     expect(pareceCriptografado(empacotar({ a: 1 }, SENHA))).toBe(true)
     expect(pareceCriptografado(Buffer.from('{"formato":"..."}'))).toBe(false)
     expect(ASSINATURA.toString('ascii')).toBe('CDMKBK1\n')
+  })
+})
+
+describe('conferirForcaDaSenha', () => {
+  it('aceita senha longa de verdade', () => {
+    expect(conferirForcaDaSenha('vento cadeira roxo peixe janela trovao')).toBeNull()
+  })
+
+  it('recusa senha curta', () => {
+    // O artifact é público: quem baixa pode tentar senhas à vontade, offline.
+    expect(conferirForcaDaSenha('clinica2026')).toMatch(/caractere/)
+    expect(conferirForcaDaSenha('a'.repeat(TAMANHO_MINIMO_SENHA - 1))).toMatch(/caractere/)
+  })
+
+  it('recusa senha longa mas pobre', () => {
+    expect(conferirForcaDaSenha('abababababababababababab')).toMatch(/pouqu/)
+    expect(conferirForcaDaSenha('123456789012345678901234')).toMatch(/números/)
+  })
+
+  it('não conta espaço em volta como tamanho', () => {
+    expect(conferirForcaDaSenha('   curta   ')).toMatch(/caractere/)
   })
 })
