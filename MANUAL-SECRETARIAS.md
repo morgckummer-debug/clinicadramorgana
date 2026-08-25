@@ -235,6 +235,15 @@ O painel se atualiza automaticamente. Você não precisa ficar atualizando a pá
 No canto superior direito do painel:
 
 - **Ícone de chave (🔑)**: alterar senha — informe a senha atual e a nova senha.
+- **Ícone de disco (💾)**: baixar backup — salva no computador uma cópia de
+  tudo (pacientes, pré-agendamentos e os pedidos médicos anexados). O sistema
+  já faz um backup automático todo dia; este botão serve para quando você quer
+  a cópia na mão, na hora.
+
+  > O arquivo tem dados de pacientes. Guarde no computador da clínica ou num
+  > pendrive/HD da clínica — nunca mande por WhatsApp, e-mail ou pasta
+  > compartilhada.
+
 - **"Sair"**: encerra sua sessão.
 
 ---

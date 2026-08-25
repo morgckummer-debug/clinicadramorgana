@@ -5,6 +5,7 @@
 | Arquivo | O que é |
 |---|---|
 | `bootstrap.sql` | **Recria o backend inteiro do zero.** Use num projeto Supabase novo e vazio. |
+| `BACKUP.md` | **Proteção contra perda de dados**: keep-alive, backup automático e como restaurar. Leia isto. |
 | `migrations/*.sql` | Alterações incrementais aplicadas ao banco antigo. **Não rode num projeto novo** — elas pressupõem tabelas que ainda não existem. O `bootstrap.sql` já contém tudo o que elas fazem. |
 
 ## Recriar o backend num projeto novo
@@ -35,12 +36,21 @@
 - **Bucket** `pedidos` (público) para os pedidos médicos enviados no formulário.
 - **Realtime** em `pre_agendamentos`, que faz o painel avisar sozinho quando
   chega paciente nova.
+- **Keep-alive**: a tabela `manutencao_keepalive` e a função
+  `registrar_keepalive()`, que o robô diário usa para o projeto não ser pausado
+  por inatividade (veja `BACKUP.md`).
 
 ## Status possíveis
 
 `pendente` · `em_atendimento` · `aguardando_resposta` · `agendado`
 
 Garantidos por `CHECK` na tabela — um status fora dessa lista é recusado.
+
+## Backup
+
+O plano gratuito **não guarda backup nenhum** e pausa projeto parado. O que
+protege os dados está descrito em [`BACKUP.md`](./BACKUP.md) — e há dois
+segredos para cadastrar no GitHub antes de o backup automático começar a rodar.
 
 ## Nota
 

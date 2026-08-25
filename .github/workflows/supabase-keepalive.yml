@@ -1,0 +1,43 @@
+# Batida diária no banco para o Supabase não pausar o projeto por inatividade.
+#
+# No plano gratuito, projeto sem atividade de banco por cerca de uma semana é
+# pausado — e projeto pausado é o que, lá na frente, corre risco de ser
+# descartado. Esta rotina roda todo dia e custa alguns segundos.
+#
+# Não precisa de nenhum segredo para funcionar: sem eles, o script usa a chave
+# anon, que já é pública no site. Se você cadastrar SUPABASE_SERVICE_ROLE_KEY
+# (o mesmo segredo do backup), ele passa a usar essa.
+#
+# Se o projeto estiver pausado ou fora do ar, o job falha e o GitHub manda
+# e-mail — que é exatamente o aviso que se quer receber.
+name: Keep-alive do Supabase
+
+on:
+  schedule:
+    # 09:20 UTC = 06:20 em Brasília, todo dia.
+    - cron: '20 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-keepalive
+  cancel-in-progress: false
+
+jobs:
+  batida:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Registrar atividade no banco
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: bun run scripts/supabase-keepalive.ts

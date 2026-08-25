@@ -4,6 +4,7 @@ import { Ban, LogOut, KeyRound, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
 import { Input } from '@/components/ui/input'
+import { BackupBotao } from '@/components/painel/BackupBotao'
 
 function AlterarSenhaModal({ onClose }: { onClose: () => void }) {
   const [nova, setNova] = useState('')
@@ -123,6 +124,7 @@ export function PainelLayout({ children }: { children: ReactNode }) {
           >
             <Ban className="w-4 h-4" strokeWidth={2.5} />
           </Link>
+          <BackupBotao />
           <button
             onClick={() => setShowModal(true)}
             className="glass-icon-btn flex items-center justify-center text-wine-deep/80 hover:text-wine-deep transition-colors duration-300"

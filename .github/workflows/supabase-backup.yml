@@ -1,0 +1,73 @@
+# Backup diário do banco (tabelas + pedidos médicos do bucket).
+#
+# ANTES DE FUNCIONAR, cadastre dois segredos em
+# Settings → Secrets and variables → Actions → New repository secret:
+#
+#   SUPABASE_SERVICE_ROLE_KEY  Supabase Dashboard → Settings → API → service_role
+#   BACKUP_PASSPHRASE          uma senha longa, guardada FORA do GitHub
+#
+# Sem BACKUP_PASSPHRASE não há backup: este repositório é público e o artifact
+# de repositório público é baixável por qualquer pessoa, então o arquivo só sai
+# daqui criptografado. Perder essa senha é perder o backup — anote-a num
+# gerenciador de senhas.
+#
+# O artifact fica 90 dias e depois some sozinho, o que também atende à LGPD:
+# backup antigo de paciente não fica acumulando para sempre.
+name: Backup do Supabase
+
+on:
+  schedule:
+    # 06:40 UTC = 03:40 em Brasília, todo dia.
+    - cron: '40 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Conferir se os segredos estão cadastrados
+        env:
+          CHAVE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SENHA: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          faltando=""
+          [ -z "$CHAVE" ] && faltando="$faltando SUPABASE_SERVICE_ROLE_KEY"
+          [ -z "$SENHA" ] && faltando="$faltando BACKUP_PASSPHRASE"
+          if [ -n "$faltando" ]; then
+            echo "::error::Faltam os segredos:$faltando — veja supabase/BACKUP.md"
+            exit 1
+          fi
+
+      - name: Gerar o backup
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+          BACKUP_DIR: backup-saida
+        run: bun run scripts/supabase-backup.ts
+
+      - name: Guardar o backup por 90 dias
+        uses: actions/upload-artifact@v4
+        with:
+          name: backup-supabase-${{ github.run_id }}
+          path: backup-saida/
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Resumo da rodada
+        if: always()
+        run: cat backup-saida/*-resumo.txt >> "$GITHUB_STEP_SUMMARY" || true

@@ -12,6 +12,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
+    "backup": "bun run scripts/supabase-backup.ts",
+    "restore": "bun run scripts/supabase-restore.ts",
+    "keepalive": "bun run scripts/supabase-keepalive.ts",
     "test:watch": "vitest"
   },
   "dependencies": {

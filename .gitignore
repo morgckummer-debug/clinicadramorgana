@@ -25,3 +25,8 @@ dist-ssr
 .env
 .env.local
 .env*.local
+
+# Backups do banco — contêm dados de pacientes e NUNCA podem ir para o repositório
+backup-saida
+*.cdmk
+backup-clinica-*.json

@@ -221,6 +221,59 @@ begin
   end if;
 end $$;
 
+-- ── 8. Keep-alive (evita a pausa por inatividade no plano gratuito) ────────
+-- Um projeto gratuito sem atividade de banco por cerca de uma semana é pausado,
+-- e o plano gratuito não guarda backup nenhum. O robô diário
+-- (.github/workflows/supabase-keepalive.yml) chama registrar_keepalive() todo
+-- dia só para haver uma escrita real no banco.
+
+create table if not exists public.manutencao_keepalive (
+  id            smallint    primary key default 1,
+  ultima_batida timestamptz not null default now(),
+  origem        text,
+  total_batidas bigint      not null default 0,
+  constraint manutencao_keepalive_linha_unica check (id = 1)
+);
+
+insert into public.manutencao_keepalive (id) values (1) on conflict (id) do nothing;
+
+alter table public.manutencao_keepalive enable row level security;
+
+drop policy if exists authenticated_select_keepalive on public.manutencao_keepalive;
+
+create policy authenticated_select_keepalive
+  on public.manutencao_keepalive for select to authenticated using (true);
+
+create or replace function public.registrar_keepalive(p_origem text default null)
+returns timestamptz
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_agora timestamptz;
+begin
+  update public.manutencao_keepalive
+     set ultima_batida = now(),
+         origem        = coalesce(nullif(trim(p_origem), ''), origem),
+         total_batidas = total_batidas + 1
+   where id = 1
+  returning ultima_batida into v_agora;
+
+  if v_agora is null then
+    insert into public.manutencao_keepalive (id, origem, total_batidas)
+    values (1, nullif(trim(p_origem), ''), 1)
+    on conflict (id) do update set ultima_batida = now()
+    returning ultima_batida into v_agora;
+  end if;
+
+  return v_agora;
+end;
+$$;
+
+revoke all on function public.registrar_keepalive(text) from public;
+grant execute on function public.registrar_keepalive(text) to anon, authenticated;
+
 -- ════════════════════════════════════════════════════════════════════════════
 -- FIM. Depois disto, crie os logins das secretárias em Authentication → Users:
 --   adrianaguimaraes1232@gmail.com · morgckummer@gmail.com
