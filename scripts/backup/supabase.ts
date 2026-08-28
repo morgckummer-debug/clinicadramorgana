@@ -40,7 +40,41 @@ export function criarCliente(url: string, chave: string): Cliente {
   if (!/^https:\/\//.test(limpa)) {
     throw new Error(`URL do Supabase inválida: ${JSON.stringify(url)} (precisa começar com https://).`)
   }
-  return { url: limpa, chave: chave.trim(), privilegiada: ehServiceRole(chave) }
+  const chaveLimpa = chave.trim()
+
+  // Quem cuida de mais de um projeto acaba copiando a chave do projeto errado,
+  // e o Supabase responde só "Invalid API key" — sem dizer que o problema é
+  // esse. Quando dá para saber de qual projeto a chave é, conferimos aqui.
+  const doProjeto = refDoProjeto(limpa)
+  const daChave = refDaChave(chaveLimpa)
+  if (doProjeto && daChave && doProjeto !== daChave) {
+    throw new Error(
+      `A chave informada é do projeto "${daChave}", mas o backup está apontando para o projeto "${doProjeto}".\n` +
+        '  Copie a chave service_role de dentro do projeto certo, em Settings → API Keys.',
+    )
+  }
+
+  return { url: limpa, chave: chaveLimpa, privilegiada: ehServiceRole(chaveLimpa) }
+}
+
+/** Identificador do projeto lido da URL: https://<ref>.supabase.co */
+export function refDoProjeto(url: string): string | null {
+  return url.match(/^https:\/\/([a-z0-9]+)\.supabase\.co$/)?.[1] ?? null
+}
+
+/**
+ * Identificador do projeto declarado dentro da chave.
+ *
+ * Só o JWT antigo carrega essa informação; o formato novo (sb_secret_...) não
+ * diz de qual projeto é, e aí não há o que conferir.
+ */
+export function refDaChave(chave: string): string | null {
+  try {
+    const corpo = JSON.parse(Buffer.from(chave.trim().split('.')[1], 'base64url').toString('utf8'))
+    return typeof corpo?.ref === 'string' ? corpo.ref : null
+  } catch {
+    return null
+  }
 }
 
 /**

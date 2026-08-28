@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { criarCliente, ehServiceRole } from './supabase'
+import { criarCliente, ehServiceRole, refDaChave, refDoProjeto } from './supabase'
 
-/** Monta um JWT de mentira com o papel pedido — só o miolo importa aqui. */
-function jwt(role: string): string {
-  return `cabecalho.${Buffer.from(JSON.stringify({ role })).toString('base64url')}.assinatura`
+/** Monta um JWT de mentira — só o miolo importa aqui. */
+function jwt(role: string, ref?: string): string {
+  const corpo = ref === undefined ? { role } : { role, ref }
+  return `cabecalho.${Buffer.from(JSON.stringify(corpo)).toString('base64url')}.assinatura`
 }
 
 describe('ehServiceRole', () => {
@@ -38,5 +39,32 @@ describe('criarCliente', () => {
   it('recusa URL sem https em vez de falhar só na hora da chamada', () => {
     expect(() => criarCliente('http://x.supabase.co', 'k')).toThrow(/inválida/i)
     expect(() => criarCliente('x.supabase.co', 'k')).toThrow(/inválida/i)
+  })
+})
+
+describe('conferência de projeto', () => {
+  it('lê o projeto da URL e o projeto declarado na chave', () => {
+    expect(refDoProjeto('https://hbrjufcagpibatxhzgtc.supabase.co')).toBe('hbrjufcagpibatxhzgtc')
+    expect(refDoProjeto('https://exemplo.com')).toBeNull()
+    expect(refDaChave(jwt('service_role', 'hbrjufcagpibatxhzgtc'))).toBe('hbrjufcagpibatxhzgtc')
+  })
+
+  it('avisa quando a chave é de outro projeto, em vez de deixar o Supabase dizer só "Invalid API key"', () => {
+    // Quem cuida de vários projetos copia a chave errada; o 401 do Supabase
+    // não diz qual é o problema, e a pessoa fica trocando a chave às cegas.
+    expect(() =>
+      criarCliente('https://projetoa.supabase.co', jwt('service_role', 'projetob')),
+    ).toThrow(/é do projeto "projetob".*apontando para o projeto "projetoa"/s)
+  })
+
+  it('deixa passar quando os dois batem', () => {
+    const c = criarCliente('https://projetoa.supabase.co', jwt('service_role', 'projetoa'))
+    expect(c.privilegiada).toBe(true)
+  })
+
+  it('não atrapalha a chave do formato novo, que não declara projeto', () => {
+    // sb_secret_ não carrega o projeto dentro; sem informação, não há o que conferir.
+    expect(refDaChave('sb_secret_abc')).toBeNull()
+    expect(criarCliente('https://projetoa.supabase.co', 'sb_secret_abc').privilegiada).toBe(true)
   })
 })
