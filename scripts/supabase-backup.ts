@@ -43,6 +43,36 @@ function exigir(nome: string, dica: string): string {
   return valor
 }
 
+/** Tráfego de saída incluso no plano gratuito do Supabase, por mês. */
+const EGRESSO_GRATUITO_GB = 5
+
+/** A partir de quanto do teto vale a pena avisar (60%). */
+const LIMIAR_AVISO = 0.6
+
+/**
+ * Avisa quando o backup diário estiver perto de estourar o tráfego do plano
+ * gratuito do Supabase.
+ *
+ * Toda madrugada este script baixa o bucket inteiro, então o tráfego mensal é
+ * o tamanho do bucket vezes trinta. Isso cresce sozinho conforme as pacientes
+ * anexam pedidos, e ninguém percebe até o Supabase começar a recusar
+ * requisição. O aviso vira o resumo verde do GitHub em texto vermelho antes
+ * disso acontecer.
+ */
+function avisarSobreTrafego(bytesDosArquivos: number): void {
+  const gbPorMes = (bytesDosArquivos * 30) / 1024 ** 3
+  const fatia = gbPorMes / EGRESSO_GRATUITO_GB
+  if (fatia < LIMIAR_AVISO) return
+
+  console.warn(
+    `\n⚠ Este backup baixa ${(bytesDosArquivos / 1024 / 1024).toFixed(0)} MB de anexos por dia, ` +
+      `o que dá ~${gbPorMes.toFixed(1)} GB por mês — ${(fatia * 100).toFixed(0)}% do tráfego ` +
+      `incluso no plano gratuito do Supabase (${EGRESSO_GRATUITO_GB} GB).\n` +
+      '  Chegando perto do teto, o site começa a falhar para as pacientes.\n' +
+      '  Saídas: baixar os anexos uma vez por semana em vez de todo dia, ou migrar para o plano pago.\n',
+  )
+}
+
 async function main() {
   const url = process.env.SUPABASE_URL?.trim() || URL_PADRAO
   const chave = exigir(
@@ -158,6 +188,7 @@ async function main() {
 
   const mb = (conteudo.byteLength / 1024 / 1024).toFixed(2)
   console.log(`✔ ${join(pasta, nome)} (${mb} MB)`)
+  avisarSobreTrafego(resumo.bytes_arquivos)
   if (semSenha) console.warn('⚠ Backup SEM criptografia — não suba este arquivo em lugar nenhum.')
   if (resumo.arquivos_com_erro > 0) {
     console.warn(`⚠ ${resumo.arquivos_com_erro} arquivo(s) do bucket não puderam ser baixados.`)
