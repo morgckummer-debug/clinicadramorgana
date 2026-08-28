@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Upload, FileText, X, Loader2, MessageCircle } from 'lucide-react'
 import { supabasePublic as supabase } from '@/lib/supabase'
+import { comprimirImagem } from '@/lib/comprimirImagem'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface UploadAreaProps {
@@ -114,7 +115,11 @@ export function UploadArea({ value = [], onChange, optional = false }: UploadAre
     setNames((n) => { const a = [...n]; a[index] = file.name; return a })
 
     try {
-      const url = await uploadFile(file, u.uploadErrorRLS, u.uploadErrorGeneric)
+      // Encolhe a foto antes de subir. Se der qualquer problema, comprimirImagem
+      // devolve o arquivo original — o anexo nunca deixa de ser enviado por causa
+      // disto.
+      const enviar = await comprimirImagem(file)
+      const url = await uploadFile(enviar, u.uploadErrorRLS, u.uploadErrorGeneric)
       const next = [...value]
       next[index] = url
       onChange?.(next.filter(Boolean))
