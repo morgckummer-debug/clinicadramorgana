@@ -37,8 +37,14 @@ Supabase Dashboard → **SQL Editor** → **New query** → cole o conteúdo de
 ### 2. Escolher a senha do backup
 
 Peça ao seu gerenciador de senhas para gerar **seis palavras aleatórias** (ou
-30 caracteres aleatórios) e **guarde lá dentro**, não só na cabeça. O mínimo
-aceito é 20 caracteres — abaixo disso o backup se recusa a rodar, de propósito.
+30 caracteres aleatórios) e **guarde lá dentro**, não só na cabeça.
+
+O backup se recusa a rodar, de propósito, se a senha não passar em duas regras:
+
+- pelo menos **20 caracteres**;
+- pelo menos **8 caracteres diferentes** entre si — repetir a mesma palavra
+  (`clinica-clinica-clinica`) ou uma sequência (`12341234123412341234`) fica
+  longo mas é rápido de quebrar.
 
 > ⚠️ **Esta senha é a única coisa que protege os dados das pacientes.** Como o
 > repositório é público, o arquivo do backup pode ser baixado por qualquer
