@@ -85,6 +85,15 @@ create policy authenticated_select_all_pre_agendamentos
 create policy authenticated_update_pre_agendamentos
   on public.pre_agendamentos for update to authenticated using (true) with check (true);
 
+-- A partir de 30/10/2026 o Supabase deixou de conceder acesso à Data API
+-- automaticamente para tabelas novas em `public`: sem GRANT explícito a
+-- tabela fica inacessível (erro "permission denied"). Os grants espelham as
+-- policies acima — nada para `anon`, que só usa as funções SECURITY DEFINER.
+grant select, update on public.pacientes        to authenticated;
+grant select, update on public.pre_agendamentos to authenticated;
+grant select, insert, update, delete on public.pacientes        to service_role;
+grant select, insert, update, delete on public.pre_agendamentos to service_role;
+
 -- ── 3. Função que cria o pré-agendamento (usada pelo formulário público) ────
 -- Recebe os dados já validados no front, normaliza CPF/telefone, reaproveita
 -- a paciente se o CPF já existir e recusa quem está na lista negra.
@@ -243,6 +252,10 @@ drop policy if exists authenticated_select_keepalive on public.manutencao_keepal
 
 create policy authenticated_select_keepalive
   on public.manutencao_keepalive for select to authenticated using (true);
+
+-- Grants explícitos (ver nota na seção 2): leitura para a secretária logada.
+grant select on public.manutencao_keepalive to authenticated;
+grant select, insert, update, delete on public.manutencao_keepalive to service_role;
 
 create or replace function public.registrar_keepalive(p_origem text default null)
 returns timestamptz

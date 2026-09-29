@@ -27,6 +27,10 @@ drop policy if exists authenticated_select_keepalive on public.manutencao_keepal
 create policy authenticated_select_keepalive
   on public.manutencao_keepalive for select to authenticated using (true);
 
+-- Desde 30/10/2026 tabela nova em `public` precisa de GRANT explícito para a Data API.
+grant select on public.manutencao_keepalive to authenticated;
+grant select, insert, update, delete on public.manutencao_keepalive to service_role;
+
 -- Escrita mínima, feita pelo robô. É SECURITY DEFINER e liberada para `anon`
 -- de propósito: assim o keep-alive funciona mesmo antes de alguém cadastrar a
 -- chave service_role nos segredos do GitHub. O estrago máximo de um abuso é
