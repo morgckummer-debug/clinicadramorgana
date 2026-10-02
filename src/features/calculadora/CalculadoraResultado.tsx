@@ -12,7 +12,7 @@ type Props = { result: CalcResult }
 
 const MAX_WEEKS = 42
 
-function Timeline({ semanas, diasNaSemana, dark }: { semanas: number; diasNaSemana: number; dark: boolean }) {
+function Timeline({ semanas, diasNaSemana }: { semanas: number; diasNaSemana: number }) {
   const totalWeeks = semanas + diasNaSemana / 7
   const pct = Math.max(0, Math.min(100, (totalWeeks / MAX_WEEKS) * 100))
 
@@ -23,19 +23,19 @@ function Timeline({ semanas, diasNaSemana, dark }: { semanas: number; diasNaSema
     { w: 40, label: '40', hint: 'DPP' },
   ]
 
-  const t1 = dark ? 'bg-white/35' : 'bg-rose-deep'
-  const t2 = dark ? 'bg-white/20' : 'bg-champagne'
-  const t3 = dark ? 'bg-white/10' : 'bg-wine/30'
-  const fill = dark ? 'bg-gradient-to-r from-[#FDDCB5] to-[#f5c48a]' : 'bg-gradient-to-r from-wine to-wine-deep'
-  const tick = dark ? 'bg-[#FDDCB5]' : 'bg-wine-deep'
-  const label = dark ? 'text-white/90' : 'text-wine-deep'
-  const hintCls = dark ? 'text-[#FDDCB5]' : 'text-wine'
-  const pill = dark ? 'bg-[#FDDCB5] text-wine-deep' : 'bg-wine-deep text-white'
-  const dot = dark ? 'bg-[#FDDCB5] border-wine-deep' : 'bg-wine-deep border-white'
+  const t1 = 'bg-rose-deep'
+  const t2 = 'bg-champagne'
+  const t3 = 'bg-wine/30'
+  const fill = 'bg-gradient-to-r from-wine to-wine-deep'
+  const tick = 'bg-wine-deep'
+  const label = 'text-wine-deep'
+  const hintCls = 'text-wine'
+  const pill = 'bg-wine-deep text-white'
+  const dot = 'bg-wine-deep border-white'
 
   return (
     <div className="mt-2 mb-2">
-      <div className="relative px-2 pt-10 pb-6">
+      <div className="relative px-2 pt-14 pb-6">
         <div className="relative h-2.5 rounded-full bg-champagne/40 overflow-visible flex">
           <div className={`h-full rounded-l-full ${t1}`} style={{ width: `${(14 / MAX_WEEKS) * 100}%` }} />
           <div className={`h-full ${t2}`} style={{ width: `${((28 - 14) / MAX_WEEKS) * 100}%` }} />
@@ -69,11 +69,11 @@ function Timeline({ semanas, diasNaSemana, dark }: { semanas: number; diasNaSema
             style={{ left: `${pct}%` }}
           >
             <div className="relative">
-              <span className={`absolute inset-0 rounded-full animate-ping ${dark ? 'bg-[#FDDCB5]/40' : 'bg-wine/30'}`} />
+              <span className={`absolute inset-0 rounded-full animate-ping bg-wine/30`} />
               <span className={`relative block w-6 h-6 rounded-full border-4 shadow-[0_4px_12px_rgba(91,45,142,0.4)] ${dot}`} />
             </div>
-            <div className="absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap">
-              <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide ${pill}`}>
+            <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
+              <span className={`inline-block px-5 py-2 rounded-full text-lg font-bold tracking-wide shadow-md ${pill}`}>
                 {semanas}s {diasNaSemana}d
               </span>
             </div>
@@ -97,37 +97,30 @@ export function CalculadoraResultado({ result }: Props) {
     mesGestacional, dpp, dum,
   } = result
   const concepcao = periodoConcepcao(dum)
-  const dark = new URLSearchParams(window.location.search).get('v') === 'b'
 
-  const cardCls = dark
-    ? 'bg-gradient-to-br from-wine-deep to-[#4a2142] border-wine-deep text-white'
-    : 'bg-white border-wine/30'
-  const kicker = dark ? 'text-[#FDDCB5]' : 'text-wine-deep'
-  const big = dark ? 'text-white' : 'text-wine-deep'
-  const badge = dark ? 'bg-[#FDDCB5] text-wine-deep' : 'bg-rose text-wine-deep border border-wine/20'
-  const miniCard = dark ? 'bg-white/10 border border-white/20' : 'bg-rose/60 border border-wine/20'
-  const miniIcon = dark ? 'bg-[#FDDCB5] text-wine-deep' : 'bg-wine-deep text-white'
-  const miniLabel = dark ? 'text-[#FDDCB5]' : 'text-wine-deep'
-  const miniValue = dark ? 'text-white' : 'text-wine-deep'
+  const miniCard = 'bg-gradient-to-br from-wine-deep to-[#4a2142] border border-wine-deep shadow-md'
+  const miniIcon = 'bg-[#FDDCB5] text-wine-deep'
+  const miniLabel = 'text-[#FDDCB5]'
+  const miniValue = 'text-white'
 
   return (
     <div className="mt-10 animate-fade-in">
-      <div className={`relative overflow-hidden rounded-3xl border shadow-[0_20px_60px_-30px_rgba(91,45,142,0.45)] p-8 md:p-12 ${cardCls}`}>
+      <div className={`relative overflow-hidden rounded-3xl border shadow-[0_20px_60px_-30px_rgba(91,45,142,0.45)] p-8 md:p-12 bg-white border-wine/30`}>
         <div className="relative text-center">
-          <p className={`relative text-sm font-semibold tracking-[0.18em] uppercase ${kicker}`}>
+          <p className={`relative text-sm font-semibold tracking-[0.18em] uppercase text-wine-deep`}>
             Você está com
           </p>
-          <p className={`relative mt-4 font-comfortaa font-bold leading-[1.05] whitespace-nowrap text-[clamp(1.25rem,6.9vw,3.8rem)] ${big}`}>
+          <p className={`relative mt-4 font-comfortaa font-bold leading-[1.05] whitespace-nowrap text-[clamp(1.25rem,6.9vw,3.8rem)] text-wine-deep`}>
             {formatMesesDias(mesesCompletos, diasNoMes)}
-            <span className={dark ? 'text-[#FDDCB5]' : 'text-wine'}>!</span>
+            <span className="text-wine">!</span>
           </p>
-          <p className={`relative mt-4 inline-block px-5 py-2 rounded-full text-base font-semibold ${badge}`}>
+          <p className={`relative mt-4 inline-block px-5 py-2 rounded-full text-base font-semibold bg-rose text-wine-deep border border-wine/20`}>
             Você está no {mesGestacional}º mês da gestação
           </p>
         </div>
 
         <div className="mt-10">
-          <Timeline semanas={semanas} diasNaSemana={diasNaSemana} dark={dark} />
+          <Timeline semanas={semanas} diasNaSemana={diasNaSemana} />
         </div>
 
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 text-center mt-6">
