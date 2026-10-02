@@ -123,26 +123,26 @@ export function CalculadoraResultado({ result }: Props) {
           <Timeline semanas={semanas} diasNaSemana={diasNaSemana} />
         </div>
 
-        <div className="grid gap-4 grid-cols-2 text-center mt-6">
-          <div className={`flex flex-col items-center rounded-2xl p-3 sm:p-4 ${miniCard}`}>
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${miniIcon}`}>
-              <Sprout className="w-4 h-4" strokeWidth={2} />
+        <div className="grid gap-3 sm:gap-4 grid-cols-2 text-center mt-6">
+          <div className={`flex flex-col items-center rounded-2xl px-3 py-2.5 sm:p-4 ${miniCard}`}>
+            <div className={`w-7 h-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${miniIcon}`}>
+              <Sprout className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2} />
             </div>
-            <p className={`mt-3 text-[9px] sm:text-[10px] font-bold tracking-[0.18em] sm:tracking-[0.24em] uppercase ${miniLabel}`}>
+            <p className={`mt-1.5 sm:mt-3 text-[9px] sm:text-[10px] font-bold tracking-[0.18em] sm:tracking-[0.24em] uppercase ${miniLabel}`}>
               Semana da concepção
             </p>
-            <p className={`mt-1 font-comfortaa text-base sm:text-lg font-semibold leading-snug ${miniValue}`}>
+            <p className={`mt-0.5 sm:mt-1 font-comfortaa text-sm sm:text-lg font-semibold leading-tight ${miniValue}`}>
               {formatPeriodoPTBR(concepcao.inicio, concepcao.fim)}
             </p>
           </div>
-          <div className={`flex flex-col items-center rounded-2xl p-3 sm:p-4 ${miniCard}`}>
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${miniIcon}`}>
-              <Gift className="w-4 h-4" strokeWidth={2} />
+          <div className={`flex flex-col items-center rounded-2xl px-3 py-2.5 sm:p-4 ${miniCard}`}>
+            <div className={`w-7 h-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center ${miniIcon}`}>
+              <Gift className="w-3.5 h-3.5 sm:w-4 sm:h-4" strokeWidth={2} />
             </div>
-            <p className={`mt-3 text-[9px] sm:text-[10px] font-bold tracking-[0.18em] sm:tracking-[0.24em] uppercase ${miniLabel}`}>
+            <p className={`mt-1.5 sm:mt-3 text-[9px] sm:text-[10px] font-bold tracking-[0.18em] sm:tracking-[0.24em] uppercase ${miniLabel}`}>
               Data provável do parto
             </p>
-            <p className={`mt-1 font-comfortaa text-base sm:text-lg font-semibold leading-snug ${miniValue}`}>
+            <p className={`mt-0.5 sm:mt-1 font-comfortaa text-sm sm:text-lg font-semibold leading-tight ${miniValue}`}>
               {formatDatePTBR(dpp)}
             </p>
           </div>
