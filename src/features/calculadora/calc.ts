@@ -197,9 +197,26 @@ const MESES_PT = [
   'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro',
 ]
 
+/**
+ * Janela da concepção: a ovulação ocorre ~14 dias após a DUM; a semana
+ * fértil vai de 3 dias antes a 3 dias depois desse ponto.
+ */
+export function periodoConcepcao(dum: Date): { inicio: Date; fim: Date } {
+  return { inicio: addDays(dum, 11), fim: addDays(dum, 17) }
+}
+
 export function formatDatePTBR(d: Date): string {
   const u = toUTCDate(d)
   return `${u.getUTCDate()} de ${MESES_PT[u.getUTCMonth()]} de ${u.getUTCFullYear()}`
+}
+
+export function formatPeriodoPTBR(inicio: Date, fim: Date): string {
+  const a = toUTCDate(inicio), b = toUTCDate(fim)
+  const mesA = MESES_PT[a.getUTCMonth()], mesB = MESES_PT[b.getUTCMonth()]
+  if (a.getUTCMonth() === b.getUTCMonth()) {
+    return `${a.getUTCDate()} a ${b.getUTCDate()} de ${mesB}`
+  }
+  return `${a.getUTCDate()} de ${mesA} a ${b.getUTCDate()} de ${mesB}`
 }
 
 export function pluralize(n: number, singular: string, plural: string): string {

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import { Gift, HeartPulse } from 'lucide-react'
+import { Gift, Sprout } from 'lucide-react'
 import {
   formatDatePTBR,
   formatMesesDias,
-  trimestreLabel,
+  formatPeriodoPTBR,
+  periodoConcepcao,
   type CalcResult,
 } from './calc'
 
@@ -88,8 +89,9 @@ export function CalculadoraResultado({ result }: Props) {
   const {
     semanas, diasNaSemana,
     mesesCompletos, diasNoMes,
-    mesGestacional, trimestre, dpp,
+    mesGestacional, dpp, dum,
   } = result
+  const concepcao = periodoConcepcao(dum)
 
   return (
     <div className="mt-10 animate-fade-in">
@@ -125,13 +127,13 @@ export function CalculadoraResultado({ result }: Props) {
         <div className="grid gap-6 grid-cols-2 text-center mt-6">
           <div className="flex flex-col items-center">
             <div className="w-10 h-10 rounded-full bg-rose/30 border border-champagne/50 flex items-center justify-center">
-              <HeartPulse className="w-4 h-4 text-wine-deep" strokeWidth={1.5} />
+              <Sprout className="w-4 h-4 text-wine-deep" strokeWidth={1.5} />
             </div>
             <p className="mt-3 text-[10px] tracking-[0.24em] uppercase text-wine/60">
-              Trimestre
+              Semana da concepção
             </p>
             <p className="mt-1 font-comfortaa text-wine-deep text-lg font-light">
-              {trimestreLabel(trimestre)}
+              {formatPeriodoPTBR(concepcao.inicio, concepcao.fim)}
             </p>
           </div>
           <div className="flex flex-col items-center">
