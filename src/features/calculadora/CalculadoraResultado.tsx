@@ -23,21 +23,28 @@ function Timeline({ semanas, diasNaSemana }: { semanas: number; diasNaSemana: nu
     { w: 40, label: '40', hint: 'DPP' },
   ]
 
+  const t1 = 'bg-rose-deep'
+  const t2 = 'bg-champagne'
+  const t3 = 'bg-wine/30'
+  const fill = 'bg-gradient-to-r from-wine to-wine-deep'
+  const tick = 'bg-wine-deep'
+  const label = 'text-wine-deep'
+  const hintCls = 'text-wine'
+  const pill = 'bg-wine-deep text-white'
+  const dot = 'bg-wine-deep border-white'
+
   return (
     <div className="mt-2 mb-2">
-      <div className="relative px-2 pt-8 pb-6">
-        {/* Trilha base, com segmentos sutis por trimestre */}
-        <div className="relative h-1.5 rounded-full bg-champagne/40 overflow-visible flex">
-          <div className="h-full rounded-l-full bg-rose/50" style={{ width: `${(14 / MAX_WEEKS) * 100}%` }} />
-          <div className="h-full bg-champagne/70" style={{ width: `${((28 - 14) / MAX_WEEKS) * 100}%` }} />
-          <div className="h-full rounded-r-full bg-wine/20" style={{ width: `${((MAX_WEEKS - 28) / MAX_WEEKS) * 100}%` }} />
-          {/* Preenchimento até a idade gestacional */}
+      <div className="relative px-2 pt-14 pb-6">
+        <div className="relative h-2.5 rounded-full bg-champagne/40 overflow-visible flex">
+          <div className={`h-full rounded-l-full ${t1}`} style={{ width: `${(14 / MAX_WEEKS) * 100}%` }} />
+          <div className={`h-full ${t2}`} style={{ width: `${((28 - 14) / MAX_WEEKS) * 100}%` }} />
+          <div className={`h-full rounded-r-full ${t3}`} style={{ width: `${((MAX_WEEKS - 28) / MAX_WEEKS) * 100}%` }} />
           <div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-wine to-wine-deep transition-all duration-700"
+            className={`absolute inset-y-0 left-0 rounded-full ${fill} transition-all duration-700`}
             style={{ width: `${pct}%` }}
           />
 
-          {/* Marcadores dos trimestres */}
           {markers.map((m) => {
             const left = (m.w / MAX_WEEKS) * 100
             return (
@@ -46,36 +53,34 @@ function Timeline({ semanas, diasNaSemana }: { semanas: number; diasNaSemana: nu
                 className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2"
                 style={{ left: `${left}%` }}
               >
-                <div className="w-1.5 h-3 rounded-full bg-champagne" />
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.15em] uppercase text-foreground/50 whitespace-nowrap">
+                <div className={`w-1.5 h-4 rounded-full ${tick}`} />
+                <div className={`absolute top-5 left-1/2 -translate-x-1/2 text-xs font-semibold tracking-wide whitespace-nowrap ${label}`}>
                   {m.label}
                   {m.hint && (
-                    <span className="hidden md:inline text-wine/60"> · {m.hint}</span>
+                    <span className={`hidden md:inline font-medium ${hintCls}`}> · {m.hint}</span>
                   )}
                 </div>
               </div>
             )
           })}
 
-          {/* Ponto da idade gestacional */}
           <div
             className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 transition-all duration-700"
             style={{ left: `${pct}%` }}
           >
             <div className="relative">
-              <span className="absolute inset-0 rounded-full bg-wine/30 animate-ping" />
-              <span className="relative block w-5 h-5 rounded-full bg-wine-deep border-4 border-white shadow-[0_4px_12px_rgba(91,45,142,0.4)]" />
+              <span className={`absolute inset-0 rounded-full animate-ping bg-wine/30`} />
+              <span className={`relative block w-6 h-6 rounded-full border-4 shadow-[0_4px_12px_rgba(91,45,142,0.4)] ${dot}`} />
             </div>
-            <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">
-              <span className="inline-block px-2.5 py-1 rounded-full bg-wine-deep text-white text-[10px] font-medium tracking-wider">
+            <div className="absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap">
+              <span className={`inline-block px-5 py-2 rounded-full text-lg font-bold tracking-wide shadow-md ${pill}`}>
                 {semanas}s {diasNaSemana}d
               </span>
             </div>
           </div>
         </div>
 
-        {/* Legenda de semanas nos extremos */}
-        <div className="mt-8 flex justify-between text-[10px] tracking-[0.2em] uppercase text-foreground/40">
+        <div className={`mt-9 flex justify-between text-xs font-semibold tracking-[0.12em] uppercase ${label}`}>
           <span>Início</span>
           <span>Semanas</span>
           <span>Parto</span>
@@ -93,64 +98,58 @@ export function CalculadoraResultado({ result }: Props) {
   } = result
   const concepcao = periodoConcepcao(dum)
 
+  const miniCard = 'bg-gradient-to-br from-wine-deep to-[#4a2142] border border-wine-deep shadow-md'
+  const miniIcon = 'bg-[#FDDCB5] text-wine-deep'
+  const miniLabel = 'text-[#FDDCB5]'
+  const miniValue = 'text-white'
+
   return (
     <div className="mt-10 animate-fade-in">
-      <div className="relative overflow-hidden rounded-3xl bg-white border border-champagne/40 shadow-[0_20px_60px_-30px_rgba(91,45,142,0.25)] p-8 md:p-12">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-champagne opacity-60" />
-
-        {/* Destaque principal: meses e dias */}
+      <div className={`relative overflow-hidden rounded-3xl border shadow-[0_20px_60px_-30px_rgba(91,45,142,0.45)] p-8 md:p-12 bg-white border-wine/30`}>
         <div className="relative text-center">
-          <div
-            className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[26rem] h-[16rem] rounded-full opacity-60 blur-3xl"
-            style={{ background: 'radial-gradient(ellipse, hsl(var(--rose) / 0.35) 0%, transparent 70%)' }}
-          />
-          <p className="relative text-[11px] tracking-[0.32em] uppercase text-wine/70">
+          <p className={`relative text-sm font-semibold tracking-[0.18em] uppercase text-wine-deep`}>
             Você está com
           </p>
-          <p className="relative mt-4 font-comfortaa text-wine-deep text-[clamp(1.25rem,6.9vw,3.8rem)] font-light leading-[1.05] whitespace-nowrap">
+          <p className={`relative mt-4 font-comfortaa font-bold leading-[1.05] whitespace-nowrap text-[clamp(1.25rem,6.9vw,3.8rem)] text-wine-deep`}>
             {formatMesesDias(mesesCompletos, diasNoMes)}
             <span className="text-wine">!</span>
           </p>
-          <p className="relative mt-4 inline-block px-4 py-1.5 rounded-full bg-rose/40 text-wine-deep text-sm font-medium">
+          <p className={`relative mt-4 inline-block px-5 py-2 rounded-full text-base font-semibold bg-rose text-wine-deep border border-wine/20`}>
             Você está no {mesGestacional}º mês da gestação
           </p>
         </div>
 
-        {/* Timeline */}
         <div className="mt-10">
           <Timeline semanas={semanas} diasNaSemana={diasNaSemana} />
         </div>
 
-        <div className="mt-6 mb-2 h-px bg-champagne/40" />
-
-        {/* Detalhes secundários */}
-        <div className="grid gap-6 grid-cols-2 text-center mt-6">
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 rounded-full bg-rose/30 border border-champagne/50 flex items-center justify-center">
-              <Sprout className="w-4 h-4 text-wine-deep" strokeWidth={1.5} />
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 text-center mt-6">
+          <div className={`flex flex-col items-center rounded-2xl p-5 ${miniCard}`}>
+            <div className={`w-11 h-11 rounded-full flex items-center justify-center ${miniIcon}`}>
+              <Sprout className="w-5 h-5" strokeWidth={2} />
             </div>
-            <p className="mt-3 text-[10px] tracking-[0.24em] uppercase text-wine/60">
+            <p className={`mt-3 text-xs font-bold tracking-[0.14em] uppercase ${miniLabel}`}>
               Semana da concepção
             </p>
-            <p className="mt-1 font-comfortaa text-wine-deep text-lg font-light">
+            <p className={`mt-1 font-comfortaa text-xl font-bold ${miniValue}`}>
               {formatPeriodoPTBR(concepcao.inicio, concepcao.fim)}
             </p>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="w-10 h-10 rounded-full bg-rose/30 border border-champagne/50 flex items-center justify-center">
-              <Gift className="w-4 h-4 text-wine-deep" strokeWidth={1.5} />
+          <div className={`flex flex-col items-center rounded-2xl p-5 ${miniCard}`}>
+            <div className={`w-11 h-11 rounded-full flex items-center justify-center ${miniIcon}`}>
+              <Gift className="w-5 h-5" strokeWidth={2} />
             </div>
-            <p className="mt-3 text-[10px] tracking-[0.24em] uppercase text-wine/60">
+            <p className={`mt-3 text-xs font-bold tracking-[0.14em] uppercase ${miniLabel}`}>
               Data provável do parto
             </p>
-            <p className="mt-1 font-comfortaa text-wine-deep text-lg font-light">
+            <p className={`mt-1 font-comfortaa text-xl font-bold ${miniValue}`}>
               {formatDatePTBR(dpp)}
             </p>
           </div>
         </div>
       </div>
 
-      <p className="mt-6 text-center text-sm text-foreground/55 font-light leading-relaxed max-w-xl mx-auto">
+      <p className="mt-6 text-center text-sm text-foreground/70 leading-relaxed max-w-xl mx-auto">
         Na obstetrícia, a idade gestacional é sempre acompanhada em semanas e dias.
         A conversão para meses é apenas uma aproximação, pois os meses do calendário
         possuem durações diferentes.
