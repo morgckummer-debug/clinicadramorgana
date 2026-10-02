@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { trackEvent } from '@/lib/analytics'
 import { Calendar, CalendarClock, Stethoscope, Weight } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
@@ -46,16 +47,19 @@ export function CalculadoraForm({ onResult }: Props) {
     if (mode === 'dum') {
       const err = validateDUM(dum)
       if (err) { setError(errorMessage(err)); onResult(null); return }
+      trackEvent('calculadora_usada', { metodo: mode })
       onResult({ kind: 'idade', data: calcFromDUM(parseISODate(dum)!) })
     } else if (mode === 'dpp') {
       const err = validateDPP(dpp)
       if (err) { setError(errorMessage(err)); onResult(null); return }
+      trackEvent('calculadora_usada', { metodo: mode })
       onResult({ kind: 'idade', data: calcFromDPP(parseISODate(dpp)!) })
     } else if (mode === 'us') {
       const s = parseInt(usSemanas, 10)
       const d = parseInt(usDias || '0', 10)
       const err = validateUS(usData, s, d)
       if (err) { setError(errorMessage(err)); onResult(null); return }
+      trackEvent('calculadora_usada', { metodo: mode })
       onResult({ kind: 'idade', data: calcFromUS(parseISODate(usData)!, s, d) })
     } else {
       const err = validatePeso(pesoSemanas, pesoDias, pesoGramas)
@@ -63,6 +67,7 @@ export function CalculadoraForm({ onResult }: Props) {
       const s = parseInt(pesoSemanas, 10)
       const d = parseInt(pesoDias || '0', 10)
       const p = parseFloat(pesoGramas)
+      trackEvent('calculadora_usada', { metodo: mode })
       onResult({ kind: 'peso', data: calcPeso(s, d, p) })
     }
   }

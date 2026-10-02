@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { trackEvent } from '@/lib/analytics'
 import { Gift, Sprout } from 'lucide-react'
 import {
   formatDatePTBR,
@@ -158,6 +159,7 @@ export function CalculadoraResultado({ result }: Props) {
       <div className="mt-8 flex justify-center">
         <Link
           to="/agendar"
+          onClick={() => trackEvent('calculadora_clicou_agendar')}
           className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-[11px] tracking-[0.24em] uppercase font-bold transition-all duration-300 hover:opacity-90"
           style={{ backgroundColor: '#FDDCB5', color: '#5B2D8E', border: '1px solid #5B2D8E' }}
         >
