@@ -3,6 +3,7 @@ import { Calendar, CalendarClock, Stethoscope, Weight } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { DatePicker } from '@/components/ui/date-picker'
 import {
   calcFromDPP,
   calcFromDUM,
@@ -116,35 +117,29 @@ export function CalculadoraForm({ onResult }: Props) {
 
         <TabsContent value="dum" className="mt-6 space-y-2">
           <label className={labelClass}>Data da Última Menstruação</label>
-          <Input
-            type="date"
+          <DatePicker
             value={dum}
             max={today}
-            onChange={(e) => setDum(e.target.value)}
-            className={inputClass}
+            onChange={setDum}
           />
         </TabsContent>
 
         <TabsContent value="dpp" className="mt-6 space-y-2">
           <label className={labelClass}>Data Provável do Parto</label>
-          <Input
-            type="date"
+          <DatePicker
             value={dpp}
             min={today}
-            onChange={(e) => setDpp(e.target.value)}
-            className={inputClass}
+            onChange={setDpp}
           />
         </TabsContent>
 
         <TabsContent value="us" className="mt-6 space-y-4">
           <div className="space-y-2">
             <label className={labelClass}>Data do ultrassom</label>
-            <Input
-              type="date"
+            <DatePicker
               value={usData}
               max={today}
-              onChange={(e) => setUsData(e.target.value)}
-              className={inputClass}
+              onChange={setUsData}
             />
           </div>
           <div>
