@@ -1,20 +1,11 @@
 // Percentil de peso fetal estimado (PFE) por idade gestacional.
 //
-// Combina duas tabelas de referência fornecidas pela clínica — peso (g)
-// nos percentis 3, 10, 50 e 90, por semana completa:
-//   - Hadlock (1991): 20 a 40 semanas.
-//   - INTERGROWTH-21st: 30 a 40 semanas, mais fiel perto do termo (a
-//     desaceleração do crescimento no fim da gestação é modelada de forma
-//     diferente entre as referências, e cada uma tem seu próprio "jeito"
-//     de descrever esse período).
-// Abaixo de 30 semanas usa-se Hadlock puro; a partir de 35 semanas,
-// INTERGROWTH puro; entre 30 e 35 semanas as duas tabelas são misturadas
-// linearmente (por semana) para evitar um salto no percentil bem em cima
-// da fronteira.
+// Tabela de referência Hadlock (1991): peso (g) nos percentis 3, 10, 50 e
+// 90, por semana completa, de 20 a 40 semanas.
 //
-// Para uma idade gestacional fracionária, os quatro valores de cada
-// tabela são interpolados linearmente entre as duas semanas mais
-// próximas. O percentil de um peso informado é obtido por interpolação
+// Para uma idade gestacional fracionária, os quatro valores são
+// interpolados linearmente entre as duas semanas mais próximas. O
+// percentil de um peso informado é obtido por interpolação
 // linear no espaço (ln(peso), escore-z) entre os pontos conhecidos da
 // linha resultante — isso preserva a assimetria real das tabelas
 // (P3–P10–P50–P90 não formam uma curva log-normal simétrica) em vez de
@@ -65,28 +56,6 @@ const TABELA_HADLOCK: Record<number, LinhaTabela> = {
 const HADLOCK_MIN_SEMANA = 20
 const HADLOCK_MAX_SEMANA = 40
 
-const TABELA_INTERGROWTH: Record<number, LinhaTabela> = {
-  30: { p3: 967, p10: 1089, p50: 1396, p90: 1813 },
-  31: { p3: 1062, p10: 1207, p50: 1568, p90: 2050 },
-  32: { p3: 1162, p10: 1334, p50: 1755, p90: 2304 },
-  33: { p3: 1269, p10: 1469, p50: 1954, p90: 2570 },
-  34: { p3: 1380, p10: 1612, p50: 2162, p90: 2843 },
-  35: { p3: 1494, p10: 1761, p50: 2378, p90: 3116 },
-  36: { p3: 1612, p10: 1913, p50: 2594, p90: 3381 },
-  37: { p3: 1731, p10: 2068, p50: 2806, p90: 3629 },
-  38: { p3: 1851, p10: 2221, p50: 3006, p90: 3850 },
-  39: { p3: 1969, p10: 2368, p50: 3186, p90: 4034 },
-  40: { p3: 2085, p10: 2505, p50: 3338, p90: 4171 },
-}
-const INTERGROWTH_MIN_SEMANA = 30
-const INTERGROWTH_MAX_SEMANA = 40
-
-// Faixa de transição: abaixo de TRANSICAO_INICIO usa-se Hadlock puro, a
-// partir de TRANSICAO_FIM usa-se INTERGROWTH puro; entre as duas, as
-// tabelas são misturadas linearmente conforme a idade gestacional.
-const TRANSICAO_INICIO = 30
-const TRANSICAO_FIM = 35
-
 const GA_MIN_SEMANAS = HADLOCK_MIN_SEMANA
 const GA_MAX_SEMANAS = HADLOCK_MAX_SEMANA
 const PESO_MIN_GRAMAS = 50
@@ -122,22 +91,7 @@ function linhaDaTabela(
 
 function linhaInterpolada(gaSemanasDecimais: number): LinhaTabela {
   const ga = Math.min(GA_MAX_SEMANAS, Math.max(GA_MIN_SEMANAS, gaSemanasDecimais))
-
-  if (ga < TRANSICAO_INICIO) {
-    return linhaDaTabela(TABELA_HADLOCK, HADLOCK_MIN_SEMANA, HADLOCK_MAX_SEMANA, ga)
-  }
-  if (ga >= TRANSICAO_FIM) {
-    return linhaDaTabela(TABELA_INTERGROWTH, INTERGROWTH_MIN_SEMANA, INTERGROWTH_MAX_SEMANA, ga)
-  }
-
-  const t = (ga - TRANSICAO_INICIO) / (TRANSICAO_FIM - TRANSICAO_INICIO)
-  const hadlock = linhaDaTabela(TABELA_HADLOCK, HADLOCK_MIN_SEMANA, HADLOCK_MAX_SEMANA, ga)
-  const intergrowth = linhaDaTabela(TABELA_INTERGROWTH, INTERGROWTH_MIN_SEMANA, INTERGROWTH_MAX_SEMANA, ga)
-
-  const misturar = (chave: keyof LinhaTabela) =>
-    hadlock[chave] + (intergrowth[chave] - hadlock[chave]) * t
-
-  return { p3: misturar('p3'), p10: misturar('p10'), p50: misturar('p50'), p90: misturar('p90') }
+  return linhaDaTabela(TABELA_HADLOCK, HADLOCK_MIN_SEMANA, HADLOCK_MAX_SEMANA, ga)
 }
 
 // Aproximação de Abramowitz & Stegun (7.1.26) para a função erro.
